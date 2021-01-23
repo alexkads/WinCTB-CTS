@@ -17,7 +17,11 @@ using System.Data;
 using System.Globalization;
 using System.IO;
 using System.Linq;
+using System.Reactive.Concurrency;
+using System.Reactive.Disposables;
+using System.Reactive.Linq;
 using System.Text;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 using WinCTB_CTS.Module.BusinessObjects.Tubulacao;
 
@@ -71,7 +75,7 @@ namespace WinCTB_CTS.Module.Win.Controllers
         }
 
 
-        public static void Executar(XPObjectSpace objectSpace)
+        public async Task Executar(XPObjectSpace objectSpace)
         {
             var session = objectSpace.Session;
             var dtPlanilha = new DataTable();
@@ -91,14 +95,21 @@ namespace WinCTB_CTS.Module.Win.Controllers
                         {
                             stream.Seek(0, SeekOrigin.Begin);
                             fileStream.CopyTo(stream);
-                            dtPlanilha = OpenXMLHelper.Excel.Reader.Read(stream, "Municipios");
+                            dtSpoolsImport = OpenXMLHelper.Excel.Reader.CreateDataTableFromStream(stream, "SGS");
+                            dtJuntasImport = OpenXMLHelper.Excel.Reader.CreateDataTableFromStream(stream, "SGJ");
                         }
                     }
+
+                    await StartImport(objectSpace, dtSpoolsImport, dtJuntasImport);
                 }
             }
 
             int QuantidadeDeRegistro = dtPlanilha.Rows.Count;
 
+        private async Task StartImport(XPObjectSpace objectSpace, DataTable dtSpoolsImport, DataTable dtJuntasImport)
+        {
+            var session = objectSpace.Session;
+            int QuantidadeDeRegistro = dtSpoolsImport.Rows.Count;
             using (XtraForm form = new XtraForm())
             {
                 using (ProgressBarControl progressBarControl = new ProgressBarControl())
@@ -136,28 +147,41 @@ namespace WinCTB_CTS.Module.Win.Controllers
                     progressBarControl.Properties.Minimum = 0;
 
                     form.Show();
+                    session.BeginTransaction();
 
-                    foreach (DataRow row in dtPlanilha.Rows)
+                    var observable = Observable.Create<DataRow>(observer =>
                     {
-                        var ParNomeDoMunicipio = Convert.ToString(row[0]);
-                        var ParNomeDoEstado = Convert.ToString(row[1]);
-                        var ParSiglaEstado = Convert.ToString(row[2]);
-
-                       
-                        try
+                        foreach (DataRow row in dtSpoolsImport.Rows)
                         {
-                            objectSpace.CommitChanges();
-                        }
-                        catch
-                        {
-                            ((Form)(cancelProgress.Parent)).Close();
-                            throw new Exception("Process aborted by WeldTrace.");
+                            observer.OnNext(row);
                         }
 
-                        progressBarControl.PerformStep();
-                        cancelProgress.Update();
-                        System.Windows.Forms.Application.DoEvents();
-                    }
+                        observer.OnCompleted();
+                        return Disposable.Empty;
+                    });
+
+                    observable.SubscribeOn(Scheduler.CurrentThread)
+                        .Subscribe(row =>
+                        {
+                            var ParNomeDoMunicipio = Convert.ToString(row[0]);
+                            var ParNomeDoEstado = Convert.ToString(row[1]);
+                            var ParSiglaEstado = Convert.ToString(row[2]);
+
+                            try
+                            {
+                                session.CommitTransaction();
+                            }
+                            catch
+                            {
+                                session.RollbackTransaction();
+                                ((Form)(cancelProgress.Parent)).Close();
+                                throw new Exception("Process aborted by WeldTrace");
+                            }
+
+                            progressBarControl.PerformStep();
+                            cancelProgress.Update();
+                            System.Windows.Forms.Application.DoEvents();
+                        });                   
                 }
 
                 session.PurgeDeletedObjects();
@@ -165,5 +189,6 @@ namespace WinCTB_CTS.Module.Win.Controllers
                 form.Close();
             }
         }
+
     }
 }

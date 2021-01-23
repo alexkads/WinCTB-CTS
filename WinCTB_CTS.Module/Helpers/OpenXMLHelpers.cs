@@ -23,7 +23,7 @@ namespace WinCTB_CTS.Module.OpenXMLHelper.Excel
             workbookPart = document.WorkbookPart;
         }
 
-        public DataTable Read(string sheetName = null)
+        public DataTable ReadToDataTable(string sheetName = null)
         {
             DataTable dt = new DataTable();
 
@@ -67,12 +67,12 @@ namespace WinCTB_CTS.Module.OpenXMLHelper.Excel
             return dt;
         }
 
-        public static DataTable Read(Stream stream, string sheetName = null)
+        public static DataTable CreateDataTableFromStream(Stream stream, string sheetName = null)
         {
             DataTable dt = new DataTable();
             using (var reader = new Reader(stream))
             {
-                dt = reader.Read(sheetName);
+                dt = reader.ReadToDataTable(sheetName);
             }
             return dt;
         }
