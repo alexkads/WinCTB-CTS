@@ -15,15 +15,24 @@ using System.Text;
 namespace WinCTB_CTS.Module.BusinessObjects.Estrutura
 {
     [DefaultClassOptions]
-    public class Junta : BaseObject
+    public class JuntaComponente : BaseObject
     { 
-        public Junta(Session session)
+        public JuntaComponente(Session session)
             : base(session)
         {
         }
         public override void AfterConstruction()
         {
             base.AfterConstruction();
+        }
+
+        private Componente componente;
+
+        [Association("Componente-JuntaComponentes")]
+        public Componente Componente
+        {
+            get => componente;
+            set => SetPropertyValue(nameof(Componente), ref componente, value);
         }
     }
 }
