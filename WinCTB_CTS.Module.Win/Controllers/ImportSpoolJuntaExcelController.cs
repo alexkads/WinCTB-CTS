@@ -74,7 +74,8 @@ namespace WinCTB_CTS.Module.Win.Controllers
         public static void Executar(XPObjectSpace objectSpace)
         {
             var session = objectSpace.Session;
-            var dtPlanilha = new DataTable();
+            var dtSpoolsImport = new DataTable();
+            var dtJuntasImport = new DataTable();
 
             using (OpenFileDialog openFileDialog = new OpenFileDialog())
             {
@@ -91,14 +92,20 @@ namespace WinCTB_CTS.Module.Win.Controllers
                         {
                             stream.Seek(0, SeekOrigin.Begin);
                             fileStream.CopyTo(stream);
-                            dtPlanilha = OpenXMLHelper.Excel.Reader.Read(stream, "Municipios");
+                            dtSpoolsImport = OpenXMLHelper.Excel.Reader.Read(stream, "SGS");
+                            dtJuntasImport = OpenXMLHelper.Excel.Reader.Read(stream, "SGJ");
                         }
                     }
+
+                    StartImport(objectSpace, dtSpoolsImport, dtJuntasImport);
                 }
             }
+        }
 
-            int QuantidadeDeRegistro = dtPlanilha.Rows.Count;
-
+        private static void StartImport(XPObjectSpace objectSpace, DataTable dtSpoolsImport, DataTable dtJuntasImport)
+        {
+            var session = objectSpace.Session;
+            int QuantidadeDeRegistro = dtSpoolsImport.Rows.Count;
             using (XtraForm form = new XtraForm())
             {
                 using (ProgressBarControl progressBarControl = new ProgressBarControl())
@@ -137,13 +144,13 @@ namespace WinCTB_CTS.Module.Win.Controllers
 
                     form.Show();
 
-                    foreach (DataRow row in dtPlanilha.Rows)
+                    foreach (DataRow row in dtSpoolsImport.Rows)
                     {
                         var ParNomeDoMunicipio = Convert.ToString(row[0]);
                         var ParNomeDoEstado = Convert.ToString(row[1]);
                         var ParSiglaEstado = Convert.ToString(row[2]);
 
-                       
+
                         try
                         {
                             objectSpace.CommitChanges();
@@ -151,7 +158,7 @@ namespace WinCTB_CTS.Module.Win.Controllers
                         catch
                         {
                             ((Form)(cancelProgress.Parent)).Close();
-                            throw new Exception("Process aborted by WeldTrace.");
+                            throw new Exception("Process aborted by WeldTrace");
                         }
 
                         progressBarControl.PerformStep();
