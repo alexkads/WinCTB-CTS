@@ -128,7 +128,10 @@
     <Reference Include="System.Xml.Linq" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BusinessObjects\Tubulacao\Junta.cs" />
+    <Compile Include="BusinessObjects\Tubulacao\Spool.cs" />
     <Compile Include="DatabaseUpdate\Updater.cs" />
+    <Compile Include="Helpers\OpenXMLHelpers.cs" />
     <Compile Include="Module.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -169,6 +172,14 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Welcome.html" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="BusinessObjects\Estrutura\" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="DocumentFormat.OpenXml">
+      <Version>2.12.1</Version>
+    </PackageReference>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
