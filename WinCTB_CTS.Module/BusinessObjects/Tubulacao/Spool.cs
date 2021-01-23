@@ -28,6 +28,23 @@ namespace WinCTB_CTS.Module.BusinessObjects.Tubulacao
 
 
 
+        string situacaoMontagem;
+        string situacaoFabricacao;
+        double pesoMontagem;
+        DateTime dataLiberacao;
+        DateTime dataRomaneio;
+        string romaneio;
+        string idComponente;
+        string tagComponente;
+        DateTime dataPintMontagem;
+        DateTime dataEndMontagem;
+        DateTime dataDiMontagem;
+        string inspDiMontagem;
+        DateTime dataVsMontagem;
+        DateTime dataSoldaMontagem;
+        DateTime dataVaMontagem;
+        DateTime dataPreMontagem;
+        string escopoMontagem;
         string progPintura;
         string elevacao;
         string progMontagem;
@@ -528,13 +545,153 @@ namespace WinCTB_CTS.Module.BusinessObjects.Tubulacao
             get => elevacao;
             set => SetPropertyValue(nameof(Elevacao), ref elevacao, value);
         }
-        
+
         [Size(100), XafDisplayName("Programação de Pintura")]
         public string ProgPintura
         {
             get => progPintura;
             set => SetPropertyValue(nameof(ProgPintura), ref progPintura, value);
         }
+
+        [Size(100), XafDisplayName("Escopo de Montagem")]
+        public string EscopoMontagem
+        {
+            get => escopoMontagem;
+            set => SetPropertyValue(nameof(EscopoMontagem), ref escopoMontagem, value);
+        }
+
+        [XafDisplayName("Data de Pré Montagem")]
+        [ModelDefault("EditMask", "G")]
+        [ModelDefault("DisplayFormat", "G")]
+        public DateTime DataPreMontagem
+        {
+            get => dataPreMontagem;
+            set => SetPropertyValue(nameof(DataPreMontagem), ref dataPreMontagem, value);
+        }
+
+        [XafDisplayName("Data de VA de Montagem")]
+        [ModelDefault("EditMask", "G")]
+        [ModelDefault("DisplayFormat", "G")]
+        public DateTime DataVaMontagem
+        {
+            get => dataVaMontagem;
+            set => SetPropertyValue(nameof(DataVaMontagem), ref dataVaMontagem, value);
+        }
+
+        [XafDisplayName("Data de Solda de Montagem")]
+        [ModelDefault("EditMask", "G")]
+        [ModelDefault("DisplayFormat", "G")]
+        public DateTime DataSoldaMontagem
+        {
+            get => dataSoldaMontagem;
+            set => SetPropertyValue(nameof(DataSoldaMontagem), ref dataSoldaMontagem, value);
+        }
+
+        [XafDisplayName("Data de VS de Montagem")]
+        [ModelDefault("EditMask", "G")]
+        [ModelDefault("DisplayFormat", "G")]
+        public DateTime DataVsMontagem
+        {
+            get => dataVsMontagem;
+            set => SetPropertyValue(nameof(DataVsMontagem), ref dataVsMontagem, value);
+        }
+
+        [Size(100), XafDisplayName("Inspedor Dimensional de Montagem")]
+        public string InspDiMontagem
+        {
+            get => inspDiMontagem;
+            set => SetPropertyValue(nameof(InspDiMontagem), ref inspDiMontagem, value);
+        }
+
+        [XafDisplayName("Data Dimensional de Montagem")]
+        [ModelDefault("EditMask", "G")]
+        [ModelDefault("DisplayFormat", "G")]
+        public DateTime DataDiMontagem
+        {
+            get => dataDiMontagem;
+            set => SetPropertyValue(nameof(DataDiMontagem), ref dataDiMontagem, value);
+        }
+
+        [XafDisplayName("Data END de Montagem")]
+        [ModelDefault("EditMask", "G")]
+        [ModelDefault("DisplayFormat", "G")]
+        public DateTime DataEndMontagem
+        {
+            get => dataEndMontagem;
+            set => SetPropertyValue(nameof(DataEndMontagem), ref dataEndMontagem, value);
+        }
+
+        [XafDisplayName("Data de Pintura de Montagem")]
+        [ModelDefault("EditMask", "G")]
+        [ModelDefault("DisplayFormat", "G")]
+        public DateTime DataPintMontagem
+        {
+            get => dataPintMontagem;
+            set => SetPropertyValue(nameof(DataPintMontagem), ref dataPintMontagem, value);
+        }
+
+        [Size(100), XafDisplayName("TAG do Componente")]
+        public string TagComponente
+        {
+            get => tagComponente;
+            set => SetPropertyValue(nameof(TagComponente), ref tagComponente, value);
+        }
+
+        [Size(100), XafDisplayName("ID do Componente")]
+        public string IdComponente
+        {
+            get => idComponente;
+            set => SetPropertyValue(nameof(IdComponente), ref idComponente, value);
+        }
+
+        [Size(100)]
+        public string Romaneio
+        {
+            get => romaneio;
+            set => SetPropertyValue(nameof(Romaneio), ref romaneio, value);
+        }
+
+        [XafDisplayName("Data do Romaneio")]
+        [ModelDefault("EditMask", "G")]
+        [ModelDefault("DisplayFormat", "G")]
+        public DateTime DataRomaneio
+        {
+            get => dataRomaneio;
+            set => SetPropertyValue(nameof(DataRomaneio), ref dataRomaneio, value);
+        }
+
+        [XafDisplayName("Data de Liberação")]
+        [ModelDefault("EditMask", "G")]
+        [ModelDefault("DisplayFormat", "G")]
+        public DateTime DataLiberacao
+        {
+            get => dataLiberacao;
+            set => SetPropertyValue(nameof(DataLiberacao), ref dataLiberacao, value);
+        }
+
+        [XafDisplayName("Peso de Montagem")]
+        [RuleRange(DefaultContexts.Save, 0.001, 500000)]
+        [ModelDefault("DisplayFormat", "n3"), ModelDefault("EditMask", "n3")]
+        public double PesoMontagem
+        {
+            get => pesoMontagem;
+            set => SetPropertyValue(nameof(PesoMontagem), ref pesoMontagem, value);
+        }
+
+        [Size(100), XafDisplayName("Situação de Fabricação")]
+        public string SituacaoFabricacao
+        {
+            get => situacaoFabricacao;
+            set => SetPropertyValue(nameof(SituacaoFabricacao), ref situacaoFabricacao, value);
+        }
+
+        [Size(100), XafDisplayName("Situação de Montagem")]
+        public string SituacaoMontagem
+        {
+            get => situacaoMontagem;
+            set => SetPropertyValue(nameof(SituacaoMontagem), ref situacaoMontagem, value);
+        }
+               
 
 
 
