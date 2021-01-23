@@ -696,12 +696,12 @@ namespace WinCTB_CTS.Module.BusinessObjects.Tubulacao
 
 
 
-        [Association("Spool-Juntas")]
-        public XPCollection<Junta> Juntas
+        [Association("Spool-JuntaSpools")]
+        public XPCollection<JuntaSpool> Juntas
         {
             get
             {
-                return GetCollection<Junta>(nameof(Juntas));
+                return GetCollection<JuntaSpool>(nameof(Juntas));
             }
         }
 

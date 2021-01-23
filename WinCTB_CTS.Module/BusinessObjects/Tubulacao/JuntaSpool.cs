@@ -15,9 +15,9 @@ using System.Text;
 namespace WinCTB_CTS.Module.BusinessObjects.Tubulacao
 {
     [DefaultClassOptions]
-    public class Junta : BaseObject
+    public class JuntaSpool : BaseObject
     { // Inherit from a different class to provide a custom primary key, concurrency and deletion behavior, etc. (https://documentation.devexpress.com/eXpressAppFramework/CustomDocument113146.aspx).
-        public Junta(Session session)
+        public JuntaSpool(Session session)
             : base(session)
         {
         }
@@ -44,7 +44,7 @@ namespace WinCTB_CTS.Module.BusinessObjects.Tubulacao
             set => SetPropertyValue(nameof(Revisao), ref revisao, value);
         }
 
-        [Association("Spool-Juntas")]
+        [Association("Spool-JuntaSpools")]
         public Spool Spool
         {
             get => spool;

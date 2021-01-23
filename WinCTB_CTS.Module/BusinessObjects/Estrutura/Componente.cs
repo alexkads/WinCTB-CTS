@@ -25,5 +25,14 @@ namespace WinCTB_CTS.Module.BusinessObjects.Estrutura
         {
             base.AfterConstruction();
         }
+
+        [Association("Componente-JuntaComponentes")]
+        public XPCollection<JuntaComponente> JuntaComponentes
+        {
+            get
+            {
+                return GetCollection<JuntaComponente>(nameof(JuntaComponentes));
+            }
+        }
     }
 }

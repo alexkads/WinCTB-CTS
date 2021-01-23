@@ -78,7 +78,8 @@ namespace WinCTB_CTS.Module.Win.Controllers
         public async Task Executar(XPObjectSpace objectSpace)
         {
             var session = objectSpace.Session;
-            var dtPlanilha = new DataTable();
+            var dtSpoolsImport = new DataTable();
+            var dtJuntasImport = new DataTable();
 
             using (OpenFileDialog openFileDialog = new OpenFileDialog())
             {
@@ -104,7 +105,8 @@ namespace WinCTB_CTS.Module.Win.Controllers
                 }
             }
 
-            int QuantidadeDeRegistro = dtPlanilha.Rows.Count;
+            int QuantidadeDeRegistro = dtSpoolsImport.Rows.Count;
+        }
 
         private async Task StartImport(XPObjectSpace objectSpace, DataTable dtSpoolsImport, DataTable dtJuntasImport)
         {
