@@ -28,7 +28,8 @@ namespace WinCTB_CTS.Module.BusinessObjects.Tubulacao
 
 
 
-        private     string situacaoMontagem;
+        string inspPiRevUnico;
+        private string situacaoMontagem;
         private string situacaoFabricacao;
         private double pesoMontagem;
         private DateTime dataLiberacao;
@@ -511,6 +512,13 @@ namespace WinCTB_CTS.Module.BusinessObjects.Tubulacao
         {
             get => dataPiRevUnico;
             set => SetPropertyValue(nameof(DataPiRevUnico), ref dataPiRevUnico, value);
+        }
+        
+        [Size(100), XafDisplayName("Inspetor Pintura Rev Unico")]
+        public string InspPiRevUnico
+        {
+            get => inspPiRevUnico;
+            set => SetPropertyValue(nameof(InspPiRevUnico), ref inspPiRevUnico, value);
         }
 
         [Size(100), XafDisplayName("Relatório Pintura Rev. Unico")]
