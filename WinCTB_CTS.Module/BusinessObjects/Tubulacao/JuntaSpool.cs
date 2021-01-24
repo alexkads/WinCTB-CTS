@@ -27,6 +27,7 @@ namespace WinCTB_CTS.Module.BusinessObjects.Tubulacao
         }
 
 
+        double espessura;
         string consumivelAcab;
         string consumivelEnch;
         string consumivelRaiz;
@@ -51,7 +52,6 @@ namespace WinCTB_CTS.Module.BusinessObjects.Tubulacao
         string tipoJunta;
         string schedule;
         double diametroMilimetro;
-        static double espessura;
         string diametroPolegada;
         string junta;
         string linha;
@@ -148,12 +148,15 @@ namespace WinCTB_CTS.Module.BusinessObjects.Tubulacao
             set => SetPropertyValue(nameof(DiametroMilimetro), ref diametroMilimetro, value);
         }
 
-        [XafDisplayName("Espessura em 'mm'")]
-        public static double Relatoriod
+       [XafDisplayName("Espessura em 'mm'")]
+        
+        public double Espessura
         {
             get => espessura;
-            set => SetPropertyValue(nameof(Relatoriod), ref espessura, value);
+            set => SetPropertyValue(nameof(Espessura), ref espessura, value);
         }
+
+
 
         [Size(100)]
         public string Schedule
