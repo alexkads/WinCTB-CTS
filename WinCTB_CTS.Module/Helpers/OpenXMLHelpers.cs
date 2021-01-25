@@ -1,5 +1,6 @@
 ﻿using DocumentFormat.OpenXml.Packaging;
 using DocumentFormat.OpenXml.Spreadsheet;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -49,6 +50,7 @@ namespace WinCTB_CTS.Module.OpenXMLHelper.Excel
 
             //load shard string
             var shareStringPart = workbookPart.GetPartsOfType<SharedStringTablePart>().FirstOrDefault();
+
             var shareStrings = shareStringPart.SharedStringTable.Elements<SharedStringItem>().Select(x => x.InnerText).ToList();
 
             SheetData sheetData = sheetPart.Worksheet.Elements<SheetData>().FirstOrDefault();
@@ -67,6 +69,125 @@ namespace WinCTB_CTS.Module.OpenXMLHelper.Excel
             return dt;
         }
 
+        //Em teste
+        public static DataTable CreateDataTableFromStreamBeta(Stream stream, string sheetName = null)
+        {
+            //Sheet sheet = null;
+            //IEnumerable<Sheet> sheets = workbookPart.Workbook.Descendants<Sheet>();
+            //if (!string.IsNullOrEmpty(sheetName))
+            //{
+            //    sheet = sheets.FirstOrDefault(x => x.Name == sheetName);
+            //}
+            //else
+            //{
+            //    sheet = sheets.FirstOrDefault();
+            //}
+            //if (sheet == null)
+            //{
+            //    //throw new ArgumentException("sheetName");
+            //    throw new InvalidOperationException("Erro na folha de dados");
+            //}
+            //dt.TableName = sheet.Name;
+
+            try
+            {
+                DataTable dtTable = new DataTable();
+                //Lets open the existing excel file and read through its content . Open the excel using openxml sdk
+                using (SpreadsheetDocument doc = SpreadsheetDocument.Open(stream, true))
+                {
+                    //create the object for workbook part  
+                    WorkbookPart workbookPart = doc.WorkbookPart;
+                    Sheet thesheet = null;
+                    IEnumerable<Sheet> sheets = workbookPart.Workbook.Descendants<Sheet>();
+                    if (!string.IsNullOrEmpty(sheetName))
+                    {
+                        thesheet = sheets.FirstOrDefault(x => x.Name == sheetName);
+                    }
+                    else
+                    {
+                        thesheet = sheets.FirstOrDefault();
+                    }
+                    if (thesheet == null)
+                    {
+                        //throw new ArgumentException("sheetName");
+                        throw new InvalidOperationException("Erro na folha de dados");
+                    }
+                    //Sheets thesheetcollection = workbookPart.Workbook.GetFirstChild<Sheets>();
+
+                    //using for each loop to get the sheet from the sheetcollection  
+                    //foreach (Sheet thesheet in thesheetcollection.OfType<Sheet>())
+                    //{
+                    //statement to get the worksheet object by using the sheet id  
+                    Worksheet theWorksheet = ((WorksheetPart)workbookPart.GetPartById(thesheet.Id)).Worksheet;
+
+                        SheetData thesheetdata = theWorksheet.GetFirstChild<SheetData>();
+
+                        for (int rCnt = 0; rCnt < thesheetdata.ChildElements.Count(); rCnt++)
+                        {
+                            List<string> rowList = new List<string>();
+                            for (int rCnt1 = 0; rCnt1
+                                < thesheetdata.ElementAt(rCnt).ChildElements.Count(); rCnt1++)
+                            {
+
+                                Cell thecurrentcell = (Cell)thesheetdata.ElementAt(rCnt).ChildElements.ElementAt(rCnt1);
+                                //statement to take the integer value  
+                                string currentcellvalue = string.Empty;
+                                if (thecurrentcell.DataType != null)
+                                {
+                                    if (thecurrentcell.DataType == CellValues.SharedString)
+                                    {
+                                        int id;
+                                        if (Int32.TryParse(thecurrentcell.InnerText, out id))
+                                        {
+                                            SharedStringItem item = workbookPart.SharedStringTablePart.SharedStringTable.Elements<SharedStringItem>().ElementAt(id);
+                                            if (item.Text != null)
+                                            {
+                                                //first row will provide the column name.
+                                                if (rCnt == 0)
+                                                {
+                                                    dtTable.Columns.Add(item.Text.Text);
+                                                }
+                                                else
+                                                {
+                                                    rowList.Add(item.Text.Text);
+                                                }
+                                            }
+                                            else if (item.InnerText != null)
+                                            {
+                                                currentcellvalue = item.InnerText;
+                                            }
+                                            else if (item.InnerXml != null)
+                                            {
+                                                currentcellvalue = item.InnerXml;
+                                            }
+                                        }
+                                    }
+                                }
+                                else
+                                {
+                                    if (rCnt != 0)//reserved for column values
+                                    {
+                                        rowList.Add(thecurrentcell.InnerText);
+                                    }
+                                }
+                            }
+                            if (rCnt != 0)//reserved for column values
+                                dtTable.Rows.Add(rowList.ToArray());
+
+                        }
+
+                    }
+
+                    return dtTable;
+                //}
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+                throw;
+            }
+        }
+
         public static DataTable CreateDataTableFromStream(Stream stream, string sheetName = null)
         {
             DataTable dt = new DataTable();
@@ -77,10 +198,12 @@ namespace WinCTB_CTS.Module.OpenXMLHelper.Excel
             return dt;
         }
 
+        private static int TotalColumnsFound;
         private static void BindColumnData(Row row, IList<string> shareStrings, ref DataTable dt)
         {
             DataColumn col = new DataColumn();
             Dictionary<string, int> columnCount = new Dictionary<string, int>();
+            TotalColumnsFound = row.Count();
             foreach (Cell cell in row)
             {
                 string cellVal = GetCellValue(cell, shareStrings);
@@ -114,6 +237,10 @@ namespace WinCTB_CTS.Module.OpenXMLHelper.Excel
 
                 dr[columnIndex] = GetCellValue(cell, shareStrings);
             }
+
+            if (dr.ItemArray.Length != TotalColumnsFound)
+                throw new InvalidOperationException("Quantidade extranha!");
+
             dt.Rows.Add(dr);
         }
 

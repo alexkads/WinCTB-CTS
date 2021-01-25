@@ -202,7 +202,7 @@ namespace WinCTB_CTS.Module.Win.Controllers
             for (int i = 0; i < ToalRows; i++)
             {
                 var linha = dtSpoolsImport.Rows[i];
-                var colunaSite = Convert.ToString(linha["site"]);
+                var colunaSite = Convert.ToString(linha["siteFabricante"]);
                 var colunaArranjoFisico = Convert.ToString(linha["arranjoFisico"] ?? null);
                 //var colunaData = ConvertDateTime(linha[2]);
 
