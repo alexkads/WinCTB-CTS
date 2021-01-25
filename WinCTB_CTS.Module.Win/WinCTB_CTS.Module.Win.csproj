@@ -197,6 +197,7 @@
     <Compile Include="Controllers\ImportSpoolJuntaExcelController.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="Custom\CustomGridController.cs" />
     <Compile Include="WinModule.cs">
       <SubType>Component</SubType>
     </Compile>

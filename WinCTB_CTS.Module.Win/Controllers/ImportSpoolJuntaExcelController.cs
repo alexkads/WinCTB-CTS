@@ -116,19 +116,19 @@ namespace WinCTB_CTS.Module.Win.Controllers
                             progressBarControl.PerformStep();
 
                         progressBarControl.Update();
+                        statusProgess.Update();
                     });
-
-                    //var task = new Task(() => { StartImport(objectSpace, dtSpoolsImport, dtJuntasImport, progress); }, TaskCreationOptions.LongRunning);
-                    //task.Start(TaskScheduler.FromCurrentSynchronizationContext());
 
                     await Task.Run(() =>
                     {
                         StartImport(objectSpace, dtSpoolsImport, dtJuntasImport, progress);
                     });
+
+                    form.Close();
                 }
             }
 
-            int QuantidadeDeRegistro = dtSpoolsImport.Rows.Count;
+           //int QuantidadeDeRegistro = dtSpoolsImport.Rows.Count;
         }
 
         private XtraForm form;
@@ -194,11 +194,11 @@ namespace WinCTB_CTS.Module.Win.Controllers
 
             session.BeginTransaction();
 
-            for (int i = 1; i <= ToalRows; i++)
+            for (int i = 0; i < ToalRows; i++)
             {
                 var linha = dtSpoolsImport.Rows[i];
                 var colunaDocumento = Convert.ToString(linha["Documento"]);
-                var colunaRevSpool = Convert.ToString(linha["Revisao"]);
+                var colunaRevSpool = Convert.ToString(linha["Revisao"] ?? null);
                 //var colunaData = ConvertDateTime(linha[2]);
 
                 var spool = objectSpace.CreateObject<Spool>();
@@ -207,14 +207,17 @@ namespace WinCTB_CTS.Module.Win.Controllers
                 //spool.DataCadastro = colunaData;
                 spool.Save();
 
-                try
+                if(i % 1000 == 0)
                 {
-                    session.CommitTransaction();
-                }
-                catch
-                {
-                    session.RollbackTransaction();
-                    throw new Exception("Process aborted by WeldTrace");
+                    try
+                    {
+                        session.CommitTransaction();
+                    }
+                    catch
+                    {
+                        session.RollbackTransaction();
+                        throw new Exception("Process aborted by system");
+                    }
                 }
 
                 progress.Report(new ImportProgressReport
@@ -225,6 +228,7 @@ namespace WinCTB_CTS.Module.Win.Controllers
                 });
             }
 
+            session.CommitTransaction();
             session.PurgeDeletedObjects();
             objectSpace.CommitChanges();
         }
