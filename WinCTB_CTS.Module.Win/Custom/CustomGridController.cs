@@ -23,8 +23,8 @@ namespace WinCTB_CTS.Module.Win.Custom
             {
                 if (View.Editor is GridListEditor listEditor)
                 {
-                    //if (listEditor.GridView.Columns.Count >= 8)
-                    //    GridView.OptionsView.ColumnAutoWidth = false;
+                    if (listEditor.GridView.Columns.Count >= 8)
+                        GridView.OptionsView.ColumnAutoWidth = false;
 
                     GridView.OptionsView.WaitAnimationOptions = DevExpress.XtraEditors.WaitAnimationOptions.Panel;
 

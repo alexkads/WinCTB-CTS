@@ -25,6 +25,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using WinCTB_CTS.Module.BusinessObjects.Tubulacao;
+using WinCTB_CTS.Module.Comum;
 
 namespace WinCTB_CTS.Module.Win.Controllers
 {
@@ -191,19 +192,23 @@ namespace WinCTB_CTS.Module.Win.Controllers
                 CurrentRow = 0,
                 MessageImport = "Inicializando importação"
             });
-
+            
             session.BeginTransaction();
+            
+            //Limpar registros
+            Utils.DeleteAllRecords<Spool>(session);
+            session.CommitTransaction();
 
             for (int i = 0; i < ToalRows; i++)
             {
                 var linha = dtSpoolsImport.Rows[i];
-                var colunaDocumento = Convert.ToString(linha["Documento"]);
-                var colunaRevSpool = Convert.ToString(linha["Revisao"] ?? null);
+                var colunaSite = Convert.ToString(linha["site"]);
+                var colunaArranjoFisico = Convert.ToString(linha["arranjoFisico"] ?? null);
                 //var colunaData = ConvertDateTime(linha[2]);
 
                 var spool = objectSpace.CreateObject<Spool>();
-                spool.Documento = colunaDocumento;
-                spool.RevSpool = colunaRevSpool;
+                spool.SiteFabricante = colunaSite;
+                spool.ArranjoFisico = colunaArranjoFisico;
                 //spool.DataCadastro = colunaData;
                 spool.Save();
 
