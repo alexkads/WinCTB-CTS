@@ -120,65 +120,65 @@ namespace WinCTB_CTS.Module.OpenXMLHelper.Excel
                     //statement to get the worksheet object by using the sheet id  
                     Worksheet theWorksheet = ((WorksheetPart)workbookPart.GetPartById(thesheet.Id)).Worksheet;
 
-                        SheetData thesheetdata = theWorksheet.GetFirstChild<SheetData>();
+                    SheetData thesheetdata = theWorksheet.GetFirstChild<SheetData>();
 
-                        for (int rCnt = 0; rCnt < thesheetdata.ChildElements.Count(); rCnt++)
+                    for (int rCnt = 0; rCnt < thesheetdata.ChildElements.Count(); rCnt++)
+                    {
+                        List<string> rowList = new List<string>();
+                        for (int rCnt1 = 0; rCnt1
+                            < thesheetdata.ElementAt(rCnt).ChildElements.Count(); rCnt1++)
                         {
-                            List<string> rowList = new List<string>();
-                            for (int rCnt1 = 0; rCnt1
-                                < thesheetdata.ElementAt(rCnt).ChildElements.Count(); rCnt1++)
-                            {
 
-                                Cell thecurrentcell = (Cell)thesheetdata.ElementAt(rCnt).ChildElements.ElementAt(rCnt1);
-                                //statement to take the integer value  
-                                string currentcellvalue = string.Empty;
-                                if (thecurrentcell.DataType != null)
+                            Cell thecurrentcell = (Cell)thesheetdata.ElementAt(rCnt).ChildElements.ElementAt(rCnt1);
+                            //statement to take the integer value  
+                            string currentcellvalue = string.Empty;
+                            if (thecurrentcell.DataType != null)
+                            {
+                                if (thecurrentcell.DataType == CellValues.SharedString)
                                 {
-                                    if (thecurrentcell.DataType == CellValues.SharedString)
+                                    int id;
+                                    if (Int32.TryParse(thecurrentcell.InnerText, out id))
                                     {
-                                        int id;
-                                        if (Int32.TryParse(thecurrentcell.InnerText, out id))
+                                        SharedStringItem item = workbookPart.SharedStringTablePart.SharedStringTable.Elements<SharedStringItem>().ElementAt(id);
+                                        if (item.Text != null)
                                         {
-                                            SharedStringItem item = workbookPart.SharedStringTablePart.SharedStringTable.Elements<SharedStringItem>().ElementAt(id);
-                                            if (item.Text != null)
+                                            //first row will provide the column name.
+                                            if (rCnt == 0)
                                             {
-                                                //first row will provide the column name.
-                                                if (rCnt == 0)
-                                                {
-                                                    dtTable.Columns.Add(item.Text.Text);
-                                                }
-                                                else
-                                                {
-                                                    rowList.Add(item.Text.Text);
-                                                }
+                                                dtTable.Columns.Add(item.Text.Text);
                                             }
-                                            else if (item.InnerText != null)
+                                            else
                                             {
-                                                currentcellvalue = item.InnerText;
+                                                rowList.Add(item.Text.Text);
                                             }
-                                            else if (item.InnerXml != null)
-                                            {
-                                                currentcellvalue = item.InnerXml;
-                                            }
+                                        }
+                                        else if (item.InnerText != null)
+                                        {
+                                            currentcellvalue = item.InnerText;
+                                        }
+                                        else if (item.InnerXml != null)
+                                        {
+                                            currentcellvalue = item.InnerXml;
                                         }
                                     }
                                 }
-                                else
+                            }
+                            else
+                            {
+                                if (rCnt != 0)//reserved for column values
                                 {
-                                    if (rCnt != 0)//reserved for column values
-                                    {
-                                        rowList.Add(thecurrentcell.InnerText);
-                                    }
+                                    rowList.Add(thecurrentcell.InnerText);
                                 }
                             }
-                            if (rCnt != 0)//reserved for column values
-                                dtTable.Rows.Add(rowList.ToArray());
-
                         }
+                        if (rCnt != 0)//reserved for column values
+                            dtTable.Rows.Add(rowList.ToArray());
 
                     }
 
-                    return dtTable;
+                }
+
+                return dtTable;
                 //}
             }
             catch (Exception ex)
@@ -233,13 +233,16 @@ namespace WinCTB_CTS.Module.OpenXMLHelper.Excel
                     }
                     while (columnIndex < cellColumnIndex);
                 }
-                //columnIndex++;
 
-                dr[columnIndex] = GetCellValue(cell, shareStrings);
+                if (columnIndex > TotalColumnsFound)
+                {
+                    //throw new InvalidOperationException($"Coluna: {columnIndex} Total de colunas: {TotalColumnsFound}");
+                }
+                else
+                {
+                    dr[columnIndex] = GetCellValue(cell, shareStrings);
+                }
             }
-
-            if (dr.ItemArray.Length != TotalColumnsFound)
-                throw new InvalidOperationException("Quantidade extranha!");
 
             dt.Rows.Add(dr);
         }
