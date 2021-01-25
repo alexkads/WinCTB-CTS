@@ -27,6 +27,9 @@ namespace WinCTB_CTS.Module.BusinessObjects.Tubulacao
         }
 
 
+        string relDimFab;
+        string relIdLiga;
+        string relRastMaterial;
         private string situacaoJunta;
         private DateTime dataLiberacaoJunta;
         private string loteLp;
@@ -510,6 +513,13 @@ namespace WinCTB_CTS.Module.BusinessObjects.Tubulacao
             set => SetPropertyValue(nameof(StatusRastMaterial), ref statusRastMaterial, value);
         }
 
+        [Size(100), XafDisplayName("Relatório de Rastreabilidade de Material")]
+        public string RelRastMaterial
+        {
+            get => relRastMaterial;
+            set => SetPropertyValue(nameof(RelRastMaterial), ref relRastMaterial, value);
+        }
+
         [Size(100), XafDisplayName("Executante Rastreabilidade de Material")]
         public string ExecutanteRastMaterial
         {
@@ -531,6 +541,13 @@ namespace WinCTB_CTS.Module.BusinessObjects.Tubulacao
         {
             get => statusIdLiga;
             set => SetPropertyValue(nameof(StatusIdLiga), ref statusIdLiga, value);
+        }
+
+        [Size(100), XafDisplayName("Relatório de Identificação de Ligas")]
+        public string RelIdLiga
+        {
+            get => relIdLiga;
+            set => SetPropertyValue(nameof(RelIdLiga), ref relIdLiga, value);
         }
 
         [Size(100), XafDisplayName("Inspetor Reconhecimento de Ligas")]
@@ -668,6 +685,14 @@ namespace WinCTB_CTS.Module.BusinessObjects.Tubulacao
             get => dataEstanqueidade;
             set => SetPropertyValue(nameof(DataEstanqueidade), ref dataEstanqueidade, value);
         }
+        
+        [Size(100), XafDisplayName("Relatório de Dimensional de Fabricação")]
+        public string RelDimFab
+        {
+            get => relDimFab;
+            set => SetPropertyValue(nameof(RelDimFab), ref relDimFab, value);
+        }
+
 
         [Size(100), XafDisplayName("Programação de Fabricação da Junta")]
         public string ProgFabJunta
