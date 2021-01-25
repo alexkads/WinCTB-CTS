@@ -77,8 +77,6 @@ namespace WinCTB_CTS.Module.OpenXMLHelper.Excel
             return dt;
         }
 
-
-
         private static void BindColumnData(Row row, IList<string> shareStrings, ref DataTable dt)
         {
             DataColumn col = new DataColumn();

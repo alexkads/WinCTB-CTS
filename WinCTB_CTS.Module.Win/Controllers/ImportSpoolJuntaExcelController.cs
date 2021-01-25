@@ -21,6 +21,7 @@ using System.Reactive.Concurrency;
 using System.Reactive.Disposables;
 using System.Reactive.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using WinCTB_CTS.Module.BusinessObjects.Tubulacao;
@@ -50,9 +51,9 @@ namespace WinCTB_CTS.Module.Win.Controllers
 
         }
 
-        private void SimpleActionImport_Execute(object sender, SimpleActionExecuteEventArgs e)
+        private async void SimpleActionImport_Execute(object sender, SimpleActionExecuteEventArgs e)
         {
-            Executar((XPObjectSpace)View.ObjectSpace);
+            await Executar((XPObjectSpace)View.ObjectSpace);
         }
 
         static void cancelProgress_Click(object sender, EventArgs e)
@@ -81,6 +82,8 @@ namespace WinCTB_CTS.Module.Win.Controllers
             var dtSpoolsImport = new DataTable();
             var dtJuntasImport = new DataTable();
 
+            IntefaceInitialize();
+
             using (OpenFileDialog openFileDialog = new OpenFileDialog())
             {
                 openFileDialog.InitialDirectory = "c:\\";
@@ -90,107 +93,147 @@ namespace WinCTB_CTS.Module.Win.Controllers
 
                 if (openFileDialog.ShowDialog() == DialogResult.OK)
                 {
-                    using (var fileStream = openFileDialog.OpenFile())
+                    var fileStream = openFileDialog.OpenFile();
+
+                    using (MemoryStream stream = new MemoryStream())
                     {
-                        using (MemoryStream stream = new MemoryStream())
-                        {
-                            stream.Seek(0, SeekOrigin.Begin);
-                            fileStream.CopyTo(stream);
-                            dtSpoolsImport = OpenXMLHelper.Excel.Reader.CreateDataTableFromStream(stream, "SGS");
-                            dtJuntasImport = OpenXMLHelper.Excel.Reader.CreateDataTableFromStream(stream, "SGJ");
-                        }
+                        stream.Seek(0, SeekOrigin.Begin);
+                        fileStream.CopyTo(stream);
+                        dtSpoolsImport = OpenXMLHelper.Excel.Reader.CreateDataTableFromStream(stream, "SGS");
+                        dtJuntasImport = OpenXMLHelper.Excel.Reader.CreateDataTableFromStream(stream, "SGJ");
+                        //var Import1 = OpenXMLHelper.Excel.Reader.CreateArrayFromStream(stream, "SGS");
+                        //var Import2 = OpenXMLHelper.Excel.Reader.CreateArrayFromStream(stream, "SGJ");
                     }
 
-                    await StartImport(objectSpace, dtSpoolsImport, dtJuntasImport);
-                }
-            }
+                    fileStream.Dispose();
 
-            int QuantidadeDeRegistro = dtSpoolsImport.Rows.Count;
-        }
-
-        private async Task StartImport(XPObjectSpace objectSpace, DataTable dtSpoolsImport, DataTable dtJuntasImport)
-        {
-            var session = objectSpace.Session;
-            int QuantidadeDeRegistro = dtSpoolsImport.Rows.Count;
-            using (XtraForm form = new XtraForm())
-            {
-                using (ProgressBarControl progressBarControl = new ProgressBarControl())
-                {
-                    SimpleButton cancelProgress = new SimpleButton();
-
-                    form.ClientSize = new System.Drawing.Size(401, 57);
-                    form.TopMost = true;
-                    form.CancelButton = cancelProgress;
-                    form.Text = "Importação";
-                    form.Name = "Importação";
-                    form.FormBorderEffect = FormBorderEffect.Default;
-                    form.ControlBox = false;
-                    form.StartPosition = FormStartPosition.CenterScreen;
-                    form.FormBorderStyle = FormBorderStyle.FixedDialog;
-                    form.Controls.Add((Control)progressBarControl);
-                    form.Controls.Add((Control)cancelProgress);
-
-                    cancelProgress.Anchor = ((AnchorStyles.Bottom | AnchorStyles.Right));
-                    cancelProgress.Location = new System.Drawing.Point(314, 12);
-                    cancelProgress.Name = "simpleButton1";
-                    cancelProgress.Size = new System.Drawing.Size(75, 33);
-                    cancelProgress.TabIndex = 1;
-                    cancelProgress.Text = "Cancel";
-                    cancelProgress.Click += cancelProgress_Click;
-
-                    progressBarControl.Anchor = ((AnchorStyles.Bottom | AnchorStyles.Left));
-                    progressBarControl.Location = new System.Drawing.Point(12, 12);
-                    progressBarControl.Size = new System.Drawing.Size(289, 33);
-                    progressBarControl.TabIndex = 0;
-                    progressBarControl.Properties.ShowTitle = true;
-                    progressBarControl.Properties.Step = 1;
-                    progressBarControl.Properties.PercentView = true;
-                    progressBarControl.Properties.Maximum = QuantidadeDeRegistro;
-                    progressBarControl.Properties.Minimum = 0;
-
-                    form.Show();
-                    session.BeginTransaction();
-
-                    var observable = Observable.Create<DataRow>(observer =>
+                    var progress = new Progress<ImportProgressReport>(value =>
                     {
-                        foreach (DataRow row in dtSpoolsImport.Rows)
-                        {
-                            observer.OnNext(row);
-                        }
+                        progressBarControl.Properties.Maximum = value.TotalRows;
+                        statusProgess.Text = value.MessageImport;
 
-                        observer.OnCompleted();
-                        return Disposable.Empty;
+                        if (value.CurrentRow > 0)
+                            progressBarControl.PerformStep();
+
+                        progressBarControl.Update();
                     });
 
-                    observable.SubscribeOn(Scheduler.CurrentThread)
-                        .Subscribe(row =>
-                        {
-                            var ParNomeDoMunicipio = Convert.ToString(row[0]);
-                            var ParNomeDoEstado = Convert.ToString(row[1]);
-                            var ParSiglaEstado = Convert.ToString(row[2]);
+                    //var task = new Task(() => { StartImport(objectSpace, dtSpoolsImport, dtJuntasImport, progress); }, TaskCreationOptions.LongRunning);
+                    //task.Start(TaskScheduler.FromCurrentSynchronizationContext());
 
-                            try
-                            {
-                                session.CommitTransaction();
-                            }
-                            catch
-                            {
-                                session.RollbackTransaction();
-                                ((Form)(cancelProgress.Parent)).Close();
-                                throw new Exception("Process aborted by WeldTrace");
-                            }
-
-                            progressBarControl.PerformStep();
-                            cancelProgress.Update();
-                            System.Windows.Forms.Application.DoEvents();
-                        });                   
+                    await Task.Run(() =>
+                    {
+                        StartImport(objectSpace, dtSpoolsImport, dtJuntasImport, progress);
+                    });
                 }
-
-                session.PurgeDeletedObjects();
-                objectSpace.CommitChanges();
-                form.Close();
             }
+
+            int QuantidadeDeRegistro = dtSpoolsImport.Rows.Count;
         }
 
+        private XtraForm form;
+        private ProgressBarControl progressBarControl;
+        private SimpleButton cancelProgress;
+        private LabelControl statusProgess;
+
+        private void IntefaceInitialize()
+        {
+            progressBarControl = new ProgressBarControl();
+            cancelProgress = new SimpleButton();
+            statusProgess = new LabelControl();
+
+            form = new XtraForm();
+            form.ClientSize = new System.Drawing.Size(401, 87);
+            form.TopMost = true;
+            form.CancelButton = cancelProgress;
+            form.Text = "Importação";
+            form.Name = "Importação";
+            form.FormBorderEffect = FormBorderEffect.Default;
+            form.ControlBox = false;
+            form.StartPosition = FormStartPosition.CenterScreen;
+            form.FormBorderStyle = FormBorderStyle.FixedDialog;
+            form.Controls.Add((Control)progressBarControl);
+            form.Controls.Add((Control)cancelProgress);
+            form.Controls.Add((Control)statusProgess);
+
+            cancelProgress.Anchor = ((AnchorStyles.Bottom | AnchorStyles.Right));
+            cancelProgress.Location = new System.Drawing.Point(314, 12);
+            cancelProgress.Name = "simpleButton1";
+            cancelProgress.Size = new System.Drawing.Size(75, 33);
+            cancelProgress.TabIndex = 1;
+            cancelProgress.Text = "Cancel";
+            cancelProgress.Click += cancelProgress_Click;
+
+            progressBarControl.Anchor = ((AnchorStyles.Bottom | AnchorStyles.Left));
+            progressBarControl.Location = new System.Drawing.Point(12, 12);
+            progressBarControl.Size = new System.Drawing.Size(289, 33);
+            progressBarControl.TabIndex = 0;
+            progressBarControl.Properties.ShowTitle = true;
+            progressBarControl.Properties.Step = 1;
+            progressBarControl.Properties.PercentView = true;
+            progressBarControl.Properties.Minimum = 0;
+
+            statusProgess.Anchor = ((AnchorStyles.Bottom | AnchorStyles.Left));
+            statusProgess.Location = new System.Drawing.Point(12, 50);
+            statusProgess.Text = "Iniciando";
+
+            form.Show();
+        }
+
+        private void StartImport(XPObjectSpace objectSpace, DataTable dtSpoolsImport, DataTable dtJuntasImport, IProgress<ImportProgressReport> progress)
+        {
+            var session = objectSpace.Session;
+            var ToalRows = dtSpoolsImport.Rows.Count;
+
+            progress.Report(new ImportProgressReport
+            {
+                TotalRows = ToalRows,
+                CurrentRow = 0,
+                MessageImport = "Inicializando importação"
+            });
+
+            session.BeginTransaction();
+
+            for (int i = 1; i <= ToalRows; i++)
+            {
+                var linha = dtSpoolsImport.Rows[i];
+                var colunaDocumento = Convert.ToString(linha["Documento"]);
+                var colunaRevSpool = Convert.ToString(linha["Revisao"]);
+                //var colunaData = ConvertDateTime(linha[2]);
+
+                var spool = objectSpace.CreateObject<Spool>();
+                spool.Documento = colunaDocumento;
+                spool.RevSpool = colunaRevSpool;
+                //spool.DataCadastro = colunaData;
+                spool.Save();
+
+                try
+                {
+                    session.CommitTransaction();
+                }
+                catch
+                {
+                    session.RollbackTransaction();
+                    throw new Exception("Process aborted by WeldTrace");
+                }
+
+                progress.Report(new ImportProgressReport
+                {
+                    TotalRows = ToalRows,
+                    CurrentRow = i,
+                    MessageImport = $"Importando linha {i}/{ToalRows}"
+                });
+            }
+
+            session.PurgeDeletedObjects();
+            objectSpace.CommitChanges();
+        }
+    }
+
+    public class ImportProgressReport
+    {
+        public int TotalRows { get; set; }
+        public int CurrentRow { get; set; }
+        public string MessageImport { get; set; }
     }
 }
