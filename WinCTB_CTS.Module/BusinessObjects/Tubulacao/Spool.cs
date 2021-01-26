@@ -32,50 +32,50 @@ namespace WinCTB_CTS.Module.BusinessObjects.Tubulacao
         private string situacaoMontagem;
         private string situacaoFabricacao;
         private double pesoMontagem;
-        private DateTime dataLiberacao;
-        private DateTime dataRomaneio;
+        private DateTime? dataLiberacao;
+        private DateTime? dataRomaneio;
         private string romaneio;
         private string idComponente;
         private string tagComponente;
-        private DateTime dataPintMontagem;
-        private DateTime dataEndMontagem;
-        private DateTime dataDiMontagem;
+        private DateTime? dataPintMontagem;
+        private DateTime? dataEndMontagem;
+        private DateTime? dataDiMontagem;
         private string inspDiMontagem;
-        private DateTime dataVsMontagem;
-        private DateTime dataSoldaMontagem;
-        private DateTime dataVaMontagem;
-        private DateTime dataPreMontagem;
+        private DateTime? dataVsMontagem;
+        private DateTime? dataSoldaMontagem;
+        private DateTime? dataVaMontagem;
+        private DateTime? dataPreMontagem;
         private string escopoMontagem;
         private string progPintura;
         private string elevacao;
         private string progMontagem;
-        private DateTime dataPintFab;
+        private DateTime? dataPintFab;
         private string relPiRevUnico;
-        private DateTime dataPiRevUnico;
+        private DateTime? dataPiRevUnico;
         private string relIndPintAcabamento;
         private string relPintAcabamento;
         private string inspPintAcabamento;
-        private DateTime dataPiAcabamento;
+        private DateTime? dataPiAcabamento;
         private string relIndIntermediaria;
         private string relPiIntermediaria;
         private string tagSpool;
         private string inspPiIntermediaria;
-        DateTime dataPiIntermediaria;
+        private DateTime? dataPiIntermediaria;
         private string relIndFundo;
         private string relatorioPinFundo;
         private string inspPinturaFundo;
-        private DateTime dataPiFundo;
-        private DateTime dataEndFab;
+        private DateTime? dataPiFundo;
+        private DateTime? dataEndFab;
         private string inspetorDf;
         private string relatorioDf;
-        private DateTime dataDfFab;
-        private DateTime dataVsFab;
-        private DateTime dataSoldaFab;
-        private DateTime dataVaFab;
-        private DateTime dataCorte;
-        private DateTime dataProgFab;
+        private DateTime? dataDfFab;
+        private DateTime? dataVsFab;
+        private DateTime? dataSoldaFab;
+        private DateTime? dataVaFab;
+        private DateTime? dataCorte;
+        private DateTime? dataProgFab;
         private string nrProgFab;
-        private DateTime dataCadastro;
+        private DateTime? dataCadastro;
         private int totaldeJuntasPipe;
         private int totaldeJuntas;
         private int quantidadeIsolamento;
@@ -323,7 +323,7 @@ namespace WinCTB_CTS.Module.BusinessObjects.Tubulacao
         }
 
         [XafDisplayName("Data de Cadastro")]
-        public DateTime DataCadastro
+        public DateTime? DataCadastro
         {
             get => dataCadastro;
             set => SetPropertyValue(nameof(DataCadastro), ref dataCadastro, value);
@@ -339,7 +339,7 @@ namespace WinCTB_CTS.Module.BusinessObjects.Tubulacao
         [XafDisplayName("Data Programação de Fabricação")]
         [ModelDefault("EditMask", "G")]
         [ModelDefault("DisplayFormat", "G")]
-        public DateTime DataProgFab
+        public DateTime? DataProgFab
         {
             get => dataProgFab;
             set => SetPropertyValue(nameof(DataProgFab), ref dataProgFab, value);
@@ -348,7 +348,7 @@ namespace WinCTB_CTS.Module.BusinessObjects.Tubulacao
         [XafDisplayName("Data de Corte")]
         [ModelDefault("EditMask", "G")]
         [ModelDefault("DisplayFormat", "G")]
-        public DateTime DataCorte
+        public DateTime? DataCorte
         {
             get => dataCorte;
             set => SetPropertyValue(nameof(DataCorte), ref dataCorte, value);
@@ -357,7 +357,7 @@ namespace WinCTB_CTS.Module.BusinessObjects.Tubulacao
         [XafDisplayName("Data de VA de Fabricação")]
         [ModelDefault("EditMask", "G")]
         [ModelDefault("DisplayFormat", "G")]
-        public DateTime DataVaFab
+        public DateTime? DataVaFab
         {
             get => dataVaFab;
             set => SetPropertyValue(nameof(DataVaFab), ref dataVaFab, value);
@@ -366,7 +366,7 @@ namespace WinCTB_CTS.Module.BusinessObjects.Tubulacao
         [XafDisplayName("Data de Solda de Fabricação")]
         [ModelDefault("EditMask", "G")]
         [ModelDefault("DisplayFormat", "G")]
-        public DateTime DataSoldaFab
+        public DateTime? DataSoldaFab
         {
             get => dataSoldaFab;
             set => SetPropertyValue(nameof(DataSoldaFab), ref dataSoldaFab, value);
@@ -375,7 +375,7 @@ namespace WinCTB_CTS.Module.BusinessObjects.Tubulacao
         [XafDisplayName("Data de Visual de Fabricação")]
         [ModelDefault("EditMask", "G")]
         [ModelDefault("DisplayFormat", "G")]
-        public DateTime DataVsFab
+        public DateTime? DataVsFab
         {
             get => dataVsFab;
             set => SetPropertyValue(nameof(DataVsFab), ref dataVsFab, value);
@@ -384,7 +384,7 @@ namespace WinCTB_CTS.Module.BusinessObjects.Tubulacao
         [XafDisplayName("Data de Dimensional de Fabricação")]
         [ModelDefault("EditMask", "G")]
         [ModelDefault("DisplayFormat", "G")]
-        public DateTime DataDfFab
+        public DateTime? DataDfFab
         {
             get => dataDfFab;
             set => SetPropertyValue(nameof(DataDfFab), ref dataDfFab, value);
@@ -407,7 +407,7 @@ namespace WinCTB_CTS.Module.BusinessObjects.Tubulacao
         [XafDisplayName("Data END de Fabricação")]
         [ModelDefault("EditMask", "G")]
         [ModelDefault("DisplayFormat", "G")]
-        public DateTime DataEndFab
+        public DateTime? DataEndFab
         {
             get => dataEndFab;
             set => SetPropertyValue(nameof(DataEndFab), ref dataEndFab, value);
@@ -416,7 +416,7 @@ namespace WinCTB_CTS.Module.BusinessObjects.Tubulacao
         [XafDisplayName("Data de Pintura de Fundo")]
         [ModelDefault("EditMask", "G")]
         [ModelDefault("DisplayFormat", "G")]
-        public DateTime DataPiFundo
+        public DateTime? DataPiFundo
         {
             get => dataPiFundo;
             set => SetPropertyValue(nameof(DataPiFundo), ref dataPiFundo, value);
@@ -446,7 +446,7 @@ namespace WinCTB_CTS.Module.BusinessObjects.Tubulacao
         [XafDisplayName("Data de Pintura Intermediária")]
         [ModelDefault("EditMask", "G")]
         [ModelDefault("DisplayFormat", "G")]
-        public DateTime DataPiIntermediaria
+        public DateTime? DataPiIntermediaria
         {
             get => dataPiIntermediaria;
             set => SetPropertyValue(nameof(DataPiIntermediaria), ref dataPiIntermediaria, value);
@@ -477,7 +477,7 @@ namespace WinCTB_CTS.Module.BusinessObjects.Tubulacao
         [XafDisplayName("Data Pintura de Acabamento")]
         [ModelDefault("EditMask", "G")]
         [ModelDefault("DisplayFormat", "G")]
-        public DateTime DataPiAcabamento
+        public DateTime? DataPiAcabamento
         {
             get => dataPiAcabamento;
             set => SetPropertyValue(nameof(DataPiAcabamento), ref dataPiAcabamento, value);
@@ -508,7 +508,7 @@ namespace WinCTB_CTS.Module.BusinessObjects.Tubulacao
         [ModelDefault("EditMask", "G")]
         [ModelDefault("DisplayFormat", "G")]
 
-        public DateTime DataPiRevUnico
+        public DateTime? DataPiRevUnico
         {
             get => dataPiRevUnico;
             set => SetPropertyValue(nameof(DataPiRevUnico), ref dataPiRevUnico, value);
@@ -533,7 +533,7 @@ namespace WinCTB_CTS.Module.BusinessObjects.Tubulacao
         [ModelDefault("EditMask", "G")]
         [ModelDefault("DisplayFormat", "G")]
 
-        public DateTime DataPintFab
+        public DateTime? DataPintFab
         {
             get => dataPintFab;
             set => SetPropertyValue(nameof(DataPintFab), ref dataPintFab, value);
@@ -570,7 +570,7 @@ namespace WinCTB_CTS.Module.BusinessObjects.Tubulacao
         [XafDisplayName("Data de Pré Montagem")]
         [ModelDefault("EditMask", "G")]
         [ModelDefault("DisplayFormat", "G")]
-        public DateTime DataPreMontagem
+        public DateTime? DataPreMontagem
         {
             get => dataPreMontagem;
             set => SetPropertyValue(nameof(DataPreMontagem), ref dataPreMontagem, value);
@@ -579,7 +579,7 @@ namespace WinCTB_CTS.Module.BusinessObjects.Tubulacao
         [XafDisplayName("Data de VA de Montagem")]
         [ModelDefault("EditMask", "G")]
         [ModelDefault("DisplayFormat", "G")]
-        public DateTime DataVaMontagem
+        public DateTime? DataVaMontagem
         {
             get => dataVaMontagem;
             set => SetPropertyValue(nameof(DataVaMontagem), ref dataVaMontagem, value);
@@ -588,7 +588,7 @@ namespace WinCTB_CTS.Module.BusinessObjects.Tubulacao
         [XafDisplayName("Data de Solda de Montagem")]
         [ModelDefault("EditMask", "G")]
         [ModelDefault("DisplayFormat", "G")]
-        public DateTime DataSoldaMontagem
+        public DateTime? DataSoldaMontagem
         {
             get => dataSoldaMontagem;
             set => SetPropertyValue(nameof(DataSoldaMontagem), ref dataSoldaMontagem, value);
@@ -597,7 +597,7 @@ namespace WinCTB_CTS.Module.BusinessObjects.Tubulacao
         [XafDisplayName("Data de VS de Montagem")]
         [ModelDefault("EditMask", "G")]
         [ModelDefault("DisplayFormat", "G")]
-        public DateTime DataVsMontagem
+        public DateTime? DataVsMontagem
         {
             get => dataVsMontagem;
             set => SetPropertyValue(nameof(DataVsMontagem), ref dataVsMontagem, value);
@@ -613,7 +613,7 @@ namespace WinCTB_CTS.Module.BusinessObjects.Tubulacao
         [XafDisplayName("Data Dimensional de Montagem")]
         [ModelDefault("EditMask", "G")]
         [ModelDefault("DisplayFormat", "G")]
-        public DateTime DataDiMontagem
+        public DateTime? DataDiMontagem
         {
             get => dataDiMontagem;
             set => SetPropertyValue(nameof(DataDiMontagem), ref dataDiMontagem, value);
@@ -622,7 +622,7 @@ namespace WinCTB_CTS.Module.BusinessObjects.Tubulacao
         [XafDisplayName("Data END de Montagem")]
         [ModelDefault("EditMask", "G")]
         [ModelDefault("DisplayFormat", "G")]
-        public DateTime DataEndMontagem
+        public DateTime? DataEndMontagem
         {
             get => dataEndMontagem;
             set => SetPropertyValue(nameof(DataEndMontagem), ref dataEndMontagem, value);
@@ -631,7 +631,7 @@ namespace WinCTB_CTS.Module.BusinessObjects.Tubulacao
         [XafDisplayName("Data de Pintura de Montagem")]
         [ModelDefault("EditMask", "G")]
         [ModelDefault("DisplayFormat", "G")]
-        public DateTime DataPintMontagem
+        public DateTime? DataPintMontagem
         {
             get => dataPintMontagem;
             set => SetPropertyValue(nameof(DataPintMontagem), ref dataPintMontagem, value);
@@ -661,7 +661,7 @@ namespace WinCTB_CTS.Module.BusinessObjects.Tubulacao
         [XafDisplayName("Data do Romaneio")]
         [ModelDefault("EditMask", "G")]
         [ModelDefault("DisplayFormat", "G")]
-        public DateTime DataRomaneio
+        public DateTime? DataRomaneio
         {
             get => dataRomaneio;
             set => SetPropertyValue(nameof(DataRomaneio), ref dataRomaneio, value);
@@ -670,7 +670,7 @@ namespace WinCTB_CTS.Module.BusinessObjects.Tubulacao
         [XafDisplayName("Data de Liberação")]
         [ModelDefault("EditMask", "G")]
         [ModelDefault("DisplayFormat", "G")]
-        public DateTime DataLiberacao
+        public DateTime? DataLiberacao
         {
             get => dataLiberacao;
             set => SetPropertyValue(nameof(DataLiberacao), ref dataLiberacao, value);

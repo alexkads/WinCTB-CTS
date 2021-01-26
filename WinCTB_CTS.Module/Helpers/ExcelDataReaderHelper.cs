@@ -16,7 +16,7 @@ namespace WinCTB_CTS.Module.ExcelDataReaderHelper.Excel
 
         public Reader(Stream stream)
         {
-            excelDataReader = ExcelReaderFactory.CreateBinaryReader(stream);
+            excelDataReader = ExcelReaderFactory.CreateOpenXmlReader(stream);
         }
 
         public DataTableCollection CreateDataTableCollection()

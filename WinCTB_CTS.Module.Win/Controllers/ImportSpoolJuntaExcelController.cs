@@ -63,19 +63,29 @@ namespace WinCTB_CTS.Module.Win.Controllers
             throw new Exception("Process aborted by user.");
         }
 
-        static private Func<object, DateTime> ConvertDateTime = (obj) =>
+        static private Func<object, DateTime?> ConvertDateTime = (obj) =>
         {
-            return DateTime.FromOADate(double.Parse(obj.ToString()));
+            if (obj != DBNull.Value)
+                return Convert.ToDateTime(obj);
+            else
+                return null;
         };
 
-        public static double ConvertStringToDouble(string value)
+        static private Func<object, double> ConvertDouble = (obj) =>
         {
-            if (Double.TryParse(value, NumberStyles.Number, new NumberFormatInfo { NumberDecimalSeparator = "." }, out double number))
-                return number;
+            if (obj != DBNull.Value)
+                return Convert.ToDouble(obj);
+            else
+                return 0D;
+        };
+
+        static private Func<object, Int32> ConvertINT = (obj) =>
+        {
+            if (obj != DBNull.Value)
+                return Convert.ToInt32(obj);
             else
                 return 0;
-        }
-
+        };
 
         public async Task Executar(XPObjectSpace objectSpace)
         {
@@ -107,8 +117,11 @@ namespace WinCTB_CTS.Module.Win.Controllers
                             dtcollectionImport = excelReader.CreateDataTableCollection();
                         }
 
-                        dtSpoolsImport = OpenXMLHelper.Excel.Reader.CreateDataTableFromStream(stream, "SGS");
-                        dtJuntasImport = OpenXMLHelper.Excel.Reader.CreateDataTableFromStream(stream, "SGJ");
+                        dtSpoolsImport = dtcollectionImport["SGS"];
+                        dtJuntasImport = dtcollectionImport["SGJ"];
+
+                        //dtSpoolsImport = OpenXMLHelper.Excel.Reader.CreateDataTableFromStream(stream, "SGS");
+                        //dtJuntasImport = OpenXMLHelper.Excel.Reader.CreateDataTableFromStream(stream, "SGJ");
                         //var Import1 = OpenXMLHelper.Excel.Reader.CreateArrayFromStream(stream, "SGS");
                         //var Import2 = OpenXMLHelper.Excel.Reader.CreateArrayFromStream(stream, "SGJ");
                     }
@@ -210,11 +223,11 @@ namespace WinCTB_CTS.Module.Win.Controllers
             {
                 var linha = dtSpoolsImport.Rows[i];
                 var spool = objectSpace.CreateObject<Spool>();
-                spool.Contrato = Convert.ToString(linha["contrato"]);
-                spool.ArranjoFisico = Convert.ToString(linha["arranjoFisico"]);
-                spool.Documento = Convert.ToString(linha["documento"]);
-                spool.CampoAuxiliar = Convert.ToString(linha["campoAuxiliar"]);
-                spool.SubSop = Convert.ToString(linha["subSop"]);
+                spool.Contrato = linha["contrato"].ToString();
+                spool.ArranjoFisico = linha["arranjoFisico"].ToString();
+                spool.Documento = linha["documento"].ToString();
+                spool.CampoAuxiliar = linha["campoAuxiliar"].ToString();
+                spool.SubSop = linha["subSop"].ToString();
                 spool.AreaFisica = Convert.ToString(linha["areaFisica"]);
                 spool.Sth = Convert.ToString(linha["sth"]);
                 spool.Linha = Convert.ToString(linha["linha"]);
@@ -223,11 +236,11 @@ namespace WinCTB_CTS.Module.Win.Controllers
                 spool.TagSpool = Convert.ToString(linha["tagSpool"]);
                 spool.RevSpool = Convert.ToString(linha["revSpool"]);
                 spool.RevIso = Convert.ToString(linha["revIso"]);
-                spool.Material = Convert.ToString(linha["material"]);
+                //spool.Material = Convert.ToString(linha["material"]);
                 spool.Norma = Convert.ToString(linha["norma"]);
-                spool.Diametro = Convert.ToInt32(linha["diametro"]);
+                spool.Diametro = ConvertINT(linha["diametro"]);
                 spool.DiametroPolegada = Convert.ToString(linha["diametroPolegada"]);
-                spool.Espessura = Convert.ToInt32(linha["espessura"]);
+                spool.Espessura = ConvertINT(linha["espessura"]);
                 spool.Espec = Convert.ToString(linha["espec"]);
                 spool.PNumber = Convert.ToString(linha["pNumber"]);
                 spool.Fluido = Convert.ToString(linha["fluido"]);
@@ -237,53 +250,53 @@ namespace WinCTB_CTS.Module.Win.Controllers
                 spool.PesoFabricacao = Convert.ToDouble(linha["pesoFabricacao"]);
                 spool.Area = Convert.ToString(linha["area"]);
                 spool.EspIsolamento = Convert.ToString(linha["espIsolamento"]);
-                spool.QuantidadeIsolamento = Convert.ToInt32(linha["quantidadeIsolamento"]);
-                spool.TotaldeJuntas = Convert.ToInt32(linha["totaldeJuntas"]);
-                spool.TotaldeJuntasPipe = Convert.ToInt32(linha["totaldeJuntasPipe"]);
-                spool.DataCadastro = Convert.ToDateTime(linha["dataCadastro"]);
-                spool.NrProgFab = Convert.ToString(linha["nrProgFab"]);
-                spool.DataProgFab = Convert.ToDateTime(linha["dataProgFab"]);
-                spool.DataCorte = Convert.ToDateTime(linha["dataCorte"]);
-                spool.DataVaFab = Convert.ToDateTime(linha["dataVaFab"]);
-                spool.DataSoldaFab = Convert.ToDateTime(linha["dataSoldaFab"]);
-                spool.DataVsFab = Convert.ToDateTime(linha["dataVsFab"]);
-                spool.DataDfFab = Convert.ToDateTime(linha["dataDfFab"]);
+                spool.QuantidadeIsolamento = ConvertINT(linha["quantidadeIsolamento"]);
+                spool.TotaldeJuntas = ConvertINT(linha["totaldeJuntas"]);
+                spool.TotaldeJuntasPipe = ConvertINT(linha["totaldeJuntasPipe"]);
+                spool.DataCadastro = ConvertDateTime(linha["dataCadastro"]);
+                spool.NrProgFab = linha["nrProgFab"].ToString();
+                spool.DataProgFab = ConvertDateTime(linha["dataProgFab"]);
+                spool.DataCorte = ConvertDateTime(linha["dataCorte"]);
+                spool.DataVaFab = ConvertDateTime(linha["dataVaFab"]);
+                spool.DataSoldaFab = ConvertDateTime(linha["dataSoldaFab"]);
+                spool.DataVsFab = ConvertDateTime(linha["dataVsFab"]);
+                spool.DataDfFab = ConvertDateTime(linha["dataDfFab"]);
                 spool.RelatorioDf = Convert.ToString(linha["relatorioDf"]);
-                spool.DataEndFab = Convert.ToDateTime(linha["dataEndFab"]);
-                spool.DataPiFundo = Convert.ToDateTime(linha["dataPiFundo"]);
+                spool.DataEndFab = ConvertDateTime(linha["dataEndFab"]);
+                spool.DataPiFundo = ConvertDateTime(linha["dataPiFundo"]);
                 spool.InspPinturaFundo = Convert.ToString(linha["inspPinturaFundo"]);
                 spool.RelatorioPinFundo = Convert.ToString(linha["relatorioPinFundo"]);
                 spool.RelIndFundo = Convert.ToString(linha["relIndFundo"]);
-                spool.DataPiIntermediaria = Convert.ToDateTime(linha["dataPiIntermediaria"]);
+                spool.DataPiIntermediaria = ConvertDateTime(linha["dataPiIntermediaria"]);
                 spool.InspPiIntermediaria = Convert.ToString(linha["inspPiIntermediaria"]);
                 spool.RelPiIntermediaria = Convert.ToString(linha["relPiIntermediaria"]);
                 spool.RelIndIntermediaria = Convert.ToString(linha["relIndIntermediaria"]);
-                spool.DataPiAcabamento = Convert.ToDateTime(linha["dataPiAcabamento"]);
+                spool.DataPiAcabamento = ConvertDateTime(linha["dataPiAcabamento"]);
                 spool.InspPintAcabamento = Convert.ToString(linha["inspPintAcabamento"]);
                 spool.RelPintAcabamento = Convert.ToString(linha["relPintAcabamento"]);
-                spool.RelIndPintAcabamento = Convert.ToString(linha["relIndPinturaAcabamento"]);
-                spool.DataPiRevUnico = Convert.ToDateTime(linha["dataPiRevUnico"]);
+                //spool.RelIndPintAcabamento = Convert.ToString(linha["relIndPinturaAcabamento"]);
+                spool.DataPiRevUnico = ConvertDateTime(linha["dataPiRevUnico"]);
                 spool.InspPiRevUnico = Convert.ToString(linha["inspPiRevUnico"]);
                 spool.RelPiRevUnico = Convert.ToString(linha["relPiRevUnico"]);
-                spool.DataPintFab = Convert.ToDateTime(linha["dataPintFab"]);
+                spool.DataPintFab = ConvertDateTime(linha["dataPintFab"]);
                 spool.ProgMontagem = Convert.ToString(linha["progMontagem"]);
                 spool.Elevacao = Convert.ToString(linha["elevacao"]);
                 spool.ProgPintura = Convert.ToString(linha["progPintura"]);
                 spool.EscopoMontagem = Convert.ToString(linha["escopoMontagem"]);
-                spool.DataPreMontagem = Convert.ToDateTime(linha["dataPreMontagem"]);
-                spool.DataVaMontagem = Convert.ToDateTime(linha["dataVaMontagem"]);
-                spool.DataSoldaMontagem = Convert.ToDateTime(linha["dataSoldaMontagem"]);
-                spool.DataVsMontagem = Convert.ToDateTime(linha["dataVsMontagem"]);
+                spool.DataPreMontagem = ConvertDateTime(linha["dataPreMontagem"]);
+                spool.DataVaMontagem = ConvertDateTime(linha["dataVaMontagem"]);
+                spool.DataSoldaMontagem = ConvertDateTime(linha["dataSoldaMontagem"]);
+                spool.DataVsMontagem = ConvertDateTime(linha["dataVsMontagem"]);
                 spool.InspDiMontagem = Convert.ToString(linha["inspDiMontagem"]);
-                spool.DataDiMontagem = Convert.ToDateTime(linha["dataDiMontagem"]);
-                spool.DataEndMontagem = Convert.ToDateTime(linha["dataEndMontagem"]);
-                spool.DataPintMontagem = Convert.ToDateTime(linha["dataPintMontagem"]);
+                spool.DataDiMontagem = ConvertDateTime(linha["dataDiMontagem"]);
+                spool.DataEndMontagem = ConvertDateTime(linha["dataEndMontagem"]);
+                spool.DataPintMontagem = ConvertDateTime(linha["dataPintMontagem"]);
                 spool.TagComponente = Convert.ToString(linha["tagComponente"]);
                 spool.IdComponente = Convert.ToString(linha["idComponente"]);
                 spool.Romaneio = Convert.ToString(linha["romaneio"]);
-                spool.DataRomaneio = Convert.ToDateTime(linha["dataRomaneio"]);
-                spool.DataLiberacao = Convert.ToDateTime(linha["dataLiberacao"]);
-                spool.PesoMontagem = Convert.ToDouble(linha["pesoMontagem"]);
+                spool.DataRomaneio = ConvertDateTime(linha["dataRomaneio"]);
+                spool.DataLiberacao = ConvertDateTime(linha["dataLiberacao"]);
+                spool.PesoMontagem = ConvertDouble(linha["pesoMontagem"]);
                 spool.SituacaoFabricacao = Convert.ToString(linha["situacaoFabricacao"]);
                 spool.SituacaoMontagem = Convert.ToString(linha["situacaoMontagem"]);
                 spool.Save();
@@ -308,6 +321,14 @@ namespace WinCTB_CTS.Module.Win.Controllers
                     MessageImport = $"Importando linha {i}/{ToalRows}"
                 });
             }
+
+
+            progress.Report(new ImportProgressReport
+            {
+                TotalRows = ToalRows,
+                CurrentRow = ToalRows,
+                MessageImport = $"Gravando Alterações no Banco"
+            });
 
             session.CommitTransaction();
             session.PurgeDeletedObjects();
