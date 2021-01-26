@@ -239,7 +239,10 @@ namespace WinCTB_CTS.Module.Win.Controllers
                 spool.TagSpool = Convert.ToString(linha["tagSpool"]);
                 spool.RevSpool = Convert.ToString(linha["revSpool"]);
                 spool.RevIso = Convert.ToString(linha["revIso"]);
+                
+                //Campo não localizado
                 //spool.Material = Convert.ToString(linha["material"]);
+                
                 spool.Norma = Convert.ToString(linha["norma"]);
                 spool.Diametro = ConvertINT(linha["diametro"]);
                 spool.DiametroPolegada = Convert.ToString(linha["diametroPolegada"]);
@@ -277,7 +280,10 @@ namespace WinCTB_CTS.Module.Win.Controllers
                 spool.DataPiAcabamento = ConvertDateTime(linha["dataPiAcabamento"]);
                 spool.InspPintAcabamento = Convert.ToString(linha["inspPintAcabamento"]);
                 spool.RelPintAcabamento = Convert.ToString(linha["relPintAcabamento"]);
+                
+                //Campo não localizado
                 //spool.RelIndPintAcabamento = Convert.ToString(linha["relIndPinturaAcabamento"]);
+                
                 spool.DataPiRevUnico = ConvertDateTime(linha["dataPiRevUnico"]);
                 spool.InspPiRevUnico = Convert.ToString(linha["inspPiRevUnico"]);
                 spool.RelPiRevUnico = Convert.ToString(linha["relPiRevUnico"]);
