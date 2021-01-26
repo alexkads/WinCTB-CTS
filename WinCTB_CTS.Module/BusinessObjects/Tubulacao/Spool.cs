@@ -11,10 +11,11 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using System.Text;
+using WinCTB_CTS.Module.BusinessObjects.Tubulacao.Medicao;
 
 namespace WinCTB_CTS.Module.BusinessObjects.Tubulacao
 {
-    [DefaultClassOptions]
+    [DefaultClassOptions, DefaultProperty("Spool"), ImageName("BO_Contract"), NavigationItem("Tubulação")]
     public class Spool : BaseObject
     {
         public Spool(Session session)
@@ -698,10 +699,6 @@ namespace WinCTB_CTS.Module.BusinessObjects.Tubulacao
             get => situacaoMontagem;
             set => SetPropertyValue(nameof(SituacaoMontagem), ref situacaoMontagem, value);
         }
-               
-
-
-
 
         [Association("Spool-JuntaSpools")]
         public XPCollection<JuntaSpool> Juntas
@@ -712,6 +709,13 @@ namespace WinCTB_CTS.Module.BusinessObjects.Tubulacao
             }
         }
 
-
+        [Association("Spool-MedicaoTubulacaoDetalhes")]
+        public XPCollection<MedicaoTubulacaoDetalhe> MedicaoTubulacaoDetalhes
+        {
+            get
+            {
+                return GetCollection<MedicaoTubulacaoDetalhe>(nameof(MedicaoTubulacaoDetalhes));
+            }
+        }
     }
 }

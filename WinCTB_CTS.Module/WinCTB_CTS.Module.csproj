@@ -131,6 +131,8 @@
     <Compile Include="BusinessObjects\Estrutura\Componente.cs" />
     <Compile Include="BusinessObjects\Estrutura\JuntaComponente.cs" />
     <Compile Include="BusinessObjects\Tubulacao\JuntaSpool.cs" />
+    <Compile Include="BusinessObjects\Tubulacao\Medicao\MedicaoTubulacao.cs" />
+    <Compile Include="BusinessObjects\Tubulacao\Medicao\MedicaoTubulacaoDetalhe.cs" />
     <Compile Include="BusinessObjects\Tubulacao\Spool.cs" />
     <Compile Include="DatabaseUpdate\Updater.cs" />
     <Compile Include="Helpers\ExcelDataReaderHelper.cs" />
