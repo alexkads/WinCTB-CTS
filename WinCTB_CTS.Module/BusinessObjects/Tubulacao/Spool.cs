@@ -92,7 +92,7 @@ namespace WinCTB_CTS.Module.BusinessObjects.Tubulacao
         private string diametroPolegada;
         private double diametro;
         private string norma;
-        private string mat;
+        private string material;
         private string revIso;
         private string revSpool;
         private string isometrico;
@@ -202,8 +202,8 @@ namespace WinCTB_CTS.Module.BusinessObjects.Tubulacao
         [Size(100), XafDisplayName("Mat"), ToolTip("Mateial do Spool")]
         public string Material
         {
-            get => mat;
-            set => SetPropertyValue(nameof(Material), ref mat, value);
+            get => material;
+            set => SetPropertyValue(nameof(Material), ref material, value);
         }
 
         [Size(100)]
