@@ -10,6 +10,7 @@ using DevExpress.ExpressApp.Utils;
 using DevExpress.ExpressApp.Xpo;
 using DevExpress.Persistent.Base;
 using DevExpress.Persistent.Validation;
+using DevExpress.Xpo;
 using DevExpress.XtraEditors;
 using System;
 using System.Collections.Generic;
@@ -49,12 +50,12 @@ namespace WinCTB_CTS.Module.Win.Controllers
             };
 
             simpleActionImport.Execute += SimpleActionImport_Execute;
-
         }
 
         private async void SimpleActionImport_Execute(object sender, SimpleActionExecuteEventArgs e)
         {
             await Executar((XPObjectSpace)View.ObjectSpace);
+            View.ObjectSpace.Refresh();
         }
 
         static void cancelProgress_Click(object sender, EventArgs e)
@@ -204,6 +205,7 @@ namespace WinCTB_CTS.Module.Win.Controllers
         private void StartImport(XPObjectSpace objectSpace, DataTable dtSpoolsImport, DataTable dtJuntasImport, IProgress<ImportProgressReport> progress)
         {
             var session = objectSpace.Session;
+            UnitOfWork uow = new UnitOfWork(((XPObjectSpace)ObjectSpace).Session.ObjectLayer);
             var ToalRows = dtSpoolsImport.Rows.Count;
 
             progress.Report(new ImportProgressReport
@@ -213,16 +215,17 @@ namespace WinCTB_CTS.Module.Win.Controllers
                 MessageImport = "Inicializando importação"
             });
 
-            session.BeginTransaction();
+            uow.BeginTransaction();
 
             //Limpar registros
-            Utils.DeleteAllRecords<Spool>(session);
-            session.CommitTransaction();
+            Utils.DeleteAllRecords<Spool>(uow);
+            uow.CommitTransaction();
 
             for (int i = 0; i < ToalRows; i++)
             {
                 var linha = dtSpoolsImport.Rows[i];
-                var spool = objectSpace.CreateObject<Spool>();
+                var spool = new Spool(uow);
+                //var spool = objectSpace.CreateObject<Spool>();
                 spool.Contrato = linha["contrato"].ToString();
                 spool.ArranjoFisico = linha["arranjoFisico"].ToString();
                 spool.Documento = linha["documento"].ToString();
@@ -305,11 +308,11 @@ namespace WinCTB_CTS.Module.Win.Controllers
                 {
                     try
                     {
-                        session.CommitTransaction();
+                        uow.CommitTransaction();
                     }
                     catch
                     {
-                        session.RollbackTransaction();
+                        uow.RollbackTransaction();
                         throw new Exception("Process aborted by system");
                     }
                 }
@@ -322,7 +325,6 @@ namespace WinCTB_CTS.Module.Win.Controllers
                 });
             }
 
-
             progress.Report(new ImportProgressReport
             {
                 TotalRows = ToalRows,
@@ -330,9 +332,10 @@ namespace WinCTB_CTS.Module.Win.Controllers
                 MessageImport = $"Gravando Alterações no Banco"
             });
 
-            session.CommitTransaction();
-            session.PurgeDeletedObjects();
-            objectSpace.CommitChanges();
+            uow.CommitTransaction();
+            uow.PurgeDeletedObjects();
+            uow.CommitChanges();
+            uow.Dispose();
         }
     }
 
