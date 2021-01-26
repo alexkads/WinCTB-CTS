@@ -199,7 +199,7 @@ namespace WinCTB_CTS.Module.BusinessObjects.Tubulacao
             set => SetPropertyValue(nameof(RevIso), ref revIso, value);
         }
 
-        [Size(100), XafDisplayName("Mat"), ToolTip("Mateial do Spool")]
+        [Size(100), XafDisplayName("Material"), ToolTip("Mateial do Spool")]
         public string Material
         {
             get => material;

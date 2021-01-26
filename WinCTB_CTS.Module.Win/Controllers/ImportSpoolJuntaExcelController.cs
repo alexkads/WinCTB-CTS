@@ -238,11 +238,8 @@ namespace WinCTB_CTS.Module.Win.Controllers
                 spool.Isometrico = Convert.ToString(linha["isometrico"]);
                 spool.TagSpool = Convert.ToString(linha["tagSpool"]);
                 spool.RevSpool = Convert.ToString(linha["revSpool"]);
-                spool.RevIso = Convert.ToString(linha["revIso"]);
-                
-                //Campo não localizado
-                //spool.Material = Convert.ToString(linha["material"]);
-                
+                spool.RevIso = Convert.ToString(linha["revIso"]);        
+                spool.Material = Convert.ToString(linha["material"]);                
                 spool.Norma = Convert.ToString(linha["norma"]);
                 spool.Diametro = ConvertINT(linha["diametro"]);
                 spool.DiametroPolegada = Convert.ToString(linha["diametroPolegada"]);
@@ -279,11 +276,8 @@ namespace WinCTB_CTS.Module.Win.Controllers
                 spool.RelIndIntermediaria = Convert.ToString(linha["relIndIntermediaria"]);
                 spool.DataPiAcabamento = ConvertDateTime(linha["dataPiAcabamento"]);
                 spool.InspPintAcabamento = Convert.ToString(linha["inspPintAcabamento"]);
-                spool.RelPintAcabamento = Convert.ToString(linha["relPintAcabamento"]);
-                
-                //Campo não localizado
-                //spool.RelIndPintAcabamento = Convert.ToString(linha["relIndPinturaAcabamento"]);
-                
+                spool.RelPintAcabamento = Convert.ToString(linha["relPintAcabamento"]);                
+                spool.RelIndPintAcabamento = Convert.ToString(linha["relIndPintAcabamento"]);                
                 spool.DataPiRevUnico = ConvertDateTime(linha["dataPiRevUnico"]);
                 spool.InspPiRevUnico = Convert.ToString(linha["inspPiRevUnico"]);
                 spool.RelPiRevUnico = Convert.ToString(linha["relPiRevUnico"]);
