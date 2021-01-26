@@ -82,6 +82,7 @@ namespace WinCTB_CTS.Module.Win.Controllers
             var session = objectSpace.Session;
             var dtSpoolsImport = new DataTable();
             var dtJuntasImport = new DataTable();
+            DataTableCollection dtcollectionImport = null;
 
             IntefaceInitialize();
 
@@ -100,6 +101,12 @@ namespace WinCTB_CTS.Module.Win.Controllers
                     {
                         stream.Seek(0, SeekOrigin.Begin);
                         fileStream.CopyTo(stream);
+
+                        using (var excelReader = new ExcelDataReaderHelper.Excel.Reader(stream))
+                        {
+                            dtcollectionImport = excelReader.CreateDataTableCollection();
+                        }
+
                         dtSpoolsImport = OpenXMLHelper.Excel.Reader.CreateDataTableFromStream(stream, "SGS");
                         dtJuntasImport = OpenXMLHelper.Excel.Reader.CreateDataTableFromStream(stream, "SGJ");
                         //var Import1 = OpenXMLHelper.Excel.Reader.CreateArrayFromStream(stream, "SGS");
@@ -129,7 +136,7 @@ namespace WinCTB_CTS.Module.Win.Controllers
                 }
             }
 
-           //int QuantidadeDeRegistro = dtSpoolsImport.Rows.Count;
+            //int QuantidadeDeRegistro = dtSpoolsImport.Rows.Count;
         }
 
         private XtraForm form;
@@ -192,9 +199,9 @@ namespace WinCTB_CTS.Module.Win.Controllers
                 CurrentRow = 0,
                 MessageImport = "Inicializando importação"
             });
-            
+
             session.BeginTransaction();
-            
+
             //Limpar registros
             Utils.DeleteAllRecords<Spool>(session);
             session.CommitTransaction();
@@ -207,7 +214,7 @@ namespace WinCTB_CTS.Module.Win.Controllers
                 spool.ArranjoFisico = Convert.ToString(linha["arranjoFisico"]);
                 spool.Save();
 
-                if(i % 1000 == 0)
+                if (i % 1000 == 0)
                 {
                     try
                     {
