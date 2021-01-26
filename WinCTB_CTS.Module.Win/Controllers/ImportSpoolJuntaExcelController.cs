@@ -259,7 +259,7 @@ namespace WinCTB_CTS.Module.Win.Controllers
                 spool.InspPiRevUnico = Convert.ToString(linha["inspPiRevUnico"]);
                 spool.RelPiRevUnico = Convert.ToString(linha["relPiRevUnico"]);
                 spool.DataPintFab = Convert.ToDateTime(linha["dataPintFab"]);
-                spool.ProgMontagem = Convert.ToString(linha[progMontagem]);
+                spool.ProgMontagem = Convert.ToString(linha["progMontagem"]);
                 spool.Elevacao = Convert.ToString(linha["elevacao"]);
                 spool.ProgPintura = Convert.ToString(linha["progPintura"]);
                 spool.EscopoMontagem = Convert.ToString(linha["escopoMontagem"]);
