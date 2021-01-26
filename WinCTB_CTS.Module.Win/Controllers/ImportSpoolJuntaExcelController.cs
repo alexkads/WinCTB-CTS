@@ -88,6 +88,27 @@ namespace WinCTB_CTS.Module.Win.Controllers
                 return 0;
         };
 
+        private XtraForm FormProgressImport;
+        private ProgressBarControl progressBarControl;
+        private SimpleButton cancelProgress;
+        private LabelControl statusProgess;
+
+        private void InitializeInteface()
+        {
+            FormProgressImport = new XtraProgressImport();
+
+            progressBarControl = FormProgressImport.Controls.OfType<ProgressBarControl>().FirstOrDefault();
+            statusProgess = FormProgressImport.Controls.OfType<LabelControl>().FirstOrDefault();
+            cancelProgress = FormProgressImport.Controls.OfType<SimpleButton>().FirstOrDefault();
+
+            progressBarControl.Properties.ShowTitle = true;
+            progressBarControl.Properties.Step = 1;
+            progressBarControl.Properties.PercentView = true;
+            progressBarControl.Properties.Minimum = 0;
+
+            FormProgressImport.Show();
+        }
+
         public async Task Executar(XPObjectSpace objectSpace)
         {
             var session = objectSpace.Session;
@@ -95,7 +116,7 @@ namespace WinCTB_CTS.Module.Win.Controllers
             var dtJuntasImport = new DataTable();
             DataTableCollection dtcollectionImport = null;
 
-            IntefaceInitialize();
+            InitializeInteface();
 
             using (OpenFileDialog openFileDialog = new OpenFileDialog())
             {
@@ -131,6 +152,8 @@ namespace WinCTB_CTS.Module.Win.Controllers
 
                     var progress = new Progress<ImportProgressReport>(value =>
                     {
+                        //XtraProgressImport;
+
                         progressBarControl.Properties.Maximum = value.TotalRows;
                         statusProgess.Text = value.MessageImport;
 
@@ -142,67 +165,19 @@ namespace WinCTB_CTS.Module.Win.Controllers
                     });
 
                     await Task.Run(() =>
-                    {
-                        StartImport(objectSpace, dtSpoolsImport, dtJuntasImport, progress);
-                    });
+                        ImportarSpools(objectSpace, dtSpoolsImport, progress));
 
-                    form.Close();
+                    await Task.Run(() =>
+                        ImportarJuntas(objectSpace, dtJuntasImport, progress));
+
+                    FormProgressImport.Close();
                 }
             }
 
             //int QuantidadeDeRegistro = dtSpoolsImport.Rows.Count;
         }
 
-        private XtraForm form;
-        private ProgressBarControl progressBarControl;
-        private SimpleButton cancelProgress;
-        private LabelControl statusProgess;
-
-        private void IntefaceInitialize()
-        {
-            progressBarControl = new ProgressBarControl();
-            cancelProgress = new SimpleButton();
-            statusProgess = new LabelControl();
-
-            form = new XtraForm();
-            form.ClientSize = new System.Drawing.Size(401, 87);
-            form.TopMost = true;
-            form.CancelButton = cancelProgress;
-            form.Text = "Importação";
-            form.Name = "Importação";
-            form.FormBorderEffect = FormBorderEffect.Default;
-            form.ControlBox = false;
-            form.StartPosition = FormStartPosition.CenterScreen;
-            form.FormBorderStyle = FormBorderStyle.FixedDialog;
-            form.Controls.Add((Control)progressBarControl);
-            form.Controls.Add((Control)cancelProgress);
-            form.Controls.Add((Control)statusProgess);
-
-            cancelProgress.Anchor = ((AnchorStyles.Bottom | AnchorStyles.Right));
-            cancelProgress.Location = new System.Drawing.Point(314, 12);
-            cancelProgress.Name = "simpleButton1";
-            cancelProgress.Size = new System.Drawing.Size(75, 33);
-            cancelProgress.TabIndex = 1;
-            cancelProgress.Text = "Cancel";
-            cancelProgress.Click += cancelProgress_Click;
-
-            progressBarControl.Anchor = ((AnchorStyles.Bottom | AnchorStyles.Left));
-            progressBarControl.Location = new System.Drawing.Point(12, 12);
-            progressBarControl.Size = new System.Drawing.Size(289, 33);
-            progressBarControl.TabIndex = 0;
-            progressBarControl.Properties.ShowTitle = true;
-            progressBarControl.Properties.Step = 1;
-            progressBarControl.Properties.PercentView = true;
-            progressBarControl.Properties.Minimum = 0;
-
-            statusProgess.Anchor = ((AnchorStyles.Bottom | AnchorStyles.Left));
-            statusProgess.Location = new System.Drawing.Point(12, 50);
-            statusProgess.Text = "Iniciando";
-
-            form.Show();
-        }
-
-        private void StartImport(XPObjectSpace objectSpace, DataTable dtSpoolsImport, DataTable dtJuntasImport, IProgress<ImportProgressReport> progress)
+        private void ImportarSpools(XPObjectSpace objectSpace, DataTable dtSpoolsImport, IProgress<ImportProgressReport> progress)
         {
             var session = objectSpace.Session;
             UnitOfWork uow = new UnitOfWork(((XPObjectSpace)ObjectSpace).Session.ObjectLayer);
@@ -236,10 +211,10 @@ namespace WinCTB_CTS.Module.Win.Controllers
                 spool.Linha = Convert.ToString(linha["linha"]);
                 spool.SiteFabricante = Convert.ToString(linha["siteFabricante"]);
                 spool.Isometrico = Convert.ToString(linha["isometrico"]);
-                spool.TagSpool = Convert.ToString(linha["tagSpool"]);
+                spool.TagSpool = $"{Convert.ToString(linha["isometrico"])}-{Convert.ToString(linha["tagSpool"])}" ;
                 spool.RevSpool = Convert.ToString(linha["revSpool"]);
-                spool.RevIso = Convert.ToString(linha["revIso"]);        
-                spool.Material = Convert.ToString(linha["material"]);                
+                spool.RevIso = Convert.ToString(linha["revIso"]);
+                //spool.Material = Convert.ToString(linha["material"]);                
                 spool.Norma = Convert.ToString(linha["norma"]);
                 spool.Diametro = ConvertINT(linha["diametro"]);
                 spool.DiametroPolegada = Convert.ToString(linha["diametroPolegada"]);
@@ -276,8 +251,8 @@ namespace WinCTB_CTS.Module.Win.Controllers
                 spool.RelIndIntermediaria = Convert.ToString(linha["relIndIntermediaria"]);
                 spool.DataPiAcabamento = ConvertDateTime(linha["dataPiAcabamento"]);
                 spool.InspPintAcabamento = Convert.ToString(linha["inspPintAcabamento"]);
-                spool.RelPintAcabamento = Convert.ToString(linha["relPintAcabamento"]);                
-                spool.RelIndPintAcabamento = Convert.ToString(linha["relIndPintAcabamento"]);                
+                spool.RelPintAcabamento = Convert.ToString(linha["relPintAcabamento"]);
+                spool.RelIndPintAcabamento = Convert.ToString(linha["relIndPintAcabamento"]);
                 spool.DataPiRevUnico = ConvertDateTime(linha["dataPiRevUnico"]);
                 spool.InspPiRevUnico = Convert.ToString(linha["inspPiRevUnico"]);
                 spool.RelPiRevUnico = Convert.ToString(linha["relPiRevUnico"]);
@@ -303,6 +278,86 @@ namespace WinCTB_CTS.Module.Win.Controllers
                 spool.SituacaoFabricacao = Convert.ToString(linha["situacaoFabricacao"]);
                 spool.SituacaoMontagem = Convert.ToString(linha["situacaoMontagem"]);
                 spool.Save();
+
+                if (i % 1000 == 0)
+                {
+                    try
+                    {
+                        uow.CommitTransaction();
+                    }
+                    catch
+                    {
+                        uow.RollbackTransaction();
+                        throw new Exception("Process aborted by system");
+                    }
+                }
+
+                progress.Report(new ImportProgressReport
+                {
+                    TotalRows = ToalRows,
+                    CurrentRow = i,
+                    MessageImport = $"Importando linha {i}/{ToalRows}"
+                });
+            }
+
+            progress.Report(new ImportProgressReport
+            {
+                TotalRows = ToalRows,
+                CurrentRow = ToalRows,
+                MessageImport = $"Gravando Alterações no Banco"
+            });
+
+            uow.CommitTransaction();
+            uow.PurgeDeletedObjects();
+            uow.CommitChanges();
+            uow.Dispose();
+        }
+
+        private void ImportarJuntas(XPObjectSpace objectSpace, DataTable dtJuntasImport, IProgress<ImportProgressReport> progress)
+        {
+            var session = objectSpace.Session;
+            UnitOfWork uow = new UnitOfWork(((XPObjectSpace)ObjectSpace).Session.ObjectLayer);
+            var ToalRows = dtJuntasImport.Rows.Count;
+
+            progress.Report(new ImportProgressReport
+            {
+                TotalRows = ToalRows,
+                CurrentRow = 0,
+                MessageImport = "Inicializando importação de juntas"
+            });
+
+            uow.BeginTransaction();
+
+            //Limpar registros
+            Utils.DeleteAllRecords<JuntaSpool>(uow);
+            uow.CommitTransaction();
+
+            for (int i = 0; i < ToalRows; i++)
+            {
+                var linha = dtJuntasImport.Rows[i];
+                var PesquisarSpool = linha["TagSpool"].ToString();
+                var FiltroPesquisa = new BinaryOperator("TagSpool", PesquisarSpool);
+                var spool = uow.FindObject<Spool>(FiltroPesquisa);
+                if (spool != null)
+                {
+                    var juntaSpool = new JuntaSpool(uow);
+
+                    juntaSpool.Site = linha["site"].ToString();
+                    juntaSpool.ArranjoFisico = linha["arranjoFisico"].ToString();
+                    juntaSpool.CampoAuxiliar = linha["campoAuxiliar"].ToString();
+                    juntaSpool.ProgFab = linha["progFab"].ToString();
+                    juntaSpool.Sop = linha["sop"].ToString();
+                    juntaSpool.Sth = linha["sth"].ToString();
+                    juntaSpool.Documento = linha["documento"].ToString();
+                    juntaSpool.Linha = linha["linha"].ToString();
+                    juntaSpool.Junta = linha["junta"].ToString();
+                    // Daniel - Adicionar campos do SGJ aqui dentro
+
+
+                    // Daniel - Adicionar campos do SGJ aqui dentro
+                    juntaSpool.Spool = spool;
+                    juntaSpool.Save();
+                }
 
                 if (i % 1000 == 0)
                 {

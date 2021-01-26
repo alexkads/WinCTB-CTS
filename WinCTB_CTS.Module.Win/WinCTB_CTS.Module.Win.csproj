@@ -197,6 +197,12 @@
     <Compile Include="Controllers\ImportSpoolJuntaExcelController.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="Controllers\XtraProgressImport.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Controllers\XtraProgressImport.Designer.cs">
+      <DependentUpon>XtraProgressImport.cs</DependentUpon>
+    </Compile>
     <Compile Include="Custom\CustomGridController.cs" />
     <Compile Include="WinModule.cs">
       <SubType>Component</SubType>
@@ -207,6 +213,9 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="Controllers\XtraProgressImport.resx">
+      <DependentUpon>XtraProgressImport.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Model.DesignedDiffs.xafml" />
     <EmbeddedResource Include="Properties\licenses.licx" />
     <EmbeddedResource Include="WinModule.resx">
