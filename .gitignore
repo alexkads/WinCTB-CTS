@@ -45,6 +45,7 @@ bld/
 *.pidb
 *.svclog
 *.scc
+*.licx
 
 # NuGet Packages
 *.nupkg
