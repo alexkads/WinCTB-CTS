@@ -26,6 +26,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using WinCTB_CTS.Module.BusinessObjects.Tubulacao;
+using WinCTB_CTS.Module.BusinessObjects.Tubulacao.Auxiliar;
 using WinCTB_CTS.Module.Comum;
 
 namespace WinCTB_CTS.Module.Win.Controllers
@@ -353,8 +354,7 @@ namespace WinCTB_CTS.Module.Win.Controllers
                     juntaSpool.Linha = linha["linha"].ToString();
                     juntaSpool.Junta = linha["junta"].ToString();
                     // Daniel - Adicionar campos do SGJ aqui dentro
-                    juntaSpool.DiametroPolegada = linha["diametroPolegada"].ToString();
-                    juntaSpool.DiametroMilimetro = ConvertDouble(linha["diametroMilimetro"]);
+                    juntaSpool.TabDiametro = uow.FindObject<TabDiametro>(new BinaryOperator("DiametroPolegada", linha["diametroPolegada"].ToString()));
                     juntaSpool.Schedule = linha["schedule"].ToString();
                     juntaSpool.TipoJunta = linha["tipoJunta"].ToString();
                     juntaSpool.Spec = linha["spec"].ToString();
