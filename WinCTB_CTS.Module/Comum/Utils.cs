@@ -14,6 +14,7 @@ using System.Net.Mail;
 using System.Net;
 using System.Reflection;
 using DevExpress.ExpressApp;
+using System.IO;
 
 namespace WinCTB_CTS.Module.Comum
 {
@@ -95,6 +96,13 @@ namespace WinCTB_CTS.Module.Comum
             string invalidRegStr = string.Format(@"([{0}]*\.+$)|([{0}]+)", invalidChars);
 
             return System.Text.RegularExpressions.Regex.Replace(name, invalidRegStr, "_");
+        }
+
+        private static Stream GetManifestResource(string ResourceName)
+        {
+            Type moduleType = typeof(WinCTB_CTSModule);
+            string name = $"{moduleType.Namespace}.Resources.{ResourceName}";
+            return moduleType.Assembly.GetManifestResourceStream(name);
         }
     }
 }

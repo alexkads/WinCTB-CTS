@@ -19,13 +19,13 @@ namespace WinCTB_CTS.Module.ExcelDataReaderHelper.Excel
             excelDataReader = ExcelReaderFactory.CreateOpenXmlReader(stream);
         }
 
-        public DataTableCollection CreateDataTableCollection()
+        public DataTableCollection CreateDataTableCollection(bool useHeaderRow = true)
         {
             dataSetResult = excelDataReader.AsDataSet(new ExcelDataSetConfiguration()
             {
                 ConfigureDataTable = (_) => new ExcelDataTableConfiguration()
                 {
-                    UseHeaderRow = true
+                    UseHeaderRow = useHeaderRow
                 }
             });
             return dataSetResult.Tables;

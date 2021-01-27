@@ -200,6 +200,10 @@
     <Compile Include="Controllers\ImportSpoolJuntaExcelController.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="Controllers\ImportTabelasAxiliaresController.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Controllers\ParametrosAtualizacaoTabelasAuxiliares.cs" />
     <Compile Include="Controllers\XtraProgressImport.cs">
       <SubType>Form</SubType>
     </Compile>
