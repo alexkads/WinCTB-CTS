@@ -179,6 +179,7 @@ namespace WinCTB_CTS.Module.BusinessObjects.Tubulacao
             set => SetPropertyValue(nameof(Isometrico), ref isometrico, value);
         }
 
+        [Indexed(Unique = false)]
         [Size(100), XafDisplayName("Spool"), RuleRequiredField]
         public string TagSpool
         {

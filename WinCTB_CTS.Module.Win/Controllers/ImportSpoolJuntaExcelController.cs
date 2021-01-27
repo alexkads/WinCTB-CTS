@@ -167,6 +167,8 @@ namespace WinCTB_CTS.Module.Win.Controllers
                     await Task.Run(() =>
                         ImportarSpools(objectSpace, dtSpoolsImport, progress));
 
+                    progressBarControl.EditValue = 0;
+
                     await Task.Run(() =>
                         ImportarJuntas(objectSpace, dtJuntasImport, progress));
 
@@ -181,11 +183,11 @@ namespace WinCTB_CTS.Module.Win.Controllers
         {
             var session = objectSpace.Session;
             UnitOfWork uow = new UnitOfWork(((XPObjectSpace)ObjectSpace).Session.ObjectLayer);
-            var ToalRows = dtSpoolsImport.Rows.Count;
+            var TotalDeJuntas = dtSpoolsImport.Rows.Count;
 
             progress.Report(new ImportProgressReport
             {
-                TotalRows = ToalRows,
+                TotalRows = TotalDeJuntas,
                 CurrentRow = 0,
                 MessageImport = "Inicializando importação"
             });
@@ -196,7 +198,7 @@ namespace WinCTB_CTS.Module.Win.Controllers
             Utils.DeleteAllRecords<Spool>(uow);
             uow.CommitTransaction();
 
-            for (int i = 0; i < ToalRows; i++)
+            for (int i = 0; i < TotalDeJuntas; i++)
             {
                 var linha = dtSpoolsImport.Rows[i];
                 var spool = new Spool(uow);
@@ -277,7 +279,6 @@ namespace WinCTB_CTS.Module.Win.Controllers
                 spool.PesoMontagem = ConvertDouble(linha["pesoMontagem"]);
                 spool.SituacaoFabricacao = Convert.ToString(linha["situacaoFabricacao"]);
                 spool.SituacaoMontagem = Convert.ToString(linha["situacaoMontagem"]);
-                spool.Save();
 
                 if (i % 1000 == 0)
                 {
@@ -294,16 +295,16 @@ namespace WinCTB_CTS.Module.Win.Controllers
 
                 progress.Report(new ImportProgressReport
                 {
-                    TotalRows = ToalRows,
+                    TotalRows = TotalDeJuntas,
                     CurrentRow = i,
-                    MessageImport = $"Importando linha {i}/{ToalRows}"
+                    MessageImport = $"Importando linha {i}/{TotalDeJuntas}"
                 });
             }
 
             progress.Report(new ImportProgressReport
             {
-                TotalRows = ToalRows,
-                CurrentRow = ToalRows,
+                TotalRows = TotalDeJuntas,
+                CurrentRow = TotalDeJuntas,
                 MessageImport = $"Gravando Alterações no Banco"
             });
 
@@ -317,11 +318,11 @@ namespace WinCTB_CTS.Module.Win.Controllers
         {
             var session = objectSpace.Session;
             UnitOfWork uow = new UnitOfWork(((XPObjectSpace)ObjectSpace).Session.ObjectLayer);
-            var ToalRows = dtJuntasImport.Rows.Count;
+            var TotalDeJuntas = dtJuntasImport.Rows.Count;
 
             progress.Report(new ImportProgressReport
             {
-                TotalRows = ToalRows,
+                TotalRows = TotalDeJuntas,
                 CurrentRow = 0,
                 MessageImport = "Inicializando importação de juntas"
             });
@@ -332,7 +333,7 @@ namespace WinCTB_CTS.Module.Win.Controllers
             Utils.DeleteAllRecords<JuntaSpool>(uow);
             uow.CommitTransaction();
 
-            for (int i = 0; i < ToalRows; i++)
+            for (int i = 0; i < TotalDeJuntas; i++)
             {
                 var linha = dtJuntasImport.Rows[i];
                 var PesquisarSpool = linha["TagSpool"].ToString();
@@ -426,10 +427,9 @@ namespace WinCTB_CTS.Module.Win.Controllers
                     juntaSpool.RelDimFab = linha["relDimFab"].ToString();
                     // Daniel - Adicionar campos do SGJ aqui dentro
                     juntaSpool.Spool = spool;
-                    juntaSpool.Save();
                 }
 
-                if (i % 1000 == 0)
+                if (i % 2000 == 0)
                 {
                     try
                     {
@@ -444,16 +444,16 @@ namespace WinCTB_CTS.Module.Win.Controllers
 
                 progress.Report(new ImportProgressReport
                 {
-                    TotalRows = ToalRows,
+                    TotalRows = TotalDeJuntas,
                     CurrentRow = i,
-                    MessageImport = $"Importando linha {i}/{ToalRows}"
+                    MessageImport = $"Importando linha {i}/{TotalDeJuntas}"
                 });
             }
 
             progress.Report(new ImportProgressReport
             {
-                TotalRows = ToalRows,
-                CurrentRow = ToalRows,
+                TotalRows = TotalDeJuntas,
+                CurrentRow = TotalDeJuntas,
                 MessageImport = $"Gravando Alterações no Banco"
             });
 
