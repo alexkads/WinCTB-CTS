@@ -11,6 +11,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using System.Text;
+using WinCTB_CTS.Module.BusinessObjects.Tubulacao.Auxiliar;
 
 namespace WinCTB_CTS.Module.BusinessObjects.Tubulacao
 {
@@ -27,9 +28,10 @@ namespace WinCTB_CTS.Module.BusinessObjects.Tubulacao
         }
 
 
-        string relDimFab;
-        string relIdLiga;
-        string relRastMaterial;
+        TabDiametro tabDiametro;
+        private string relDimFab;
+        private string relIdLiga;
+        private string relRastMaterial;
         private string situacaoJunta;
         private DateTime? dataLiberacaoJunta;
         private string loteLp;
@@ -99,8 +101,6 @@ namespace WinCTB_CTS.Module.BusinessObjects.Tubulacao
         private string spec;
         private string tipoJunta;
         private string schedule;
-        private double diametroMilimetro;
-        private string diametroPolegada;
         private string junta;
         private string linha;
         private string documento;
@@ -183,19 +183,6 @@ namespace WinCTB_CTS.Module.BusinessObjects.Tubulacao
             set => SetPropertyValue(nameof(Junta), ref junta, value);
         }
 
-        [Size(100), XafDisplayName("Di_Pol")]
-        public string DiametroPolegada
-        {
-            get => diametroPolegada;
-            set => SetPropertyValue(nameof(DiametroPolegada), ref diametroPolegada, value);
-        }
-        [XafDisplayName("Diâmetro em Milímetros")]
-        public double DiametroMilimetro
-        {
-            get => diametroMilimetro;
-            set => SetPropertyValue(nameof(DiametroMilimetro), ref diametroMilimetro, value);
-        }
-
         [XafDisplayName("Espessura em 'mm'")]
 
         public double Espessura
@@ -203,8 +190,6 @@ namespace WinCTB_CTS.Module.BusinessObjects.Tubulacao
             get => espessura;
             set => SetPropertyValue(nameof(Espessura), ref espessura, value);
         }
-
-
 
         [Size(100)]
         public string Schedule
@@ -685,7 +670,7 @@ namespace WinCTB_CTS.Module.BusinessObjects.Tubulacao
             get => dataEstanqueidade;
             set => SetPropertyValue(nameof(DataEstanqueidade), ref dataEstanqueidade, value);
         }
-        
+
         [Size(100), XafDisplayName("Relatório de Dimensional de Fabricação")]
         public string RelDimFab
         {
@@ -723,14 +708,19 @@ namespace WinCTB_CTS.Module.BusinessObjects.Tubulacao
             get => dataLiberacaoJunta;
             set => SetPropertyValue(nameof(DataLiberacaoJunta), ref dataLiberacaoJunta, value);
         }
-        
+
         [Size(100), XafDisplayName("Situação da Junta")]
         public string SituacaoJunta
         {
             get => situacaoJunta;
             set => SetPropertyValue(nameof(SituacaoJunta), ref situacaoJunta, value);
         }
-
-
+        
+        [Association("TabDiametro-JuntaSpools")]
+        public TabDiametro TabDiametro
+        {
+            get => tabDiametro;
+            set => SetPropertyValue(nameof(TabDiametro), ref tabDiametro, value);
+        }
     }
 }
