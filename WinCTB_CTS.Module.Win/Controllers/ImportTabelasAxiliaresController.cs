@@ -21,6 +21,7 @@ namespace WinCTB_CTS.Module.Win.Controllers
     public partial class ImportTabelasAxiliaresController : WindowController
     {
         SimpleAction ActionAtualizarTabelasAuxiliares;
+        IObjectSpace objectSpace;
         public ImportTabelasAxiliaresController()
         {
             TargetWindowType = WindowType.Main;
@@ -35,9 +36,9 @@ namespace WinCTB_CTS.Module.Win.Controllers
 
         private void ActionAtualizarTabelasAuxiliares_Execute(object sender, SimpleActionExecuteEventArgs e)
         {
-            var os = Application.CreateObjectSpace();
-            var param = os.CreateObject<ParametrosAtualizacaoTabelasAuxiliares>();
-            DetailView view = Application.CreateDetailView(os, param);
+            var objectSpace = Application.CreateObjectSpace();
+            var param = objectSpace.CreateObject<ParametrosAtualizacaoTabelasAuxiliares>();
+            DetailView view = Application.CreateDetailView(objectSpace, param);
             view.ViewEditMode = ViewEditMode.Edit;
 
             e.ShowViewParameters.NewWindowTarget = NewWindowTarget.Separate;
@@ -89,6 +90,12 @@ namespace WinCTB_CTS.Module.Win.Controllers
         {
             //Converter Pivot em Linhas
             var schedules = ConvertListFromPivot(dtSchedule);
+
+            foreach (var item in schedules)
+            {
+                objectSpace.CreateObject<TabSchedule>
+
+            }
         }
 
         static private Func<DataTable, IEnumerable<ScheduleMapping>> ConvertListFromPivot = (dt) =>
