@@ -27,5 +27,39 @@ namespace WinCTB_CTS.Module.BusinessObjects.Tubulacao.Auxiliar
         }
 
 
+        private string scheduleTag;
+        private string wDI;
+        private string material;
+        private string pipingClass;
+
+        [Size(100)]
+        public string PipingClass
+        {
+            get => pipingClass;
+            set => SetPropertyValue(nameof(PipingClass), ref pipingClass, value);
+        }
+
+        [Size(100)]
+        public string Material
+        {
+            get => material;
+            set => SetPropertyValue(nameof(Material), ref material, value);
+        }
+
+
+        [Size(50)]
+        public string WDI
+        {
+            get => wDI;
+            set => SetPropertyValue(nameof(WDI), ref wDI, value);
+        }
+
+        
+        [Size(50)]
+        public string ScheduleTag
+        {
+            get => scheduleTag;
+            set => SetPropertyValue(nameof(ScheduleTag), ref scheduleTag, value);
+        }
     }
 }

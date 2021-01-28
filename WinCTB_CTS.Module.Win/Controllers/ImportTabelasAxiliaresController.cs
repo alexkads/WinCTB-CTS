@@ -1,4 +1,5 @@
-﻿using DevExpress.ExpressApp;
+﻿using DevExpress.Data.Filtering;
+using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Actions;
 using DevExpress.ExpressApp.Editors;
 using DevExpress.ExpressApp.Layout;
@@ -14,6 +15,7 @@ using System.Data;
 using System.IO;
 using System.Linq;
 using System.Text;
+using WinCTB_CTS.Module.BusinessObjects.Tubulacao.Auxiliar;
 
 namespace WinCTB_CTS.Module.Win.Controllers
 {
@@ -21,7 +23,7 @@ namespace WinCTB_CTS.Module.Win.Controllers
     public partial class ImportTabelasAxiliaresController : WindowController
     {
         SimpleAction ActionAtualizarTabelasAuxiliares;
-        IObjectSpace objectSpace;
+        IObjectSpace objectSpace = null;
         public ImportTabelasAxiliaresController()
         {
             TargetWindowType = WindowType.Main;
@@ -36,7 +38,7 @@ namespace WinCTB_CTS.Module.Win.Controllers
 
         private void ActionAtualizarTabelasAuxiliares_Execute(object sender, SimpleActionExecuteEventArgs e)
         {
-            var objectSpace = Application.CreateObjectSpace();
+            objectSpace = Application.CreateObjectSpace();
             var param = objectSpace.CreateObject<ParametrosAtualizacaoTabelasAuxiliares>();
             DetailView view = Application.CreateDetailView(objectSpace, param);
             view.ViewEditMode = ViewEditMode.Edit;
@@ -93,9 +95,21 @@ namespace WinCTB_CTS.Module.Win.Controllers
 
             foreach (var item in schedules)
             {
-                objectSpace.CreateObject<TabSchedule>
+                var criteriaOperator = CriteriaOperator.Parse("PipingClass = ? And Material = ? And WDI = ? And ScheduleTag = ?",
+                    item.pipingClass, item.material, item.wdi, item.scheduleTag);
 
+                var tabSchedule = objectSpace.FindObject<TabSchedule>(criteriaOperator);
+                if (tabSchedule == null)
+                {
+                    tabSchedule = objectSpace.CreateObject<TabSchedule>();
+                    tabSchedule.PipingClass = item.pipingClass;
+                    tabSchedule.Material = item.material;
+                    tabSchedule.WDI = item.wdi;
+                    tabSchedule.ScheduleTag = item.scheduleTag;
+
+                }
             }
+            objectSpace.CommitChanges();
         }
 
         static private Func<DataTable, IEnumerable<ScheduleMapping>> ConvertListFromPivot = (dt) =>
@@ -115,7 +129,7 @@ namespace WinCTB_CTS.Module.Win.Controllers
                              numeroLinha = idxrow,
                              pipingClass = row[0].ToString(),
                              material = row[1].ToString(),
-                             diametro = ((dt.Rows[0])[idxcol]).ToString(),
+                             wdi = ((dt.Rows[0])[idxcol]).ToString(),
                              scheduleTag = row[idxcol].ToString()
                          });
                      }
@@ -140,7 +154,7 @@ namespace WinCTB_CTS.Module.Win.Controllers
         public int numeroLinha { get; set; }
         public string pipingClass { get; set; }
         public string material { get; set; }
-        public string diametro { get; set; }
+        public string wdi { get; set; }
         public string scheduleTag { get; set; }
 
     }
