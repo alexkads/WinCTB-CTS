@@ -28,7 +28,7 @@ namespace WinCTB_CTS.Module.BusinessObjects.Tubulacao
         }
 
 
-        TabDiametro tabDiametro;
+        private TabDiametro tabDiametro;
         private string relDimFab;
         private string relIdLiga;
         private string relRastMaterial;
@@ -231,6 +231,13 @@ namespace WinCTB_CTS.Module.BusinessObjects.Tubulacao
         {
             get => classeInspecao;
             set => SetPropertyValue(nameof(ClasseInspecao), ref classeInspecao, value);
+        }
+
+        [Association("TabDiametro-JuntaSpools")]
+        public TabDiametro TabDiametro
+        {
+            get => tabDiametro;
+            set => SetPropertyValue(nameof(TabDiametro), ref tabDiametro, value);
         }
 
         [Size(100)]
@@ -714,13 +721,6 @@ namespace WinCTB_CTS.Module.BusinessObjects.Tubulacao
         {
             get => situacaoJunta;
             set => SetPropertyValue(nameof(SituacaoJunta), ref situacaoJunta, value);
-        }
-        
-        [Association("TabDiametro-JuntaSpools")]
-        public TabDiametro TabDiametro
-        {
-            get => tabDiametro;
-            set => SetPropertyValue(nameof(TabDiametro), ref tabDiametro, value);
         }
     }
 }

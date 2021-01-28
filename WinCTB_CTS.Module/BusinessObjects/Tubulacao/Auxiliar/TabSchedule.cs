@@ -14,7 +14,7 @@ using System.Text;
 
 namespace WinCTB_CTS.Module.BusinessObjects.Tubulacao.Auxiliar
 {
-    [DefaultClassOptions]
+    [DefaultClassOptions, DefaultProperty("PipingClass"), ImageName("BO_Contract"), NavigationItem("Tabela Auxiliar")]
     public class TabSchedule : BaseObject
     {
         public TabSchedule(Session session)
@@ -27,8 +27,8 @@ namespace WinCTB_CTS.Module.BusinessObjects.Tubulacao.Auxiliar
         }
 
 
+        private TabDiametro tabDiametro;
         private string scheduleTag;
-        private string wDI;
         private string material;
         private string pipingClass;
 
@@ -46,15 +46,17 @@ namespace WinCTB_CTS.Module.BusinessObjects.Tubulacao.Auxiliar
             set => SetPropertyValue(nameof(Material), ref material, value);
         }
 
-
-        [Size(50)]
-        public string WDI
+        [Association("TabDiametro-TabSchedules")]
+        public TabDiametro TabDiametro
         {
-            get => wDI;
-            set => SetPropertyValue(nameof(WDI), ref wDI, value);
+            get => tabDiametro;
+            set => SetPropertyValue(nameof(TabDiametro), ref tabDiametro, value);
         }
 
-        
+        [XafDisplayName("WDI")]
+        [PersistentAlias("TabDiametro.Wdi")]
+        public string Wdi => (string)EvaluateAlias("Wdi");
+
         [Size(50)]
         public string ScheduleTag
         {

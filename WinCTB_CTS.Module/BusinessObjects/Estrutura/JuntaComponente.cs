@@ -14,7 +14,7 @@ using System.Text;
 
 namespace WinCTB_CTS.Module.BusinessObjects.Estrutura
 {
-    [DefaultClassOptions]
+    [DefaultClassOptions, DefaultProperty("ConcatComponenteJunta"), ImageName("BO_Contract"), NavigationItem("Estrutura")]
     public class JuntaComponente : BaseObject
     { 
         public JuntaComponente(Session session)
@@ -93,6 +93,11 @@ namespace WinCTB_CTS.Module.BusinessObjects.Estrutura
             set => SetPropertyValue(nameof(Junta), ref junta, value);
         }
 
+        [XafDisplayName("Componente-Junta")]
+        [PersistentAlias("Concat(Componente,'-',Junta)")]
+        public string ConcatComponenteJunta => (string)EvaluateAlias("Relatorio");
+
+        
         [Size(100), XafDisplayName("Tipo de Junta")]
         public string TipoJunta
         {

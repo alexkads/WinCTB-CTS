@@ -20,6 +20,7 @@ using System.Text;
 using System.Threading.Tasks;
 using WinCTB_CTS.Module.BusinessObjects.Tubulacao.Auxiliar;
 using WinCTB_CTS.Module.Win.Editors;
+using WinCTB_CTS.Module.Comum;
 
 namespace WinCTB_CTS.Module.Win.Controllers
 {
@@ -139,9 +140,58 @@ namespace WinCTB_CTS.Module.Win.Controllers
                     progressbar.EditValue = value;
             });
 
+            await ImportarDiametro(dtcollectionImport["TabDiametro"], progress);
             await ImportarSchedule(dtcollectionImport["Schedule"], progress);
         }
 
+        private async Task ImportarDiametro(DataTable dtSchedule, IProgress<double> progress)
+        {
+            var TotalRows = dtSchedule.Rows.Count;
+
+            UnitOfWork uow = new UnitOfWork(((XPObjectSpace)objectSpace).Session.ObjectLayer);
+            uow.BeginTransaction();
+
+            for (int i = 0; i < TotalRows; i++)
+            {
+
+                if (i > 0)
+                {
+                    var row = dtSchedule.Rows[i];
+                    var polegada = row[0].ToString();
+                    var wdi = row[1].ToString();
+                    var mm = Utils.ConvertINT(row[2]);
+
+                    var criteriaOperator = new BinaryOperator("DiametroPolegada", polegada);
+                    var tabDiametro = uow.FindObject<TabDiametro>(criteriaOperator);
+
+                    if (tabDiametro == null)
+                        tabDiametro = new TabDiametro(uow);
+
+                    tabDiametro.DiametroPolegada = polegada;
+                    tabDiametro.DiametroMilimetro = mm;
+                    tabDiametro.Wdi = wdi;
+
+                    progress.Report(50);
+                }
+
+                if (i % 10 == 0)
+                {
+                    try
+                    {
+                        uow.CommitTransaction();
+                    }
+                    catch
+                    {
+                        uow.RollbackTransaction();
+                        throw new Exception("Process aborted by system");
+                    }
+                }
+            }
+
+            uow.CommitTransaction();
+            await uow.CommitChangesAsync();
+            uow.Dispose();
+        }
         private async Task ImportarSchedule(DataTable dtSchedule, IProgress<double> progress)
         {
             var schedules = ConvertListFromPivot(dtSchedule);
@@ -152,7 +202,7 @@ namespace WinCTB_CTS.Module.Win.Controllers
 
             for (int i = 0; i < TotalRows; i++)
             {
-                var criteriaOperator = CriteriaOperator.Parse("PipingClass = ? And Material = ? And WDI = ? And ScheduleTag = ?",
+                var criteriaOperator = CriteriaOperator.Parse("PipingClass = ? And Material = ? And TabDiametro.Wdi = ? And ScheduleTag = ?",
                      schedules[i].pipingClass, schedules[i].material, schedules[i].wdi, schedules[i].scheduleTag);
 
                 var tabSchedule = uow.FindObject<TabSchedule>(criteriaOperator);
@@ -162,7 +212,7 @@ namespace WinCTB_CTS.Module.Win.Controllers
 
                 tabSchedule.PipingClass = schedules[i].pipingClass;
                 tabSchedule.Material = schedules[i].material;
-                tabSchedule.WDI = schedules[i].wdi;
+                tabSchedule.TabDiametro = uow.FindObject<TabDiametro>(new BinaryOperator("Wdi", schedules[i].wdi));
                 tabSchedule.ScheduleTag = schedules[i].scheduleTag;
 
                 progress.Report(50);
@@ -184,7 +234,6 @@ namespace WinCTB_CTS.Module.Win.Controllers
             uow.CommitTransaction();
             await uow.CommitChangesAsync();
             uow.Dispose();
-            objectSpace.Dispose();
         }
 
         static private Func<DataTable, IList<ScheduleMapping>> ConvertListFromPivot = (dt) =>

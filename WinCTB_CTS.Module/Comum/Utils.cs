@@ -104,5 +104,29 @@ namespace WinCTB_CTS.Module.Comum
             string name = $"{moduleType.Namespace}.Resources.{ResourceName}";
             return moduleType.Assembly.GetManifestResourceStream(name);
         }
+
+        public static Func<object, DateTime?> ConvertDateTime = (obj) =>
+        {
+            if (obj != DBNull.Value)
+                return Convert.ToDateTime(obj);
+            else
+                return null;
+        };
+
+        public static Func<object, double> ConvertDouble = (obj) =>
+        {
+            if (obj != DBNull.Value)
+                return Convert.ToDouble(obj);
+            else
+                return 0D;
+        };
+
+        public static Func<object, Int32> ConvertINT = (obj) =>
+        {
+            if (obj != DBNull.Value)
+                return Convert.ToInt32(obj);
+            else
+                return 0;
+        };
     }
 }

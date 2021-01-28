@@ -14,7 +14,7 @@ using System.Text;
 
 namespace WinCTB_CTS.Module.BusinessObjects.Tubulacao.Auxiliar
 {
-    [DefaultClassOptions]
+    [DefaultClassOptions, DefaultProperty("DiametroPolegada"), ImageName("BO_Contract"), NavigationItem("Tabela Auxiliar")]
 
     public class TabDiametro : BaseObject
     { 
@@ -24,8 +24,8 @@ namespace WinCTB_CTS.Module.BusinessObjects.Tubulacao.Auxiliar
         }
 
 
+        private int diametroMilimetro;
         private string wdi;
-        private string diametroMilimetro;
         private string diametroPolegada;
 
         [Size(100), XafDisplayName("Polegada")]
@@ -35,12 +35,21 @@ namespace WinCTB_CTS.Module.BusinessObjects.Tubulacao.Auxiliar
             set => SetPropertyValue(nameof(DiametroPolegada), ref diametroPolegada, value);
         }
 
+        //[Size(100), XafDisplayName("mm")]
+        //public string DiametroMilimetro
+        //{
+        //    get => diametroMilimetro;
+        //    set => SetPropertyValue(nameof(DiametroMilimetro), ref diametroMilimetro, value);
+        //}
+
+
         [Size(100), XafDisplayName("mm")]
-        public string DiametroMilimetro
+        public int DiametroMilimetro
         {
             get => diametroMilimetro;
             set => SetPropertyValue(nameof(DiametroMilimetro), ref diametroMilimetro, value);
         }
+
 
 
         [Size(100), XafDisplayName("WDI")]
@@ -56,6 +65,15 @@ namespace WinCTB_CTS.Module.BusinessObjects.Tubulacao.Auxiliar
             get
             {
                 return GetCollection<JuntaSpool>(nameof(JuntaSpools));
+            }
+        }
+
+        [Association("TabDiametro-TabSchedules")]
+        public XPCollection<TabSchedule> TabSchedules
+        {
+            get
+            {
+                return GetCollection<TabSchedule>(nameof(TabSchedules));
             }
         }
     }

@@ -15,7 +15,7 @@ using WinCTB_CTS.Module.BusinessObjects.Tubulacao.Medicao;
 
 namespace WinCTB_CTS.Module.BusinessObjects.Tubulacao
 {
-    [DefaultClassOptions, DefaultProperty("Spool"), ImageName("BO_Contract"), NavigationItem("Tubulação")]
+    [DefaultClassOptions, DefaultProperty("TagSpool"), ImageName("BO_Contract"), NavigationItem("Tubulação")]
     public class Spool : BaseObject
     {
         public Spool(Session session)

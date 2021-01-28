@@ -14,7 +14,7 @@ using System.Text;
 
 namespace WinCTB_CTS.Module.BusinessObjects.Estrutura
 {
-    [DefaultClassOptions]
+    [DefaultClassOptions, DefaultProperty("DocumentoReferencia"), ImageName("BO_Contract"), NavigationItem("Estrutura")]
     public class Componente : BaseObject
     { 
         public Componente(Session session)
