@@ -211,6 +211,7 @@
       <DependentUpon>XtraProgressImport.cs</DependentUpon>
     </Compile>
     <Compile Include="Custom\CustomGridController.cs" />
+    <Compile Include="Editors\WinProgressPropertyEditor.cs" />
     <Compile Include="WinModule.cs">
       <SubType>Component</SubType>
     </Compile>

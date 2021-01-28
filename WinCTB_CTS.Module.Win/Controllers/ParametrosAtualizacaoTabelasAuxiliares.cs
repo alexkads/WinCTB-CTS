@@ -8,6 +8,7 @@ using System.IO;
 using DevExpress.Xpo;
 using DevExpress.ExpressApp.DC;
 using DevExpress.ExpressApp.Xpo;
+using WinCTB_CTS.Module.BusinessObjects.Padrao;
 
 namespace WinCTB_CTS.Module.Win.Controllers
 {
@@ -23,6 +24,12 @@ namespace WinCTB_CTS.Module.Win.Controllers
 
         public ParametrosAtualizacaoTabelasAuxiliares(Session session)
             : base(session) { }
+
+        public override void AfterConstruction()
+        {
+            base.AfterConstruction();
+            Progresso = 50;
+        }
 
         private static Stream GetManifestResource(string ResourceName)
         {
@@ -54,6 +61,14 @@ namespace WinCTB_CTS.Module.Win.Controllers
                 }
                 return padrao;
             }
+        }
+
+        [EditorAlias(EditorsProviders.ProgressPropertyAlias)]
+        [Delayed, VisibleInListView(false)]
+        public double Progresso
+        {
+            get { return GetDelayedPropertyValue<double>("Progresso"); }
+            set { SetDelayedPropertyValue<double>("Progresso", value); }
         }
     }
 }

@@ -9,13 +9,17 @@ using DevExpress.ExpressApp.Templates;
 using DevExpress.ExpressApp.Utils;
 using DevExpress.ExpressApp.Xpo;
 using DevExpress.Persistent.Base;
+using DevExpress.Xpo;
+using DevExpress.XtraEditors;
 using System;
 using System.Collections.Generic;
 using System.Data;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
 using WinCTB_CTS.Module.BusinessObjects.Tubulacao.Auxiliar;
+using WinCTB_CTS.Module.Win.Editors;
 
 namespace WinCTB_CTS.Module.Win.Controllers
 {
@@ -24,6 +28,8 @@ namespace WinCTB_CTS.Module.Win.Controllers
     {
         SimpleAction ActionAtualizarTabelasAuxiliares;
         IObjectSpace objectSpace = null;
+        ProgressBarControl progressbar;
+
         public ImportTabelasAxiliaresController()
         {
             TargetWindowType = WindowType.Main;
@@ -41,6 +47,10 @@ namespace WinCTB_CTS.Module.Win.Controllers
             objectSpace = Application.CreateObjectSpace();
             var param = objectSpace.CreateObject<ParametrosAtualizacaoTabelasAuxiliares>();
             DetailView view = Application.CreateDetailView(objectSpace, param);
+            var ProgressPropertyEditor = ((DetailView)view).FindItem("Progresso") as PropertyEditor;
+            ProgressPropertyEditor.ControlCreated += ProgressPropertyEditor_ControlCreated;
+
+            //ProgressPropertyEditor = (WinProgressPropertyEditor)view.FindItem("Progresso");
             view.ViewEditMode = ViewEditMode.Edit;
 
             e.ShowViewParameters.NewWindowTarget = NewWindowTarget.Separate;
@@ -49,15 +59,25 @@ namespace WinCTB_CTS.Module.Win.Controllers
             e.ShowViewParameters.Controllers.Add(dialogControllerAcceptingImportarPlanilha());
         }
 
+        private void ProgressPropertyEditor_ControlCreated(object sender, EventArgs e)
+        {
+            //(((PropertyEditor)sender).Control as TaskProgressBarControl).Properties = 100; ;
+            progressbar = ((WinProgressPropertyEditor)sender).Control as ProgressBarControl;
+            progressbar.EditValue = 20;
+            progressbar.Properties.PercentView = true;
+            progressbar.Update();
+        }
+
         private DialogController dialogControllerAcceptingImportarPlanilha()
         {
             DialogController dialogControllerImportarPlanilha = Application.CreateController<DialogController>();
             dialogControllerImportarPlanilha.Accepting += DialogControllerImportarPlanilha_Accepting;
-            //dc.CancelAction.Active["NoAccept"] = false;
+            //dialogControllerImportarPlanilha.CancelAction.Active["NoAccept"] = false;
             return dialogControllerImportarPlanilha;
         }
 
-        private void DialogControllerImportarPlanilha_Accepting(object sender, DialogControllerAcceptingEventArgs e)
+
+        private async void DialogControllerImportarPlanilha_Accepting(object sender, DialogControllerAcceptingEventArgs e)
         {
             var parametros = (ParametrosAtualizacaoTabelasAuxiliares)e.AcceptActionArgs.SelectedObjects[0];
             MemoryStream stream = new MemoryStream();
@@ -66,16 +86,40 @@ namespace WinCTB_CTS.Module.Win.Controllers
             arquivo.SaveToStream(stream);
 
             //Executar importação da planilha anexo em stream
-            ImportAndAddToSpreadsheetStream(stream);
+            await ImportAndAddToSpreadsheetStream(stream);
+            //FormProgressImport.Close();
+
         }
 
         DataTableCollection dtcollectionImport;
+        //private XtraForm FormProgressImport;
+        //private ProgressBarControl progressBarControl;
+        //private SimpleButton cancelProgress;
+        //private LabelControl statusProgess;
 
-        private void ImportAndAddToSpreadsheetStream(MemoryStream stream)
+        //private void InitializeInteface()
+        //{
+        //    FormProgressImport = new XtraProgressImport();
+
+        //    progressBarControl = FormProgressImport.Controls.OfType<ProgressBarControl>().FirstOrDefault();
+        //    statusProgess = FormProgressImport.Controls.OfType<LabelControl>().FirstOrDefault();
+        //    cancelProgress = FormProgressImport.Controls.OfType<SimpleButton>().FirstOrDefault();
+
+        //    progressBarControl.Properties.ShowTitle = true;
+        //    progressBarControl.Properties.Step = 1;
+        //    progressBarControl.Properties.PercentView = true;
+        //    progressBarControl.Properties.Minimum = 0;
+
+        //    FormProgressImport.Show();
+        //}
+
+        private async Task ImportAndAddToSpreadsheetStream(MemoryStream stream)
         {
             //var dtPlanilha = OpenXMLHelper.Excel.Reader.Read(stream);
             //var NestedObjectSpace = View.ObjectSpace.CreateNestedObjectSpace();
             //var sessionimp = ((XPObjectSpace)NestedObjectSpace).Session;
+
+            //InitializeInteface();
 
             stream.Seek(0, SeekOrigin.Begin);
 
@@ -84,35 +128,66 @@ namespace WinCTB_CTS.Module.Win.Controllers
                 dtcollectionImport = excelReader.CreateDataTableCollection(false);
             }
 
+            var progress = new Progress<double>(value =>
+            {
+                var teste = value;
 
-            ImportarSchedule(dtcollectionImport["Schedule"]);
+                progressbar.PerformStep();
+                progressbar.Update();
+
+                if (progressbar != null)
+                    progressbar.EditValue = value;
+            });
+
+            await ImportarSchedule(dtcollectionImport["Schedule"], progress);
         }
 
-        private void ImportarSchedule(DataTable dtSchedule)
+        private async Task ImportarSchedule(DataTable dtSchedule, IProgress<double> progress)
         {
-            //Converter Pivot em Linhas
             var schedules = ConvertListFromPivot(dtSchedule);
+            var TotalRows = schedules.Count;
 
-            foreach (var item in schedules)
+            UnitOfWork uow = new UnitOfWork(((XPObjectSpace)objectSpace).Session.ObjectLayer);
+            uow.BeginTransaction();
+
+            for (int i = 0; i < TotalRows; i++)
             {
                 var criteriaOperator = CriteriaOperator.Parse("PipingClass = ? And Material = ? And WDI = ? And ScheduleTag = ?",
-                    item.pipingClass, item.material, item.wdi, item.scheduleTag);
+                     schedules[i].pipingClass, schedules[i].material, schedules[i].wdi, schedules[i].scheduleTag);
 
-                var tabSchedule = objectSpace.FindObject<TabSchedule>(criteriaOperator);
+                var tabSchedule = uow.FindObject<TabSchedule>(criteriaOperator);
+
                 if (tabSchedule == null)
-                {
-                    tabSchedule = objectSpace.CreateObject<TabSchedule>();
-                    tabSchedule.PipingClass = item.pipingClass;
-                    tabSchedule.Material = item.material;
-                    tabSchedule.WDI = item.wdi;
-                    tabSchedule.ScheduleTag = item.scheduleTag;
+                    tabSchedule = new TabSchedule(uow);
 
+                tabSchedule.PipingClass = schedules[i].pipingClass;
+                tabSchedule.Material = schedules[i].material;
+                tabSchedule.WDI = schedules[i].wdi;
+                tabSchedule.ScheduleTag = schedules[i].scheduleTag;
+
+                progress.Report(50);
+
+                if (i % 10 == 0)
+                {
+                    try
+                    {
+                        uow.CommitTransaction();
+                    }
+                    catch
+                    {
+                        uow.RollbackTransaction();
+                        throw new Exception("Process aborted by system");
+                    }
                 }
             }
-            objectSpace.CommitChanges();
+
+            uow.CommitTransaction();
+            await uow.CommitChangesAsync();
+            uow.Dispose();
+            objectSpace.Dispose();
         }
 
-        static private Func<DataTable, IEnumerable<ScheduleMapping>> ConvertListFromPivot = (dt) =>
+        static private Func<DataTable, IList<ScheduleMapping>> ConvertListFromPivot = (dt) =>
          {
              var result = new List<ScheduleMapping>();
 
@@ -146,6 +221,7 @@ namespace WinCTB_CTS.Module.Win.Controllers
         protected override void OnDeactivated()
         {
             base.OnDeactivated();
+
         }
     }
 

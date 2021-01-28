@@ -130,6 +130,7 @@
   <ItemGroup>
     <Compile Include="BusinessObjects\Estrutura\Componente.cs" />
     <Compile Include="BusinessObjects\Estrutura\JuntaComponente.cs" />
+    <Compile Include="BusinessObjects\Editor\EditorsProviders.cs" />
     <Compile Include="BusinessObjects\Tubulacao\Auxiliar\TabDiametro.cs" />
     <Compile Include="BusinessObjects\Tubulacao\Auxiliar\TabSchedule.cs" />
     <Compile Include="BusinessObjects\Tubulacao\JuntaSpool.cs" />
