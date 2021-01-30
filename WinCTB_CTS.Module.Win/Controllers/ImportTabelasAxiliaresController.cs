@@ -46,54 +46,7 @@ namespace WinCTB_CTS.Module.Win.Controllers
                 ImageName = "UpdateTableOfContents"
             };
 
-
             ActionAtualizarTabelasAuxiliares.Execute += ActionAtualizarTabelasAuxiliares_Execute;
-        }
-
-        private void PopupWindowShowAction_CustomizePopupWindowParams(object sender, CustomizePopupWindowParamsEventArgs e)
-        {
-            objectSpace = Application.CreateObjectSpace(typeof(ParametrosAtualizacaoTabelasAuxiliares));
-            var param = objectSpace.CreateObject<ParametrosAtualizacaoTabelasAuxiliares>();
-            DetailView view = Application.CreateDetailView(objectSpace, param, true);
-
-            view.ViewEditMode = ViewEditMode.Edit;
-
-            DialogController dialogController = Application.CreateController<DialogController>();
-            dialogController.Accepting += DialogController_Accepting;
-            dialogController.CancelAction.Active["NoAccept"] = false;
-            //e.DialogController.SaveOnAccept = false;
-            e.DialogController.Controllers.Add(dialogController);
-            e.View = view;
-        }
-
-        private void DialogController_Accepting(object sender, DialogControllerAcceptingEventArgs e)
-        {
-            throw new NotImplementedException();
-        }
-
-        private void ItemClickSimpleAction_CustomizeControl(object sender, CustomizeControlEventArgs e)
-        {
-            //Inside BarManager. 
-            BarButtonItem barItem = e.Control as BarButtonItem;
-            if (barItem != null)
-            {
-                barItem.ItemClick += (s, args) =>
-                {
-                    XtraMessageBox.Show("Item Clicked");
-                };
-            }
-            else
-            {
-                //Inside LayoutManager.
-                SimpleButton button = e.Control as SimpleButton;
-                if (button != null)
-                {
-                    button.Click += (s, args) =>
-                    {
-                        XtraMessageBox.Show("Item Clicked");
-                    };
-                }
-            }
         }
 
         private void ActionAtualizarTabelasAuxiliares_Execute(object sender, SimpleActionExecuteEventArgs e)
@@ -115,6 +68,7 @@ namespace WinCTB_CTS.Module.Win.Controllers
         private void WinProgressPropertyEditor_ControlCreated(object sender, EventArgs e)
         {
             progressbar = ((WinProgressPropertyEditor)sender).Control as ProgressBarControl;
+            progressbar.Properties.Maximum = 100000;
             progressbar.Properties.PercentView = false;
             progressbar.Update();
         }
@@ -150,45 +104,33 @@ namespace WinCTB_CTS.Module.Win.Controllers
                 dtcollectionImport = excelReader.CreateDataTableCollection(false);
             }
 
-            //var progress = new Progress<ImportProgressReport>(LogTrace);
-            //await Task.Run(() => ImportarDiametro(dtcollectionImport["TabDiametro"], progress));
-            //await Task.Run(() => ImportarSchedule(dtcollectionImport["Schedule"], progress));
-
-
-            //Observable.StartAsync(async () =>
-            //{
-                var progress = new Progress<ImportProgressReport>(LogTrace);
-                await Task.Run(() => ImportarDiametro(dtcollectionImport["TabDiametro"], progress));
-                await Task.Run(() => ImportarSchedule(dtcollectionImport["Schedule"], progress));
-            //});
-
-            e.AcceptActionArgs.Action.Caption = "Finalizado";
-
+            var progress = new Progress<ImportProgressReport>(LogTrace);
+            await Observable.Start(() => ImportarDiametro(dtcollectionImport["TabDiametro"], progress));
+            await Observable.Start(() => ImportarSchedule(dtcollectionImport["Schedule"], progress));
 
             //Observable.StartAsync(async () =>
             //{
             //    var progress = new Progress<ImportProgressReport>(LogTrace);
             //    await Task.Run(() => ImportarDiametro(dtcollectionImport["TabDiametro"], progress));
-            //    //await Task.Run(() => ImportarSchedule(dtcollectionImport["Schedule"], progress));
+            //    await Task.Run(() => ImportarSchedule(dtcollectionImport["Schedule"], progress));
             //}, NewThreadScheduler.Default);
+
+            e.AcceptActionArgs.Action.Caption = "Finalizado";
         }
 
         private void LogTrace(ImportProgressReport value)
         {
-            //ProgressPropertyEditor.ControlValue = value.CurrentRow;
-            //winProgressPropertyEditor.PropertyValue = 100;
-
-
             if (progressbar.Properties.Maximum != value.TotalRows)
             {
-                //progressbar.Properties.Maximum = value.TotalRows;
-                //progressbar.Refresh();                                  
+                progressbar.Properties.Maximum = value.TotalRows;
+                progressbar.EditValue = 0;
+                progressbar.Refresh();                                  
             }
 
             if (value.CurrentRow > 0)
                 progressbar.PerformStep();
 
-            progressbar.Update();
+            //progressbar.Update();
         }
 
         private void ImportarDiametro(DataTable dtSchedule, IProgress<ImportProgressReport> progress)

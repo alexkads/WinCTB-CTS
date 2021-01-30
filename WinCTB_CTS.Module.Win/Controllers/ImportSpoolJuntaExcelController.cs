@@ -33,21 +33,15 @@ using WinCTB_CTS.Module.Win.Actions;
 namespace WinCTB_CTS.Module.Win.Controllers
 {
     // For more typical usage scenarios, be sure to check out https://documentation.devexpress.com/eXpressAppFramework/clsDevExpressExpressAppWindowControllertopic.aspx.
-    public partial class ImportSpoolJuntaExcelController : DisableControllersByConditionViewController
+    public partial class ImportSpoolJuntaExcelController : WindowController
     {
         public ImportSpoolJuntaExcelController()
         {
-            TargetObjectType = typeof(Spool);
+            TargetWindowType = WindowType.Main;
 
             SimpleAction simpleActionImport = new SimpleAction(this, "PopupWindowShowActionImportSpoolJuntaExcelController", PredefinedCategory.RecordEdit)
             {
                 Caption = "Importar",
-                Id = nameof(Spool),
-                TargetObjectType = typeof(Spool),
-                TargetViewType = ViewType.ListView,
-                TargetViewNesting = Nesting.Any,
-                ToolTip = nameof(Spool),
-                SelectionDependencyType = SelectionDependencyType.Independent,
                 ImageName = "Action_Debug_Step"
             };
 
@@ -56,8 +50,11 @@ namespace WinCTB_CTS.Module.Win.Controllers
 
         private async void SimpleActionImport_Execute(object sender, SimpleActionExecuteEventArgs e)
         {
-            await Executar((XPObjectSpace)View.ObjectSpace);
-            View.ObjectSpace.Refresh();
+            using (IObjectSpace os = Application.CreateObjectSpace())
+            {
+                await Executar((XPObjectSpace)os);
+                os.Dispose();
+            }
         }
 
         static void cancelProgress_Click(object sender, EventArgs e)
@@ -121,11 +118,6 @@ namespace WinCTB_CTS.Module.Win.Controllers
 
                         dtSpoolsImport = dtcollectionImport["SGS"];
                         dtJuntasImport = dtcollectionImport["SGJ"];
-
-                        //dtSpoolsImport = OpenXMLHelper.Excel.Reader.CreateDataTableFromStream(stream, "SGS");
-                        //dtJuntasImport = OpenXMLHelper.Excel.Reader.CreateDataTableFromStream(stream, "SGJ");
-                        //var Import1 = OpenXMLHelper.Excel.Reader.CreateArrayFromStream(stream, "SGS");
-                        //var Import2 = OpenXMLHelper.Excel.Reader.CreateArrayFromStream(stream, "SGJ");
                     }
 
                     fileStream.Dispose();
@@ -161,8 +153,7 @@ namespace WinCTB_CTS.Module.Win.Controllers
 
         private void ImportarSpools(XPObjectSpace objectSpace, DataTable dtSpoolsImport, IProgress<ImportProgressReport> progress)
         {
-            var session = objectSpace.Session;
-            UnitOfWork uow = new UnitOfWork(((XPObjectSpace)ObjectSpace).Session.ObjectLayer);
+            UnitOfWork uow = new UnitOfWork((objectSpace).Session.ObjectLayer);
             var TotalDeJuntas = dtSpoolsImport.Rows.Count;
 
             progress.Report(new ImportProgressReport
@@ -296,8 +287,7 @@ namespace WinCTB_CTS.Module.Win.Controllers
 
         private void ImportarJuntas(XPObjectSpace objectSpace, DataTable dtJuntasImport, IProgress<ImportProgressReport> progress)
         {
-            var session = objectSpace.Session;
-            UnitOfWork uow = new UnitOfWork(((XPObjectSpace)ObjectSpace).Session.ObjectLayer);
+            UnitOfWork uow = new UnitOfWork(((XPObjectSpace)objectSpace).Session.ObjectLayer);
             var TotalDeJuntas = dtJuntasImport.Rows.Count;
 
             progress.Report(new ImportProgressReport
@@ -440,11 +430,6 @@ namespace WinCTB_CTS.Module.Win.Controllers
             uow.PurgeDeletedObjects();
             uow.CommitChanges();
             uow.Dispose();
-        }
-
-        protected override bool GetIsDisabled()
-        {
-            return true;
         }
     }
 
