@@ -23,7 +23,7 @@ namespace WinCTB_CTS.Module.Win.Editors
         protected override void SetupRepositoryItem(RepositoryItem item)
         {
             RepositoryItemTaskProgressBarControl repositoryItem = (RepositoryItemTaskProgressBarControl)item;
-            repositoryItem.Maximum = 100;
+            //repositoryItem.Maximum = 100;
             repositoryItem.Minimum = 0;
             base.SetupRepositoryItem(item);
         }
@@ -45,7 +45,7 @@ namespace WinCTB_CTS.Module.Win.Editors
         static RepositoryItemTaskProgressBarControl() => Register();
         public RepositoryItemTaskProgressBarControl()
         {
-            Maximum = 100;
+            //Maximum = 100;
             Minimum = 0;
             ShowTitle = true;
             Appearance.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;

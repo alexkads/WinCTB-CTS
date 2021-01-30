@@ -28,11 +28,12 @@ using System.Windows.Forms;
 using WinCTB_CTS.Module.BusinessObjects.Tubulacao;
 using WinCTB_CTS.Module.BusinessObjects.Tubulacao.Auxiliar;
 using WinCTB_CTS.Module.Comum;
+using WinCTB_CTS.Module.Win.Actions;
 
 namespace WinCTB_CTS.Module.Win.Controllers
 {
     // For more typical usage scenarios, be sure to check out https://documentation.devexpress.com/eXpressAppFramework/clsDevExpressExpressAppWindowControllertopic.aspx.
-    public partial class ImportSpoolJuntaExcelController : ViewController
+    public partial class ImportSpoolJuntaExcelController : DisableControllersByConditionViewController
     {
         public ImportSpoolJuntaExcelController()
         {
@@ -439,6 +440,11 @@ namespace WinCTB_CTS.Module.Win.Controllers
             uow.PurgeDeletedObjects();
             uow.CommitChanges();
             uow.Dispose();
+        }
+
+        protected override bool GetIsDisabled()
+        {
+            return true;
         }
     }
 

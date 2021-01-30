@@ -194,6 +194,9 @@
     <Reference Include="System.Xml.Linq" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Actions\DisableControllersForNonPersistentObjects.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Controllers\FechamentoMedicaoTubulacaoController.cs">
       <SubType>Component</SubType>
     </Compile>
