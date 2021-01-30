@@ -28,6 +28,7 @@ namespace WinCTB_CTS.Module.BusinessObjects.Tubulacao
         }
 
 
+        private TabPercInspecao tabPercInspecao;
         private TabDiametro tabDiametro;
         private string relDimFab;
         private string relIdLiga;
@@ -98,7 +99,6 @@ namespace WinCTB_CTS.Module.BusinessObjects.Tubulacao
         private string classeInspecao;
         private string materialEn;
         private string materialPt;
-        private string spec;
         private string tipoJunta;
         private string schedule;
         private string junta;
@@ -204,13 +204,17 @@ namespace WinCTB_CTS.Module.BusinessObjects.Tubulacao
             get => tipoJunta;
             set => SetPropertyValue(nameof(TipoJunta), ref tipoJunta, value);
         }
-
-        [Size(100)]
-        public string Spec
+        
+        [Association("TabPercInspecao-JuntaSpools")]
+        public TabPercInspecao TabPercInspecao
         {
-            get => spec;
-            set => SetPropertyValue(nameof(Spec), ref spec, value);
+            get => tabPercInspecao;
+            set => SetPropertyValue(nameof(TabPercInspecao), ref tabPercInspecao, value);
         }
+
+        [XafDisplayName("WDI")]
+        [PersistentAlias("TabPercInspecao.Spec")]
+        public string Spec => (string)EvaluateAlias("Spec");
 
         [Size(100), XafDisplayName("Material")]
         public string MaterialPt

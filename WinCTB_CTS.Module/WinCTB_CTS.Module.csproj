@@ -133,6 +133,8 @@
     <Compile Include="BusinessObjects\Estrutura\JuntaComponente.cs" />
     <Compile Include="BusinessObjects\Editor\EditorsProviders.cs" />
     <Compile Include="BusinessObjects\Tubulacao\Auxiliar\TabDiametro.cs" />
+    <Compile Include="BusinessObjects\Tubulacao\Auxiliar\TabPercInspecao.cs" />
+    <Compile Include="BusinessObjects\Tubulacao\Auxiliar\TabProcessoSoldagem.cs" />
     <Compile Include="BusinessObjects\Tubulacao\Auxiliar\TabSchedule.cs" />
     <Compile Include="BusinessObjects\Tubulacao\JuntaSpool.cs" />
     <Compile Include="BusinessObjects\Tubulacao\Medicao\MedicaoTubulacao.cs" />

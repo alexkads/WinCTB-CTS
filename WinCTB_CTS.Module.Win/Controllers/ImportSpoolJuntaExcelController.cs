@@ -236,17 +236,17 @@ namespace WinCTB_CTS.Module.Win.Controllers
                 });
             }
 
+            uow.CommitTransaction();
+            uow.PurgeDeletedObjects();
+            uow.CommitChanges();
+            uow.Dispose();
+
             progress.Report(new ImportProgressReport
             {
                 TotalRows = TotalDeJuntas,
                 CurrentRow = TotalDeJuntas,
                 MessageImport = $"Gravando Alterações no Banco"
             });
-
-            uow.CommitTransaction();
-            uow.PurgeDeletedObjects();
-            uow.CommitChanges();
-            uow.Dispose();
         }
 
         private void ImportarJuntas(DataTable dtJuntasImport, IProgress<ImportProgressReport> progress)
@@ -290,7 +290,7 @@ namespace WinCTB_CTS.Module.Win.Controllers
                     juntaSpool.TabDiametro = uow.FindObject<TabDiametro>(new BinaryOperator("DiametroPolegada", linha["diametroPolegada"].ToString()));
                     juntaSpool.Schedule = linha["schedule"].ToString();
                     juntaSpool.TipoJunta = linha["tipoJunta"].ToString();
-                    juntaSpool.Spec = linha["spec"].ToString();
+                    juntaSpool.TabPercInspecao = uow.FindObject<TabPercInspecao>(new BinaryOperator("Spec", linha["spec"].ToString()));
                     juntaSpool.MaterialPt = linha["materialPt"].ToString();
                     juntaSpool.MaterialEn = linha["materialEn"].ToString();
                     juntaSpool.ClasseInspecao = linha["classeInspecao"].ToString();
@@ -383,17 +383,17 @@ namespace WinCTB_CTS.Module.Win.Controllers
                 });
             }
 
+            uow.CommitTransaction();
+            uow.PurgeDeletedObjects();
+            uow.CommitChanges();
+            uow.Dispose();
+
             progress.Report(new ImportProgressReport
             {
                 TotalRows = TotalDeJuntas,
                 CurrentRow = TotalDeJuntas,
                 MessageImport = $"Gravando Alterações no Banco"
             });
-
-            uow.CommitTransaction();
-            uow.PurgeDeletedObjects();
-            uow.CommitChanges();
-            uow.Dispose();
         }
     }
 

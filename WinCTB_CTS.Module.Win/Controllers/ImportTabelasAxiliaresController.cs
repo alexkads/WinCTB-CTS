@@ -96,13 +96,8 @@ namespace WinCTB_CTS.Module.Win.Controllers
             var progress = new Progress<ImportProgressReport>(LogTrace);
             await Observable.Start(() => ImportarDiametro(dtcollectionImport["TabDiametro"], progress));
             await Observable.Start(() => ImportarSchedule(dtcollectionImport["Schedule"], progress));
-
-            //Observable.StartAsync(async () =>
-            //{
-            //    var progress = new Progress<ImportProgressReport>(LogTrace);
-            //    await Task.Run(() => ImportarDiametro(dtcollectionImport["TabDiametro"], progress));
-            //    await Task.Run(() => ImportarSchedule(dtcollectionImport["Schedule"], progress));
-            //}, NewThreadScheduler.Default);
+            await Observable.Start(() => ImportarPercInspecao(dtcollectionImport["PercInspecao"], progress));
+            await Observable.Start(() => ImportarProcessoSoldagem(dtcollectionImport["ProcessoSoldagem"], progress));
 
             e.AcceptActionArgs.Action.Caption = "Finalizado";
         }
@@ -117,10 +112,10 @@ namespace WinCTB_CTS.Module.Win.Controllers
             //statusProgess.Text = value.MessageImport;
         }
 
-        private void ImportarDiametro(DataTable dtSchedule, IProgress<ImportProgressReport> progress)
+        private void ImportarDiametro(DataTable dt, IProgress<ImportProgressReport> progress)
         {
 
-            var TotalRows = dtSchedule.Rows.Count;
+            var TotalRows = dt.Rows.Count;
 
             UnitOfWork uow = new UnitOfWork(((XPObjectSpace)objectSpace).Session.ObjectLayer);
             uow.BeginTransaction();
@@ -129,7 +124,7 @@ namespace WinCTB_CTS.Module.Win.Controllers
             {
                 if (i > 0)
                 {
-                    var row = dtSchedule.Rows[i];
+                    var row = dt.Rows[i];
                     var polegada = row[0].ToString();
                     var wdi = row[1].ToString();
                     var mm = Utils.ConvertINT(row[2]);
@@ -168,11 +163,17 @@ namespace WinCTB_CTS.Module.Win.Controllers
             uow.CommitTransaction();
             uow.CommitChanges();
             uow.Dispose();
+
+            progress.Report(new ImportProgressReport
+            {
+                TotalRows = TotalRows,
+                CurrentRow = TotalRows
+            });
         }
 
-        private void ImportarSchedule(DataTable dtSchedule, IProgress<ImportProgressReport> progress)
+        private void ImportarSchedule(DataTable dt, IProgress<ImportProgressReport> progress)
         {
-            var schedules = ConvertListFromPivot(dtSchedule);
+            var schedules = ConvertListFromPivot(dt);
             var TotalRows = schedules.Count;
 
             UnitOfWork uow = new UnitOfWork(((XPObjectSpace)objectSpace).Session.ObjectLayer);
@@ -216,6 +217,128 @@ namespace WinCTB_CTS.Module.Win.Controllers
             uow.CommitTransaction();
             uow.CommitChanges();
             uow.Dispose();
+
+            progress.Report(new ImportProgressReport
+            {
+                TotalRows = TotalRows,
+                CurrentRow = TotalRows
+            });
+        }
+
+        private void ImportarPercInspecao(DataTable dt, IProgress<ImportProgressReport> progress)
+        {
+
+            var TotalRows = dt.Rows.Count;
+
+            UnitOfWork uow = new UnitOfWork(((XPObjectSpace)objectSpace).Session.ObjectLayer);
+            uow.BeginTransaction();
+
+            for (int i = 0; i < TotalRows; i++)
+            {
+                if (i > 0)
+                {
+                    var row = dt.Rows[i];
+                    var spec = row[0].ToString();
+                    var insp = Utils.ConvertDouble(row[1]) * 0.01D;
+
+                    var criteriaOperator = new BinaryOperator("Spec", spec);
+                    var tabperc = uow.FindObject<TabPercInspecao>(criteriaOperator);
+
+                    if (tabperc == null)
+                        tabperc = new TabPercInspecao(uow);
+
+                    tabperc.Spec = spec;
+                    tabperc.PercentualDeInspecao = insp;
+
+                    progress.Report(new ImportProgressReport
+                    {
+                        TotalRows = TotalRows,
+                        CurrentRow = i,
+                    });
+                }
+
+                if (i % 10 == 0)
+                {
+                    try
+                    {
+                        uow.CommitTransaction();
+                    }
+                    catch
+                    {
+                        uow.RollbackTransaction();
+                        throw new Exception("Process aborted by system");
+                    }
+                }
+            }
+
+            uow.CommitTransaction();
+            uow.CommitChanges();
+            uow.Dispose();
+
+            progress.Report(new ImportProgressReport
+            {
+                TotalRows = TotalRows,
+                CurrentRow = TotalRows
+            });
+        }
+
+        private void ImportarProcessoSoldagem(DataTable dt, IProgress<ImportProgressReport> progress)
+        {
+
+            var TotalRows = dt.Rows.Count;
+
+            UnitOfWork uow = new UnitOfWork(((XPObjectSpace)objectSpace).Session.ObjectLayer);
+            uow.BeginTransaction();
+
+            for (int i = 0; i < TotalRows; i++)
+            {
+                if (i > 0)
+                {
+                    var row = dt.Rows[i];
+                    var eps = row[0].ToString();
+                    var raiz = row[1].ToString();
+                    var ench = row[2].ToString();
+
+                    var criteriaOperator = new BinaryOperator("Eps", eps);
+                    var tabprocesso = uow.FindObject<TabProcessoSoldagem>(criteriaOperator);
+
+                    if (tabprocesso == null)
+                        tabprocesso = new TabProcessoSoldagem(uow);
+
+                    tabprocesso.Eps = eps;
+                    tabprocesso.Raiz = raiz;
+                    tabprocesso.Ench = ench;
+
+                    progress.Report(new ImportProgressReport
+                    {
+                        TotalRows = TotalRows,
+                        CurrentRow = i,
+                    });
+                }
+
+                if (i % 10 == 0)
+                {
+                    try
+                    {
+                        uow.CommitTransaction();
+                    }
+                    catch
+                    {
+                        uow.RollbackTransaction();
+                        throw new Exception("Process aborted by system");
+                    }
+                }
+            }
+
+            uow.CommitTransaction();
+            uow.CommitChanges();
+            uow.Dispose();
+
+            progress.Report(new ImportProgressReport
+            {
+                TotalRows = TotalRows,
+                CurrentRow = TotalRows
+            });
         }
 
         static private Func<DataTable, IList<ScheduleMapping>> ConvertListFromPivot = (dt) =>

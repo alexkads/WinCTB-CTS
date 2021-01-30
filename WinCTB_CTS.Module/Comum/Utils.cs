@@ -116,9 +116,15 @@ namespace WinCTB_CTS.Module.Comum
         public static Func<object, double> ConvertDouble = (obj) =>
         {
             if (obj != DBNull.Value)
-                return Convert.ToDouble(obj);
+            {
+                double result = 0D;
+                Double.TryParse(obj.ToString(), out result);
+                return result;
+            }
             else
+            {
                 return 0D;
+            }
         };
 
         public static Func<object, Int32> ConvertINT = (obj) =>
