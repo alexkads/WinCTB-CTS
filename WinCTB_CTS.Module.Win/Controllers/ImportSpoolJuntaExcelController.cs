@@ -37,15 +37,14 @@ namespace WinCTB_CTS.Module.Win.Controllers
     public partial class ImportSpoolJuntaExcelController : WindowController
     {
         IObjectSpace objectSpace = null;
-        ProgressBarControl progressbar;
-        WinProgressPropertyEditor winProgressPropertyEditor;
+        ParametrosImportSpoolJuntaExcel parametrosImportSpoolJuntaExcel;
         public ImportSpoolJuntaExcelController()
         {
             TargetWindowType = WindowType.Main;
 
             SimpleAction simpleActionImport = new SimpleAction(this, "PopupWindowShowActionImportSpoolJuntaExcelController", PredefinedCategory.RecordEdit)
             {
-                Caption = "Importar",
+                Caption = "Importar SGS e SGJ",
                 ImageName = "Action_Debug_Step"
             };
 
@@ -54,11 +53,9 @@ namespace WinCTB_CTS.Module.Win.Controllers
 
         private void SimpleActionImport_Execute(object sender, SimpleActionExecuteEventArgs e)
         {
-            var objectSpace = Application.CreateObjectSpace();
-            var param = objectSpace.CreateObject<ParametrosAtualizacaoTabelasAuxiliares>();
-            DetailView view = Application.CreateDetailView(objectSpace, param);
-            winProgressPropertyEditor = (WinProgressPropertyEditor)view.FindItem("Progresso");
-            winProgressPropertyEditor.ControlCreated += WinProgressPropertyEditor_ControlCreated; ;
+            objectSpace = Application.CreateObjectSpace(typeof(ParametrosImportSpoolJuntaExcel));
+            parametrosImportSpoolJuntaExcel = objectSpace.CreateObject<ParametrosImportSpoolJuntaExcel>();
+            DetailView view = Application.CreateDetailView(objectSpace, parametrosImportSpoolJuntaExcel);
 
             view.ViewEditMode = ViewEditMode.Edit;
 
@@ -66,14 +63,6 @@ namespace WinCTB_CTS.Module.Win.Controllers
             e.ShowViewParameters.CreatedView = view;
             e.ShowViewParameters.TargetWindow = TargetWindow.NewModalWindow;
             e.ShowViewParameters.Controllers.Add(dialogControllerAcceptingImportarPlanilha());
-        }
-
-        private void WinProgressPropertyEditor_ControlCreated(object sender, EventArgs e)
-        {
-            progressbar = ((WinProgressPropertyEditor)sender).Control as ProgressBarControl;
-            progressbar.Properties.Maximum = 100000;
-            progressbar.Properties.PercentView = false;
-            progressbar.Update();
         }
 
         private DialogController dialogControllerAcceptingImportarPlanilha()
@@ -87,66 +76,48 @@ namespace WinCTB_CTS.Module.Win.Controllers
 
         private async void DialogControllerImportarPlanilha_Accepting(object sender, DialogControllerAcceptingEventArgs e)
         {
-            var dtSpoolsImport = new DataTable();
-            var dtJuntasImport = new DataTable();
+
             DataTableCollection dtcollectionImport = null;
 
-            using (OpenFileDialog openFileDialog = new OpenFileDialog())
+            //Necessário para não fechar a janela após a conclusão do processamento
+            e.Cancel = true;
+            e.AcceptActionArgs.Action.Caption = "Procesando";
+
+            var parametros = (ParametrosImportSpoolJuntaExcel)e.AcceptActionArgs.SelectedObjects[0];
+            MemoryStream stream = new MemoryStream();
+            stream.Seek(0, SeekOrigin.Begin);
+
+            var arquivo = parametros.Padrao;
+            arquivo.SaveToStream(stream);
+
+            stream.Seek(0, SeekOrigin.Begin);
+
+            using (var excelReader = new ExcelDataReaderHelper.Excel.Reader(stream))
             {
-                openFileDialog.InitialDirectory = "c:\\";
-                openFileDialog.Filter = "txt files (*.txt)|*.txt|All files (*.*)|*.*";
-                openFileDialog.FilterIndex = 2;
-                openFileDialog.RestoreDirectory = true;
-
-                if (openFileDialog.ShowDialog() == DialogResult.OK)
-                {
-                    var fileStream = openFileDialog.OpenFile();
-
-                    using (MemoryStream stream = new MemoryStream())
-                    {
-                        stream.Seek(0, SeekOrigin.Begin);
-                        fileStream.CopyTo(stream);
-
-                        using (var excelReader = new ExcelDataReaderHelper.Excel.Reader(stream))
-                        {
-                            dtcollectionImport = excelReader.CreateDataTableCollection();
-                        }
-
-                        dtSpoolsImport = dtcollectionImport["SGS"];
-                        dtJuntasImport = dtcollectionImport["SGJ"];
-                    }
-
-                    fileStream.Dispose();
-
-                    var progress = new Progress<ImportProgressReport>(value =>
-                    {
-                        //XtraProgressImport;
-
-                        progressbar.Properties.Maximum = value.TotalRows;
-                        //statusProgess.Text = value.MessageImport;
-
-                        if (value.CurrentRow > 0)
-                            progressbar.PerformStep();
-
-                        progressbar.Update();
-                        //statusProgess.Update();
-                    });
-
-                    await Task.Run(() =>
-                        ImportarSpools((XPObjectSpace)objectSpace, dtSpoolsImport, progress));
-
-                    progressbar.EditValue = 0;
-
-                    await Task.Run(() =>
-                        ImportarJuntas((XPObjectSpace)objectSpace, dtJuntasImport, progress));
-
-                }
+                dtcollectionImport = excelReader.CreateDataTableCollection();
             }
+
+            var progress = new Progress<ImportProgressReport>(LogTrace);
+            await Observable.Start(() => ImportarSpools(dtcollectionImport["SGS"], progress));
+            await Observable.Start(() => ImportarJuntas(dtcollectionImport["SGJ"], progress));
+
+            e.AcceptActionArgs.Action.Caption = "Finalizado";
+            objectSpace.CommitChanges();
         }
 
-        private void ImportarSpools(XPObjectSpace objectSpace, DataTable dtSpoolsImport, IProgress<ImportProgressReport> progress)
+        private void LogTrace(ImportProgressReport value)
         {
-            UnitOfWork uow = new UnitOfWork((objectSpace).Session.ObjectLayer);
+            var progresso = (value.TotalRows > 0 && value.CurrentRow > 0)
+                ? (value.CurrentRow / value.TotalRows)
+                : 0D;
+
+            parametrosImportSpoolJuntaExcel.Progresso = progresso;
+            //statusProgess.Text = value.MessageImport;
+        }
+
+        private void ImportarSpools(DataTable dtSpoolsImport, IProgress<ImportProgressReport> progress)
+        {
+            UnitOfWork uow = new UnitOfWork(((XPObjectSpace)objectSpace).Session.ObjectLayer);
             var TotalDeJuntas = dtSpoolsImport.Rows.Count;
 
             progress.Report(new ImportProgressReport
@@ -260,7 +231,7 @@ namespace WinCTB_CTS.Module.Win.Controllers
                 progress.Report(new ImportProgressReport
                 {
                     TotalRows = TotalDeJuntas,
-                    CurrentRow = i,
+                    CurrentRow = i + 1,
                     MessageImport = $"Importando linha {i}/{TotalDeJuntas}"
                 });
             }
@@ -278,7 +249,7 @@ namespace WinCTB_CTS.Module.Win.Controllers
             uow.Dispose();
         }
 
-        private void ImportarJuntas(XPObjectSpace objectSpace, DataTable dtJuntasImport, IProgress<ImportProgressReport> progress)
+        private void ImportarJuntas(DataTable dtJuntasImport, IProgress<ImportProgressReport> progress)
         {
             UnitOfWork uow = new UnitOfWork(((XPObjectSpace)objectSpace).Session.ObjectLayer);
             var TotalDeJuntas = dtJuntasImport.Rows.Count;
@@ -391,7 +362,7 @@ namespace WinCTB_CTS.Module.Win.Controllers
                     juntaSpool.Spool = spool;
                 }
 
-                if (i % 2000 == 0)
+                if (i % 1000 == 0)
                 {
                     try
                     {
@@ -407,7 +378,7 @@ namespace WinCTB_CTS.Module.Win.Controllers
                 progress.Report(new ImportProgressReport
                 {
                     TotalRows = TotalDeJuntas,
-                    CurrentRow = i,
+                    CurrentRow = i + 1,
                     MessageImport = $"Importando linha {i}/{TotalDeJuntas}"
                 });
             }
@@ -429,7 +400,7 @@ namespace WinCTB_CTS.Module.Win.Controllers
     public class ImportProgressReport
     {
         public int TotalRows { get; set; }
-        public int CurrentRow { get; set; }
+        public double CurrentRow { get; set; }
         public string MessageImport { get; set; }
     }
 }

@@ -34,8 +34,7 @@ namespace WinCTB_CTS.Module.Win.Controllers
     {
         SimpleAction ActionAtualizarTabelasAuxiliares;
         IObjectSpace objectSpace = null;
-        ProgressBarControl progressbar;
-        WinProgressPropertyEditor winProgressPropertyEditor;
+        ParametrosAtualizacaoTabelasAuxiliares parametrosAtualizacaoTabelasAuxiliares;
 
         public ImportTabelasAxiliaresController()
         {
@@ -52,10 +51,8 @@ namespace WinCTB_CTS.Module.Win.Controllers
         private void ActionAtualizarTabelasAuxiliares_Execute(object sender, SimpleActionExecuteEventArgs e)
         {
             objectSpace = Application.CreateObjectSpace();
-            var param = objectSpace.CreateObject<ParametrosAtualizacaoTabelasAuxiliares>();
-            DetailView view = Application.CreateDetailView(objectSpace, param);
-            winProgressPropertyEditor = (WinProgressPropertyEditor)view.FindItem("Progresso");
-            winProgressPropertyEditor.ControlCreated += WinProgressPropertyEditor_ControlCreated;
+            parametrosAtualizacaoTabelasAuxiliares = objectSpace.CreateObject<ParametrosAtualizacaoTabelasAuxiliares>();
+            DetailView view = Application.CreateDetailView(objectSpace, parametrosAtualizacaoTabelasAuxiliares);
 
             view.ViewEditMode = ViewEditMode.Edit;
 
@@ -63,14 +60,6 @@ namespace WinCTB_CTS.Module.Win.Controllers
             e.ShowViewParameters.CreatedView = view;
             e.ShowViewParameters.TargetWindow = TargetWindow.NewModalWindow;
             e.ShowViewParameters.Controllers.Add(dialogControllerAcceptingImportarPlanilha());
-        }
-
-        private void WinProgressPropertyEditor_ControlCreated(object sender, EventArgs e)
-        {
-            progressbar = ((WinProgressPropertyEditor)sender).Control as ProgressBarControl;
-            progressbar.Properties.Maximum = 100000;
-            progressbar.Properties.PercentView = false;
-            progressbar.Update();
         }
 
         private DialogController dialogControllerAcceptingImportarPlanilha()
@@ -120,17 +109,12 @@ namespace WinCTB_CTS.Module.Win.Controllers
 
         private void LogTrace(ImportProgressReport value)
         {
-            if (progressbar.Properties.Maximum != value.TotalRows)
-            {
-                progressbar.Properties.Maximum = value.TotalRows;
-                progressbar.EditValue = 0;
-                progressbar.Refresh();                                  
-            }
+            var progresso = (value.TotalRows > 0 && value.CurrentRow > 0)
+                ? (value.CurrentRow / value.TotalRows)
+                : 0D;
 
-            if (value.CurrentRow > 0)
-                progressbar.PerformStep();
-
-            //progressbar.Update();
+            parametrosAtualizacaoTabelasAuxiliares.Progresso = progresso;
+            //statusProgess.Text = value.MessageImport;
         }
 
         private void ImportarDiametro(DataTable dtSchedule, IProgress<ImportProgressReport> progress)

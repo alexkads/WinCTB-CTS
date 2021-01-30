@@ -50,7 +50,7 @@ namespace WinCTB_CTS.Module.Win.Controllers
             {
                 if (padrao == null)
                 {
-                    var NomeDoRecurso = "TabelasAuxiliares.xlsx";
+                    var NomeDoRecurso = "CSGeCSJ.xlsx";
                     var os = XPObjectSpace.FindObjectSpaceByObject(this);
                     var fdata = os.FindObject<FileData>(new BinaryOperator("FileName", NomeDoRecurso));
                     if (fdata == null)
