@@ -29,12 +29,16 @@ using WinCTB_CTS.Module.BusinessObjects.Tubulacao;
 using WinCTB_CTS.Module.BusinessObjects.Tubulacao.Auxiliar;
 using WinCTB_CTS.Module.Comum;
 using WinCTB_CTS.Module.Win.Actions;
+using WinCTB_CTS.Module.Win.Editors;
 
 namespace WinCTB_CTS.Module.Win.Controllers
 {
     // For more typical usage scenarios, be sure to check out https://documentation.devexpress.com/eXpressAppFramework/clsDevExpressExpressAppWindowControllertopic.aspx.
     public partial class ImportSpoolJuntaExcelController : WindowController
     {
+        IObjectSpace objectSpace = null;
+        ProgressBarControl progressbar;
+        WinProgressPropertyEditor winProgressPropertyEditor;
         public ImportSpoolJuntaExcelController()
         {
             TargetWindowType = WindowType.Main;
@@ -48,52 +52,44 @@ namespace WinCTB_CTS.Module.Win.Controllers
             simpleActionImport.Execute += SimpleActionImport_Execute;
         }
 
-        private async void SimpleActionImport_Execute(object sender, SimpleActionExecuteEventArgs e)
+        private void SimpleActionImport_Execute(object sender, SimpleActionExecuteEventArgs e)
         {
-            using (IObjectSpace os = Application.CreateObjectSpace())
-            {
-                await Executar((XPObjectSpace)os);
-                os.Dispose();
-            }
+            var objectSpace = Application.CreateObjectSpace();
+            var param = objectSpace.CreateObject<ParametrosAtualizacaoTabelasAuxiliares>();
+            DetailView view = Application.CreateDetailView(objectSpace, param);
+            winProgressPropertyEditor = (WinProgressPropertyEditor)view.FindItem("Progresso");
+            winProgressPropertyEditor.ControlCreated += WinProgressPropertyEditor_ControlCreated; ;
+
+            view.ViewEditMode = ViewEditMode.Edit;
+
+            e.ShowViewParameters.NewWindowTarget = NewWindowTarget.Separate;
+            e.ShowViewParameters.CreatedView = view;
+            e.ShowViewParameters.TargetWindow = TargetWindow.NewModalWindow;
+            e.ShowViewParameters.Controllers.Add(dialogControllerAcceptingImportarPlanilha());
         }
 
-        static void cancelProgress_Click(object sender, EventArgs e)
+        private void WinProgressPropertyEditor_ControlCreated(object sender, EventArgs e)
         {
-            ((Form)(((SimpleButton)sender).Parent)).Close();
-            throw new Exception("Process aborted by user.");
+            progressbar = ((WinProgressPropertyEditor)sender).Control as ProgressBarControl;
+            progressbar.Properties.Maximum = 100000;
+            progressbar.Properties.PercentView = false;
+            progressbar.Update();
         }
 
-        
-
-        private XtraForm FormProgressImport;
-        private ProgressBarControl progressBarControl;
-        private SimpleButton cancelProgress;
-        private LabelControl statusProgess;
-
-        private void InitializeInteface()
+        private DialogController dialogControllerAcceptingImportarPlanilha()
         {
-            FormProgressImport = new XtraProgressImport();
-
-            progressBarControl = FormProgressImport.Controls.OfType<ProgressBarControl>().FirstOrDefault();
-            statusProgess = FormProgressImport.Controls.OfType<LabelControl>().FirstOrDefault();
-            cancelProgress = FormProgressImport.Controls.OfType<SimpleButton>().FirstOrDefault();
-
-            progressBarControl.Properties.ShowTitle = true;
-            progressBarControl.Properties.Step = 1;
-            progressBarControl.Properties.PercentView = true;
-            progressBarControl.Properties.Minimum = 0;
-
-            FormProgressImport.Show();
+            DialogController dialogControllerImportarPlanilha = Application.CreateController<DialogController>();
+            dialogControllerImportarPlanilha.AcceptAction.Caption = "Importar";
+            dialogControllerImportarPlanilha.Accepting += DialogControllerImportarPlanilha_Accepting; ;
+            dialogControllerImportarPlanilha.CancelAction.Active["NoAccept"] = false;
+            return dialogControllerImportarPlanilha;
         }
 
-        public async Task Executar(XPObjectSpace objectSpace)
+        private async void DialogControllerImportarPlanilha_Accepting(object sender, DialogControllerAcceptingEventArgs e)
         {
-            var session = objectSpace.Session;
             var dtSpoolsImport = new DataTable();
             var dtJuntasImport = new DataTable();
             DataTableCollection dtcollectionImport = null;
-
-            InitializeInteface();
 
             using (OpenFileDialog openFileDialog = new OpenFileDialog())
             {
@@ -126,29 +122,26 @@ namespace WinCTB_CTS.Module.Win.Controllers
                     {
                         //XtraProgressImport;
 
-                        progressBarControl.Properties.Maximum = value.TotalRows;
-                        statusProgess.Text = value.MessageImport;
+                        progressbar.Properties.Maximum = value.TotalRows;
+                        //statusProgess.Text = value.MessageImport;
 
                         if (value.CurrentRow > 0)
-                            progressBarControl.PerformStep();
+                            progressbar.PerformStep();
 
-                        progressBarControl.Update();
-                        statusProgess.Update();
+                        progressbar.Update();
+                        //statusProgess.Update();
                     });
 
                     await Task.Run(() =>
-                        ImportarSpools(objectSpace, dtSpoolsImport, progress));
+                        ImportarSpools((XPObjectSpace)objectSpace, dtSpoolsImport, progress));
 
-                    progressBarControl.EditValue = 0;
+                    progressbar.EditValue = 0;
 
                     await Task.Run(() =>
-                        ImportarJuntas(objectSpace, dtJuntasImport, progress));
+                        ImportarJuntas((XPObjectSpace)objectSpace, dtJuntasImport, progress));
 
-                    FormProgressImport.Close();
                 }
             }
-
-            //int QuantidadeDeRegistro = dtSpoolsImport.Rows.Count;
         }
 
         private void ImportarSpools(XPObjectSpace objectSpace, DataTable dtSpoolsImport, IProgress<ImportProgressReport> progress)
@@ -184,10 +177,10 @@ namespace WinCTB_CTS.Module.Win.Controllers
                 spool.Linha = Convert.ToString(linha["linha"]);
                 spool.SiteFabricante = Convert.ToString(linha["siteFabricante"]);
                 spool.Isometrico = Convert.ToString(linha["isometrico"]);
-                spool.TagSpool = $"{Convert.ToString(linha["isometrico"])}-{Convert.ToString(linha["tagSpool"])}" ;
+                spool.TagSpool = $"{Convert.ToString(linha["isometrico"])}-{Convert.ToString(linha["tagSpool"])}";
                 spool.RevSpool = Convert.ToString(linha["revSpool"]);
                 spool.RevIso = Convert.ToString(linha["revIso"]);
-                spool.Material = Convert.ToString(linha["material"]);                
+                spool.Material = Convert.ToString(linha["material"]);
                 spool.Norma = Convert.ToString(linha["norma"]);
                 spool.Diametro = Utils.ConvertINT(linha["diametro"]);
                 spool.DiametroPolegada = Convert.ToString(linha["diametroPolegada"]);
