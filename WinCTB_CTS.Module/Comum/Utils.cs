@@ -15,6 +15,8 @@ using System.Net;
 using System.Reflection;
 using DevExpress.ExpressApp;
 using System.IO;
+using static WinCTB_CTS.Module.BusinessObjects.Tubulacao.JuntaSpool;
+using DevExpress.ExpressApp.Utils;
 
 namespace WinCTB_CTS.Module.Comum
 {
@@ -133,6 +135,25 @@ namespace WinCTB_CTS.Module.Comum
                 return Convert.ToInt32(obj);
             else
                 return 0;
+        };
+
+        public static Func<string, CampoPipe> ConvertStringEnumCampoPipe = (value) =>
+        {
+            var EnumObj = CampoPipe.CAMPO;
+
+            foreach (CampoPipe current in Enum.GetValues(typeof(CampoPipe)))
+            {
+                EnumDescriptor enumDescriptor = new EnumDescriptor(typeof(CampoPipe));
+                var caption = enumDescriptor.GetCaption(current);
+                var localizedText = CaptionHelper.GetLocalizedText(@"Enums\" + typeof(CampoPipe).FullName, current.ToString());
+
+                if (localizedText.ToUpper() == value.ToUpper())
+                {
+                    EnumObj = (CampoPipe)Enum.Parse(typeof(CampoPipe), current.ToString());
+                }
+            }
+
+            return EnumObj;
         };
     }
 }

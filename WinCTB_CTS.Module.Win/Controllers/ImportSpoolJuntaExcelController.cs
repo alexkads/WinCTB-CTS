@@ -295,7 +295,7 @@ namespace WinCTB_CTS.Module.Win.Controllers
                     juntaSpool.MaterialEn = linha["materialEn"].ToString();
                     juntaSpool.ClasseInspecao = linha["classeInspecao"].ToString();
                     juntaSpool.Norma = linha["norma"].ToString();
-                    juntaSpool.CampoPipe = linha["campoPipe"].ToString();
+                    juntaSpool.CampoOuPipe = Utils.ConvertStringEnumCampoPipe(linha["campoPipe"].ToString());
                     juntaSpool.StatusVa = linha["statusVa"].ToString();
                     juntaSpool.RelatorioVa = linha["relatorioVa"].ToString();
                     juntaSpool.DataVa = Utils.ConvertDateTime(linha["dataVa"]);
