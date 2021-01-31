@@ -15,23 +15,43 @@ using DevExpress.ExpressApp.Model.Core;
 using DevExpress.ExpressApp.Model.DomainLogics;
 using DevExpress.ExpressApp.Model.NodeGenerators;
 using DevExpress.ExpressApp.Xpo;
+using DevExpress.ExpressApp.ReportsV2;
+using WinCTB_CTS.Module.RelatorioParametros;
+using WinCTB_CTS.Module.BusinessObjects.Tubulacao;
+using WinCTB_CTS.Module.RelatorioPreDefinido;
 
-namespace WinCTB_CTS.Module {
+namespace WinCTB_CTS.Module
+{
     // For more typical usage scenarios, be sure to check out https://documentation.devexpress.com/eXpressAppFramework/clsDevExpressExpressAppModuleBasetopic.aspx.
-    public sealed partial class WinCTB_CTSModule : ModuleBase {
-        public WinCTB_CTSModule() {
+    public sealed partial class WinCTB_CTSModule : ModuleBase
+    {
+        public WinCTB_CTSModule()
+        {
             InitializeComponent();
-			BaseObject.OidInitializationMode = OidInitializationMode.AfterConstruction;
+            BaseObject.OidInitializationMode = OidInitializationMode.AfterConstruction;
         }
-        public override IEnumerable<ModuleUpdater> GetModuleUpdaters(IObjectSpace objectSpace, Version versionFromDB) {
+        public override IEnumerable<ModuleUpdater> GetModuleUpdaters(IObjectSpace objectSpace, Version versionFromDB)
+        {
             ModuleUpdater updater = new DatabaseUpdate.Updater(objectSpace, versionFromDB);
-            return new ModuleUpdater[] { updater };
+
+            PredefinedReportsUpdater predefinedReportsUpdater = new PredefinedReportsUpdater(Application, objectSpace, versionFromDB);
+
+            predefinedReportsUpdater.AddPredefinedReport<RelatorioMedicaoAnaliticoSpool>("Relatório de Medição por Spool (Analítico)", typeof(Spool), typeof(MedicaoSpoolParameters), isInplaceReport: true);
+            predefinedReportsUpdater.AddPredefinedReport<RelatorioMedicaoSinteticoSpool>("Relatório de Medição por Spool (Sintético)", typeof(Spool), null, isInplaceReport: true);
+
+            return new ModuleUpdater[]
+            {
+                updater,
+                predefinedReportsUpdater
+            };
         }
-        public override void Setup(XafApplication application) {
+        public override void Setup(XafApplication application)
+        {
             base.Setup(application);
             // Manage various aspects of the application UI and behavior at the module level.
         }
-        public override void CustomizeTypesInfo(ITypesInfo typesInfo) {
+        public override void CustomizeTypesInfo(ITypesInfo typesInfo)
+        {
             base.CustomizeTypesInfo(typesInfo);
             CalculatedPersistentAliasHelper.CustomizeTypesInfo(typesInfo);
         }
