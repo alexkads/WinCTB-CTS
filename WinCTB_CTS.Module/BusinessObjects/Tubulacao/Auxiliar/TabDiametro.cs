@@ -25,7 +25,7 @@ namespace WinCTB_CTS.Module.BusinessObjects.Tubulacao.Auxiliar
 
 
         private int diametroMilimetro;
-        private string wdi;
+        private double wdi;
         private string diametroPolegada;
 
         [Size(100), XafDisplayName("Polegada")]
@@ -53,7 +53,7 @@ namespace WinCTB_CTS.Module.BusinessObjects.Tubulacao.Auxiliar
 
 
         [Size(100), XafDisplayName("WDI")]
-        public string Wdi
+        public double Wdi
         {
             get => wdi;
             set => SetPropertyValue(nameof(Wdi), ref wdi, value);

@@ -120,7 +120,7 @@ namespace WinCTB_CTS.Module.Comum
             if (obj != DBNull.Value)
             {
                 double result = 0D;
-                Double.TryParse(obj.ToString(), out result);
+                Double.TryParse(obj?.ToString(), out result);
                 return result;
             }
             else
@@ -135,6 +135,14 @@ namespace WinCTB_CTS.Module.Comum
                 return Convert.ToInt32(obj);
             else
                 return 0;
+        };
+
+        public static Func<double?, double?, double> CalculoPercentual = (numerador, denominador) =>
+        {
+            if (numerador.Value > 0 && denominador.Value > 0 )
+                return numerador.Value / denominador.Value;
+            else
+                return 0D;
         };
 
         public static Func<string, CampoPipe> ConvertStringEnumCampoPipe = (value) =>

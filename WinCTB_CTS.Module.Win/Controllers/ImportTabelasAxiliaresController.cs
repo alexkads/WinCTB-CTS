@@ -126,7 +126,7 @@ namespace WinCTB_CTS.Module.Win.Controllers
                 {
                     var row = dt.Rows[i];
                     var polegada = row[0].ToString();
-                    var wdi = row[1].ToString();
+                    var wdi = Utils.ConvertDouble(row[1]);
                     var mm = Utils.ConvertINT(row[2]);
 
                     var criteriaOperator = new BinaryOperator("DiametroPolegada", polegada);

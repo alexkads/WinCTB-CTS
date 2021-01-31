@@ -19,6 +19,7 @@ using System.Text;
 using System.Threading.Tasks;
 using WinCTB_CTS.Module.BusinessObjects.Tubulacao;
 using WinCTB_CTS.Module.BusinessObjects.Tubulacao.Medicao;
+using WinCTB_CTS.Module.Comum;
 
 namespace WinCTB_CTS.Module.Win.Controllers
 {
@@ -113,10 +114,45 @@ namespace WinCTB_CTS.Module.Win.Controllers
             {
                 var spool = spools[i];
                 var detalhe = new MedicaoTubulacaoDetalhe(uow);
+
+                var testeLogica = spool.DataCorte;
+
+                //Cálculo de Montagem (Memória de Cáculo)
+                var WdiJuntaTotalMont = Utils.ConvertDouble(spool.Evaluate(CriteriaOperator.Parse("Juntas[CampoOuPipe == 'CAMPO'].Sum(TabDiametro.Wdi)")));
+                var WdiJuntaVAMont = Utils.ConvertDouble(spool.Evaluate(CriteriaOperator.Parse("Juntas[Not IsNullorEmpty(DataVa) And CampoOuPipe == 'CAMPO'].Sum(TabDiametro.Wdi)")));
+                var WdiJuntaSoldMont = Utils.ConvertDouble(spool.Evaluate(CriteriaOperator.Parse("Juntas[Not IsNullorEmpty(DataSoldagem) And CampoOuPipe == 'CAMPO'].Sum(TabDiametro.Wdi)")));
+                var WdiJuntaENDMont = Utils.ConvertDouble(spool.Evaluate(CriteriaOperator.Parse("Juntas[Not IsNullorEmpty(DataLiberacaoJunta) And CampoOuPipe == 'CAMPO'].Sum(TabDiametro.Wdi)")));
+
+                //Avanço de Fabricação (Memória de Cálculo)
+                var AvancoSpoolCorteFab = (Boolean)spool.Evaluate(CriteriaOperator.Parse("Not IsNullorEmpty(DataCorte)"));
+                var AvancoSpoolVAFab = (Boolean)spool.Evaluate(CriteriaOperator.Parse("Not IsNullorEmpty(DataVaFab)"));
+                var AvancoSpoolSoldFab = (Boolean)spool.Evaluate(CriteriaOperator.Parse("Not IsNullorEmpty(DataSoldaFab)"));
+                var AvancoSpoolENDFab = (Boolean)spool.Evaluate(CriteriaOperator.Parse("Not IsNullorEmpty(DataEndFab)"));
+
+                //Avanço de Montagem (Memória de Cálculo)
+                var AvancoJuntaVAMont = Utils.CalculoPercentual(WdiJuntaVAMont, WdiJuntaTotalMont);
+                var AvancoJuntaSoldMont = Utils.CalculoPercentual(WdiJuntaSoldMont, WdiJuntaTotalMont);
+                var AvancoJuntaENDMont = Utils.CalculoPercentual(WdiJuntaENDMont, WdiJuntaTotalMont);
+
                 detalhe.MedicaoTubulacao = medicao;
                 detalhe.Spool = spool;
-                detalhe.QtdJuntaVAFab = spool.Juntas.Count(jt => jt.DataVa != null && jt.CampoOuPipe == JuntaSpool.CampoPipe.PIPE);
-                detalhe.QtdJuntaSoldFab = spool.Juntas.Count(jt => jt.DataSoldagem != null && jt.CampoOuPipe == JuntaSpool.CampoPipe.PIPE);
+                detalhe.WdiJuntaTotalMont = WdiJuntaTotalMont;
+
+                //Gravar Cálculo de Montagem
+                detalhe.WdiJuntaVAMont = WdiJuntaVAMont;
+                detalhe.WdiJuntaSoldMont = WdiJuntaSoldMont;
+                detalhe.WdiJuntaENDMont = WdiJuntaENDMont;
+
+                //Gravar Avanço de Fabricação
+                detalhe.AvancoSpoolCorteFab = AvancoSpoolCorteFab ? 1 : 0;
+                detalhe.AvancoSpoolVAFab = AvancoSpoolVAFab ? 1 : 0;
+                detalhe.AvancoSpoolSoldFab = AvancoSpoolSoldFab ? 1 : 0;
+                detalhe.AvancoSpoolENDFab = AvancoSpoolENDFab ? 1 : 0;
+
+                //Gravar Avanço de Montagem
+                detalhe.AvancoJuntaVAMont = AvancoJuntaVAMont;
+                detalhe.AvancoJuntaSoldMont = AvancoJuntaSoldMont;
+                detalhe.AvancoJuntaENDMont = AvancoJuntaENDMont;
                 detalhe.Save();
 
                 if (i % 1000 == 0)
