@@ -160,6 +160,12 @@
     <Compile Include="Comum\Utils.cs" />
     <Compile Include="RelatorioParametros\CustomReportParametersObjectBase.cs" />
     <Compile Include="RelatorioParametros\MedicaoSpoolParameters.cs" />
+    <Compile Include="RelatorioPreDefinido\JuntaMedicao.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="RelatorioPreDefinido\JuntaMedicao.Designer.cs">
+      <DependentUpon>JuntaMedicao.cs</DependentUpon>
+    </Compile>
     <Compile Include="RelatorioPreDefinido\RelatorioMedicaoAnaliticoSpool.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -189,6 +195,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="DatabaseUpdate\ReadMe.txt" />
+    <EmbeddedResource Include="RelatorioPreDefinido\JuntaMedicao.resx">
+      <DependentUpon>JuntaMedicao.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="RelatorioPreDefinido\RelatorioMedicaoAnaliticoSpool.resx">
       <DependentUpon>RelatorioMedicaoAnaliticoSpool.cs</DependentUpon>
     </EmbeddedResource>
