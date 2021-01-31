@@ -55,7 +55,7 @@ namespace WinCTB_CTS.Module.BusinessObjects.Tubulacao.Auxiliar
 
         [XafDisplayName("WDI")]
         [PersistentAlias("TabDiametro.Wdi")]
-        public string Wdi => (string)EvaluateAlias("Wdi");
+        public double Wdi => (double)EvaluateAlias("Wdi");
 
         [Size(50)]
         public string ScheduleTag
