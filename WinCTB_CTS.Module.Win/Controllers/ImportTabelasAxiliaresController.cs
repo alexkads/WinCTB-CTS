@@ -358,7 +358,7 @@ namespace WinCTB_CTS.Module.Win.Controllers
                              numeroLinha = idxrow,
                              pipingClass = row[0].ToString(),
                              material = row[1].ToString(),
-                             wdi = ((dt.Rows[0])[idxcol]).ToString(),
+                             wdi = Utils.ConvertDouble(((dt.Rows[0])[idxcol]).ToString()),
                              scheduleTag = row[idxcol].ToString()
                          });
                      }
@@ -384,7 +384,7 @@ namespace WinCTB_CTS.Module.Win.Controllers
         public int numeroLinha { get; set; }
         public string pipingClass { get; set; }
         public string material { get; set; }
-        public string wdi { get; set; }
+        public double wdi { get; set; }
         public string scheduleTag { get; set; }
 
     }
