@@ -115,7 +115,7 @@ namespace WinCTB_CTS.Module.Win.Controllers
                 var spool = spools[i];
                 var detalhe = new MedicaoTubulacaoDetalhe(uow);
 
-                var testeLogica = spool.DataCorte;
+                //var testeLogica = spool.DataCorte;
 
                 //Cálculo de Montagem (Memória de Cálculo)
                 var WdiJuntaTotalMont = Utils.ConvertDouble(spool.Evaluate(CriteriaOperator.Parse("Juntas[CampoOuPipe == 'CAMPO'].Sum(TabDiametro.Wdi)")));
@@ -172,7 +172,7 @@ namespace WinCTB_CTS.Module.Win.Controllers
                 {
                     TotalRows = QuantidadeDeSpool,
                     CurrentRow = i,
-                    MessageImport = $"Importando linha {i}/{QuantidadeDeSpool}"
+                    MessageImport = $"Fechando Spools: {i}/{QuantidadeDeSpool}"
                 });
             }
 
