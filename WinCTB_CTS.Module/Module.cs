@@ -38,6 +38,7 @@ namespace WinCTB_CTS.Module
 
             predefinedReportsUpdater.AddPredefinedReport<RelatorioMedicaoAnaliticoSpool>("Relatório de Medição por Spool (Analítico)", typeof(Spool), typeof(MedicaoSpoolParameters), isInplaceReport: true);
             predefinedReportsUpdater.AddPredefinedReport<RelatorioMedicaoSinteticoSpool>("Relatório de Medição por Spool (Sintético)", typeof(Spool), null, isInplaceReport: true);
+            predefinedReportsUpdater.AddPredefinedReport<ResumoDeJuntas>("Resumo de Juntas", typeof(JuntaSpool), null, isInplaceReport: true);
 
             return new ModuleUpdater[]
             {

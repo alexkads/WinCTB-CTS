@@ -27,6 +27,12 @@ namespace WinCTB_CTS.Module.BusinessObjects.Tubulacao
             base.AfterConstruction();
         }
 
+        public enum CampoPipe
+        {
+            PIPE = 0,
+            CAMPO = 1,
+        }
+
 
         private TabPercInspecao tabPercInspecao;
         private TabDiametro tabDiametro;
@@ -94,7 +100,7 @@ namespace WinCTB_CTS.Module.BusinessObjects.Tubulacao
         private string executanteVa;
         private string relatorioVa;
         private string statusVa;
-        private string campoPipe;
+        private CampoPipe campoOuPipe;
         private string norma;
         private string classeInspecao;
         private string materialEn;
@@ -251,11 +257,19 @@ namespace WinCTB_CTS.Module.BusinessObjects.Tubulacao
             set => SetPropertyValue(nameof(Norma), ref norma, value);
         }
 
-        [Size(100), XafDisplayName("Campo ou Pipe")]
-        public string CampoPipe
+ 
+        [RuleRequiredField]
+        [XafDisplayName("Campo/Pipe")]
+        public CampoPipe CampoOuPipe
         {
-            get => campoPipe;
-            set => SetPropertyValue(nameof(CampoPipe), ref campoPipe, value);
+            get
+            {
+                return campoOuPipe;
+            }
+            set
+            {
+                SetPropertyValue("CampoOuPipe", ref campoOuPipe, value);
+            }
         }
 
         [Size(100), XafDisplayName("Status de VA")]

@@ -105,19 +105,19 @@ namespace WinCTB_CTS.Module.Win.Controllers
 
             uow.BeginTransaction();
 
-            var medicaoTubulacao = new MedicaoTubulacao(uow);
-            medicaoTubulacao.DataFechamentoMedicao = DateTime.Now;
-            medicaoTubulacao.Save();
+            var medicao = new MedicaoTubulacao(uow);
+            medicao.DataFechamentoMedicao = DateTime.Now;
+            medicao.Save();
 
             for (int i = 0; i < QuantidadeDeSpool; i++)
             {
                 var spool = spools[i];
-                var medicaoTubulacaoDetalhe = new MedicaoTubulacaoDetalhe(uow);
-                medicaoTubulacaoDetalhe.MedicaoTubulacao = medicaoTubulacao;
-                medicaoTubulacaoDetalhe.Spool = spool;
-                medicaoTubulacaoDetalhe.QuantidadeDeJuntaFabricacao = spool.Juntas.EvaluateDatastoreCount();
-                medicaoTubulacaoDetalhe.QuantidadeDeJuntaMontagem = spool.Juntas.EvaluateDatastoreCount();
-                medicaoTubulacaoDetalhe.Save();
+                var detalhe = new MedicaoTubulacaoDetalhe(uow);
+                detalhe.MedicaoTubulacao = medicao;
+                detalhe.Spool = spool;
+                detalhe.QtdJuntaVAFab = spool.Juntas.Count(jt => jt.DataVa != null && jt.CampoOuPipe == JuntaSpool.CampoPipe.PIPE);
+                detalhe.QtdJuntaSoldFab = spool.Juntas.Count(jt => jt.DataSoldagem != null && jt.CampoOuPipe == JuntaSpool.CampoPipe.PIPE);
+                detalhe.Save();
 
                 if (i % 1000 == 0)
                 {

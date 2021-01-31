@@ -27,11 +27,9 @@ namespace WinCTB_CTS.Module.BusinessObjects.Tubulacao.Medicao
         }
 
 
-        MedicaoTubulacao medicaoTubulacao;
-        private double avancoDeMontagem;
-        private double avancoDeFabricacao;
-        private int quantidadeDeJuntaMontagem;
-        private int quantidadeDeJuntaFabricacao;
+        private int qtdJuntaSoldFab;
+        private int qtdJuntaVAFab;
+        private MedicaoTubulacao medicaoTubulacao;
         private Spool spool;
 
         [Association("Spool-MedicaoTubulacaoDetalhes")]
@@ -41,35 +39,20 @@ namespace WinCTB_CTS.Module.BusinessObjects.Tubulacao.Medicao
             set => SetPropertyValue(nameof(Spool), ref spool, value);
         }
 
-        [XafDisplayName("Quantidade de Junta Fabricação")]
-        public int QuantidadeDeJuntaFabricacao
+        [XafDisplayName("Quantidade de Junta VA Fabricação")]
+        public int QtdJuntaVAFab
         {
-            get => quantidadeDeJuntaFabricacao;
-            set => SetPropertyValue(nameof(QuantidadeDeJuntaFabricacao), ref quantidadeDeJuntaFabricacao, value);
+            get => qtdJuntaVAFab;
+            set => SetPropertyValue(nameof(QtdJuntaVAFab), ref qtdJuntaVAFab, value);
         }
 
-        public int QuantidadeDeJuntaMontagem
+        [XafDisplayName("Quantidade de Junta Resold Fabricação")]
+        public int QtdJuntaSoldFab
         {
-            get => quantidadeDeJuntaMontagem;
-            set => SetPropertyValue(nameof(QuantidadeDeJuntaMontagem), ref quantidadeDeJuntaMontagem, value);
+            get => qtdJuntaSoldFab;
+            set => SetPropertyValue(nameof(QtdJuntaSoldFab), ref qtdJuntaSoldFab, value);
         }
 
-        [XafDisplayName("Acanço de Fabricação")]
-        public double AvancoDeFabricacao
-        {
-            get => avancoDeFabricacao;
-            set => SetPropertyValue(nameof(AvancoDeFabricacao), ref avancoDeFabricacao, value);
-        }
-
-
-        [XafDisplayName("Avanço de Montagem")]
-        public double AvancoDeMontagem
-        {
-            get => avancoDeMontagem;
-            set => SetPropertyValue(nameof(AvancoDeMontagem), ref avancoDeMontagem, value);
-        }
-
-        
         [Association("MedicaoTubulacao-MedicaoTubulacaoDetalhes")]
         public MedicaoTubulacao MedicaoTubulacao
         {
