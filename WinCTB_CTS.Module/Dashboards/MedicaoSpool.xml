@@ -1,0 +1,36 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Dashboard CurrencyCulture="pt-BR">
+  <Title Text="Dashboard" />
+  <DataSources>
+    <ObjectDataSource Name="Object Data Source 1" ComponentName="dashboardObjectDataSource1">
+      <DataSource Type="WinCTB_CTS.Module.BusinessObjects.Tubulacao.Spool, WinCTB_CTS.Module, Version=1.0.7700.39378, Culture=neutral, PublicKeyToken=null" />
+    </ObjectDataSource>
+  </DataSources>
+  <Items>
+    <Pivot ComponentName="pivotDashboardItem1" Name="Pivot 1" DataSource="dashboardObjectDataSource1">
+      <DataItems>
+        <Dimension DataMember="Espec" DefaultId="DataItem0" />
+        <Dimension DataMember="TagSpool" DefaultId="DataItem1" />
+        <Measure DataMember="PesoFabricacao" DefaultId="DataItem2" />
+        <Measure DataMember="PesoMontagem" DefaultId="DataItem3" />
+        <Dimension DataMember="SiteFabricante" DefaultId="DataItem4" />
+      </DataItems>
+      <Columns>
+        <Column DefaultId="DataItem4" />
+      </Columns>
+      <Rows>
+        <Row DefaultId="DataItem0" />
+        <Row DefaultId="DataItem1" />
+      </Rows>
+      <Values>
+        <Value DefaultId="DataItem2" />
+        <Value DefaultId="DataItem3" />
+      </Values>
+    </Pivot>
+  </Items>
+  <LayoutTree>
+    <LayoutGroup>
+      <LayoutItem DashboardItem="pivotDashboardItem1" />
+    </LayoutGroup>
+  </LayoutTree>
+</Dashboard>

@@ -7,6 +7,8 @@ using DevExpress.ExpressApp.Updating;
 using DevExpress.Xpo;
 using DevExpress.ExpressApp.Xpo;
 using DevExpress.Persistent.BaseImpl;
+using DevExpress.ExpressApp.Dashboards;
+using System.Reflection;
 
 namespace WinCTB_CTS.Module.DatabaseUpdate {
     // For more typical usage scenarios, be sure to check out https://documentation.devexpress.com/eXpressAppFramework/clsDevExpressExpressAppUpdatingModuleUpdatertopic.aspx
@@ -14,22 +16,26 @@ namespace WinCTB_CTS.Module.DatabaseUpdate {
         public Updater(IObjectSpace objectSpace, Version currentDBVersion) :
             base(objectSpace, currentDBVersion) {
         }
-        public override void UpdateDatabaseAfterUpdateSchema() {
+        public override void UpdateDatabaseAfterUpdateSchema()
+        {
             base.UpdateDatabaseAfterUpdateSchema();
-            //string name = "MyName";
-            //DomainObject1 theObject = ObjectSpace.FindObject<DomainObject1>(CriteriaOperator.Parse("Name=?", name));
-            //if(theObject == null) {
-            //    theObject = ObjectSpace.CreateObject<DomainObject1>();
-            //    theObject.Name = name;
-            //}
 
-			//ObjectSpace.CommitChanges(); //Uncomment this line to persist created object(s).
+            UpdateStatus("FeatureCenter.Module.Updater.UpdateDatabaseAfterUpdateSchema", "", "Creating initial demo data...");
+            if (ObjectSpace is XPObjectSpace)
+            {
+                InitializeDashboards();
+            }
+
+            ObjectSpace.CommitChanges();
         }
         public override void UpdateDatabaseBeforeUpdateSchema() {
             base.UpdateDatabaseBeforeUpdateSchema();
-            //if(CurrentDBVersion < new Version("1.1.0.0") && CurrentDBVersion > new Version("0.0.0.0")) {
-            //    RenameColumn("DomainObject1Table", "OldColumnName", "NewColumnName");
-            //}
+        }
+
+        private void InitializeDashboards()
+        {
+            Assembly assembly = Assembly.GetExecutingAssembly();
+            DashboardsModule.AddDashboardDataFromResources<DevExpress.Persistent.BaseImpl.DashboardData>(ObjectSpace, "Medição de Spool", assembly, "WinCTB_CTS.Module.Dashboards.MedicaoSpool.xml");
         }
     }
 }

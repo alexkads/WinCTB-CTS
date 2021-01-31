@@ -213,6 +213,7 @@
     <None Include="FunctionalTests\config.xml" />
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="Dashboards\MedicaoSpool.xml" />
     <Content Include="Welcome.html" />
   </ItemGroup>
   <ItemGroup />
