@@ -299,6 +299,7 @@ namespace WinCTB_CTS.Module.Win.Controllers
                     juntaSpool.StatusVa = linha["statusVa"].ToString();
                     juntaSpool.RelatorioVa = linha["relatorioVa"].ToString();
                     juntaSpool.DataVa = Utils.ConvertDateTime(linha["dataVa"]);
+                    juntaSpool.ExecutanteVa = linha["executanteVa"].ToString();
                     juntaSpool.StatusResold = linha["statusResold"].ToString();
                     juntaSpool.SoldadorRaiz = linha["soldadorRaiz"].ToString();
                     juntaSpool.SoldadorEnch = linha["soldadorEnch"].ToString();
@@ -330,6 +331,7 @@ namespace WinCTB_CTS.Module.Win.Controllers
                     juntaSpool.InspetorDureza = linha["inspetorDureza"].ToString();
                     juntaSpool.DataDureza = Utils.ConvertDateTime(linha["dataDureza"]);
                     juntaSpool.StatusRastMaterial = linha["statusRastMaterial"].ToString();
+                    juntaSpool.RelRastMaterial = linha["relRastMaterial"].ToString();
                     juntaSpool.ExecutanteRastMaterial = linha["executanteRastMaterial"].ToString();
                     juntaSpool.DataRastMaterial = Utils.ConvertDateTime(linha["dataRastMaterial"]);
                     juntaSpool.StatusIdLiga = linha["statusIdLiga"].ToString();
