@@ -122,11 +122,15 @@ namespace WinCTB_CTS.Module.Win.Controllers.InstantReport
 
         private void PrintReport(ReportParametersObjectBase GetReportParametersObject)
         {
+            var fileNameAddress = String.Empty;
             try
             {
                 using (SaveFileDialog sfd = new SaveFileDialog())
                 {
-                    sfd.FileName = $"{currentReport.Content}";
+                    var agora = DateTime.Now.ToString("yyyy-MM-dd-HH-mm-ss");
+                    var fileName = $"{currentReport.DisplayName} {agora}";
+
+                    sfd.FileName = fileName;
                     sfd.Filter = "Formato Excel (*.xlsx)|*.xlsx";
 
                     if (sfd.ShowDialog() == DialogResult.OK)
@@ -170,12 +174,19 @@ namespace WinCTB_CTS.Module.Win.Controllers.InstantReport
                             report.PrintingSystem.ResetProgressReflector();
                             form.Close();
                             form.Dispose();
+                            fileNameAddress = sfd.FileName;
                         }
                     }
                 }
             }
             catch (Exception)
             {
+            }
+
+            FileInfo fi = new FileInfo(fileNameAddress);
+            if (fi.Exists)
+            {
+                System.Diagnostics.Process.Start(fileNameAddress);
             }
         }
 
