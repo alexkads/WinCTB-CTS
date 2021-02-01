@@ -13,6 +13,7 @@ using DevExpress.ExpressApp.Xpo;
 using DevExpress.Persistent.Base;
 using DevExpress.Persistent.Validation;
 using DevExpress.Xpo;
+using DevExpress.XtraBars.Alerter;
 using DevExpress.XtraEditors;
 using DevExpress.XtraPrinting;
 using DevExpress.XtraPrinting.Caching;
@@ -31,6 +32,8 @@ namespace WinCTB_CTS.Module.Win.Controllers.InstantReport
     {
         SimpleAction printAction;
         IReportDataV2 currentReport;
+        private AlertControl alertControlCore;
+        string ProcessedfileNameAddress;
         public WinInstantPrintReportController()
         {
             printAction = new SimpleAction(this, "PrintInXLSX", PredefinedCategory.Reports)
@@ -122,62 +125,98 @@ namespace WinCTB_CTS.Module.Win.Controllers.InstantReport
 
         private void PrintReport(ReportParametersObjectBase GetReportParametersObject)
         {
+            var fileName = String.Empty;
+
+            ProcessedfileNameAddress = String.Empty;
             try
             {
-                SaveFileDialog sfd = new SaveFileDialog();
-
-                if (sfd.ShowDialog() == DialogResult.OK)
+                using (SaveFileDialog sfd = new SaveFileDialog())
                 {
-                    CriteriaOperator filter = string.Empty;
-                    if (GetReportParametersObject != null)
-                        filter = XpoObjectInCriteriaProcessingHelper.ParseCriteria(((XPObjectSpace)ObjectSpace).Session, GetReportParametersObject.GetCriteria().LegacyToString());
-                    else
-                        filter = string.Empty;
+                    var agora = DateTime.Now.ToString("yyyy-MM-dd-HH-mm-ss");
+                    fileName = $"{currentReport.DisplayName} {agora}";
 
-                    XtraReport report = ReportDataProvider.ReportsStorage.LoadReport(currentReport);
-                    ReportsModuleV2 reportsModule = ReportsModuleV2.FindReportsModule(Application.Modules);
+                    sfd.FileName = fileName;
+                    sfd.Filter = "Formato Excel (*.xlsx)|*.xlsx";
 
-                    if (reportsModule != null && reportsModule.ReportsDataSourceHelper != null)
+                    if (sfd.ShowDialog() == DialogResult.OK)
                     {
-                        if (GetReportParametersObject == null)
-                            reportsModule.ReportsDataSourceHelper.SetupBeforePrint(report, null, null, true, null, true);
+                        CriteriaOperator filter = string.Empty;
+                        if (GetReportParametersObject != null)
+                            filter = XpoObjectInCriteriaProcessingHelper.ParseCriteria(((XPObjectSpace)ObjectSpace).Session, GetReportParametersObject?.GetCriteria()?.LegacyToString());
                         else
-                            reportsModule.ReportsDataSourceHelper.SetupBeforePrint(report, null, filter, true, null, true);
+                            filter = string.Empty;
 
-                        XtraForm form = new XtraForm()
+                        var sorting = GetReportParametersObject.GetSorting();
+
+                        XtraReport report = ReportDataProvider.ReportsStorage.LoadReport(currentReport);
+                        ReportsModuleV2 reportsModule = ReportsModuleV2.FindReportsModule(Application.Modules);
+
+                        if (reportsModule != null && reportsModule.ReportsDataSourceHelper != null)
                         {
-                            FormBorderStyle = FormBorderStyle.None,
-                            Size = new System.Drawing.Size(400, 20),
-                            ShowInTaskbar = false,
-                            StartPosition = FormStartPosition.CenterScreen,
-                            TopMost = true
-                        };
+                            if (GetReportParametersObject == null)
+                                reportsModule.ReportsDataSourceHelper.SetupBeforePrint(report, null, null, true, null, true);
+                            else
+                                reportsModule.ReportsDataSourceHelper.SetupBeforePrint(report, null, filter, true, sorting, true);
 
-                        ProgressBarControl progressBar = new ProgressBarControl();
-                        ReflectorBar reflectorBar = new ReflectorBar(progressBar);
+                            XtraForm form = new XtraForm()
+                            {
+                                FormBorderStyle = FormBorderStyle.None,
+                                Size = new System.Drawing.Size(400, 20),
+                                ShowInTaskbar = false,
+                                StartPosition = FormStartPosition.CenterScreen,
+                                TopMost = true
+                            };
 
-                        form.Controls.Add(progressBar);
-                        progressBar.Dock = DockStyle.Fill;
+                            ProgressBarControl progressBar = new ProgressBarControl();
+                            ReflectorBar reflectorBar = new ReflectorBar(progressBar);
 
-                        XlsxExportOptions options = new XlsxExportOptions { ExportMode = XlsxExportMode.SingleFile, ShowGridLines = true, RawDataMode = false };
+                            form.Controls.Add(progressBar);
+                            progressBar.Dock = DockStyle.Fill;
 
-                        sfd.Filter = "Formato Excel (*.xlsx)|*.xlsx";
+                            XlsxExportOptions options = new XlsxExportOptions { ExportMode = XlsxExportMode.SingleFile, ShowGridLines = true, RawDataMode = false };
 
-                        form.Show();
-                        report.PrintingSystem.ProgressReflector = reflectorBar;
-                        report.ExportToXlsx(sfd.FileName, options);
-                        report.PrintingSystem.ResetProgressReflector();
-                        form.Close();
-                        form.Dispose();
+                            form.Show();
+                            report.PrintingSystem.ProgressReflector = reflectorBar;
+                            report.ExportToXlsx(sfd.FileName, options);
+                            report.PrintingSystem.ResetProgressReflector();
+                            form.Close();
+                            form.Dispose();
+                            ProcessedfileNameAddress = sfd.FileName;
+                        }
                     }
                 }
-
-                sfd.Dispose();
             }
             catch (Exception)
             {
             }
+
+            if (!String.IsNullOrEmpty(ProcessedfileNameAddress))
+            {
+                FileInfo fi = new FileInfo(ProcessedfileNameAddress);
+                if (fi.Exists)
+                {
+                    Form mainForm = (Form)Application.MainWindow.Template;
+                    AlertInfo info = new AlertInfo("Processo Finalizado!", $"{fileName} (Clique aqui para abrir");
+                    alertControlCore.Show(mainForm, info);
+                }
+            }
         }
 
+        protected virtual void InitAlertControlCore()
+        {
+            alertControlCore = new AlertControl();
+            alertControlCore.AlertClick += AlertControlCore_AlertClick; ;
+        }
+
+        protected override void OnActivated()
+        {
+            base.OnActivated();
+            InitAlertControlCore();
+        }
+
+        private void AlertControlCore_AlertClick(object sender, AlertClickEventArgs e)
+        {
+            System.Diagnostics.Process.Start(ProcessedfileNameAddress);
+        }
     }
 }

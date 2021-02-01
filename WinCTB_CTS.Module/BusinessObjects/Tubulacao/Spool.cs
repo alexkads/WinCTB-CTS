@@ -28,9 +28,8 @@ namespace WinCTB_CTS.Module.BusinessObjects.Tubulacao
             base.AfterConstruction();
         }
 
-
-
-        private TabSite siteFabricante;
+        private Contrato contrato;
+        private string siteFabricante;
         private string inspPiRevUnico;
         private string situacaoMontagem;
         private string situacaoFabricacao;
@@ -106,20 +105,19 @@ namespace WinCTB_CTS.Module.BusinessObjects.Tubulacao
         private string campoAuxiliar;
         private string documento;
         private string arranjoFisico;
-        private string contrato;
-        
-        [Association("TabSite-Spools")]
-        public TabSite SiteFabricante
-        {
-            get => siteFabricante;
-            set => SetPropertyValue(nameof(SiteFabricante), ref siteFabricante, value);
-        }
 
-        [Size(100)]
-        public string Contrato
+        [Association("Contrato-Spools")]
+        public Contrato Contrato
         {
             get => contrato;
             set => SetPropertyValue(nameof(Contrato), ref contrato, value);
+        }
+        
+        [Size(100)]
+        public string SiteFabricante
+        {
+            get => siteFabricante;
+            set => SetPropertyValue(nameof(SiteFabricante), ref siteFabricante, value);
         }
 
         [Size(100), XafDisplayName("Arranjo Físico")]

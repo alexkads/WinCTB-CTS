@@ -44,10 +44,10 @@ namespace WinCTB_CTS.Module
 
             PredefinedReportsUpdater predefinedReportsUpdater = new PredefinedReportsUpdater(Application, objectSpace, versionFromDB);
 
-            predefinedReportsUpdater.AddPredefinedReport<RelatorioMedicaoAnaliticoSpool>("Relatório de Medição por Spool (Analítico)", typeof(Spool), typeof(MedicaoSpoolParameters), isInplaceReport: true);
-            predefinedReportsUpdater.AddPredefinedReport<RelatorioMedicaoSinteticoSpool>("Relatório de Medição por Spool (Sintético)", typeof(Spool), null, isInplaceReport: true);
-            predefinedReportsUpdater.AddPredefinedReport<ResumoDeJuntas>("Resumo de Juntas", typeof(JuntaSpool), null, isInplaceReport: true);
-            predefinedReportsUpdater.AddPredefinedReport<JuntaMedicao>("Juntas Medição", typeof(JuntaSpool), null, isInplaceReport: true);
+            predefinedReportsUpdater.AddPredefinedReport<RelatorioMedicaoAnaliticoSpool>("Relatório de Medição por Spool (Analítico)", typeof(Spool), typeof(SpoolParameters), isInplaceReport: true);
+            predefinedReportsUpdater.AddPredefinedReport<RelatorioMedicaoSinteticoSpool>("Relatório de Medição por Spool (Sintético)", typeof(Spool), typeof(SpoolParameters), isInplaceReport: true);
+            predefinedReportsUpdater.AddPredefinedReport<ResumoDeJuntas>("Resumo de Juntas", typeof(JuntaSpool), typeof(JuntaSpoolParameters), isInplaceReport: true);
+            predefinedReportsUpdater.AddPredefinedReport<JuntaMedicao>("Juntas Medição", typeof(JuntaSpool), typeof(JuntaSpoolParameters), isInplaceReport: true);
 
             return new ModuleUpdater[]
             {

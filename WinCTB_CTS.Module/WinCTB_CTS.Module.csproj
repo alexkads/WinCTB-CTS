@@ -137,7 +137,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Action\ActionBaseObject.cs" />
-    <Compile Include="BusinessObjects\Comum\TabSite.cs" />
+    <Compile Include="BusinessObjects\Comum\Contrato.cs" />
     <Compile Include="BusinessObjects\Estrutura\Componente.cs" />
     <Compile Include="BusinessObjects\Estrutura\JuntaComponente.cs" />
     <Compile Include="BusinessObjects\Editor\EditorsProviders.cs" />
@@ -162,7 +162,8 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Comum\Utils.cs" />
     <Compile Include="RelatorioParametros\CustomReportParametersObjectBase.cs" />
-    <Compile Include="RelatorioParametros\MedicaoSpoolParameters.cs" />
+    <Compile Include="RelatorioParametros\JuntaSpoolParameters.cs" />
+    <Compile Include="RelatorioParametros\SpoolParameters.cs" />
     <Compile Include="RelatorioPreDefinido\JuntaMedicao.cs">
       <SubType>Component</SubType>
     </Compile>
