@@ -13,6 +13,7 @@ using DevExpress.ExpressApp.Xpo;
 using DevExpress.Persistent.Base;
 using DevExpress.Persistent.Validation;
 using DevExpress.Xpo;
+using DevExpress.XtraBars.Alerter;
 using DevExpress.XtraEditors;
 using DevExpress.XtraPrinting;
 using DevExpress.XtraPrinting.Caching;
@@ -31,6 +32,8 @@ namespace WinCTB_CTS.Module.Win.Controllers.InstantReport
     {
         SimpleAction printAction;
         IReportDataV2 currentReport;
+        private AlertControl alertControlCore;
+        string ProcessedfileNameAddress;
         public WinInstantPrintReportController()
         {
             printAction = new SimpleAction(this, "PrintInXLSX", PredefinedCategory.Reports)
@@ -122,13 +125,15 @@ namespace WinCTB_CTS.Module.Win.Controllers.InstantReport
 
         private void PrintReport(ReportParametersObjectBase GetReportParametersObject)
         {
-            var fileNameAddress = String.Empty;
+            var fileName = String.Empty;
+
+            ProcessedfileNameAddress = String.Empty;
             try
             {
                 using (SaveFileDialog sfd = new SaveFileDialog())
                 {
                     var agora = DateTime.Now.ToString("yyyy-MM-dd-HH-mm-ss");
-                    var fileName = $"{currentReport.DisplayName} {agora}";
+                    fileName = $"{currentReport.DisplayName} {agora}";
 
                     sfd.FileName = fileName;
                     sfd.Filter = "Formato Excel (*.xlsx)|*.xlsx";
@@ -137,7 +142,7 @@ namespace WinCTB_CTS.Module.Win.Controllers.InstantReport
                     {
                         CriteriaOperator filter = string.Empty;
                         if (GetReportParametersObject != null)
-                            filter = XpoObjectInCriteriaProcessingHelper.ParseCriteria(((XPObjectSpace)ObjectSpace).Session, GetReportParametersObject.GetCriteria().LegacyToString());
+                            filter = XpoObjectInCriteriaProcessingHelper.ParseCriteria(((XPObjectSpace)ObjectSpace).Session, GetReportParametersObject?.GetCriteria()?.LegacyToString());
                         else
                             filter = string.Empty;
 
@@ -176,7 +181,7 @@ namespace WinCTB_CTS.Module.Win.Controllers.InstantReport
                             report.PrintingSystem.ResetProgressReflector();
                             form.Close();
                             form.Dispose();
-                            fileNameAddress = sfd.FileName;
+                            ProcessedfileNameAddress = sfd.FileName;
                         }
                     }
                 }
@@ -185,12 +190,33 @@ namespace WinCTB_CTS.Module.Win.Controllers.InstantReport
             {
             }
 
-            FileInfo fi = new FileInfo(fileNameAddress);
-            if (fi.Exists)
+            if (!String.IsNullOrEmpty(ProcessedfileNameAddress))
             {
-                System.Diagnostics.Process.Start(fileNameAddress);
+                FileInfo fi = new FileInfo(ProcessedfileNameAddress);
+                if (fi.Exists)
+                {
+                    Form mainForm = (Form)Application.MainWindow.Template;
+                    AlertInfo info = new AlertInfo("Processo Finalizado!", $"{fileName} (Clique aqui para abrir");
+                    alertControlCore.Show(mainForm, info);
+                }
             }
         }
 
+        protected virtual void InitAlertControlCore()
+        {
+            alertControlCore = new AlertControl();
+            alertControlCore.AlertClick += AlertControlCore_AlertClick; ;
+        }
+
+        protected override void OnActivated()
+        {
+            base.OnActivated();
+            InitAlertControlCore();
+        }
+
+        private void AlertControlCore_AlertClick(object sender, AlertClickEventArgs e)
+        {
+            System.Diagnostics.Process.Start(ProcessedfileNameAddress);
+        }
     }
 }
