@@ -26,6 +26,7 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using WinCTB_CTS.Module.BusinessObjects.Comum;
 using WinCTB_CTS.Module.BusinessObjects.Tubulacao;
 using WinCTB_CTS.Module.BusinessObjects.Tubulacao.Auxiliar;
 using WinCTB_CTS.Module.Comum;
@@ -159,7 +160,7 @@ namespace WinCTB_CTS.Module.Win.Controllers
                 spool.AreaFisica = Convert.ToString(linha["areaFisica"]);
                 spool.Sth = Convert.ToString(linha["sth"]);
                 spool.Linha = Convert.ToString(linha["linha"]);
-                spool.SiteFabricante = Convert.ToString(linha["siteFabricante"]);
+                spool.SiteFabricante = uow.FindObject<TabSite>(new BinaryOperator("SiteNome", linha["siteFabricante"].ToString()));
                 spool.Isometrico = isometrico;
                 spool.TagSpool = tagSpool;
                 spool.RevSpool = Convert.ToString(linha["revSpool"]);

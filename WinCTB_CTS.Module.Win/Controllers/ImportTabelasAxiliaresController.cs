@@ -26,6 +26,7 @@ using WinCTB_CTS.Module.Win.Actions;
 using System.Reactive.Linq;
 using System.Reactive.Concurrency;
 using System.Threading;
+using WinCTB_CTS.Module.BusinessObjects.Comum;
 
 namespace WinCTB_CTS.Module.Win.Controllers
 {
@@ -98,6 +99,7 @@ namespace WinCTB_CTS.Module.Win.Controllers
             await Observable.Start(() => ImportarSchedule(dtcollectionImport["Schedule"], progress));
             await Observable.Start(() => ImportarPercInspecao(dtcollectionImport["PercInspecao"], progress));
             await Observable.Start(() => ImportarProcessoSoldagem(dtcollectionImport["ProcessoSoldagem"], progress));
+            await Observable.Start(() => ImportarSite(dtcollectionImport["TabSite"], progress));
 
             e.AcceptActionArgs.Action.Caption = "Finalizado";
         }
@@ -308,6 +310,61 @@ namespace WinCTB_CTS.Module.Win.Controllers
                     tabprocesso.Eps = eps;
                     tabprocesso.Raiz = raiz;
                     tabprocesso.Ench = ench;
+
+                    progress.Report(new ImportProgressReport
+                    {
+                        TotalRows = TotalRows,
+                        CurrentRow = i,
+                    });
+                }
+
+                if (i % 10 == 0)
+                {
+                    try
+                    {
+                        uow.CommitTransaction();
+                    }
+                    catch
+                    {
+                        uow.RollbackTransaction();
+                        throw new Exception("Process aborted by system");
+                    }
+                }
+            }
+
+            uow.CommitTransaction();
+            uow.CommitChanges();
+            uow.Dispose();
+
+            progress.Report(new ImportProgressReport
+            {
+                TotalRows = TotalRows,
+                CurrentRow = TotalRows
+            });
+        }
+
+        private void ImportarSite(DataTable dt, IProgress<ImportProgressReport> progress)
+        {
+
+            var TotalRows = dt.Rows.Count;
+
+            UnitOfWork uow = new UnitOfWork(((XPObjectSpace)objectSpace).Session.ObjectLayer);
+            uow.BeginTransaction();
+
+            for (int i = 0; i < TotalRows; i++)
+            {
+                if (i > 0)
+                {
+                    var row = dt.Rows[i];
+                    var siteNome = row[0].ToString();
+
+                    var criteriaOperator = new BinaryOperator("SiteNome", siteNome);
+                    var tabprocesso = uow.FindObject<TabSite>(criteriaOperator);
+
+                    if (tabprocesso == null)
+                        tabprocesso = new TabSite(uow);
+
+                    tabprocesso.SiteNome = siteNome;
 
                     progress.Report(new ImportProgressReport
                     {
