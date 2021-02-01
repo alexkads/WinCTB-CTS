@@ -8,6 +8,7 @@ using DevExpress.Xpo.DB;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Linq;
 using System.Runtime.CompilerServices;
 using WinCTB_CTS.Module.BusinessObjects.Comum;
 using WinCTB_CTS.Module.BusinessObjects.Tubulacao;
@@ -32,9 +33,10 @@ namespace WinCTB_CTS.Module.RelatorioParametros
         public override CriteriaOperator GetCriteria()
         {
             CriteriaOperator criteriaOperator = null;
+            //ObjectSpace.GetObjects<Spool>().Select(x=> x.TagSpool);
 
-                if (Contrato != null)
-                    criteriaOperator = CriteriaOperator.Parse("Spool.Contrato.Oid == ?", Contrato.Oid);
+            if (Contrato != null)
+                    criteriaOperator = CriteriaOperator.Parse("Contrato.Oid == ?", Contrato.Oid);
 
             return criteriaOperator;
         }
@@ -43,7 +45,7 @@ namespace WinCTB_CTS.Module.RelatorioParametros
         {
             List<SortProperty> sorting = new List<SortProperty> {
                 new SortProperty("Documento", SortingDirection.Ascending),
-                new SortProperty("Junta", SortingDirection.Ascending)
+                new SortProperty("TagSpool", SortingDirection.Ascending)
             };
 
             return sorting.ToArray();
