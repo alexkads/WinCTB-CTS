@@ -141,6 +141,8 @@ namespace WinCTB_CTS.Module.Win.Controllers.InstantReport
                         else
                             filter = string.Empty;
 
+                        var sorting = GetReportParametersObject.GetSorting();
+
                         XtraReport report = ReportDataProvider.ReportsStorage.LoadReport(currentReport);
                         ReportsModuleV2 reportsModule = ReportsModuleV2.FindReportsModule(Application.Modules);
 
@@ -149,7 +151,7 @@ namespace WinCTB_CTS.Module.Win.Controllers.InstantReport
                             if (GetReportParametersObject == null)
                                 reportsModule.ReportsDataSourceHelper.SetupBeforePrint(report, null, null, true, null, true);
                             else
-                                reportsModule.ReportsDataSourceHelper.SetupBeforePrint(report, null, filter, true, null, true);
+                                reportsModule.ReportsDataSourceHelper.SetupBeforePrint(report, null, filter, true, sorting, true);
 
                             XtraForm form = new XtraForm()
                             {
