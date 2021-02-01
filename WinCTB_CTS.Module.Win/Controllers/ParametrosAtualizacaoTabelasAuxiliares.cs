@@ -54,11 +54,10 @@ namespace WinCTB_CTS.Module.Win.Controllers
                     var os = XPObjectSpace.FindObjectSpaceByObject(this);
                     var fdata = os.FindObject<FileData>(new BinaryOperator("FileName", NomeDoRecurso));
                     if (fdata == null)
-                    {
                         fdata = os.CreateObject<FileData>();
-                        fdata.LoadFromStream(NomeDoRecurso, GetManifestResource(NomeDoRecurso));
-                        fdata.Save();
-                    }
+
+                    fdata.LoadFromStream(NomeDoRecurso, GetManifestResource(NomeDoRecurso));
+                    fdata.Save();
                     padrao = fdata;
                 }
                 return padrao;

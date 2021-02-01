@@ -197,6 +197,9 @@
     <Compile Include="Actions\DisableControllersForNonPersistentObjects.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="Controllers\ClearDBController.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Controllers\FechamentoMedicaoTubulacaoController.cs">
       <SubType>Component</SubType>
     </Compile>

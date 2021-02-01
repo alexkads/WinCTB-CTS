@@ -39,6 +39,8 @@ namespace WinCTB_CTS.Module.Win.Controllers.InstantReport
                 SelectionDependencyType = SelectionDependencyType.RequireSingleObject,
                 ImageName = "Action_SaveScript"
             };
+
+            printAction.Execute += PrintAction_Execute;
         }
 
         private void PrintAction_Execute(object sender, SimpleActionExecuteEventArgs e)
@@ -177,16 +179,5 @@ namespace WinCTB_CTS.Module.Win.Controllers.InstantReport
             }
         }
 
-        protected override void OnActivated()
-        {
-            base.OnActivated();
-            printAction.Execute += PrintAction_Execute;
-        }
-
-        protected override void OnDeactivated()
-        {
-            printAction.Execute -= PrintAction_Execute;
-            base.OnDeactivated();
-        }
     }
 }

@@ -359,12 +359,12 @@ namespace WinCTB_CTS.Module.Win.Controllers
                     var siteNome = row[0].ToString();
 
                     var criteriaOperator = new BinaryOperator("SiteNome", siteNome);
-                    var tabprocesso = uow.FindObject<TabSite>(criteriaOperator);
+                    var tabsite = uow.FindObject<TabSite>(criteriaOperator);
 
-                    if (tabprocesso == null)
-                        tabprocesso = new TabSite(uow);
+                    if (tabsite == null)
+                        tabsite = new TabSite(uow);
 
-                    tabprocesso.SiteNome = siteNome;
+                    tabsite.SiteNome = siteNome;
 
                     progress.Report(new ImportProgressReport
                     {
