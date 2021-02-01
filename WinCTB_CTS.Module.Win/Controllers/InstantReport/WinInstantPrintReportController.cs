@@ -124,55 +124,55 @@ namespace WinCTB_CTS.Module.Win.Controllers.InstantReport
         {
             try
             {
-                SaveFileDialog sfd = new SaveFileDialog();
-
-                if (sfd.ShowDialog() == DialogResult.OK)
+                using (SaveFileDialog sfd = new SaveFileDialog())
                 {
-                    CriteriaOperator filter = string.Empty;
-                    if (GetReportParametersObject != null)
-                        filter = XpoObjectInCriteriaProcessingHelper.ParseCriteria(((XPObjectSpace)ObjectSpace).Session, GetReportParametersObject.GetCriteria().LegacyToString());
-                    else
-                        filter = string.Empty;
+                    sfd.FileName = $"{currentReport.Content}";
+                    sfd.Filter = "Formato Excel (*.xlsx)|*.xlsx";
 
-                    XtraReport report = ReportDataProvider.ReportsStorage.LoadReport(currentReport);
-                    ReportsModuleV2 reportsModule = ReportsModuleV2.FindReportsModule(Application.Modules);
-
-                    if (reportsModule != null && reportsModule.ReportsDataSourceHelper != null)
+                    if (sfd.ShowDialog() == DialogResult.OK)
                     {
-                        if (GetReportParametersObject == null)
-                            reportsModule.ReportsDataSourceHelper.SetupBeforePrint(report, null, null, true, null, true);
+                        CriteriaOperator filter = string.Empty;
+                        if (GetReportParametersObject != null)
+                            filter = XpoObjectInCriteriaProcessingHelper.ParseCriteria(((XPObjectSpace)ObjectSpace).Session, GetReportParametersObject.GetCriteria().LegacyToString());
                         else
-                            reportsModule.ReportsDataSourceHelper.SetupBeforePrint(report, null, filter, true, null, true);
+                            filter = string.Empty;
 
-                        XtraForm form = new XtraForm()
+                        XtraReport report = ReportDataProvider.ReportsStorage.LoadReport(currentReport);
+                        ReportsModuleV2 reportsModule = ReportsModuleV2.FindReportsModule(Application.Modules);
+
+                        if (reportsModule != null && reportsModule.ReportsDataSourceHelper != null)
                         {
-                            FormBorderStyle = FormBorderStyle.None,
-                            Size = new System.Drawing.Size(400, 20),
-                            ShowInTaskbar = false,
-                            StartPosition = FormStartPosition.CenterScreen,
-                            TopMost = true
-                        };
+                            if (GetReportParametersObject == null)
+                                reportsModule.ReportsDataSourceHelper.SetupBeforePrint(report, null, null, true, null, true);
+                            else
+                                reportsModule.ReportsDataSourceHelper.SetupBeforePrint(report, null, filter, true, null, true);
 
-                        ProgressBarControl progressBar = new ProgressBarControl();
-                        ReflectorBar reflectorBar = new ReflectorBar(progressBar);
+                            XtraForm form = new XtraForm()
+                            {
+                                FormBorderStyle = FormBorderStyle.None,
+                                Size = new System.Drawing.Size(400, 20),
+                                ShowInTaskbar = false,
+                                StartPosition = FormStartPosition.CenterScreen,
+                                TopMost = true
+                            };
 
-                        form.Controls.Add(progressBar);
-                        progressBar.Dock = DockStyle.Fill;
+                            ProgressBarControl progressBar = new ProgressBarControl();
+                            ReflectorBar reflectorBar = new ReflectorBar(progressBar);
 
-                        XlsxExportOptions options = new XlsxExportOptions { ExportMode = XlsxExportMode.SingleFile, ShowGridLines = true, RawDataMode = false };
+                            form.Controls.Add(progressBar);
+                            progressBar.Dock = DockStyle.Fill;
 
-                        sfd.Filter = "Formato Excel (*.xlsx)|*.xlsx";
+                            XlsxExportOptions options = new XlsxExportOptions { ExportMode = XlsxExportMode.SingleFile, ShowGridLines = true, RawDataMode = false };
 
-                        form.Show();
-                        report.PrintingSystem.ProgressReflector = reflectorBar;
-                        report.ExportToXlsx(sfd.FileName, options);
-                        report.PrintingSystem.ResetProgressReflector();
-                        form.Close();
-                        form.Dispose();
+                            form.Show();
+                            report.PrintingSystem.ProgressReflector = reflectorBar;
+                            report.ExportToXlsx(sfd.FileName, options);
+                            report.PrintingSystem.ResetProgressReflector();
+                            form.Close();
+                            form.Dispose();
+                        }
                     }
                 }
-
-                sfd.Dispose();
             }
             catch (Exception)
             {
