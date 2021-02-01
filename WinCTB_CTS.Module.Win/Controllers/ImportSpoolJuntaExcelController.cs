@@ -14,6 +14,7 @@ using DevExpress.Xpo;
 using DevExpress.XtraEditors;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Data;
 using System.Globalization;
 using System.IO;
@@ -120,6 +121,8 @@ namespace WinCTB_CTS.Module.Win.Controllers
             UnitOfWork uow = new UnitOfWork(((XPObjectSpace)objectSpace).Session.ObjectLayer);
             var TotalDeJuntas = dtSpoolsImport.Rows.Count;
 
+            var oldSpools = Utils.GetOldDatasForCheck<Spool>(uow);
+
             progress.Report(new ImportProgressReport
             {
                 TotalRows = TotalDeJuntas,
@@ -129,26 +132,36 @@ namespace WinCTB_CTS.Module.Win.Controllers
 
             uow.BeginTransaction();
 
-            //Limpar registros
-            Utils.DeleteAllRecords<Spool>(uow);
-            uow.CommitTransaction();
-
             for (int i = 0; i < TotalDeJuntas; i++)
             {
                 var linha = dtSpoolsImport.Rows[i];
-                var spool = new Spool(uow);
+                var contrato = linha["contrato"].ToString();
+                var documento = linha["documento"].ToString();
+                var isometrico = linha["isometrico"].ToString();
+                var tagSpool = $"{Convert.ToString(linha["isometrico"])}-{Convert.ToString(linha["tagSpool"])}";
+
+                var criteriaOperator = CriteriaOperator.Parse("Contrato = ? And Documento = ? And Isometrico = ? And TagSpool = ?",
+                    contrato, documento, isometrico, tagSpool);
+
+                var spool = uow.FindObject<Spool>(criteriaOperator);
+
+                if (spool == null)
+                    spool = new Spool(uow);
+                else
+                    oldSpools.FirstOrDefault(x => x.Oid == spool.Oid).DataExist = true;
+
                 //var spool = objectSpace.CreateObject<Spool>();
-                spool.Contrato = linha["contrato"].ToString();
+                spool.Contrato = contrato;
                 spool.ArranjoFisico = linha["arranjoFisico"].ToString();
-                spool.Documento = linha["documento"].ToString();
+                spool.Documento = documento;
                 spool.CampoAuxiliar = linha["campoAuxiliar"].ToString();
                 spool.SubSop = linha["subSop"].ToString();
                 spool.AreaFisica = Convert.ToString(linha["areaFisica"]);
                 spool.Sth = Convert.ToString(linha["sth"]);
                 spool.Linha = Convert.ToString(linha["linha"]);
                 spool.SiteFabricante = Convert.ToString(linha["siteFabricante"]);
-                spool.Isometrico = Convert.ToString(linha["isometrico"]);
-                spool.TagSpool = $"{Convert.ToString(linha["isometrico"])}-{Convert.ToString(linha["tagSpool"])}";
+                spool.Isometrico = isometrico;
+                spool.TagSpool = tagSpool;
                 spool.RevSpool = Convert.ToString(linha["revSpool"]);
                 spool.RevIso = Convert.ToString(linha["revIso"]);
                 spool.Material = Convert.ToString(linha["material"]);
@@ -247,12 +260,18 @@ namespace WinCTB_CTS.Module.Win.Controllers
                 CurrentRow = TotalDeJuntas,
                 MessageImport = $"Gravando Alterações no Banco"
             });
+
+
+            // Implatar funcionalidade
+            //var excluirSpoolsNaoImportado = oldSpools.Where(x => x.DataExist = false);
         }
 
         private void ImportarJuntas(DataTable dtJuntasImport, IProgress<ImportProgressReport> progress)
         {
             UnitOfWork uow = new UnitOfWork(((XPObjectSpace)objectSpace).Session.ObjectLayer);
             var TotalDeJuntas = dtJuntasImport.Rows.Count;
+
+            var oldJuntas = Utils.GetOldDatasForCheck<JuntaSpool>(uow);
 
             progress.Report(new ImportProgressReport
             {
@@ -263,9 +282,9 @@ namespace WinCTB_CTS.Module.Win.Controllers
 
             uow.BeginTransaction();
 
-            //Limpar registros
-            Utils.DeleteAllRecords<JuntaSpool>(uow);
-            uow.CommitTransaction();
+            ////Limpar registros
+            //Utils.DeleteAllRecords<JuntaSpool>(uow);
+            //uow.CommitTransaction();
 
             for (int i = 0; i < TotalDeJuntas; i++)
             {
@@ -275,7 +294,17 @@ namespace WinCTB_CTS.Module.Win.Controllers
                 var spool = uow.FindObject<Spool>(FiltroPesquisa);
                 if (spool != null)
                 {
-                    var juntaSpool = new JuntaSpool(uow);
+                    var junta = linha["junta"].ToString();
+
+                    var criteriaOperator = CriteriaOperator.Parse("Spool.Oid = ? And Junta = ?",
+                        spool.Oid, junta);
+
+                    var juntaSpool = uow.FindObject<JuntaSpool>(criteriaOperator);
+
+                    if (juntaSpool == null)
+                        juntaSpool = new JuntaSpool(uow);
+                    else
+                        oldJuntas.FirstOrDefault(x => x.Oid == juntaSpool.Oid).DataExist = true;
 
                     juntaSpool.Site = linha["site"].ToString();
                     juntaSpool.ArranjoFisico = linha["arranjoFisico"].ToString();
@@ -285,7 +314,7 @@ namespace WinCTB_CTS.Module.Win.Controllers
                     juntaSpool.Sth = linha["sth"].ToString();
                     juntaSpool.Documento = linha["documento"].ToString();
                     juntaSpool.Linha = linha["linha"].ToString();
-                    juntaSpool.Junta = linha["junta"].ToString();
+                    juntaSpool.Junta = junta;
                     // Daniel - Adicionar campos do SGJ aqui dentro
                     juntaSpool.TabDiametro = uow.FindObject<TabDiametro>(new BinaryOperator("DiametroPolegada", linha["diametroPolegada"].ToString()));
                     juntaSpool.Schedule = linha["schedule"].ToString();
@@ -396,6 +425,9 @@ namespace WinCTB_CTS.Module.Win.Controllers
                 CurrentRow = TotalDeJuntas,
                 MessageImport = $"Gravando Alterações no Banco"
             });
+
+            // Implatar funcionalidade
+            //var excluirJuntasNaoImportado = oldJuntas.Where(x => x.DataExist = false);
         }
     }
 

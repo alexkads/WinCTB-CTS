@@ -17,6 +17,9 @@ using DevExpress.ExpressApp;
 using System.IO;
 using static WinCTB_CTS.Module.BusinessObjects.Tubulacao.JuntaSpool;
 using DevExpress.ExpressApp.Utils;
+using DevExpress.Persistent.BaseImpl;
+using DevExpress.Data.Filtering;
+using System.Collections;
 
 namespace WinCTB_CTS.Module.Comum
 {
@@ -139,7 +142,7 @@ namespace WinCTB_CTS.Module.Comum
 
         public static Func<double?, double?, double> CalculoPercentual = (numerador, denominador) =>
         {
-            if (numerador.Value > 0 && denominador.Value > 0 )
+            if (numerador.Value > 0 && denominador.Value > 0)
                 return numerador.Value / denominador.Value;
             else
                 return 0D;
@@ -163,5 +166,29 @@ namespace WinCTB_CTS.Module.Comum
 
             return EnumObj;
         };
+
+        public static ICollection<OldData> GetOldDatasForCheck<T>(Session session)
+        {
+            var ArrayOids = new List<OldData>();
+            var XPViewOids = new XPView(session, session.GetClassInfo<T>(), "Oid", CriteriaOperator.Parse("Not IsNull(Oid)"));
+            var OidCollection = new List<ViewRecord>(XPViewOids.Cast<ViewRecord>());
+
+            foreach (var item in OidCollection)
+            {
+
+                ArrayOids.Add(new OldData
+                {
+                    Oid = (Guid)item["Oid"]
+                });
+            }
+
+            return ArrayOids;
+        }
+    }
+
+    public class OldData
+    {
+        public Guid Oid { get; set; }
+        public bool DataExist { get; set; }
     }
 }
