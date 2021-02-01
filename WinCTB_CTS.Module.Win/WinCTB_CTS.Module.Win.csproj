@@ -206,6 +206,7 @@
     <Compile Include="Controllers\ImportTabelasAxiliaresController.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="Controllers\InstantReport\WinInstantPrintReportController.cs" />
     <Compile Include="Controllers\ParametrosImportSpoolJuntaExcel.cs" />
     <Compile Include="Controllers\ParametrosAtualizacaoTabelasAuxiliares.cs" />
     <Compile Include="Controllers\XtraProgressImport.cs">
