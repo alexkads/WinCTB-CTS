@@ -11,6 +11,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using System.Text;
+using WinCTB_CTS.Module.BusinessObjects.Comum;
 using WinCTB_CTS.Module.BusinessObjects.Tubulacao.Medicao;
 
 namespace WinCTB_CTS.Module.BusinessObjects.Tubulacao
@@ -29,7 +30,8 @@ namespace WinCTB_CTS.Module.BusinessObjects.Tubulacao
 
 
 
-        string inspPiRevUnico;
+        private TabSite siteFabricante;
+        private string inspPiRevUnico;
         private string situacaoMontagem;
         private string situacaoFabricacao;
         private double pesoMontagem;
@@ -97,7 +99,6 @@ namespace WinCTB_CTS.Module.BusinessObjects.Tubulacao
         private string revIso;
         private string revSpool;
         private string isometrico;
-        private string siteFabricante;
         private string linha;
         private string sth;
         private string areaFisica;
@@ -106,6 +107,13 @@ namespace WinCTB_CTS.Module.BusinessObjects.Tubulacao
         private string documento;
         private string arranjoFisico;
         private string contrato;
+        
+        [Association("TabSite-Spools")]
+        public TabSite SiteFabricante
+        {
+            get => siteFabricante;
+            set => SetPropertyValue(nameof(SiteFabricante), ref siteFabricante, value);
+        }
 
         [Size(100)]
         public string Contrato
@@ -113,7 +121,6 @@ namespace WinCTB_CTS.Module.BusinessObjects.Tubulacao
             get => contrato;
             set => SetPropertyValue(nameof(Contrato), ref contrato, value);
         }
-
 
         [Size(100), XafDisplayName("Arranjo Físico")]
         public string ArranjoFisico
@@ -162,13 +169,6 @@ namespace WinCTB_CTS.Module.BusinessObjects.Tubulacao
         {
             get => linha;
             set => SetPropertyValue(nameof(Linha), ref linha, value);
-        }
-
-        [Size(100), XafDisplayName("Site Fabricante")]
-        public string SiteFabricante
-        {
-            get => siteFabricante;
-            set => SetPropertyValue(nameof(SiteFabricante), ref siteFabricante, value);
         }
 
         [Size(100), XafDisplayName("Isométrico")]

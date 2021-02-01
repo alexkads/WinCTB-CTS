@@ -178,5 +178,6 @@ namespace WinCTB_CTS.Module.Win.Controllers.InstantReport
             {
             }
         }
+
     }
 }

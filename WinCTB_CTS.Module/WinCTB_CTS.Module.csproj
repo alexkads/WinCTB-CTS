@@ -91,6 +91,7 @@
     </Reference>
     <Reference Include="DevExpress.Office.v18.2.Core, Version=18.2.14.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
     <Reference Include="DevExpress.Pdf.v18.2.Core, Version=18.2.14.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.Persistent.BaseImpl.EF.v18.2, Version=18.2.14.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
     <Reference Include="DevExpress.PivotGrid.v18.2.Core, Version=18.2.14.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
     <Reference Include="DevExpress.Printing.v18.2.Core">
       <SpecificVersion>False</SpecificVersion>
@@ -136,10 +137,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Action\ActionBaseObject.cs" />
+    <Compile Include="BusinessObjects\Comum\TabSite.cs" />
     <Compile Include="BusinessObjects\Estrutura\Componente.cs" />
     <Compile Include="BusinessObjects\Estrutura\JuntaComponente.cs" />
     <Compile Include="BusinessObjects\Editor\EditorsProviders.cs" />
     <Compile Include="BusinessObjects\Tubulacao\Auxiliar\TabDiametro.cs" />
+    <Compile Include="BusinessObjects\Tubulacao\Auxiliar\TabEAPPipe.cs" />
     <Compile Include="BusinessObjects\Tubulacao\Auxiliar\TabPercInspecao.cs" />
     <Compile Include="BusinessObjects\Tubulacao\Auxiliar\TabProcessoSoldagem.cs" />
     <Compile Include="BusinessObjects\Tubulacao\Auxiliar\TabSchedule.cs" />
@@ -207,7 +210,9 @@
     <EmbeddedResource Include="RelatorioPreDefinido\ResumoDeJuntas.resx">
       <DependentUpon>ResumoDeJuntas.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Resources\TabelasAuxiliares.xlsx" />
+    <EmbeddedResource Include="Resources\TabelasAuxiliares.xlsx">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
     <None Include="BusinessObjects\ReadMe.txt" />
@@ -221,7 +226,9 @@
   <ItemGroup>
     <None Include="FunctionalTests\sample.ets" />
     <None Include="Images\ReadMe.txt" />
-    <EmbeddedResource Include="Resources\CSGeCSJ.xlsx" />
+    <EmbeddedResource Include="Resources\CSGeCSJ.xlsx">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
     <None Include="ReadMe.txt" />
   </ItemGroup>
   <ItemGroup>
