@@ -31,8 +31,8 @@ namespace WinCTB_CTS.Module.Win.Controllers
             TargetWindowType = WindowType.Main;
             ActionClearDB = new SimpleAction(this, "ActionClearDB", PredefinedCategory.RecordEdit)
             {
-                Caption = "Excluir Banco de Dados",
-                ImageName = "UpdateTableOfContents"
+                Caption = "Excluir SGS e SGJ",
+                ImageName = "ClearAll"
             };
 
             ActionClearDB.CustomizeControl += ActionClearDB_CustomizeControl;
@@ -51,12 +51,9 @@ namespace WinCTB_CTS.Module.Win.Controllers
                     Utils.DeleteAllRecords<Spool>(uow);
                     Utils.DeleteAllRecords<JuntaSpool>(uow);
 
-                    //sqlCommand.CommandText = string.Format("ALTER DATABASE {0} SET SINGLE_USER WITH ROLLBACK IMMEDIATE", dbConnection.Database);
-                    //sqlCommand.CommandText = string.Format("DROP DATABASE {0}", dbConnection.Database);
-
                     uow.CommitChanges();
                     uow.Dispose();
-                    XtraMessageBox.Show("Seu Banco de dados foi excluído");
+                    XtraMessageBox.Show("SGS e SGJ foram execluídos!");
                 };
             }
         }
