@@ -99,7 +99,7 @@ namespace WinCTB_CTS.Module.Win.Controllers
             await Observable.Start(() => ImportarSchedule(dtcollectionImport["Schedule"], progress));
             await Observable.Start(() => ImportarPercInspecao(dtcollectionImport["PercInspecao"], progress));
             await Observable.Start(() => ImportarProcessoSoldagem(dtcollectionImport["ProcessoSoldagem"], progress));
-            await Observable.Start(() => ImportarSite(dtcollectionImport["TabSite"], progress));
+            await Observable.Start(() => ImportarContrato(dtcollectionImport["Contrato"], progress));
 
             e.AcceptActionArgs.Action.Caption = "Finalizado";
         }
@@ -343,9 +343,8 @@ namespace WinCTB_CTS.Module.Win.Controllers
             });
         }
 
-        private void ImportarSite(DataTable dt, IProgress<ImportProgressReport> progress)
+        private void ImportarContrato(DataTable dt, IProgress<ImportProgressReport> progress)
         {
-
             var TotalRows = dt.Rows.Count;
 
             UnitOfWork uow = new UnitOfWork(((XPObjectSpace)objectSpace).Session.ObjectLayer);
@@ -358,13 +357,13 @@ namespace WinCTB_CTS.Module.Win.Controllers
                     var row = dt.Rows[i];
                     var siteNome = row[0].ToString();
 
-                    var criteriaOperator = new BinaryOperator("SiteNome", siteNome);
-                    var tabsite = uow.FindObject<TabSite>(criteriaOperator);
+                    var criteriaOperator = new BinaryOperator("NomeDoContrato", siteNome);
+                    var contrato = uow.FindObject<Contrato>(criteriaOperator);
 
-                    if (tabsite == null)
-                        tabsite = new TabSite(uow);
+                    if (contrato == null)
+                        contrato = new Contrato(uow);
 
-                    tabsite.SiteNome = siteNome;
+                    contrato.NomeDoContrato = siteNome;
 
                     progress.Report(new ImportProgressReport
                     {

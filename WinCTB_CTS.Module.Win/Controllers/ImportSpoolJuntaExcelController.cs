@@ -136,13 +136,13 @@ namespace WinCTB_CTS.Module.Win.Controllers
             for (int i = 0; i < TotalDeJuntas; i++)
             {
                 var linha = dtSpoolsImport.Rows[i];
-                var contrato = linha["contrato"].ToString();
+                var contrato = uow.FindObject<Contrato>(new BinaryOperator("NomeDoContrato", linha["contrato"].ToString()));
                 var documento = linha["documento"].ToString();
                 var isometrico = linha["isometrico"].ToString();
                 var tagSpool = $"{Convert.ToString(linha["isometrico"])}-{Convert.ToString(linha["tagSpool"])}";
 
-                var criteriaOperator = CriteriaOperator.Parse("Contrato = ? And Documento = ? And Isometrico = ? And TagSpool = ?",
-                    contrato, documento, isometrico, tagSpool);
+                var criteriaOperator = CriteriaOperator.Parse("Contrato.Oid = ? And Documento = ? And Isometrico = ? And TagSpool = ?",
+                    contrato.Oid, documento, isometrico, tagSpool);
 
                 var spool = uow.FindObject<Spool>(criteriaOperator);
 
@@ -153,6 +153,7 @@ namespace WinCTB_CTS.Module.Win.Controllers
 
                 //var spool = objectSpace.CreateObject<Spool>();
                 spool.Contrato = contrato;
+                spool.SiteFabricante = linha["siteFabricante"].ToString();
                 spool.ArranjoFisico = linha["arranjoFisico"].ToString();
                 spool.Documento = documento;
                 spool.CampoAuxiliar = linha["campoAuxiliar"].ToString();
@@ -160,7 +161,6 @@ namespace WinCTB_CTS.Module.Win.Controllers
                 spool.AreaFisica = Convert.ToString(linha["areaFisica"]);
                 spool.Sth = Convert.ToString(linha["sth"]);
                 spool.Linha = Convert.ToString(linha["linha"]);
-                spool.SiteFabricante = uow.FindObject<TabSite>(new BinaryOperator("SiteNome", linha["siteFabricante"].ToString()));
                 spool.Isometrico = isometrico;
                 spool.TagSpool = tagSpool;
                 spool.RevSpool = Convert.ToString(linha["revSpool"]);

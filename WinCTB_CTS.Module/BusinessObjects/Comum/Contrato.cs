@@ -15,10 +15,10 @@ using WinCTB_CTS.Module.BusinessObjects.Tubulacao;
 
 namespace WinCTB_CTS.Module.BusinessObjects.Comum
 {
-    [DefaultClassOptions, DefaultProperty("SiteNome"), ImageName("BO_Contract"), NavigationItem("Tabela Auxiliar")]
-    public class TabSite : BaseObject
+    [DefaultClassOptions, DefaultProperty("NomeDoContrato"), ImageName("BO_Contract"), NavigationItem("Tabela Auxiliar")]
+    public class Contrato : BaseObject
     { // Inherit from a different class to provide a custom primary key, concurrency and deletion behavior, etc. (https://documentation.devexpress.com/eXpressAppFramework/CustomDocument113146.aspx).
-        public TabSite(Session session)
+        public Contrato(Session session)
             : base(session)
         {
         }
@@ -27,18 +27,18 @@ namespace WinCTB_CTS.Module.BusinessObjects.Comum
             base.AfterConstruction();
         }
 
-        private string siteNome;
+        private string nomeDoContrato;
 
         [Size(50)]
         [Indexed(Unique = true)]
         [RuleRequiredField(DefaultContexts.Save, ResultType = ValidationResultType.Error)]
-        public string SiteNome
+        public string NomeDoContrato
         {
-            get => siteNome;
-            set => SetPropertyValue(nameof(SiteNome), ref siteNome, value);
+            get => nomeDoContrato;
+            set => SetPropertyValue(nameof(NomeDoContrato), ref nomeDoContrato, value);
         }
 
-        [Association("TabSite-Spools")]
+        [Association("Contrato-Spools")]
         public XPCollection<Spool> Spools
         {
             get

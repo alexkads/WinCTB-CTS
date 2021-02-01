@@ -7,14 +7,18 @@ using DevExpress.ExpressApp.Model.NodeGenerators;
 using DevExpress.ExpressApp.SystemModule;
 using DevExpress.ExpressApp.Templates;
 using DevExpress.ExpressApp.Utils;
+using DevExpress.ExpressApp.Xpo;
 using DevExpress.Persistent.Base;
 using DevExpress.Persistent.Validation;
+using DevExpress.Xpo;
 using DevExpress.XtraBars;
 using DevExpress.XtraEditors;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using WinCTB_CTS.Module.BusinessObjects.Tubulacao;
+using WinCTB_CTS.Module.Comum;
 
 namespace WinCTB_CTS.Module.Win.Controllers
 {
@@ -40,7 +44,19 @@ namespace WinCTB_CTS.Module.Win.Controllers
             if (barItem != null)
             {
                 barItem.ItemClick += (s, args) => {
-                    XtraMessageBox.Show("Item Clicked");
+                    
+                    var objectSpace = Application.CreateObjectSpace();
+                    UnitOfWork uow = new UnitOfWork(((XPObjectSpace)objectSpace).Session.ObjectLayer);
+
+                    Utils.DeleteAllRecords<Spool>(uow);
+                    Utils.DeleteAllRecords<JuntaSpool>(uow);
+
+                    //sqlCommand.CommandText = string.Format("ALTER DATABASE {0} SET SINGLE_USER WITH ROLLBACK IMMEDIATE", dbConnection.Database);
+                    //sqlCommand.CommandText = string.Format("DROP DATABASE {0}", dbConnection.Database);
+
+                    uow.CommitChanges();
+                    uow.Dispose();
+                    XtraMessageBox.Show("Seu Banco de dados foi excluído");
                 };
             }
         }
