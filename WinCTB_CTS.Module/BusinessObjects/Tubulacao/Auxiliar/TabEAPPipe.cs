@@ -11,12 +11,13 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using System.Text;
+using WinCTB_CTS.Module.BusinessObjects.Comum;
 
 namespace WinCTB_CTS.Module.BusinessObjects.Tubulacao.Auxiliar
 {
-    [DefaultClassOptions, DefaultProperty("DiametroPolegada"), ImageName("BO_Contract"), NavigationItem("Tabela Auxiliar")]
+    [DefaultClassOptions, ImageName("BO_Contract"), NavigationItem("Tabela Auxiliar")]
     public class TabEAPPipe : BaseObject
-    { // Inherit from a different class to provide a custom primary key, concurrency and deletion behavior, etc. (https://documentation.devexpress.com/eXpressAppFramework/CustomDocument113146.aspx).
+    {
         public TabEAPPipe(Session session)
             : base(session)
         {
@@ -24,21 +25,96 @@ namespace WinCTB_CTS.Module.BusinessObjects.Tubulacao.Auxiliar
         public override void AfterConstruction()
         {
             base.AfterConstruction();
-            // Place your initialization code here (https://documentation.devexpress.com/eXpressAppFramework/CustomDocument112834.aspx).
         }
-        //private string _PersistentProperty;
-        //[XafDisplayName("My display name"), ToolTip("My hint message")]
-        //[ModelDefault("EditMask", "(000)-00"), Index(0), VisibleInListView(false)]
-        //[Persistent("DatabaseColumnName"), RuleRequiredField(DefaultContexts.Save)]
-        //public string PersistentProperty {
-        //    get { return _PersistentProperty; }
-        //    set { SetPropertyValue("PersistentProperty", ref _PersistentProperty, value); }
-        //}
 
-        //[Action(Caption = "My UI Action", ConfirmationMessage = "Are you sure?", ImageName = "Attention", AutoCommit = true)]
-        //public void ActionMethod() {
-        //    // Trigger a custom business logic for the current record in the UI (https://documentation.devexpress.com/eXpressAppFramework/CustomDocument112619.aspx).
-        //    this.PersistentProperty = "Paid";
-        //}
+        double avancoSpoolLineCheck;
+        double avancoJuntaENDMont;
+        double avancoJuntaSoldMont;
+        double avancoJuntaVAMont;
+        double avancoSpoolPosicionamento;
+        double avancoSpoolENDFab;
+        double avancoSpoolSoldaFab;
+        double avancoSpoolVAFab;
+        private double avancoSpoolCorteFab;
+        private Contrato contrato;
+
+        [Association("Contrato-TabEAPPipes")]
+        public Contrato Contrato
+        {
+            get => contrato;
+            set => SetPropertyValue(nameof(Contrato), ref contrato, value);
+        }
+
+        [ModelDefault("DisplayFormat", "P4")]
+        [ModelDefault("EditMask", "P4")]
+        public double AvancoSpoolCorteFab
+        {
+            get => avancoSpoolCorteFab;
+            set => SetPropertyValue(nameof(AvancoSpoolCorteFab), ref avancoSpoolCorteFab, value);
+        }
+
+        [ModelDefault("DisplayFormat", "P4")]
+        [ModelDefault("EditMask", "P4")]
+        public double AvancoSpoolVAFab
+        {
+            get => avancoSpoolVAFab;
+            set => SetPropertyValue(nameof(AvancoSpoolVAFab), ref avancoSpoolVAFab, value);
+        }
+
+        [ModelDefault("DisplayFormat", "P4")]
+        [ModelDefault("EditMask", "P4")]
+        public double AvancoSpoolSoldaFab
+        {
+            get => avancoSpoolSoldaFab;
+            set => SetPropertyValue(nameof(AvancoSpoolSoldaFab), ref avancoSpoolSoldaFab, value);
+        }
+
+        [ModelDefault("DisplayFormat", "P4")]
+        [ModelDefault("EditMask", "P4")]
+        public double AvancoSpoolENDFab
+        {
+            get => avancoSpoolENDFab;
+            set => SetPropertyValue(nameof(AvancoSpoolENDFab), ref avancoSpoolENDFab, value);
+        }
+
+        [ModelDefault("DisplayFormat", "P4")]
+        [ModelDefault("EditMask", "P4")]
+        public double AvancoSpoolPosicionamento
+        {
+            get => avancoSpoolPosicionamento;
+            set => SetPropertyValue(nameof(AvancoSpoolPosicionamento), ref avancoSpoolPosicionamento, value);
+        }
+
+        [ModelDefault("DisplayFormat", "P4")]
+        [ModelDefault("EditMask", "P4")]
+        public double AvancoJuntaVAMont
+        {
+            get => avancoJuntaVAMont;
+            set => SetPropertyValue(nameof(AvancoJuntaVAMont), ref avancoJuntaVAMont, value);
+        }
+
+        [ModelDefault("DisplayFormat", "P4")]
+        [ModelDefault("EditMask", "P4")]
+        public double AvancoJuntaSoldMont
+        {
+            get => avancoJuntaSoldMont;
+            set => SetPropertyValue(nameof(AvancoJuntaSoldMont), ref avancoJuntaSoldMont, value);
+        }
+
+        [ModelDefault("DisplayFormat", "P4")]
+        [ModelDefault("EditMask", "P4")]
+        public double AvancoJuntaENDMont
+        {
+            get => avancoJuntaENDMont;
+            set => SetPropertyValue(nameof(AvancoJuntaENDMont), ref avancoJuntaENDMont, value);
+        }
+
+        [ModelDefault("DisplayFormat", "P4")]
+        [ModelDefault("EditMask", "P4")]
+        public double AvancoSpoolLineCheck
+        {
+            get => avancoSpoolLineCheck;
+            set => SetPropertyValue(nameof(AvancoSpoolLineCheck), ref avancoSpoolLineCheck, value);
+        }
     }
 }

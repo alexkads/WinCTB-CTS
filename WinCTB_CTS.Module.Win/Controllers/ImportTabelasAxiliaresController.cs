@@ -100,6 +100,7 @@ namespace WinCTB_CTS.Module.Win.Controllers
             await Observable.Start(() => ImportarPercInspecao(dtcollectionImport["PercInspecao"], progress));
             await Observable.Start(() => ImportarProcessoSoldagem(dtcollectionImport["ProcessoSoldagem"], progress));
             await Observable.Start(() => ImportarContrato(dtcollectionImport["Contrato"], progress));
+            await Observable.Start(() => ImportarEAP(dtcollectionImport["EAPPipe"], progress));
 
             e.AcceptActionArgs.Action.Caption = "Finalizado";
         }
@@ -364,6 +365,77 @@ namespace WinCTB_CTS.Module.Win.Controllers
                         contrato = new Contrato(uow);
 
                     contrato.NomeDoContrato = siteNome;
+
+                    progress.Report(new ImportProgressReport
+                    {
+                        TotalRows = TotalRows,
+                        CurrentRow = i,
+                    });
+                }
+
+                if (i % 10 == 0)
+                {
+                    try
+                    {
+                        uow.CommitTransaction();
+                    }
+                    catch
+                    {
+                        uow.RollbackTransaction();
+                        throw new Exception("Process aborted by system");
+                    }
+                }
+            }
+
+            uow.CommitTransaction();
+            uow.CommitChanges();
+            uow.Dispose();
+
+            progress.Report(new ImportProgressReport
+            {
+                TotalRows = TotalRows,
+                CurrentRow = TotalRows
+            });
+        }
+
+        private void ImportarEAP(DataTable dt, IProgress<ImportProgressReport> progress)
+        {
+            var TotalRows = dt.Rows.Count;
+
+            UnitOfWork uow = new UnitOfWork(((XPObjectSpace)objectSpace).Session.ObjectLayer);
+            uow.BeginTransaction();
+
+            for (int i = 0; i < TotalRows; i++)
+            {
+                if (i > 0)
+                {
+                    var row = dt.Rows[i];
+
+                    Func<string, int, object> lheader = (header, indexRow) =>
+                    {
+                        var idxcol = dt.Rows[0].ItemArray.ToList().IndexOf(header);
+                        return (dt.Rows[indexRow])[idxcol];
+                    };
+
+                    var contrato = uow.FindObject<Contrato>(new BinaryOperator("NomeDoContrato", lheader("Contrato", i).ToString()));
+
+                    var criteriaOperator = new BinaryOperator("Contrato.Oid", contrato);
+                    var TabContrato = uow.FindObject<TabEAPPipe>(criteriaOperator);
+
+                    if (TabContrato == null)
+                        TabContrato = new TabEAPPipe(uow);
+
+                    TabContrato.Contrato = contrato;
+                    TabContrato.AvancoSpoolCorteFab = Utils.ConvertDouble(lheader("AvancoSpoolCorteFab", i));
+                    TabContrato.AvancoSpoolVAFab = Utils.ConvertDouble(lheader("AvancoSpoolVAFab", i));
+                    TabContrato.AvancoSpoolSoldaFab = Utils.ConvertDouble(lheader("AvancoSpoolSoldaFab", i));
+                    TabContrato.AvancoSpoolENDFab = Utils.ConvertDouble(lheader("AvancoSpoolCorteFab", i));
+                    TabContrato.AvancoSpoolPosicionamento = Utils.ConvertDouble(lheader("AvancoSpoolPosicionamento", i));
+                    
+                    TabContrato.AvancoJuntaVAMont = Utils.ConvertDouble(lheader("AvancoJuntaVAMont", i));
+                    TabContrato.AvancoJuntaSoldMont = Utils.ConvertDouble(lheader("AvancoJuntaSoldMont", i));
+                    TabContrato.AvancoJuntaENDMont = Utils.ConvertDouble(lheader("AvancoJuntaENDMont", i));
+                    TabContrato.AvancoSpoolLineCheck = Utils.ConvertDouble(lheader("AvancoSpoolLineCheck", i));
 
                     progress.Report(new ImportProgressReport
                     {
