@@ -9,30 +9,32 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
+using WinCTB_CTS.Module.BusinessObjects.Comum;
 using WinCTB_CTS.Module.BusinessObjects.Tubulacao;
 
 namespace WinCTB_CTS.Module.RelatorioParametros
 {
     [DomainComponent]
     // For more typical usage scenarios, be sure to check out https://documentation.devexpress.com/eXpressAppFramework/CustomDocument113594.aspx.
-    public class MedicaoSpoolParameters : CustomReportParametersObjectBase
+    public class SpoolParameters : CustomReportParametersObjectBase
     {
-        public MedicaoSpoolParameters(IObjectSpaceCreator provider) : base(provider)
+        public SpoolParameters(IObjectSpaceCreator provider) : base(provider)
         {
 
         }
 
-        [ImmediatePostData, XafDisplayName("Spool")]
+        [ImmediatePostData, XafDisplayName("Contrato")]
         [LookupEditorMode(LookupEditorMode.AllItemsWithSearch)]
-        [DataSourceProperty("SpoolsDisponiveis")]
-        public Spool Spool { get; set; }
+        [DataSourceProperty("ContratosDisponiveis")]
+        public Contrato Contrato { get; set; }
+
 
         public override CriteriaOperator GetCriteria()
         {
             CriteriaOperator criteriaOperator = null;
 
-                if (Spool != null)
-                    criteriaOperator = CriteriaOperator.Parse("Spool.Oid == ?", Spool.Oid);
+                if (Contrato != null)
+                    criteriaOperator = CriteriaOperator.Parse("Spool.Contrato.Oid == ?", Contrato.Oid);
 
             return criteriaOperator;
         }
@@ -41,7 +43,7 @@ namespace WinCTB_CTS.Module.RelatorioParametros
         {
             List<SortProperty> sorting = new List<SortProperty> {
                 new SortProperty("Documento", SortingDirection.Ascending),
-                new SortProperty("TagSpool", SortingDirection.Ascending)
+                new SortProperty("Junta", SortingDirection.Ascending)
             };
 
             return sorting.ToArray();
@@ -49,18 +51,11 @@ namespace WinCTB_CTS.Module.RelatorioParametros
 
         [Browsable(false)]
         [CollectionOperationSet(AllowAdd = false)]
-        public IList<Spool> SpoolsDisponiveis
+        public IList<Contrato> ContratosDisponiveis
         {
             get
             {
-                //CriteriaOperator criterio = null;
-
-                //if (Spool != null)
-                //    criterio = CriteriaOperator.Parse("Projeto.Oid = CurrentProjectOid() And SubUnidade.Unidade.Oid = ? And StatusCadastro = 'Ativo'", Area.Oid);
-                //else
-                //    criterio = CriteriaOperator.Parse("Projeto.Oid = CurrentProjectOid() And StatusCadastro = 'Ativo'");
-
-                return ObjectSpace.GetObjects<Spool>();
+                return ObjectSpace.GetObjects<Contrato>();
             }
         }
     }
