@@ -146,7 +146,7 @@ namespace WinCTB_CTS.Module.Win.Controllers
                 detalhe.WdiJuntaSoldMont = WdiJuntaSoldMont;
                 detalhe.WdiJuntaENDMont = WdiJuntaENDMont;
 
-                var AvancarTrechoRetoFab = (QtdJuntaPipe == 0 && ExecutadoSpoolDFFab);
+                var AvancarTrechoRetoFab = QtdJuntaPipe == 0 && ExecutadoSpoolDFFab;
                 var LogicAvancoSpoolENDFab = AvancoSpoolENDFab || AvancarTrechoRetoFab;
                 var LogicAvancoSpoolSoldFab = AvancoSpoolSoldFab || LogicAvancoSpoolENDFab;
                 var LogicAvancoSpoolVAFab = AvancoSpoolVAFab || LogicAvancoSpoolSoldFab;
