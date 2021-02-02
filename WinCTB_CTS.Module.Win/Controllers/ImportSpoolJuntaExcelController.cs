@@ -226,6 +226,7 @@ namespace WinCTB_CTS.Module.Win.Controllers
                 spool.DataRomaneio = Utils.ConvertDateTime(linha["dataRomaneio"]);
                 spool.DataLiberacao = Utils.ConvertDateTime(linha["dataLiberacao"]);
                 spool.PesoMontagem = Utils.ConvertDouble(linha["pesoMontagem"]);
+                spool.DataLineCheck = Utils.ConvertDateTime(linha["dataLineCheck"]);
                 spool.SituacaoFabricacao = Convert.ToString(linha["situacaoFabricacao"]);
                 spool.SituacaoMontagem = Convert.ToString(linha["situacaoMontagem"]);
 

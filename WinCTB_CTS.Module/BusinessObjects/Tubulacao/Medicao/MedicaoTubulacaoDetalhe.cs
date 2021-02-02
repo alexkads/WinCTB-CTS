@@ -27,6 +27,10 @@ namespace WinCTB_CTS.Module.BusinessObjects.Tubulacao.Medicao
         }
 
 
+        double pesoSpoolLineCheckMont;
+        double avancoSpoolLineCheckMont;
+        private double pesoSpoolPosiMont;
+        private double avancoSpoolPosiMont;
         private double pesoJuntaENDMont;
         private double pesoJuntaSoldMont;
         private double pesoJuntaVAMont;
@@ -156,6 +160,20 @@ namespace WinCTB_CTS.Module.BusinessObjects.Tubulacao.Medicao
 
         [ModelDefault("DisplayFormat", "P4")]
         [ModelDefault("EditMask", "P4")]
+        public double AvancoSpoolPosiMont
+        {
+            get => avancoSpoolPosiMont;
+            set => SetPropertyValue(nameof(AvancoSpoolPosiMont), ref avancoSpoolPosiMont, value);
+        }
+
+        public double PesoSpoolPosiMont
+        {
+            get => pesoSpoolPosiMont;
+            set => SetPropertyValue(nameof(PesoSpoolPosiMont), ref pesoSpoolPosiMont, value);
+        }
+
+        [ModelDefault("DisplayFormat", "P4")]
+        [ModelDefault("EditMask", "P4")]
         public double AvancoJuntaVAMont
         {
             get => avancoJuntaVAMont;
@@ -194,7 +212,7 @@ namespace WinCTB_CTS.Module.BusinessObjects.Tubulacao.Medicao
             set => SetPropertyValue(nameof(AvancoJuntaENDMont), ref avancoJuntaENDMont, value);
         }
 
-        
+
         public double PesoJuntaENDMont
         {
             get => pesoJuntaENDMont;
@@ -202,6 +220,20 @@ namespace WinCTB_CTS.Module.BusinessObjects.Tubulacao.Medicao
         }
 
 
+        [ModelDefault("DisplayFormat", "P4")]
+        [ModelDefault("EditMask", "P4")]
+        public double AvancoSpoolLineCheckMont
+        {
+            get => avancoSpoolLineCheckMont;
+            set => SetPropertyValue(nameof(AvancoSpoolLineCheckMont), ref avancoSpoolLineCheckMont, value);
+        }
+
+        
+        public double PesoSpoolLineCheckMont
+        {
+            get => pesoSpoolLineCheckMont;
+            set => SetPropertyValue(nameof(PesoSpoolLineCheckMont), ref pesoSpoolLineCheckMont, value);
+        }
 
     }
 }

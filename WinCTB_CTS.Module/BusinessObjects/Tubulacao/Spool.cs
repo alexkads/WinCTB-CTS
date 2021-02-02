@@ -28,6 +28,7 @@ namespace WinCTB_CTS.Module.BusinessObjects.Tubulacao
             base.AfterConstruction();
         }
 
+        private DateTime? dataLineCheck;
         private Contrato contrato;
         private string siteFabricante;
         private string inspPiRevUnico;
@@ -112,7 +113,7 @@ namespace WinCTB_CTS.Module.BusinessObjects.Tubulacao
             get => contrato;
             set => SetPropertyValue(nameof(Contrato), ref contrato, value);
         }
-        
+
         [Size(100)]
         public string SiteFabricante
         {
@@ -513,7 +514,7 @@ namespace WinCTB_CTS.Module.BusinessObjects.Tubulacao
             get => dataPiRevUnico;
             set => SetPropertyValue(nameof(DataPiRevUnico), ref dataPiRevUnico, value);
         }
-        
+
         [Size(100), XafDisplayName("Inspetor Pintura Rev Unico")]
         public string InspPiRevUnico
         {
@@ -683,6 +684,14 @@ namespace WinCTB_CTS.Module.BusinessObjects.Tubulacao
         {
             get => pesoMontagem;
             set => SetPropertyValue(nameof(PesoMontagem), ref pesoMontagem, value);
+        }
+
+        [ModelDefault("EditMask", "G")]
+        [ModelDefault("DisplayFormat", "G")]
+        public DateTime? DataLineCheck
+        {
+            get => dataLineCheck;
+            set => SetPropertyValue(nameof(DataLineCheck), ref dataLineCheck, value);
         }
 
         [Size(100), XafDisplayName("Situação de Fabricação")]
