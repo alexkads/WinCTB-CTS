@@ -45,72 +45,72 @@ namespace WinCTB_CTS.Module.BusinessObjects.Tubulacao.Auxiliar
             set => SetPropertyValue(nameof(Contrato), ref contrato, value);
         }
 
-        [ModelDefault("DisplayFormat", "P4")]
-        [ModelDefault("EditMask", "P4")]
+        [ModelDefault("DisplayFormat", "P0")]
+        [ModelDefault("EditMask", "P0")]
         public double AvancoSpoolCorteFab
         {
             get => avancoSpoolCorteFab;
             set => SetPropertyValue(nameof(AvancoSpoolCorteFab), ref avancoSpoolCorteFab, value);
         }
 
-        [ModelDefault("DisplayFormat", "P4")]
-        [ModelDefault("EditMask", "P4")]
+        [ModelDefault("DisplayFormat", "P0")]
+        [ModelDefault("EditMask", "P0")]
         public double AvancoSpoolVAFab
         {
             get => avancoSpoolVAFab;
             set => SetPropertyValue(nameof(AvancoSpoolVAFab), ref avancoSpoolVAFab, value);
         }
 
-        [ModelDefault("DisplayFormat", "P4")]
-        [ModelDefault("EditMask", "P4")]
+        [ModelDefault("DisplayFormat", "P0")]
+        [ModelDefault("EditMask", "P0")]
         public double AvancoSpoolSoldaFab
         {
             get => avancoSpoolSoldaFab;
             set => SetPropertyValue(nameof(AvancoSpoolSoldaFab), ref avancoSpoolSoldaFab, value);
         }
 
-        [ModelDefault("DisplayFormat", "P4")]
-        [ModelDefault("EditMask", "P4")]
+        [ModelDefault("DisplayFormat", "P0")]
+        [ModelDefault("EditMask", "P0")]
         public double AvancoSpoolENDFab
         {
             get => avancoSpoolENDFab;
             set => SetPropertyValue(nameof(AvancoSpoolENDFab), ref avancoSpoolENDFab, value);
         }
 
-        [ModelDefault("DisplayFormat", "P4")]
-        [ModelDefault("EditMask", "P4")]
+        [ModelDefault("DisplayFormat", "P0")]
+        [ModelDefault("EditMask", "P0")]
         public double AvancoSpoolPosicionamento
         {
             get => avancoSpoolPosicionamento;
             set => SetPropertyValue(nameof(AvancoSpoolPosicionamento), ref avancoSpoolPosicionamento, value);
         }
 
-        [ModelDefault("DisplayFormat", "P4")]
-        [ModelDefault("EditMask", "P4")]
+        [ModelDefault("DisplayFormat", "P0")]
+        [ModelDefault("EditMask", "P0")]
         public double AvancoJuntaVAMont
         {
             get => avancoJuntaVAMont;
             set => SetPropertyValue(nameof(AvancoJuntaVAMont), ref avancoJuntaVAMont, value);
         }
 
-        [ModelDefault("DisplayFormat", "P4")]
-        [ModelDefault("EditMask", "P4")]
+        [ModelDefault("DisplayFormat", "P0")]
+        [ModelDefault("EditMask", "P0")]
         public double AvancoJuntaSoldMont
         {
             get => avancoJuntaSoldMont;
             set => SetPropertyValue(nameof(AvancoJuntaSoldMont), ref avancoJuntaSoldMont, value);
         }
 
-        [ModelDefault("DisplayFormat", "P4")]
-        [ModelDefault("EditMask", "P4")]
+        [ModelDefault("DisplayFormat", "P0")]
+        [ModelDefault("EditMask", "P0")]
         public double AvancoJuntaENDMont
         {
             get => avancoJuntaENDMont;
             set => SetPropertyValue(nameof(AvancoJuntaENDMont), ref avancoJuntaENDMont, value);
         }
 
-        [ModelDefault("DisplayFormat", "P4")]
-        [ModelDefault("EditMask", "P4")]
+        [ModelDefault("DisplayFormat", "P0")]
+        [ModelDefault("EditMask", "P0")]
         public double AvancoSpoolLineCheck
         {
             get => avancoSpoolLineCheck;

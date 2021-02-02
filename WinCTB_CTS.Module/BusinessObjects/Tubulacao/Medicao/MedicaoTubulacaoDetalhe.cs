@@ -27,6 +27,13 @@ namespace WinCTB_CTS.Module.BusinessObjects.Tubulacao.Medicao
         }
 
 
+        private double pesoJuntaEND;
+        private double pesoJuntaSoldMont;
+        private double pesoJuntaVAMont;
+        private double pesoSpoolENDFab;
+        private double pesoSpoolSoldFab;
+        private double pesoSpoolVAFab;
+        private double pesoSpoolCorteFab;
         private double avancoSpoolENDFab;
         private double avancoSpoolSoldFab;
         private double avancoSpoolVAFab;
@@ -40,6 +47,13 @@ namespace WinCTB_CTS.Module.BusinessObjects.Tubulacao.Medicao
         private double wdiJuntaTotalMont;
         private MedicaoTubulacao medicaoTubulacao;
         private Spool spool;
+
+        [Association("MedicaoTubulacao-MedicaoTubulacaoDetalhes")]
+        public MedicaoTubulacao MedicaoTubulacao
+        {
+            get => medicaoTubulacao;
+            set => SetPropertyValue(nameof(MedicaoTubulacao), ref medicaoTubulacao, value);
+        }
 
         [Association("Spool-MedicaoTubulacaoDetalhes")]
         public Spool Spool
@@ -55,7 +69,6 @@ namespace WinCTB_CTS.Module.BusinessObjects.Tubulacao.Medicao
             get => wdiJuntaTotalMont;
             set => SetPropertyValue(nameof(WdiJuntaTotalMont), ref wdiJuntaTotalMont, value);
         }
-
 
         [VisibleInLookupListView(false), VisibleInListView(false), VisibleInDetailView(false)]
         public double WdiJuntaVAMont
@@ -89,12 +102,25 @@ namespace WinCTB_CTS.Module.BusinessObjects.Tubulacao.Medicao
             set => SetPropertyValue(nameof(AvancoSpoolCorteFab), ref avancoSpoolCorteFab, value);
         }
 
+        public double PesoSpoolCorteFab
+        {
+            get => pesoSpoolCorteFab;
+            set => SetPropertyValue(nameof(PesoSpoolCorteFab), ref pesoSpoolCorteFab, value);
+        }
+
         [ModelDefault("DisplayFormat", "P4")]
         [ModelDefault("EditMask", "P4")]
         public double AvancoSpoolVAFab
         {
             get => avancoSpoolVAFab;
             set => SetPropertyValue(nameof(AvancoSpoolVAFab), ref avancoSpoolVAFab, value);
+        }
+
+
+        public double PesoSpoolVAFab
+        {
+            get => pesoSpoolVAFab;
+            set => SetPropertyValue(nameof(PesoSpoolVAFab), ref pesoSpoolVAFab, value);
         }
 
         [ModelDefault("DisplayFormat", "P4")]
@@ -105,6 +131,14 @@ namespace WinCTB_CTS.Module.BusinessObjects.Tubulacao.Medicao
             set => SetPropertyValue(nameof(AvancoSpoolSoldFab), ref avancoSpoolSoldFab, value);
         }
 
+
+        public double PesoSpoolSoldFab
+        {
+            get => pesoSpoolSoldFab;
+            set => SetPropertyValue(nameof(PesoSpoolSoldFab), ref pesoSpoolSoldFab, value);
+        }
+
+
         [ModelDefault("DisplayFormat", "P4")]
         [ModelDefault("EditMask", "P4")]
         public double AvancoSpoolENDFab
@@ -113,12 +147,26 @@ namespace WinCTB_CTS.Module.BusinessObjects.Tubulacao.Medicao
             set => SetPropertyValue(nameof(AvancoSpoolENDFab), ref avancoSpoolENDFab, value);
         }
 
+
+        public double PesoSpoolENDFab
+        {
+            get => pesoSpoolENDFab;
+            set => SetPropertyValue(nameof(PesoSpoolENDFab), ref pesoSpoolENDFab, value);
+        }
+
         [ModelDefault("DisplayFormat", "P4")]
         [ModelDefault("EditMask", "P4")]
         public double AvancoJuntaVAMont
         {
             get => avancoJuntaVAMont;
             set => SetPropertyValue(nameof(AvancoJuntaVAMont), ref avancoJuntaVAMont, value);
+        }
+
+
+        public double PesoJuntaVAMont
+        {
+            get => pesoJuntaVAMont;
+            set => SetPropertyValue(nameof(PesoJuntaVAMont), ref pesoJuntaVAMont, value);
         }
 
 
@@ -131,6 +179,13 @@ namespace WinCTB_CTS.Module.BusinessObjects.Tubulacao.Medicao
         }
 
 
+        public double PesoJuntaSoldMont
+        {
+            get => pesoJuntaSoldMont;
+            set => SetPropertyValue(nameof(PesoJuntaSoldMont), ref pesoJuntaSoldMont, value);
+        }
+
+
         [ModelDefault("DisplayFormat", "P4")]
         [ModelDefault("EditMask", "P4")]
         public double AvancoJuntaENDMont
@@ -139,14 +194,14 @@ namespace WinCTB_CTS.Module.BusinessObjects.Tubulacao.Medicao
             set => SetPropertyValue(nameof(AvancoJuntaENDMont), ref avancoJuntaENDMont, value);
         }
 
-
-
-
-        [Association("MedicaoTubulacao-MedicaoTubulacaoDetalhes")]
-        public MedicaoTubulacao MedicaoTubulacao
+        
+        public double PesoJuntaEND
         {
-            get => medicaoTubulacao;
-            set => SetPropertyValue(nameof(MedicaoTubulacao), ref medicaoTubulacao, value);
+            get => pesoJuntaEND;
+            set => SetPropertyValue(nameof(PesoJuntaEND), ref pesoJuntaEND, value);
         }
+
+
+
     }
 }
