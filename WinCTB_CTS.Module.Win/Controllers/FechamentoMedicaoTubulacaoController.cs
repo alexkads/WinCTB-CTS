@@ -117,6 +117,8 @@ namespace WinCTB_CTS.Module.Win.Controllers
 
                 //var testeLogica = spool.DataCorte;
 
+                var QtdJuntaPipe = Utils.ConvertINT(spool.Evaluate(CriteriaOperator.Parse("Juntas[CampoOuPipe == 'PIPE'].Count()")));
+
                 //Cálculo de Montagem (Memória de Cálculo)
                 var WdiJuntaTotalMont = Utils.ConvertDouble(spool.Evaluate(CriteriaOperator.Parse("Juntas[CampoOuPipe == 'CAMPO'].Sum(TabDiametro.Wdi)")));
                 var WdiJuntaVAMont = Utils.ConvertDouble(spool.Evaluate(CriteriaOperator.Parse("Juntas[Not IsNullorEmpty(DataVa) And CampoOuPipe == 'CAMPO'].Sum(TabDiametro.Wdi)")));
@@ -124,6 +126,7 @@ namespace WinCTB_CTS.Module.Win.Controllers
                 var WdiJuntaENDMont = Utils.ConvertDouble(spool.Evaluate(CriteriaOperator.Parse("Juntas[Not IsNullorEmpty(DataLiberacaoJunta) And CampoOuPipe == 'CAMPO'].Sum(TabDiametro.Wdi)")));
 
                 //Avanço de Fabricação (Memória de Cálculo)
+                var ExecutadoSpoolDFFab = (Boolean)spool.Evaluate(CriteriaOperator.Parse("Not IsNullorEmpty(DataDFFab)"));
                 var AvancoSpoolCorteFab = (Boolean)spool.Evaluate(CriteriaOperator.Parse("Not IsNullorEmpty(DataCorte)"));
                 var AvancoSpoolVAFab = (Boolean)spool.Evaluate(CriteriaOperator.Parse("Not IsNullorEmpty(DataVaFab)"));
                 var AvancoSpoolSoldFab = (Boolean)spool.Evaluate(CriteriaOperator.Parse("Not IsNullorEmpty(DataSoldaFab)"));
@@ -143,11 +146,17 @@ namespace WinCTB_CTS.Module.Win.Controllers
                 detalhe.WdiJuntaSoldMont = WdiJuntaSoldMont;
                 detalhe.WdiJuntaENDMont = WdiJuntaENDMont;
 
+                var AvancarTrechoRetoFab = (QtdJuntaPipe == 0 && ExecutadoSpoolDFFab);
+                var LogicAvancoSpoolENDFab = AvancoSpoolENDFab || AvancarTrechoRetoFab;
+                var LogicAvancoSpoolSoldFab = AvancoSpoolSoldFab || LogicAvancoSpoolENDFab;
+                var LogicAvancoSpoolVAFab = AvancoSpoolVAFab || LogicAvancoSpoolSoldFab;
+                var LogicAvancoSpoolCorteFab = AvancoSpoolCorteFab || LogicAvancoSpoolVAFab;
+
                 //Gravar Avanço de Fabricação
-                detalhe.AvancoSpoolCorteFab = AvancoSpoolCorteFab ? 1 : 0;
-                detalhe.AvancoSpoolVAFab = AvancoSpoolVAFab ? 1 : 0;
-                detalhe.AvancoSpoolSoldFab = AvancoSpoolSoldFab ? 1 : 0;
-                detalhe.AvancoSpoolENDFab = AvancoSpoolENDFab ? 1 : 0;
+                detalhe.AvancoSpoolCorteFab = LogicAvancoSpoolCorteFab ? 1 : 0;
+                detalhe.AvancoSpoolVAFab = LogicAvancoSpoolVAFab ? 1 : 0;
+                detalhe.AvancoSpoolSoldFab = LogicAvancoSpoolSoldFab ? 1 : 0;
+                detalhe.AvancoSpoolENDFab = LogicAvancoSpoolENDFab ? 1 : 0;
 
                 //Gravar Avanço de Montagem
                 detalhe.AvancoJuntaVAMont = AvancoJuntaVAMont;
