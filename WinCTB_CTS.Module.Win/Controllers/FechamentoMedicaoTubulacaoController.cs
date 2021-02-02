@@ -18,6 +18,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using WinCTB_CTS.Module.BusinessObjects.Tubulacao;
+using WinCTB_CTS.Module.BusinessObjects.Tubulacao.Auxiliar;
 using WinCTB_CTS.Module.BusinessObjects.Tubulacao.Medicao;
 using WinCTB_CTS.Module.Comum;
 
@@ -113,11 +114,14 @@ namespace WinCTB_CTS.Module.Win.Controllers
             for (int i = 0; i < QuantidadeDeSpool; i++)
             {
                 var spool = spools[i];
+                var eap = session.FindObject<TabEAPPipe>(new BinaryOperator("Contrato.Oid", spool.Contrato.Oid));
                 var detalhe = new MedicaoTubulacaoDetalhe(uow);
 
                 //var testeLogica = spool.DataCorte;
 
                 var QtdJuntaPipe = Utils.ConvertINT(spool.Evaluate(CriteriaOperator.Parse("Juntas[CampoOuPipe == 'PIPE'].Count()")));
+                var QtdJuntaMont = Utils.ConvertINT(spool.Evaluate(CriteriaOperator.Parse("Juntas[CampoOuPipe == 'CAMPO'].Count()")));
+
 
                 //Cálculo de Montagem (Memória de Cálculo)
                 var WdiJuntaTotalMont = Utils.ConvertDouble(spool.Evaluate(CriteriaOperator.Parse("Juntas[CampoOuPipe == 'CAMPO'].Sum(TabDiametro.Wdi)")));
@@ -126,13 +130,14 @@ namespace WinCTB_CTS.Module.Win.Controllers
                 var WdiJuntaENDMont = Utils.ConvertDouble(spool.Evaluate(CriteriaOperator.Parse("Juntas[Not IsNullorEmpty(DataLiberacaoJunta) And CampoOuPipe == 'CAMPO'].Sum(TabDiametro.Wdi)")));
 
                 //Avanço de Fabricação (Memória de Cálculo)
-                var ExecutadoSpoolDFFab = (Boolean)spool.Evaluate(CriteriaOperator.Parse("Not IsNullorEmpty(DataDFFab)"));
+                var ExecutadoSpoolDFFab = (Boolean)spool.Evaluate(CriteriaOperator.Parse("Not IsNullorEmpty(DataDfFab)"));
                 var AvancoSpoolCorteFab = (Boolean)spool.Evaluate(CriteriaOperator.Parse("Not IsNullorEmpty(DataCorte)"));
                 var AvancoSpoolVAFab = (Boolean)spool.Evaluate(CriteriaOperator.Parse("Not IsNullorEmpty(DataVaFab)"));
                 var AvancoSpoolSoldFab = (Boolean)spool.Evaluate(CriteriaOperator.Parse("Not IsNullorEmpty(DataSoldaFab)"));
                 var AvancoSpoolENDFab = (Boolean)spool.Evaluate(CriteriaOperator.Parse("Not IsNullorEmpty(DataEndFab)"));
 
                 //Avanço de Montagem (Memória de Cálculo)
+                var ExecutadoSpoolPosiMont = (Boolean)spool.Evaluate(CriteriaOperator.Parse("Not IsNullorEmpty(DataPreMontagem)"));
                 var AvancoJuntaVAMont = Utils.CalculoPercentual(WdiJuntaVAMont, WdiJuntaTotalMont);
                 var AvancoJuntaSoldMont = Utils.CalculoPercentual(WdiJuntaSoldMont, WdiJuntaTotalMont);
                 var AvancoJuntaENDMont = Utils.CalculoPercentual(WdiJuntaENDMont, WdiJuntaTotalMont);
@@ -146,6 +151,7 @@ namespace WinCTB_CTS.Module.Win.Controllers
                 detalhe.WdiJuntaSoldMont = WdiJuntaSoldMont;
                 detalhe.WdiJuntaENDMont = WdiJuntaENDMont;
 
+                //Cálculo Fabricação
                 var AvancarTrechoRetoFab = QtdJuntaPipe == 0 && ExecutadoSpoolDFFab;
                 var LogicAvancoSpoolENDFab = AvancoSpoolENDFab || AvancarTrechoRetoFab;
                 var LogicAvancoSpoolSoldFab = AvancoSpoolSoldFab || LogicAvancoSpoolENDFab;
@@ -158,10 +164,39 @@ namespace WinCTB_CTS.Module.Win.Controllers
                 detalhe.AvancoSpoolSoldFab = LogicAvancoSpoolSoldFab ? 1 : 0;
                 detalhe.AvancoSpoolENDFab = LogicAvancoSpoolENDFab ? 1 : 0;
 
+ 
+                //Aplicar EAP no Avanço de Fabricação
+                detalhe.PesoSpoolCorteFab = detalhe.AvancoSpoolCorteFab * eap.AvancoSpoolCorteFab;
+                detalhe.PesoSpoolVAFab = detalhe.AvancoSpoolVAFab * eap.AvancoSpoolVAFab;
+                detalhe.PesoSpoolSoldFab = detalhe.AvancoSpoolSoldFab * eap.AvancoSpoolSoldaFab;
+                detalhe.PesoSpoolENDFab = detalhe.AvancoSpoolENDFab * eap.AvancoSpoolENDFab;
+
+                //Cálculo Montagem
+                var AvancarTrechoRetoMont = QtdJuntaMont == 0 && ExecutadoSpoolPosiMont;
+                
+                var LogicAvancoJuntaENDMont = AvancarTrechoRetoMont 
+                    ? WdiJuntaTotalMont 
+                    : AvancoJuntaENDMont;
+
+                var LogicAvancoJuntaSoldMont = LogicAvancoJuntaENDMont > AvancoJuntaSoldMont
+                    ? LogicAvancoJuntaENDMont
+                    : AvancoJuntaSoldMont;
+
+                var LogicAvancoJuntaVAMont = LogicAvancoJuntaSoldMont > AvancoJuntaVAMont
+                    ? LogicAvancoJuntaSoldMont
+                    : AvancoJuntaVAMont;
+
+
                 //Gravar Avanço de Montagem
-                detalhe.AvancoJuntaVAMont = AvancoJuntaVAMont;
-                detalhe.AvancoJuntaSoldMont = AvancoJuntaSoldMont;
-                detalhe.AvancoJuntaENDMont = AvancoJuntaENDMont;
+                detalhe.AvancoJuntaVAMont = LogicAvancoJuntaVAMont;
+                detalhe.AvancoJuntaSoldMont = LogicAvancoJuntaSoldMont;
+                detalhe.AvancoJuntaENDMont = LogicAvancoJuntaENDMont;
+
+                //Aplicar EAP no Avanço de Montagem
+                detalhe.PesoJuntaVAMont = detalhe.AvancoJuntaVAMont * eap.AvancoJuntaVAMont;
+                detalhe.PesoJuntaSoldMont = detalhe.AvancoJuntaSoldMont * eap.AvancoJuntaSoldMont;
+                detalhe.PesoJuntaENDMont = detalhe.AvancoJuntaENDMont * eap.AvancoJuntaENDMont;
+
                 detalhe.Save();
 
                 if (i % 1000 == 0)

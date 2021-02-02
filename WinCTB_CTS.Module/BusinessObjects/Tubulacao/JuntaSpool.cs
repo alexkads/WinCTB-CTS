@@ -25,6 +25,7 @@ namespace WinCTB_CTS.Module.BusinessObjects.Tubulacao
         public override void AfterConstruction()
         {
             base.AfterConstruction();
+            //this.Evaluate("[<TabSchedule>][ PipingClass = ^.TabPercInspecao.Spec ].Single()");
         }
 
         public enum CampoPipe
@@ -34,6 +35,7 @@ namespace WinCTB_CTS.Module.BusinessObjects.Tubulacao
         }
 
 
+        TabSchedule tabSchedule;
         private TabPercInspecao tabPercInspecao;
         private TabDiametro tabDiametro;
         private string relDimFab;
@@ -106,7 +108,6 @@ namespace WinCTB_CTS.Module.BusinessObjects.Tubulacao
         private string materialEn;
         private string materialPt;
         private string tipoJunta;
-        private string schedule;
         private string junta;
         private string linha;
         private string documento;
@@ -197,20 +198,13 @@ namespace WinCTB_CTS.Module.BusinessObjects.Tubulacao
             set => SetPropertyValue(nameof(Espessura), ref espessura, value);
         }
 
-        [Size(100)]
-        public string Schedule
-        {
-            get => schedule;
-            set => SetPropertyValue(nameof(Schedule), ref schedule, value);
-        }
-
         [Size(100), XafDisplayName("Tipo de Junta")]
         public string TipoJunta
         {
             get => tipoJunta;
             set => SetPropertyValue(nameof(TipoJunta), ref tipoJunta, value);
         }
-        
+
         [Association("TabPercInspecao-JuntaSpools")]
         public TabPercInspecao TabPercInspecao
         {
@@ -221,6 +215,7 @@ namespace WinCTB_CTS.Module.BusinessObjects.Tubulacao
         [XafDisplayName("WDI")]
         [PersistentAlias("TabPercInspecao.Spec")]
         public string Spec => (string)EvaluateAlias("Spec");
+
 
         [Size(100), XafDisplayName("Material")]
         public string MaterialPt
@@ -250,6 +245,12 @@ namespace WinCTB_CTS.Module.BusinessObjects.Tubulacao
             set => SetPropertyValue(nameof(TabDiametro), ref tabDiametro, value);
         }
 
+        public TabSchedule TabSchedule
+        {
+            get => tabSchedule;
+            set => SetPropertyValue(nameof(TabSchedule), ref tabSchedule, value);
+        }
+
         [Size(100)]
         public string Norma
         {
@@ -257,7 +258,7 @@ namespace WinCTB_CTS.Module.BusinessObjects.Tubulacao
             set => SetPropertyValue(nameof(Norma), ref norma, value);
         }
 
- 
+
         [RuleRequiredField]
         [XafDisplayName("Campo/Pipe")]
         public CampoPipe CampoOuPipe
