@@ -138,6 +138,8 @@ namespace WinCTB_CTS.Module.Win.Controllers
 
                 //Avanço de Montagem (Memória de Cálculo)
                 var ExecutadoSpoolPosiMont = (Boolean)spool.Evaluate(CriteriaOperator.Parse("Not IsNullorEmpty(DataPreMontagem)"));
+                var ExecutadoSpoolDIMont = (Boolean)spool.Evaluate(CriteriaOperator.Parse("Not IsNullorEmpty(DataDiMontagem)"));
+                var ExecutadoSpoolLineCheckMont = (Boolean)spool.Evaluate(CriteriaOperator.Parse("Not IsNullorEmpty(DataLineCheck)"));
                 var AvancoJuntaVAMont = Utils.CalculoPercentual(WdiJuntaVAMont, WdiJuntaTotalMont);
                 var AvancoJuntaSoldMont = Utils.CalculoPercentual(WdiJuntaSoldMont, WdiJuntaTotalMont);
                 var AvancoJuntaENDMont = Utils.CalculoPercentual(WdiJuntaENDMont, WdiJuntaTotalMont);
@@ -166,36 +168,53 @@ namespace WinCTB_CTS.Module.Win.Controllers
 
  
                 //Aplicar EAP no Avanço de Fabricação
-                detalhe.PesoSpoolCorteFab = detalhe.AvancoSpoolCorteFab * eap.AvancoSpoolCorteFab;
-                detalhe.PesoSpoolVAFab = detalhe.AvancoSpoolVAFab * eap.AvancoSpoolVAFab;
-                detalhe.PesoSpoolSoldFab = detalhe.AvancoSpoolSoldFab * eap.AvancoSpoolSoldaFab;
-                detalhe.PesoSpoolENDFab = detalhe.AvancoSpoolENDFab * eap.AvancoSpoolENDFab;
+                detalhe.PesoSpoolCorteFab = (spool.PesoFabricacao * detalhe.AvancoSpoolCorteFab) * eap.AvancoSpoolCorteFab;
+                detalhe.PesoSpoolVAFab = (spool.PesoFabricacao * detalhe.AvancoSpoolVAFab) * eap.AvancoSpoolVAFab;
+                detalhe.PesoSpoolSoldFab = (spool.PesoFabricacao * detalhe.AvancoSpoolSoldFab) * eap.AvancoSpoolSoldaFab;
+                detalhe.PesoSpoolENDFab = (spool.PesoFabricacao * detalhe.AvancoSpoolENDFab) * eap.AvancoSpoolENDFab;
 
                 //Cálculo Montagem
-                var AvancarTrechoRetoMont = QtdJuntaMont == 0 && ExecutadoSpoolPosiMont;
+                var AvancarTrechoRetoPosiMont = QtdJuntaMont == 0 && ExecutadoSpoolPosiMont;
+                var AvancarTrechoRetoDIMont = QtdJuntaMont == 0 && ExecutadoSpoolDIMont;
                 
-                var LogicAvancoJuntaENDMont = AvancarTrechoRetoMont 
-                    ? WdiJuntaTotalMont 
-                    : AvancoJuntaENDMont;
+                var LogicAvancoJuntaENDMont = 0D;
+                var LogicAvancoJuntaSoldMont = 0D;
+                var LogicAvancoJuntaVAMont = 0D;
+                var LogicAvancoSpoolPosiMont = 0D;
 
-                var LogicAvancoJuntaSoldMont = LogicAvancoJuntaENDMont > AvancoJuntaSoldMont
-                    ? LogicAvancoJuntaENDMont
-                    : AvancoJuntaSoldMont;
-
-                var LogicAvancoJuntaVAMont = LogicAvancoJuntaSoldMont > AvancoJuntaVAMont
-                    ? LogicAvancoJuntaSoldMont
-                    : AvancoJuntaVAMont;
-
+                if (AvancarTrechoRetoPosiMont)
+                {
+                    LogicAvancoSpoolPosiMont = 1;
+                    LogicAvancoJuntaVAMont = 1;
+                }
+                else if (AvancarTrechoRetoDIMont)
+                {
+                    LogicAvancoSpoolPosiMont = 1;
+                    LogicAvancoJuntaVAMont = 1;
+                    LogicAvancoJuntaSoldMont = 1;
+                    LogicAvancoJuntaENDMont = 1;
+                }
+                else
+                {
+                    LogicAvancoSpoolPosiMont = ExecutadoSpoolPosiMont ? 1 : 0;
+                    LogicAvancoJuntaVAMont = AvancoJuntaVAMont;
+                    LogicAvancoJuntaSoldMont = AvancoJuntaSoldMont;
+                    LogicAvancoJuntaENDMont = AvancoJuntaENDMont;
+                }
 
                 //Gravar Avanço de Montagem
+                detalhe.AvancoSpoolPosiMont = LogicAvancoSpoolPosiMont;
                 detalhe.AvancoJuntaVAMont = LogicAvancoJuntaVAMont;
                 detalhe.AvancoJuntaSoldMont = LogicAvancoJuntaSoldMont;
                 detalhe.AvancoJuntaENDMont = LogicAvancoJuntaENDMont;
+                detalhe.AvancoSpoolLineCheckMont = ExecutadoSpoolLineCheckMont ? 1 : 0;
 
                 //Aplicar EAP no Avanço de Montagem
-                detalhe.PesoJuntaVAMont = detalhe.AvancoJuntaVAMont * eap.AvancoJuntaVAMont;
-                detalhe.PesoJuntaSoldMont = detalhe.AvancoJuntaSoldMont * eap.AvancoJuntaSoldMont;
-                detalhe.PesoJuntaENDMont = detalhe.AvancoJuntaENDMont * eap.AvancoJuntaENDMont;
+                detalhe.PesoSpoolPosiMont = (spool.PesoMontagem * detalhe.AvancoSpoolPosiMont) * eap.AvancoSpoolPosicionamento;
+                detalhe.PesoJuntaVAMont = (spool.PesoMontagem * detalhe.AvancoJuntaVAMont) * eap.AvancoJuntaVAMont;
+                detalhe.PesoJuntaSoldMont = (spool.PesoMontagem * detalhe.AvancoJuntaSoldMont) * eap.AvancoJuntaSoldMont;
+                detalhe.PesoJuntaENDMont = (spool.PesoMontagem * detalhe.AvancoJuntaENDMont) * eap.AvancoJuntaENDMont;
+                detalhe.PesoSpoolLineCheckMont = (spool.PesoMontagem * detalhe.AvancoSpoolLineCheckMont) * eap.AvancoSpoolLineCheck;
 
                 detalhe.Save();
 
