@@ -27,7 +27,7 @@ namespace WinCTB_CTS.Module.BusinessObjects.Tubulacao.Medicao
         }
 
 
-        private double pesoJuntaEND;
+        private double pesoJuntaENDMont;
         private double pesoJuntaSoldMont;
         private double pesoJuntaVAMont;
         private double pesoSpoolENDFab;
@@ -195,10 +195,10 @@ namespace WinCTB_CTS.Module.BusinessObjects.Tubulacao.Medicao
         }
 
         
-        public double PesoJuntaEND
+        public double PesoJuntaENDMont
         {
-            get => pesoJuntaEND;
-            set => SetPropertyValue(nameof(PesoJuntaEND), ref pesoJuntaEND, value);
+            get => pesoJuntaENDMont;
+            set => SetPropertyValue(nameof(PesoJuntaENDMont), ref pesoJuntaENDMont, value);
         }
 
 

@@ -318,7 +318,6 @@ namespace WinCTB_CTS.Module.Win.Controllers
                     juntaSpool.Junta = junta;
                     // Daniel - Adicionar campos do SGJ aqui dentro
                     juntaSpool.TabDiametro = uow.FindObject<TabDiametro>(new BinaryOperator("DiametroPolegada", linha["diametroPolegada"].ToString()));
-                    juntaSpool.Schedule = linha["schedule"].ToString();
                     juntaSpool.TipoJunta = linha["tipoJunta"].ToString();
                     juntaSpool.TabPercInspecao = uow.FindObject<TabPercInspecao>(new BinaryOperator("Spec", linha["spec"].ToString()));
                     juntaSpool.MaterialPt = linha["materialPt"].ToString();
