@@ -27,6 +27,7 @@ namespace WinCTB_CTS.Module.BusinessObjects.Tubulacao.Medicao
         }
 
 
+        private MedicaoTubulacaoDetalhe medicaoAnterior;
         double pesoSpoolLineCheckMont;
         double avancoSpoolLineCheckMont;
         private double pesoSpoolPosiMont;
@@ -228,12 +229,17 @@ namespace WinCTB_CTS.Module.BusinessObjects.Tubulacao.Medicao
             set => SetPropertyValue(nameof(AvancoSpoolLineCheckMont), ref avancoSpoolLineCheckMont, value);
         }
 
-        
+
         public double PesoSpoolLineCheckMont
         {
             get => pesoSpoolLineCheckMont;
             set => SetPropertyValue(nameof(PesoSpoolLineCheckMont), ref pesoSpoolLineCheckMont, value);
         }
-
+        
+        public MedicaoTubulacaoDetalhe MedicaoAnterior
+        {
+            get => medicaoAnterior;
+            set => SetPropertyValue(nameof(MedicaoAnterior), ref medicaoAnterior, value);
+        }
     }
 }

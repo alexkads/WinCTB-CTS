@@ -106,7 +106,7 @@ namespace WinCTB_CTS.Module.Win.Controllers
             });
 
             uow.BeginTransaction();
-
+            var medicaoAnterior = uow.FindObject<MedicaoTubulacao>(CriteriaOperator.Parse("DataFechamentoMedicao = [<MedicaoTubulacao>].Max(DataFechamentoMedicao)"));
             var medicao = new MedicaoTubulacao(uow);
             medicao.DataFechamentoMedicao = DateTime.Now;
             medicao.Save();
@@ -114,6 +114,7 @@ namespace WinCTB_CTS.Module.Win.Controllers
             for (int i = 0; i < QuantidadeDeSpool; i++)
             {
                 var spool = spools[i];
+                var detalheMedicaoAnterior = medicaoAnterior is null ? null : uow.FindObject<MedicaoTubulacaoDetalhe>(CriteriaOperator.Parse("Spool.Oid = ? And MedicaoTubulacao.Oid = ?", spool.Oid, medicaoAnterior.Oid)); 
                 var eap = session.FindObject<TabEAPPipe>(new BinaryOperator("Contrato.Oid", spool.Contrato.Oid));
                 var detalhe = new MedicaoTubulacaoDetalhe(uow);
 
@@ -215,6 +216,7 @@ namespace WinCTB_CTS.Module.Win.Controllers
                 detalhe.PesoJuntaSoldMont = (spool.PesoMontagem * detalhe.AvancoJuntaSoldMont) * eap.AvancoJuntaSoldMont;
                 detalhe.PesoJuntaENDMont = (spool.PesoMontagem * detalhe.AvancoJuntaENDMont) * eap.AvancoJuntaENDMont;
                 detalhe.PesoSpoolLineCheckMont = (spool.PesoMontagem * detalhe.AvancoSpoolLineCheckMont) * eap.AvancoSpoolLineCheck;
+                detalhe.MedicaoAnterior = detalheMedicaoAnterior;
 
                 detalhe.Save();
 

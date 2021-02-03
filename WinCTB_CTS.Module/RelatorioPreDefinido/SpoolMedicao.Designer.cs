@@ -231,6 +231,7 @@ namespace WinCTB_CTS.Module.RelatorioPreDefinido
             this.collectionDataSource1 = new DevExpress.Persistent.Base.ReportsV2.CollectionDataSource();
             this.PesoAcumuladoFab = new DevExpress.XtraReports.UI.CalculatedField();
             this.PesoPonderadoMontKg = new DevExpress.XtraReports.UI.CalculatedField();
+            this.PesoMedicaoAnteriorFab = new DevExpress.XtraReports.UI.CalculatedField();
             ((System.ComponentModel.ISupportInitialize)(this.xrTable2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.xrTable1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.collectionDataSource1)).BeginInit();
@@ -1909,7 +1910,7 @@ namespace WinCTB_CTS.Module.RelatorioPreDefinido
             // xrTableCell79
             // 
             this.xrTableCell79.ExpressionBindings.AddRange(new DevExpress.XtraReports.UI.ExpressionBinding[] {
-            new DevExpress.XtraReports.UI.ExpressionBinding("BeforePrint", "Text", "0")});
+            new DevExpress.XtraReports.UI.ExpressionBinding("BeforePrint", "Text", "[PesoMedicaoAnteriorFab]")});
             this.xrTableCell79.Multiline = true;
             this.xrTableCell79.Name = "xrTableCell79";
             this.xrTableCell79.Text = "xrTableCell79";
@@ -1918,7 +1919,7 @@ namespace WinCTB_CTS.Module.RelatorioPreDefinido
             // xrTableCell80
             // 
             this.xrTableCell80.ExpressionBindings.AddRange(new DevExpress.XtraReports.UI.ExpressionBinding[] {
-            new DevExpress.XtraReports.UI.ExpressionBinding("BeforePrint", "Text", "[xrTableCell78] - [xrTableCell79]")});
+            new DevExpress.XtraReports.UI.ExpressionBinding("BeforePrint", "Text", "[PesoAcumuladoFab] - [PesoMedicaoAnteriorFab]")});
             this.xrTableCell80.Multiline = true;
             this.xrTableCell80.Name = "xrTableCell80";
             this.xrTableCell80.Text = "xrTableCell80";
@@ -2052,6 +2053,13 @@ namespace WinCTB_CTS.Module.RelatorioPreDefinido
             this.PesoPonderadoMontKg.FieldType = DevExpress.XtraReports.UI.FieldType.Double;
             this.PesoPonderadoMontKg.Name = "PesoPonderadoMontKg";
             // 
+            // PesoMedicaoAnteriorFab
+            // 
+            this.PesoMedicaoAnteriorFab.DisplayName = "(Calc) PesoMedicaoAnteriorFab";
+            this.PesoMedicaoAnteriorFab.Expression = "[MedicaoAnterior].[PesoSpoolCorteFab] + \n[MedicaoAnterior].[PesoSpoolVAFab]  +\n[M" +
+    "edicaoAnterior].[PesoSpoolSoldFab] + \n[MedicaoAnterior].[PesoSpoolENDFab]";
+            this.PesoMedicaoAnteriorFab.Name = "PesoMedicaoAnteriorFab";
+            // 
             // SpoolMedicao
             // 
             this.Bands.AddRange(new DevExpress.XtraReports.UI.Band[] {
@@ -2060,7 +2068,8 @@ namespace WinCTB_CTS.Module.RelatorioPreDefinido
             this.Detail});
             this.CalculatedFields.AddRange(new DevExpress.XtraReports.UI.CalculatedField[] {
             this.PesoAcumuladoFab,
-            this.PesoPonderadoMontKg});
+            this.PesoPonderadoMontKg,
+            this.PesoMedicaoAnteriorFab});
             this.ComponentStorage.AddRange(new System.ComponentModel.IComponent[] {
             this.collectionDataSource1});
             this.DataSource = this.collectionDataSource1;
@@ -2282,5 +2291,6 @@ namespace WinCTB_CTS.Module.RelatorioPreDefinido
         private DevExpress.XtraReports.UI.XRTableCell xrTableCell96;
         private DevExpress.XtraReports.UI.CalculatedField PesoAcumuladoFab;
         private DevExpress.XtraReports.UI.CalculatedField PesoPonderadoMontKg;
+        private DevExpress.XtraReports.UI.CalculatedField PesoMedicaoAnteriorFab;
     }
 }
