@@ -23,11 +23,14 @@ namespace WinCTB_CTS.Module.RelatorioParametros
         public MedicaoTubulacaoDetalheParameters(IObjectSpaceCreator provider) : base(provider)
         {
             TableCriteria = typeof(MedicaoTubulacaoDetalhe);
+            Contrato = ObjectSpace.FindObject<Contrato>(CriteriaOperator.Parse(""));
+            Medicao = ObjectSpace.FindObject<MedicaoTubulacao>(CriteriaOperator.Parse("DataFechamentoMedicao = [<MedicaoTubulacao>].Max(DataFechamentoMedicao)"));
         }
 
         [ImmediatePostData, XafDisplayName("Contrato")]
         [LookupEditorMode(LookupEditorMode.AllItems)]
         [DataSourceProperty("ContratosDisponiveis")]
+        //[DataSourceCriteria("Oid = CurrentProjectOid()")]
         public Contrato Contrato { get; set; }
 
         [ImmediatePostData, XafDisplayName("Medição")]
