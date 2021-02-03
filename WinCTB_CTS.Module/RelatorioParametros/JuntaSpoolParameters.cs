@@ -21,7 +21,7 @@ namespace WinCTB_CTS.Module.RelatorioParametros
     {
         public JuntaSpoolParameters(IObjectSpaceCreator provider) : base(provider)
         {
-
+            TableCriteria = typeof(JuntaSpool);
         }
 
         [ImmediatePostData, XafDisplayName("Contrato")]
@@ -32,13 +32,18 @@ namespace WinCTB_CTS.Module.RelatorioParametros
 
         public override CriteriaOperator GetCriteria()
         {
-            CriteriaOperator criteriaOperator = null;
+            CriteriaOperator criteriaOperator = CriteriaOperator.Parse("");
+            CriteriaOperator CustomCriteriaOperator = CriteriaOperator.Parse(CriterioAdicional);
             //ObjectSpace.GetObjects<JuntaSpool>().Select(x=> x.Junta);
 
             if (Contrato != null)
                 criteriaOperator = CriteriaOperator.Parse("Spool.Contrato.Oid == ?", Contrato.Oid);
 
-            return criteriaOperator;
+            var criteriaFinal = CustomCriteriaOperator is null
+                ? criteriaOperator
+                : CriteriaOperator.And(criteriaOperator, CustomCriteriaOperator);
+
+            return criteriaFinal;
         }
 
         public override SortProperty[] GetSorting()

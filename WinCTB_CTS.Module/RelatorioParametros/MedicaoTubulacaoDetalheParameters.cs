@@ -18,38 +18,53 @@ namespace WinCTB_CTS.Module.RelatorioParametros
 {
     [DomainComponent]
     // For more typical usage scenarios, be sure to check out https://documentation.devexpress.com/eXpressAppFramework/CustomDocument113594.aspx.
-    public class SpoolMedicaoParameters : CustomReportParametersObjectBase
+    public class MedicaoTubulacaoDetalheParameters : CustomReportParametersObjectBase
     {
-        public SpoolMedicaoParameters(IObjectSpaceCreator provider) : base(provider)
+        public MedicaoTubulacaoDetalheParameters(IObjectSpaceCreator provider) : base(provider)
         {
-
+            TableCriteria = typeof(MedicaoTubulacaoDetalhe);
         }
 
         [ImmediatePostData, XafDisplayName("Contrato")]
-        [LookupEditorMode(LookupEditorMode.AllItemsWithSearch)]
+        [LookupEditorMode(LookupEditorMode.AllItems)]
         [DataSourceProperty("ContratosDisponiveis")]
         public Contrato Contrato { get; set; }
 
-        [ImmediatePostData, XafDisplayName("Contrato")]
-        [LookupEditorMode(LookupEditorMode.AllItemsWithSearch)]
+        [ImmediatePostData, XafDisplayName("Medição")]
+        [LookupEditorMode(LookupEditorMode.AllItems)]
         [DataSourceProperty("MedicaoDisponiveis")]
         public MedicaoTubulacao Medicao { get; set; }
 
         public override CriteriaOperator GetCriteria()
         {
-            CriteriaOperator criteriaOperator = string.Empty;
+            CriteriaOperator criteriaOperator = CriteriaOperator.Parse("");
+            var CustomCriteriaOperator = CriteriaOperator.Parse(CriterioAdicional);
+            //ObjectSpace.GetObjectsQuery<MedicaoTubulacaoDetalhe>()
+            //    .Where(x=> x.MedicaoTubulacao.Oid)
 
-            if (Contrato != null && Medicao.Oid != null)
-                    criteriaOperator = CriteriaOperator.Parse("Contrato.Oid = ? And MedicaoTubulacaoDetalhes[ MedicaoTubulacao.Oid = ? ]", Contrato.Oid, Medicao.Oid);
+            if (Contrato != null && Medicao?.Oid != null)
+                criteriaOperator = CriteriaOperator.Parse("Spool.Contrato.Oid = ? And MedicaoTubulacao.Oid = ?", Contrato.Oid, Medicao.Oid);
+            else if (Medicao?.Oid != null)
+                criteriaOperator = new BinaryOperator("MedicaoTubulacao.Oid", Medicao.Oid);
+            else if (Contrato?.Oid != null)
+                criteriaOperator = new BinaryOperator("Spool.Contrato.Oid", Contrato.Oid);
 
-            return criteriaOperator;
+            if (!(criteriaOperator is null) && !(CustomCriteriaOperator is null))
+                return CriteriaOperator.And(criteriaOperator, CustomCriteriaOperator);
+            else if (!(CustomCriteriaOperator is null))
+                return CustomCriteriaOperator;
+            else
+                return criteriaOperator;
         }
 
         public override SortProperty[] GetSorting()
         {
+            //ObjectSpace.GetObjectsQuery<MedicaoTubulacaoDetalhe>()
+            //    .Select(x=> x.Spool.Documento)
+
             List<SortProperty> sorting = new List<SortProperty> {
-                new SortProperty("Documento", SortingDirection.Ascending),
-                new SortProperty("TagSpool", SortingDirection.Ascending)
+                new SortProperty("Spool.Documento", SortingDirection.Ascending),
+                new SortProperty("Spool.TagSpool", SortingDirection.Ascending)
             };
 
             return sorting.ToArray();

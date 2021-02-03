@@ -20,6 +20,7 @@ using WinCTB_CTS.Module.RelatorioParametros;
 using WinCTB_CTS.Module.BusinessObjects.Tubulacao;
 using WinCTB_CTS.Module.RelatorioPreDefinido;
 using DevExpress.Data.Filtering;
+using WinCTB_CTS.Module.BusinessObjects.Tubulacao.Medicao;
 
 namespace WinCTB_CTS.Module
 {
@@ -48,7 +49,7 @@ namespace WinCTB_CTS.Module
             predefinedReportsUpdater.AddPredefinedReport<RelatorioMedicaoSinteticoSpool>("Relatório de Medição por Spool (Sintético)", typeof(Spool), typeof(SpoolParameters), isInplaceReport: true);
             predefinedReportsUpdater.AddPredefinedReport<ResumoDeJuntas>("Resumo de Juntas", typeof(JuntaSpool), typeof(JuntaSpoolParameters), isInplaceReport: true);
             predefinedReportsUpdater.AddPredefinedReport<JuntaMedicao>("Juntas - Medição", typeof(JuntaSpool), typeof(JuntaSpoolParameters), isInplaceReport: true);
-            predefinedReportsUpdater.AddPredefinedReport<SpoolMedicao>("Spool - Medição", typeof(Spool), typeof(SpoolMedicaoParameters), isInplaceReport: true);
+            predefinedReportsUpdater.AddPredefinedReport<SpoolMedicao>("Spool - Medição", typeof(MedicaoTubulacaoDetalhe), typeof(MedicaoTubulacaoDetalheParameters), isInplaceReport: true);
 
             return new ModuleUpdater[]
             {

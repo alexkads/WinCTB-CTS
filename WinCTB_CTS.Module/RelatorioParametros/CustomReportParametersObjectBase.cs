@@ -38,7 +38,7 @@ namespace WinCTB_CTS.Module.RelatorioParametros
 
         [EditorAlias(EditorAliases.PopupCriteriaPropertyEditor)]
         [Size(SizeAttribute.Unlimited), ObjectValidatorIgnoreIssue(typeof(ObjectValidatorLargeNonDelayedMember))]
-        [XafDisplayName("Criterio")]
-        public string MasterCriteria { get; set; }
+        [XafDisplayName("Critério Adicional")]
+        public string CriterioAdicional { get; set; }
     }
 }

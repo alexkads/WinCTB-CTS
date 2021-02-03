@@ -40,7 +40,7 @@ namespace WinCTB_CTS.Module.BusinessObjects.Tubulacao.Medicao
 
 
         [XafDisplayName("Data Fechamento")]
-        [ModelDefault("EditMask", "G")]
+        //[ModelDefault("EditMask", "G")]
         [ModelDefault("DisplayFormat", "G")]
         [ModelDefault("AllowEdit", "False")]
         public DateTime DataFechamentoMedicao
