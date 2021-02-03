@@ -14,7 +14,7 @@ using System.Text;
 
 namespace WinCTB_CTS.Module.BusinessObjects.Tubulacao.Medicao
 {
-    [DefaultClassOptions, DefaultProperty("DataFechamentoMedicao"), ImageName("BO_Contract"), NavigationItem("Medição")]
+    [DefaultClassOptions, DefaultProperty("NumeroDoFechamento"), ImageName("BO_Contract"), NavigationItem("Medição")]
     public class MedicaoTubulacao : BaseObject
     { 
         public MedicaoTubulacao(Session session)
@@ -24,6 +24,7 @@ namespace WinCTB_CTS.Module.BusinessObjects.Tubulacao.Medicao
         public override void AfterConstruction()
         {
             base.AfterConstruction();
+            NumeroDoFechamento = "F" + DistributedIdGeneratorHelper.Generate(this.Session.DataLayer, this.GetType().FullName, string.Empty).ToString().PadLeft(8, '0');
         }
 
 
@@ -50,7 +51,7 @@ namespace WinCTB_CTS.Module.BusinessObjects.Tubulacao.Medicao
         }
 
 
-        [Association("MedicaoTubulacao-MedicaoTubulacaoDetalhes")]
+        [Association("MedicaoTubulacao-MedicaoTubulacaoDetalhes"), DevExpress.Xpo.Aggregated]
         public XPCollection<MedicaoTubulacaoDetalhe> MedicaoTubulacaoDetalhes
         {
             get

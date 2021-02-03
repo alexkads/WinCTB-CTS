@@ -18,6 +18,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using WinCTB_CTS.Module.BusinessObjects.Tubulacao;
+using WinCTB_CTS.Module.BusinessObjects.Tubulacao.Medicao;
 using WinCTB_CTS.Module.Comum;
 
 namespace WinCTB_CTS.Module.Win.Controllers
@@ -48,6 +49,9 @@ namespace WinCTB_CTS.Module.Win.Controllers
                     var objectSpace = Application.CreateObjectSpace();
                     UnitOfWork uow = new UnitOfWork(((XPObjectSpace)objectSpace).Session.ObjectLayer);
 
+                    Utils.DeleteAllRecords<MedicaoTubulacaoDetalhe>(uow);
+                    Utils.DeleteAllRecords<MedicaoTubulacao>(uow);
+                    
                     Utils.DeleteAllRecords<Spool>(uow);
                     Utils.DeleteAllRecords<JuntaSpool>(uow);
 
