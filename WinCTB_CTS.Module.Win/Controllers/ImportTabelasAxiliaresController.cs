@@ -429,7 +429,7 @@ namespace WinCTB_CTS.Module.Win.Controllers
                     TabContrato.AvancoSpoolCorteFab = Utils.ConvertDouble(lheader("AvancoSpoolCorteFab", i));
                     TabContrato.AvancoSpoolVAFab = Utils.ConvertDouble(lheader("AvancoSpoolVAFab", i));
                     TabContrato.AvancoSpoolSoldaFab = Utils.ConvertDouble(lheader("AvancoSpoolSoldaFab", i));
-                    TabContrato.AvancoSpoolENDFab = Utils.ConvertDouble(lheader("AvancoSpoolCorteFab", i));
+                    TabContrato.AvancoSpoolENDFab = Utils.ConvertDouble(lheader("AvancoSpoolENDFab", i));
                     TabContrato.AvancoSpoolPosicionamento = Utils.ConvertDouble(lheader("AvancoSpoolPosicionamento", i));
                     
                     TabContrato.AvancoJuntaVAMont = Utils.ConvertDouble(lheader("AvancoJuntaVAMont", i));

@@ -188,6 +188,12 @@
     <Compile Include="RelatorioPreDefinido\ResumoDeJuntas.Designer.cs">
       <DependentUpon>ResumoDeJuntas.cs</DependentUpon>
     </Compile>
+    <Compile Include="RelatorioPreDefinido\SpoolMedicao.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="RelatorioPreDefinido\SpoolMedicao.Designer.cs">
+      <DependentUpon>SpoolMedicao.cs</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Model.DesignedDiffs.xafml" />
@@ -210,6 +216,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="RelatorioPreDefinido\ResumoDeJuntas.resx">
       <DependentUpon>ResumoDeJuntas.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="RelatorioPreDefinido\SpoolMedicao.resx">
+      <DependentUpon>SpoolMedicao.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Resources\TabelasAuxiliares.xlsx">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
