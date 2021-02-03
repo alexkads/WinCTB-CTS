@@ -163,6 +163,7 @@
     <Compile Include="Comum\Utils.cs" />
     <Compile Include="RelatorioParametros\CustomReportParametersObjectBase.cs" />
     <Compile Include="RelatorioParametros\JuntaSpoolParameters.cs" />
+    <Compile Include="RelatorioParametros\SpoolModicaoParameters.cs" />
     <Compile Include="RelatorioParametros\SpoolParameters.cs" />
     <Compile Include="RelatorioPreDefinido\JuntaMedicao.cs">
       <SubType>Component</SubType>
