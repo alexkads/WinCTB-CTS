@@ -81,6 +81,7 @@ namespace WinCTB_CTS.Module.Win.Controllers
 
             DataTableCollection dtcollectionImport = null;
 
+            ((DialogController)sender).AcceptAction.Enabled["NoEnabled"] = false;
             //Necessário para não fechar a janela após a conclusão do processamento
             e.Cancel = true;
             e.AcceptActionArgs.Action.Caption = "Procesando";
@@ -103,8 +104,9 @@ namespace WinCTB_CTS.Module.Win.Controllers
             await Observable.Start(() => ImportarSpools(dtcollectionImport["SGS"], progress));
             await Observable.Start(() => ImportarJuntas(dtcollectionImport["SGJ"], progress));
 
-            e.AcceptActionArgs.Action.Caption = "Finalizado";
             objectSpace.CommitChanges();
+            e.AcceptActionArgs.Action.Caption = "Finalizado";
+            ((DialogController)sender).AcceptAction.Enabled["NoEnabled"] = true;
         }
 
         private void LogTrace(ImportProgressReport value)

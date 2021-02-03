@@ -76,6 +76,8 @@ namespace WinCTB_CTS.Module.Win.Controllers
 
         private async void DialogControllerImportarPlanilha_Accepting(object sender, DialogControllerAcceptingEventArgs e)
         {
+            ((DialogController)sender).AcceptAction.Enabled["NoEnabled"] = false;
+
             //Necessário para não fechar a janela após a conclusão do processamento
             e.Cancel = true;
             e.AcceptActionArgs.Action.Caption = "Procesando";
@@ -102,7 +104,9 @@ namespace WinCTB_CTS.Module.Win.Controllers
             await Observable.Start(() => ImportarContrato(dtcollectionImport["Contrato"], progress));
             await Observable.Start(() => ImportarEAP(dtcollectionImport["EAPPipe"], progress));
 
+            objectSpace.CommitChanges();
             e.AcceptActionArgs.Action.Caption = "Finalizado";
+            ((DialogController)sender).AcceptAction.Enabled["NoEnabled"] = true;
         }
 
         private void LogTrace(ImportProgressReport value)
