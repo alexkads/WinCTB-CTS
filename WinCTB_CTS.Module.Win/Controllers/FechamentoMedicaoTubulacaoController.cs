@@ -127,6 +127,12 @@ namespace WinCTB_CTS.Module.Win.Controllers
                 //Cálculo de Montagem (Memória de Cálculo)
                 var WdiJuntaTotalMont = Utils.ConvertDouble(spool.Evaluate(CriteriaOperator.Parse("Juntas[CampoOuPipe == 'CAMPO'].Sum(TabDiametro.Wdi)")));
                 var WdiJuntaVAMont = Utils.ConvertDouble(spool.Evaluate(CriteriaOperator.Parse("Juntas[Not IsNullorEmpty(DataVa) And CampoOuPipe == 'CAMPO'].Sum(TabDiametro.Wdi)")));
+                
+                var WdiJuntaVANaMontPrev = Utils.ConvertDouble(spool.Evaluate(CriteriaOperator.Parse("Juntas[statusVa == 'N' And CampoOuPipe == 'CAMPO'].Sum(TabDiametro.Wdi)")));
+                var WdiJuntaVAApMontPrev = Utils.ConvertDouble(spool.Evaluate(CriteriaOperator.Parse("Juntas[statusVa <> 'N' And CampoOuPipe == 'CAMPO'].Sum(TabDiametro.Wdi)")));
+                var WdiJuntaVAApMontExec = Utils.ConvertDouble(spool.Evaluate(CriteriaOperator.Parse("Juntas[Not IsNullorEmpty(DataVa) And statusVa <> 'N' And CampoOuPipe == 'CAMPO'].Sum(TabDiametro.Wdi)")));
+
+
                 var WdiJuntaSoldMont = Utils.ConvertDouble(spool.Evaluate(CriteriaOperator.Parse("Juntas[Not IsNullorEmpty(DataSoldagem) And CampoOuPipe == 'CAMPO'].Sum(TabDiametro.Wdi)")));
                 var WdiJuntaENDMont = Utils.ConvertDouble(spool.Evaluate(CriteriaOperator.Parse("Juntas[Not IsNullorEmpty(DataLiberacaoJunta) And CampoOuPipe == 'CAMPO'].Sum(TabDiametro.Wdi)")));
 
@@ -141,6 +147,7 @@ namespace WinCTB_CTS.Module.Win.Controllers
                 var ExecutadoSpoolPosiMont = (Boolean)spool.Evaluate(CriteriaOperator.Parse("Not IsNullorEmpty(DataPreMontagem)"));
                 var ExecutadoSpoolDIMont = (Boolean)spool.Evaluate(CriteriaOperator.Parse("Not IsNullorEmpty(DataDiMontagem)"));
                 var ExecutadoSpoolLineCheckMont = (Boolean)spool.Evaluate(CriteriaOperator.Parse("Not IsNullorEmpty(DataLineCheck)"));
+ 
                 var AvancoJuntaVAMont = Utils.CalculoPercentual(WdiJuntaVAMont, WdiJuntaTotalMont);
                 var AvancoJuntaSoldMont = Utils.CalculoPercentual(WdiJuntaSoldMont, WdiJuntaTotalMont);
                 var AvancoJuntaENDMont = Utils.CalculoPercentual(WdiJuntaENDMont, WdiJuntaTotalMont);
@@ -186,6 +193,22 @@ namespace WinCTB_CTS.Module.Win.Controllers
                 //Verificar trecho reto
                 if (QtdJuntaMont > 0)
                 {
+                    
+                    // Avanço das juntas de VA "NA" quando todas as juntas forem NA com posicionamento
+                    if (WdiJuntaVANaMontPrev == WdiJuntaTotalMont && ExecutadoSpoolPosiMont)
+                    {
+                        AvancoJuntaVAMont = 1;
+                    }
+
+                    //Avanço das juntas de VA "NA" quando tiverem juntas NA e AP com posicionamento
+                    if (WdiJuntaVANaMontPrev > 0 && WdiJuntaVAApMontPrev > 0 && ExecutadoSpoolPosiMont)
+                    {
+                        AvancoJuntaVAMont = Utils.CalculoPercentual(WdiJuntaVANaMontPrev + WdiJuntaVAApMontExec, WdiJuntaTotalMont);
+                        //AvancoJuntaVAMont = WdiJuntaVANaMontPrev + WdiJuntaVAApMontExec;
+                    }
+
+
+
                     LogicAvancoJuntaENDMont = AvancoJuntaENDMont;
                     
                     LogicAvancoJuntaSoldMont = LogicAvancoJuntaENDMont > AvancoJuntaSoldMont 
@@ -199,7 +222,6 @@ namespace WinCTB_CTS.Module.Win.Controllers
                     LogicAvancoSpoolPosiMont = LogicAvancoJuntaVAMont > (ExecutadoSpoolPosiMont ? 1 : 0)
                         ? LogicAvancoJuntaVAMont
                         : (ExecutadoSpoolPosiMont ? 1 : 0);
-                                        
                 }
                 else
                 {
