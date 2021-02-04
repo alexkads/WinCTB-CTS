@@ -114,7 +114,7 @@ namespace WinCTB_CTS.Module.Win.Controllers
             for (int i = 0; i < QuantidadeDeSpool; i++)
             {
                 var spool = spools[i];
-                var detalheMedicaoAnterior = medicaoAnterior is null ? null : uow.FindObject<MedicaoTubulacaoDetalhe>(CriteriaOperator.Parse("Spool.Oid = ? And MedicaoTubulacao.Oid = ?", spool.Oid, medicaoAnterior.Oid)); 
+                var detalheMedicaoAnterior = medicaoAnterior is null ? null : uow.FindObject<MedicaoTubulacaoDetalhe>(CriteriaOperator.Parse("Spool.Oid = ? And MedicaoTubulacao.Oid = ?", spool.Oid, medicaoAnterior.Oid));
                 var eap = session.FindObject<TabEAPPipe>(new BinaryOperator("Contrato.Oid", spool.Contrato.Oid));
                 var detalhe = new MedicaoTubulacaoDetalhe(uow);
 
@@ -183,26 +183,42 @@ namespace WinCTB_CTS.Module.Win.Controllers
                 var LogicAvancoJuntaVAMont = 0D;
                 var LogicAvancoSpoolPosiMont = 0D;
 
-                if (AvancarTrechoRetoPosiMont)
+                //Verificar trecho reto
+                if (QtdJuntaMont > 0)
                 {
-                    LogicAvancoSpoolPosiMont = 1;
-                    LogicAvancoJuntaVAMont = 1;
-                }
-                else if (AvancarTrechoRetoDIMont)
-                {
-                    LogicAvancoSpoolPosiMont = 1;
-                    LogicAvancoJuntaVAMont = 1;
-                    LogicAvancoJuntaSoldMont = 1;
-                    LogicAvancoJuntaENDMont = 1;
+                    LogicAvancoJuntaENDMont = AvancoJuntaENDMont;
+                    
+                    LogicAvancoJuntaSoldMont = LogicAvancoJuntaENDMont > AvancoJuntaSoldMont 
+                        ? LogicAvancoJuntaENDMont 
+                        : AvancoJuntaSoldMont;
+
+                    LogicAvancoJuntaVAMont = LogicAvancoJuntaSoldMont > AvancoJuntaVAMont
+                        ? LogicAvancoJuntaSoldMont
+                        : AvancoJuntaVAMont;
+                        
+                    LogicAvancoSpoolPosiMont = LogicAvancoJuntaVAMont > (ExecutadoSpoolPosiMont ? 1 : 0)
+                        ? LogicAvancoJuntaVAMont
+                        : (ExecutadoSpoolPosiMont ? 1 : 0);
+                                        
                 }
                 else
                 {
-                    LogicAvancoSpoolPosiMont = ExecutadoSpoolPosiMont ? 1 : 0;
-                    LogicAvancoJuntaVAMont = AvancoJuntaVAMont;
-                    LogicAvancoJuntaSoldMont = AvancoJuntaSoldMont;
-                    LogicAvancoJuntaENDMont = AvancoJuntaENDMont;
+                    if (AvancarTrechoRetoPosiMont)
+                    {
+                        LogicAvancoSpoolPosiMont = 1;
+                        LogicAvancoJuntaVAMont = 1;
+                    }
+                    
+                    if (AvancarTrechoRetoDIMont)
+                    {
+                        LogicAvancoSpoolPosiMont = 1;
+                        LogicAvancoJuntaVAMont = 1;
+                        LogicAvancoJuntaSoldMont = 1;
+                        LogicAvancoJuntaENDMont = 1;
+                    }
                 }
 
+                
                 //Gravar Avanço de Montagem
                 detalhe.AvancoSpoolPosiMont = LogicAvancoSpoolPosiMont;
                 detalhe.AvancoJuntaVAMont = LogicAvancoJuntaVAMont;
