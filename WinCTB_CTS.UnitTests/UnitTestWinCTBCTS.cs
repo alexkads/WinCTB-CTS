@@ -4,6 +4,7 @@ using NUnit.Framework;
 using System;
 using System.IO;
 using System.Reactive.Linq;
+using System.Threading.Tasks;
 using WinCTB_CTS.Module.Importer;
 using WinCTB_CTS.Module.Importer.Tubulacao;
 
@@ -14,7 +15,7 @@ namespace WinCTB_CTS.UnitTests
     {
         [TestMethod]
         [TestCase("QGI", true)]
-        public async void TesteImportacaoTabelaAuxiliar()
+        public async Task TesteImportacaoTabelaAuxiliar()
         {
             var application = new Application(false);
             IObjectSpaceProvider objectSpaceProvider = application.serverApplication.ObjectSpaceProvider;
