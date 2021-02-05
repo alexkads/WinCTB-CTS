@@ -210,7 +210,6 @@
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Controllers\InstantReport\WinInstantPrintReportController.cs" />
-    <Compile Include="Controllers\ParametrosImportSpoolJuntaExcel.cs" />
     <Compile Include="Controllers\XtraProgressImport.cs">
       <SubType>Form</SubType>
     </Compile>

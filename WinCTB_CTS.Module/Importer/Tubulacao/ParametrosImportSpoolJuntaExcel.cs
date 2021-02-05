@@ -11,10 +11,8 @@ using DevExpress.ExpressApp.Xpo;
 using WinCTB_CTS.Module.BusinessObjects.Padrao;
 using WinCTB_CTS.Module.Action;
 
-namespace WinCTB_CTS.Module.Win.Controllers
+namespace WinCTB_CTS.Module.Importer.Tubulacao
 {
-
-
     //[ModelDefault("Caption", "Parâmetros de importação")]
     [ModelDefault("VisibleProperties", "Caption, ToolTip, ImageName, AcceptButtonCaption, CancelButtonCaption, IsSizeable")]
     [NonPersistent, ImageName("Action_SingleChoiceAction")]

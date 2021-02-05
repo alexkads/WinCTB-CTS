@@ -156,8 +156,10 @@
     <Compile Include="Helpers\ExcelDataReaderHelper.cs" />
     <Compile Include="Helpers\OpenXMLHelpers.cs" />
     <Compile Include="Importer\ImportProgressReport.cs" />
+    <Compile Include="Importer\Tubulacao\ImportSpoolEJunta.cs" />
     <Compile Include="Importer\Tubulacao\ImportTabelaAuxiliares.cs" />
     <Compile Include="Importer\Tubulacao\ParametrosAtualizacaoTabelasAuxiliares.cs" />
+    <Compile Include="Importer\Tubulacao\ParametrosImportSpoolJuntaExcel.cs" />
     <Compile Include="Module.cs">
       <SubType>Component</SubType>
     </Compile>
