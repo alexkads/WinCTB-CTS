@@ -41,9 +41,10 @@ namespace WinCTB_CTS.Module.Importer.Tubulacao
         public ImportSpoolEJunta(IObjectSpace _objectSpace, ParametrosImportSpoolJuntaExcel _parametrosImportSpoolJuntaExcel)
         {
             this.objectSpace = _objectSpace;
+            this.parametrosImportSpoolJuntaExcel = _parametrosImportSpoolJuntaExcel;
         }
 
-        private void LogTrace(ImportProgressReport value)
+        public void LogTrace(ImportProgressReport value)
         {
             var progresso = (value.TotalRows > 0 && value.CurrentRow > 0)
                 ? (value.CurrentRow / value.TotalRows)
@@ -53,7 +54,7 @@ namespace WinCTB_CTS.Module.Importer.Tubulacao
             //statusProgess.Text = value.MessageImport;
         }
 
-        private void ImportarSpools(DataTable dtSpoolsImport, IProgress<ImportProgressReport> progress)
+        public void ImportarSpools(DataTable dtSpoolsImport, IProgress<ImportProgressReport> progress)
         {
             UnitOfWork uow = new UnitOfWork(((XPObjectSpace)objectSpace).Session.ObjectLayer);
             var TotalDeJuntas = dtSpoolsImport.Rows.Count;
@@ -210,7 +211,7 @@ namespace WinCTB_CTS.Module.Importer.Tubulacao
             //var excluirSpoolsNaoImportado = oldSpools.Where(x => x.DataExist = false);
         }
 
-        private void ImportarJuntas(DataTable dtJuntasImport, IProgress<ImportProgressReport> progress)
+        public void ImportarJuntas(DataTable dtJuntasImport, IProgress<ImportProgressReport> progress)
         {
             UnitOfWork uow = new UnitOfWork(((XPObjectSpace)objectSpace).Session.ObjectLayer);
             var TotalDeJuntas = dtJuntasImport.Rows.Count;

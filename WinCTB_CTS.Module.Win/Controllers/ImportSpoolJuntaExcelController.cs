@@ -31,6 +31,7 @@ using WinCTB_CTS.Module.BusinessObjects.Tubulacao;
 using WinCTB_CTS.Module.BusinessObjects.Tubulacao.Auxiliar;
 using WinCTB_CTS.Module.Comum;
 using WinCTB_CTS.Module.Importer;
+using WinCTB_CTS.Module.Importer.Tubulacao;
 using WinCTB_CTS.Module.Win.Actions;
 using WinCTB_CTS.Module.Win.Editors;
 
@@ -101,9 +102,11 @@ namespace WinCTB_CTS.Module.Win.Controllers
                 dtcollectionImport = excelReader.CreateDataTableCollection(false);
             }
 
-            var progress = new Progress<ImportProgressReport>(LogTrace);
-            await Observable.Start(() => ImportarSpools(dtcollectionImport["SGS"], progress));
-            await Observable.Start(() => ImportarJuntas(dtcollectionImport["SGJ"], progress));
+            var import = new ImportSpoolEJunta(objectSpace, parametrosImportSpoolJuntaExcel);
+            var progress = new Progress<ImportProgressReport>(import.LogTrace);
+
+            await Observable.Start(() => import.ImportarSpools(dtcollectionImport["SGS"], progress));
+            await Observable.Start(() => import.ImportarJuntas(dtcollectionImport["SGJ"], progress));
 
             objectSpace.CommitChanges();
             e.AcceptActionArgs.Action.Caption = "Finalizado";
