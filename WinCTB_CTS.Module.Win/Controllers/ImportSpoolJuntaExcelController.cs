@@ -141,9 +141,9 @@ namespace WinCTB_CTS.Module.Win.Controllers
                 {
                     var linha = dtSpoolsImport.Rows[i];
                     var contrato = uow.FindObject<Contrato>(new BinaryOperator("NomeDoContrato", linha[0].ToString()));
-                    var documento = linha["documento"].ToString();
-                    var isometrico = linha["isometrico"].ToString();
-                    var tagSpool = $"{Convert.ToString(linha["isometrico"])}-{Convert.ToString(linha["tagSpool"])}";
+                    var documento = linha[2].ToString();
+                    var isometrico = linha[9].ToString();
+                    var tagSpool = $"{Convert.ToString(linha[9])}-{Convert.ToString(linha[10])}";
 
                     var criteriaOperator = CriteriaOperator.Parse("Contrato.Oid = ? And Documento = ? And Isometrico = ? And TagSpool = ?",
                         contrato.Oid, documento, isometrico, tagSpool);
@@ -157,82 +157,83 @@ namespace WinCTB_CTS.Module.Win.Controllers
 
                     //var spool = objectSpace.CreateObject<Spool>();
                     spool.Contrato = contrato;
-                    spool.SiteFabricante = linha["siteFabricante"].ToString();
-                    spool.ArranjoFisico = linha["arranjoFisico"].ToString();
+                    spool.SiteFabricante = linha[8].ToString();
+                    spool.ArranjoFisico = linha[1].ToString();
                     spool.Documento = documento;
-                    spool.CampoAuxiliar = linha["campoAuxiliar"].ToString();
-                    spool.SubSop = linha["subSop"].ToString();
-                    spool.AreaFisica = Convert.ToString(linha["areaFisica"]);
-                    spool.Sth = Convert.ToString(linha["sth"]);
-                    spool.Linha = Convert.ToString(linha["linha"]);
+                    spool.CampoAuxiliar = linha[3].ToString();
+                    spool.SubSop = linha[4].ToString();
+                    spool.AreaFisica = Convert.ToString(linha[5]);
+                    spool.Sth = Convert.ToString(linha[6]);
+                    spool.Linha = Convert.ToString(linha[7]);
                     spool.Isometrico = isometrico;
                     spool.TagSpool = tagSpool;
-                    spool.RevSpool = Convert.ToString(linha["revSpool"]);
-                    spool.RevIso = Convert.ToString(linha["revIso"]);
-                    spool.Material = Convert.ToString(linha["material"]);
-                    spool.Norma = Convert.ToString(linha["norma"]);
-                    spool.Diametro = Utils.ConvertINT(linha["diametro"]);
-                    spool.DiametroPolegada = Convert.ToString(linha["diametroPolegada"]);
-                    spool.Espessura = Utils.ConvertINT(linha["espessura"]);
-                    spool.Espec = Convert.ToString(linha["espec"]);
-                    spool.PNumber = Convert.ToString(linha["pNumber"]);
-                    spool.Fluido = Convert.ToString(linha["fluido"]);
-                    spool.TipoIsolamento = Convert.ToString(linha["tipoIsolamento"]);
-                    spool.CondicaoPintura = Convert.ToString(linha["condicaoPintura"]);
-                    spool.Comprimento = Convert.ToDouble(linha["comprimento"]);
-                    spool.PesoFabricacao = Convert.ToDouble(linha["pesoFabricacao"]);
-                    spool.Area = Convert.ToString(linha["area"]);
-                    spool.EspIsolamento = Convert.ToString(linha["espIsolamento"]);
-                    spool.QuantidadeIsolamento = Utils.ConvertINT(linha["quantidadeIsolamento"]);
-                    spool.TotaldeJuntas = Utils.ConvertINT(linha["totaldeJuntas"]);
-                    spool.TotaldeJuntasPipe = Utils.ConvertINT(linha["totaldeJuntasPipe"]);
-                    spool.DataCadastro = Utils.ConvertDateTime(linha["dataCadastro"]);
-                    spool.NrProgFab = linha["nrProgFab"].ToString();
-                    spool.DataProgFab = Utils.ConvertDateTime(linha["dataProgFab"]);
-                    spool.DataCorte = Utils.ConvertDateTime(linha["dataCorte"]);
-                    spool.DataVaFab = Utils.ConvertDateTime(linha["dataVaFab"]);
-                    spool.DataSoldaFab = Utils.ConvertDateTime(linha["dataSoldaFab"]);
-                    spool.DataVsFab = Utils.ConvertDateTime(linha["dataVsFab"]);
-                    spool.DataDfFab = Utils.ConvertDateTime(linha["dataDfFab"]);
-                    spool.RelatorioDf = Convert.ToString(linha["relatorioDf"]);
-                    spool.DataEndFab = Utils.ConvertDateTime(linha["dataEndFab"]);
-                    spool.DataPiFundo = Utils.ConvertDateTime(linha["dataPiFundo"]);
-                    spool.InspPinturaFundo = Convert.ToString(linha["inspPinturaFundo"]);
-                    spool.RelatorioPinFundo = Convert.ToString(linha["relatorioPinFundo"]);
-                    spool.RelIndFundo = Convert.ToString(linha["relIndFundo"]);
-                    spool.DataPiIntermediaria = Utils.ConvertDateTime(linha["dataPiIntermediaria"]);
-                    spool.InspPiIntermediaria = Convert.ToString(linha["inspPiIntermediaria"]);
-                    spool.RelPiIntermediaria = Convert.ToString(linha["relPiIntermediaria"]);
-                    spool.RelIndIntermediaria = Convert.ToString(linha["relIndIntermediaria"]);
-                    spool.DataPiAcabamento = Utils.ConvertDateTime(linha["dataPiAcabamento"]);
-                    spool.InspPintAcabamento = Convert.ToString(linha["inspPintAcabamento"]);
-                    spool.RelPintAcabamento = Convert.ToString(linha["relPintAcabamento"]);
-                    spool.RelIndPintAcabamento = Convert.ToString(linha["relIndPintAcabamento"]);
-                    spool.DataPiRevUnico = Utils.ConvertDateTime(linha["dataPiRevUnico"]);
-                    spool.InspPiRevUnico = Convert.ToString(linha["inspPiRevUnico"]);
-                    spool.RelPiRevUnico = Convert.ToString(linha["relPiRevUnico"]);
-                    spool.DataPintFab = Utils.ConvertDateTime(linha["dataPintFab"]);
-                    spool.ProgMontagem = Convert.ToString(linha["progMontagem"]);
-                    spool.Elevacao = Convert.ToString(linha["elevacao"]);
-                    spool.ProgPintura = Convert.ToString(linha["progPintura"]);
-                    spool.EscopoMontagem = Convert.ToString(linha["escopoMontagem"]);
-                    spool.DataPreMontagem = Utils.ConvertDateTime(linha["dataPreMontagem"]);
-                    spool.DataVaMontagem = Utils.ConvertDateTime(linha["dataVaMontagem"]);
-                    spool.DataSoldaMontagem = Utils.ConvertDateTime(linha["dataSoldaMontagem"]);
-                    spool.DataVsMontagem = Utils.ConvertDateTime(linha["dataVsMontagem"]);
-                    spool.InspDiMontagem = Convert.ToString(linha["inspDiMontagem"]);
-                    spool.DataDiMontagem = Utils.ConvertDateTime(linha["dataDiMontagem"]);
-                    spool.DataEndMontagem = Utils.ConvertDateTime(linha["dataEndMontagem"]);
-                    spool.DataPintMontagem = Utils.ConvertDateTime(linha["dataPintMontagem"]);
-                    spool.TagComponente = Convert.ToString(linha["tagComponente"]);
-                    spool.IdComponente = Convert.ToString(linha["idComponente"]);
-                    spool.Romaneio = Convert.ToString(linha["romaneio"]);
-                    spool.DataRomaneio = Utils.ConvertDateTime(linha["dataRomaneio"]);
-                    spool.DataLiberacao = Utils.ConvertDateTime(linha["dataLiberacao"]);
-                    spool.PesoMontagem = Utils.ConvertDouble(linha["pesoMontagem"]);
-                    spool.DataLineCheck = Utils.ConvertDateTime(linha["dataLineCheck"]);
-                    spool.SituacaoFabricacao = Convert.ToString(linha["situacaoFabricacao"]);
-                    spool.SituacaoMontagem = Convert.ToString(linha["situacaoMontagem"]);
+                    spool.RevSpool = Convert.ToString(linha[11]);
+                    spool.RevIso = Convert.ToString(linha[12]);
+                    spool.Material = Convert.ToString(linha[13]);
+                    spool.Norma = Convert.ToString(linha[14]);
+                    spool.Diametro = Utils.ConvertINT(linha[15]);
+                    spool.DiametroPolegada = Convert.ToString(linha[16]);
+                    spool.Espessura = Utils.ConvertINT(linha[17]);
+                    spool.Espec = Convert.ToString(linha[18]);
+                    spool.PNumber = Convert.ToString(linha[19]);
+                    spool.Fluido = Convert.ToString(linha[20]);
+                    spool.TipoIsolamento = Convert.ToString(linha[21]);
+                    spool.CondicaoPintura = Convert.ToString(linha[22]);
+                    spool.Comprimento = Convert.ToDouble(linha[23]);
+                    spool.PesoFabricacao = Convert.ToDouble(linha[24]);
+                    spool.Area = Convert.ToString(linha[25]);
+                    spool.EspIsolamento = Convert.ToString(linha[26]);
+                    spool.QuantidadeIsolamento = Utils.ConvertINT(linha[27]);
+                    spool.TotaldeJuntas = Utils.ConvertINT(linha[28]);
+                    spool.TotaldeJuntasPipe = Utils.ConvertINT(linha[29]);
+                    spool.DataCadastro = Utils.ConvertDateTime(linha[30]);
+                    spool.NrProgFab = linha[31].ToString();
+                    spool.DataProgFab = Utils.ConvertDateTime(linha[32]);
+                    spool.DataCorte = Utils.ConvertDateTime(linha[33]);
+                    spool.DataVaFab = Utils.ConvertDateTime(linha[34]);
+                    spool.DataSoldaFab = Utils.ConvertDateTime(linha[35]);
+                    spool.DataVsFab = Utils.ConvertDateTime(linha[36]);
+                    spool.DataDfFab = Utils.ConvertDateTime(linha[37]);
+                    spool.RelatorioDf = Convert.ToString(linha[38]);
+                    spool.InspetorDf = Convert.ToString(linha[39]);
+                    spool.DataEndFab = Utils.ConvertDateTime(linha[40]);
+                    spool.DataPiFundo = Utils.ConvertDateTime(linha[41]);
+                    spool.InspPinturaFundo = Convert.ToString(linha[42]);
+                    spool.RelatorioPinFundo = Convert.ToString(linha[43]);
+                    spool.RelIndFundo = Convert.ToString(linha[44]);
+                    spool.DataPiIntermediaria = Utils.ConvertDateTime(linha[45]);
+                    spool.InspPiIntermediaria = Convert.ToString(linha[46]);
+                    spool.RelPiIntermediaria = Convert.ToString(linha[47]);
+                    spool.RelIndIntermediaria = Convert.ToString(linha[48]);
+                    spool.DataPiAcabamento = Utils.ConvertDateTime(linha[49]);
+                    spool.InspPintAcabamento = Convert.ToString(linha[50]);
+                    spool.RelPintAcabamento = Convert.ToString(linha[51]);
+                    spool.RelIndPintAcabamento = Convert.ToString(linha[52]);
+                    spool.DataPiRevUnico = Utils.ConvertDateTime(linha[53]);
+                    spool.InspPiRevUnico = Convert.ToString(linha[54]);
+                    spool.RelPiRevUnico = Convert.ToString(linha[55]);
+                    spool.DataPintFab = Utils.ConvertDateTime(linha[56]);
+                    spool.ProgMontagem = Convert.ToString(linha[57]);
+                    spool.Elevacao = Convert.ToString(linha[58]);
+                    spool.ProgPintura = Convert.ToString(linha[59]);
+                    spool.EscopoMontagem = Convert.ToString(linha[60]);
+                    spool.DataPreMontagem = Utils.ConvertDateTime(linha[61]);
+                    spool.DataVaMontagem = Utils.ConvertDateTime(linha[62]);
+                    spool.DataSoldaMontagem = Utils.ConvertDateTime(linha[63]);
+                    spool.DataVsMontagem = Utils.ConvertDateTime(linha[64]);
+                    spool.InspDiMontagem = Convert.ToString(linha[65]);
+                    spool.DataDiMontagem = Utils.ConvertDateTime(linha[66]);
+                    spool.DataEndMontagem = Utils.ConvertDateTime(linha[67]);
+                    spool.DataPintMontagem = Utils.ConvertDateTime(linha[68]);
+                    spool.TagComponente = Convert.ToString(linha[69]);
+                    spool.IdComponente = Convert.ToString(linha[70]);
+                    spool.Romaneio = Convert.ToString(linha[71]);
+                    spool.DataRomaneio = Utils.ConvertDateTime(linha[72]);
+                    spool.DataLiberacao = Utils.ConvertDateTime(linha[73]);
+                    spool.PesoMontagem = Utils.ConvertDouble(linha[74]);
+                    spool.DataLineCheck = Utils.ConvertDateTime(linha[75]);
+                    spool.SituacaoFabricacao = Convert.ToString(linha[76]);
+                    spool.SituacaoMontagem = Convert.ToString(linha[77]);
                 }
                 
 
@@ -296,109 +297,113 @@ namespace WinCTB_CTS.Module.Win.Controllers
 
             for (int i = 0; i < TotalDeJuntas; i++)
             {
-                var linha = dtJuntasImport.Rows[i];
-                var PesquisarSpool = linha["TagSpool"].ToString();
-                var FiltroPesquisa = new BinaryOperator("TagSpool", PesquisarSpool);
-                var spool = uow.FindObject<Spool>(FiltroPesquisa);
-                if (spool != null)
+                if(i >= 9)
                 {
-                    var junta = linha["junta"].ToString();
+                    var linha = dtJuntasImport.Rows[i];
+                    var PesquisarSpool = linha[8].ToString();
+                    var FiltroPesquisa = new BinaryOperator("TagSpool", PesquisarSpool);
+                    var spool = uow.FindObject<Spool>(FiltroPesquisa);
+                    if (spool != null)
+                    {
+                        var junta = linha[9].ToString();
 
-                    var criteriaOperator = CriteriaOperator.Parse("Spool.Oid = ? And Junta = ?",
-                        spool.Oid, junta);
+                        var criteriaOperator = CriteriaOperator.Parse("Spool.Oid = ? And Junta = ?",
+                            spool.Oid, junta);
 
-                    var juntaSpool = uow.FindObject<JuntaSpool>(criteriaOperator);
+                        var juntaSpool = uow.FindObject<JuntaSpool>(criteriaOperator);
 
-                    if (juntaSpool == null)
-                        juntaSpool = new JuntaSpool(uow);
-                    else
-                        oldJuntas.FirstOrDefault(x => x.Oid == juntaSpool.Oid).DataExist = true;
+                        if (juntaSpool == null)
+                            juntaSpool = new JuntaSpool(uow);
+                        else
+                            oldJuntas.FirstOrDefault(x => x.Oid == juntaSpool.Oid).DataExist = true;
 
-                    juntaSpool.Site = linha["site"].ToString();
-                    juntaSpool.ArranjoFisico = linha["arranjoFisico"].ToString();
-                    juntaSpool.CampoAuxiliar = linha["campoAuxiliar"].ToString();
-                    juntaSpool.ProgFab = linha["progFab"].ToString();
-                    juntaSpool.Sop = linha["sop"].ToString();
-                    juntaSpool.Sth = linha["sth"].ToString();
-                    juntaSpool.Documento = linha["documento"].ToString();
-                    juntaSpool.Linha = linha["linha"].ToString();
-                    juntaSpool.Junta = junta;
-                    // Daniel - Adicionar campos do SGJ aqui dentro
-                    juntaSpool.TabDiametro = uow.FindObject<TabDiametro>(new BinaryOperator("DiametroPolegada", linha["diametroPolegada"].ToString()));
-                    juntaSpool.TipoJunta = linha["tipoJunta"].ToString();
-                    juntaSpool.TabPercInspecao = uow.FindObject<TabPercInspecao>(new BinaryOperator("Spec", linha["spec"].ToString()));
-                    juntaSpool.MaterialPt = linha["materialPt"].ToString();
-                    juntaSpool.MaterialEn = linha["materialEn"].ToString();
-                    juntaSpool.ClasseInspecao = linha["classeInspecao"].ToString();
-                    juntaSpool.Norma = linha["norma"].ToString();
-                    juntaSpool.CampoOuPipe = Utils.ConvertStringEnumCampoPipe(linha["campoPipe"].ToString());
-                    juntaSpool.StatusVa = linha["statusVa"].ToString();
-                    juntaSpool.RelatorioVa = linha["relatorioVa"].ToString();
-                    juntaSpool.DataVa = Utils.ConvertDateTime(linha["dataVa"]);
-                    juntaSpool.ExecutanteVa = linha["executanteVa"].ToString();
-                    juntaSpool.StatusResold = linha["statusResold"].ToString();
-                    juntaSpool.SoldadorRaiz = linha["soldadorRaiz"].ToString();
-                    juntaSpool.SoldadorEnch = linha["soldadorEnch"].ToString();
-                    juntaSpool.SoldadorAcab = linha["soldadorAcab"].ToString();
-                    juntaSpool.RelatorioSoldagem = linha["relatorioSoldagem"].ToString();
-                    juntaSpool.ExecutanteResold = linha["executanteResold"].ToString();
-                    juntaSpool.Eps = linha["eps"].ToString();
-                    juntaSpool.DataSoldagem = Utils.ConvertDateTime(linha["dataSoldagem"]);
-                    juntaSpool.ConsumivelRaiz = linha["consumivelRaiz"].ToString();
-                    juntaSpool.ConsumivelEnch = linha["consumivelEnch"].ToString();
-                    juntaSpool.ConsumivelAcab = linha["consumivelAcab"].ToString();
-                    juntaSpool.Espessura = Utils.ConvertDouble(linha["espessura"]);
-                    juntaSpool.VisualStatus = linha["visualStatus"].ToString();
-                    juntaSpool.RelatorioVs = linha["relatorioVs"].ToString();
-                    juntaSpool.InspetorVS = linha["inspetorVs"].ToString();
-                    juntaSpool.DataVisualSolda = Utils.ConvertDateTime(linha["dataVisualSolda"]);
-                    juntaSpool.StatusLpPm = linha["statusLpPm"].ToString();
-                    juntaSpool.RelatorioLp = linha["relatorioLp"].ToString();
-                    juntaSpool.InspetorLp = linha["inspetorLp"].ToString();
-                    juntaSpool.DataLp = Utils.ConvertDateTime(linha["dataLp"]);
-                    juntaSpool.RelatorioPm = linha["relatorioPm"].ToString();
-                    juntaSpool.InspetorPm = linha["inspetorPm"].ToString();
-                    juntaSpool.DataPm = Utils.ConvertDateTime(linha["dataPm"]);
-                    juntaSpool.StatusTt = linha["statusTt"].ToString();
-                    juntaSpool.RelatorioTt = linha["relatorioTt"].ToString();
-                    juntaSpool.DataTt = Utils.ConvertDateTime(linha["dataTt"]);
-                    juntaSpool.StatusDureza = linha["statusDureza"].ToString();
-                    juntaSpool.RelatorioDureza = linha["relatorioDureza"].ToString();
-                    juntaSpool.InspetorDureza = linha["inspetorDureza"].ToString();
-                    juntaSpool.DataDureza = Utils.ConvertDateTime(linha["dataDureza"]);
-                    juntaSpool.StatusRastMaterial = linha["statusRastMaterial"].ToString();
-                    juntaSpool.RelRastMaterial = linha["relRastMaterial"].ToString();
-                    juntaSpool.ExecutanteRastMaterial = linha["executanteRastMaterial"].ToString();
-                    juntaSpool.DataRastMaterial = Utils.ConvertDateTime(linha["dataRastMaterial"]);
-                    juntaSpool.StatusIdLiga = linha["statusIdLiga"].ToString();
-                    juntaSpool.InspetorIdLiga = linha["inspetorIdLiga"].ToString();
-                    juntaSpool.DataIdLiga = Utils.ConvertDateTime(linha["dataIdLiga"]);
-                    juntaSpool.StatusRxUs = linha["statusRxUs"].ToString();
-                    juntaSpool.ProgRx = linha["progRx"].ToString();
-                    juntaSpool.RelatorioRx = linha["relatorioRx"].ToString();
-                    juntaSpool.DataRx = Utils.ConvertDateTime(linha["dataRx"]);
-                    juntaSpool.RelatorioUs = linha["relatorioUs"].ToString();
-                    juntaSpool.InspetorUs = linha["inspetorUs"].ToString();
-                    juntaSpool.InspetorRx = linha["inspetorRx"].ToString();
-                    juntaSpool.DataUs = Utils.ConvertDateTime(linha["dataUs"]);
-                    juntaSpool.StatusFerrita = linha["statusFerrita"].ToString();
-                    juntaSpool.RelatorioFerrita = linha["relatorioFerrita"].ToString();
-                    juntaSpool.InspetorFerrita = linha["inspetorFerrita"].ToString();
-                    juntaSpool.DataFerrita = Utils.ConvertDateTime(linha["dataFerrita"]);
-                    juntaSpool.StatusEstanqueidade = linha["statusEstanqueidade"].ToString();
-                    juntaSpool.RelatorioEstanqueidade = linha["relatorioEstanqueidade"].ToString();
-                    juntaSpool.InspetorEstanqueidade = linha["inspetorEstanqueidade"].ToString();
-                    juntaSpool.DataEstanqueidade = Utils.ConvertDateTime(linha["dataEstanqueidade"]);
-                    juntaSpool.ProgFabJunta = linha["progFabJunta"].ToString();
-                    juntaSpool.LoteRx = linha["loteRx"].ToString();
-                    juntaSpool.LoteLp = linha["loteLp"].ToString();
-                    juntaSpool.DataLiberacaoJunta = Utils.ConvertDateTime(linha["dataLiberacaoJunta"]);
-                    juntaSpool.SituacaoJunta = linha["situacaoJunta"].ToString();
-                    juntaSpool.RelIdLiga = linha["relIdLiga"].ToString();
-                    juntaSpool.RelDimFab = linha["relDimFab"].ToString();
-                    // Daniel - Adicionar campos do SGJ aqui dentro
-                    juntaSpool.Spool = spool;
+                        juntaSpool.Site = linha[0].ToString();
+                        juntaSpool.ArranjoFisico = linha[1].ToString();
+                        juntaSpool.CampoAuxiliar = linha[2].ToString();
+                        juntaSpool.ProgFab = linha[3].ToString();
+                        juntaSpool.Sop = linha[4].ToString();
+                        juntaSpool.Sth = linha[5].ToString();
+                        juntaSpool.Documento = linha[6].ToString();
+                        juntaSpool.Linha = linha[7].ToString();
+                        juntaSpool.Junta = junta;
+                        juntaSpool.TabDiametro = uow.FindObject<TabDiametro>(new BinaryOperator("DiametroPolegada", linha[11].ToString()));
+                        juntaSpool.Espessura = Utils.ConvertDouble(linha[12]);
+                        juntaSpool.TipoJunta = linha[14].ToString();
+                        juntaSpool.TabPercInspecao = uow.FindObject<TabPercInspecao>(new BinaryOperator("Spec", linha[15].ToString()));
+                        juntaSpool.MaterialPt = linha[16].ToString();
+                        //juntaSpool.MaterialEn = linha[17].ToString();
+                        juntaSpool.ClasseInspecao = linha[18].ToString();
+                        juntaSpool.Norma = linha[19].ToString();
+                        juntaSpool.CampoOuPipe = Utils.ConvertStringEnumCampoPipe(linha[20].ToString());
+                        juntaSpool.StatusVa = linha[21].ToString();
+                        juntaSpool.RelatorioVa = linha[22].ToString();
+                        juntaSpool.ExecutanteVa = linha[23].ToString();
+                        juntaSpool.DataVa = Utils.ConvertDateTime(linha[24]);
+                        juntaSpool.StatusResold = linha[25].ToString();
+                        juntaSpool.SoldadorRaiz = linha[26].ToString();
+                        juntaSpool.SoldadorEnch = linha[27].ToString();
+                        juntaSpool.SoldadorAcab = linha[28].ToString();
+                        juntaSpool.RelatorioSoldagem = linha[29].ToString();
+                        juntaSpool.ExecutanteResold = linha[30].ToString();
+                        juntaSpool.Eps = linha[31].ToString();
+                        juntaSpool.DataSoldagem = Utils.ConvertDateTime(linha[32]);
+                        juntaSpool.ConsumivelRaiz = linha[33].ToString();
+                        juntaSpool.ConsumivelEnch = linha[34].ToString();
+                        juntaSpool.ConsumivelAcab = linha[35].ToString();
+                        juntaSpool.VisualStatus = linha[36].ToString();
+                        juntaSpool.RelatorioVs = linha[37].ToString();
+                        juntaSpool.InspetorVS = linha[38].ToString();
+                        juntaSpool.DataVisualSolda = Utils.ConvertDateTime(linha[39]);
+                        juntaSpool.StatusLpPm = linha[40].ToString();
+                        juntaSpool.RelatorioLp = linha[41].ToString();
+                        juntaSpool.InspetorLp = linha[42].ToString();
+                        juntaSpool.DataLp = Utils.ConvertDateTime(linha[43]);
+                        juntaSpool.RelatorioPm = linha[44].ToString();
+                        juntaSpool.InspetorPm = linha[45].ToString();
+                        juntaSpool.DataPm = Utils.ConvertDateTime(linha[46]);
+                        juntaSpool.StatusTt = linha[47].ToString();
+                        juntaSpool.RelatorioTt = linha[48].ToString();
+                        juntaSpool.DataTt = Utils.ConvertDateTime(linha[49]);
+                        juntaSpool.StatusDureza = linha[50].ToString();
+                        juntaSpool.RelatorioDureza = linha[51].ToString();
+                        juntaSpool.InspetorDureza = linha[52].ToString();
+                        juntaSpool.DataDureza = Utils.ConvertDateTime(linha[53]);
+                        juntaSpool.StatusRastMaterial = linha[54].ToString();
+                        juntaSpool.RelRastMaterial = linha[55].ToString();
+                        juntaSpool.ExecutanteRastMaterial = linha[56].ToString();
+                        juntaSpool.DataRastMaterial = Utils.ConvertDateTime(linha[57]);
+                        juntaSpool.StatusIdLiga = linha[58].ToString();
+                        juntaSpool.RelIdLiga = linha[59].ToString();
+                        juntaSpool.InspetorIdLiga = linha[60].ToString();
+                        juntaSpool.DataIdLiga = Utils.ConvertDateTime(linha[61]);
+                        juntaSpool.StatusRxUs = linha[62].ToString();
+                        juntaSpool.ProgRx = linha[63].ToString();
+                        juntaSpool.RelatorioRx = linha[64].ToString();
+                        juntaSpool.InspetorRx = linha[65].ToString();
+                        juntaSpool.DataRx = Utils.ConvertDateTime(linha[66]);
+                        juntaSpool.RelatorioUs = linha[67].ToString();
+                        juntaSpool.InspetorUs = linha[68].ToString();
+                        juntaSpool.DataUs = Utils.ConvertDateTime(linha[69]);
+                        juntaSpool.StatusFerrita = linha[70].ToString();
+                        juntaSpool.RelatorioFerrita = linha[71].ToString();
+                        juntaSpool.InspetorFerrita = linha[72].ToString();
+                        juntaSpool.DataFerrita = Utils.ConvertDateTime(linha[73]);
+                        juntaSpool.StatusEstanqueidade = linha[74].ToString();
+                        juntaSpool.RelatorioEstanqueidade = linha[75].ToString();
+                        juntaSpool.InspetorEstanqueidade = linha[76].ToString();
+                        juntaSpool.DataEstanqueidade = Utils.ConvertDateTime(linha[77]);
+                        juntaSpool.RelDimFab = linha[78].ToString();
+                        juntaSpool.ProgFabJunta = linha[79].ToString();
+                        juntaSpool.LoteRx = linha[80].ToString();
+                        juntaSpool.LoteLp = linha[81].ToString();
+                        juntaSpool.DataLiberacaoJunta = Utils.ConvertDateTime(linha[82]);
+                        juntaSpool.SituacaoJunta = linha[83].ToString();
+                        juntaSpool.Spool = spool;
+                    }
+
                 }
+
+                
 
                 if (i % 1000 == 0)
                 {

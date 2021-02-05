@@ -39,7 +39,6 @@ namespace WinCTB_CTS.Module.BusinessObjects.Tubulacao
         private TabPercInspecao tabPercInspecao;
         private TabDiametro tabDiametro;
         private string relDimFab;
-        private string relIdLiga;
         private string relRastMaterial;
         private string situacaoJunta;
         private DateTime? dataLiberacaoJunta;
@@ -64,6 +63,7 @@ namespace WinCTB_CTS.Module.BusinessObjects.Tubulacao
         private string statusRxUs;
         private DateTime? dataIdLiga;
         private string inspetorIdLiga;
+        private string relIdLiga;
         private string statusIdLiga;
         private DateTime? dataRastMaterial;
         private string executanteRastMaterial;
