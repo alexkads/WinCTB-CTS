@@ -150,6 +150,8 @@
     <Compile Include="BusinessObjects\Tubulacao\Medicao\MedicaoTubulacao.cs" />
     <Compile Include="BusinessObjects\Tubulacao\Medicao\MedicaoTubulacaoDetalhe.cs" />
     <Compile Include="BusinessObjects\Tubulacao\Spool.cs" />
+    <Compile Include="Comum\CachedDataStoreProvider.cs" />
+    <Compile Include="Comum\CustomIXpoDataStoreProvider.cs" />
     <Compile Include="DatabaseUpdate\Updater.cs" />
     <Compile Include="Helpers\ExcelDataReaderHelper.cs" />
     <Compile Include="Helpers\OpenXMLHelpers.cs" />
