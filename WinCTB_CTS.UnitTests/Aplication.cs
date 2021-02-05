@@ -40,7 +40,7 @@ namespace WinCTB_CTS.UnitTests
                 ValueManager.ValueManagerType = typeof(MultiThreadValueManager<>).GetGenericTypeDefinition();
                 var serverApplication = new ServerApplication();
 
-                serverApplication.ApplicationName = "SYSWELDv2";
+                serverApplication.ApplicationName = "WinCTB_CTS";
                 serverApplication.Modules.Add(new WinCTB_CTSModule());
                 serverApplication.DatabaseVersionMismatch += ServerApplication_DatabaseVersionMismatch;
                 serverApplication.CreateCustomObjectSpaceProvider += ServerApplication_CreateCustomObjectSpaceProvider;
@@ -51,20 +51,21 @@ namespace WinCTB_CTS.UnitTests
 
                 XpoTypesInfoHelper.GetXpoTypeInfoSource();
                 XafTypesInfo.Instance.RegisterEntity(typeof(Contrato));
-                XafTypesInfo.Instance.RegisterEntity(typeof(PermissionPolicyUser));
-                XafTypesInfo.Instance.RegisterEntity(typeof(PermissionPolicyRole));
+                XafTypesInfo.Instance.RegisterEntity(typeof(Contrato));
                 XafTypesInfo.Instance.RegisterEntity(typeof(ReportDataV2));
                 XafTypesInfo.Instance.RegisterEntity(typeof(FileData));
                 XafTypesInfo.Instance.RegisterEntity(typeof(BaseObject));
                 XafTypesInfo.Instance.RegisterEntity(typeof(ReportsModuleV2));
                 XafTypesInfo.Instance.RegisterEntity(typeof(DashboardData));
+                XafTypesInfo.Instance.RegisterEntity(typeof(OidGenerator));
+                XafTypesInfo.Instance.RegisterEntity(typeof(FileAttachmentBase));
 
-                foreach (string parameterName in ParametersFactory.GetRegisteredParameterNames())
-                {
-                    IParameter parameter = ParametersFactory.FindParameter(parameterName);
-                    if (parameter.IsReadOnly && (CriteriaOperator.GetCustomFunction(parameter.Name) == null))
-                        CriteriaOperator.RegisterCustomFunction(new ReadOnlyParameterCustomFunctionOperator(parameter));
-                }
+                //foreach (string parameterName in ParametersFactory.GetRegisteredParameterNames())
+                //{
+                //    IParameter parameter = ParametersFactory.FindParameter(parameterName);
+                //    if (parameter.IsReadOnly && (CriteriaOperator.GetCustomFunction(parameter.Name) == null))
+                //        CriteriaOperator.RegisterCustomFunction(new ReadOnlyParameterCustomFunctionOperator(parameter));
+                //}
 
                 serverApplication.Setup();
                 serverApplication.CheckCompatibility();

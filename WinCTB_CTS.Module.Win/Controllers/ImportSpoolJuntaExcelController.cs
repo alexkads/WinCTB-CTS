@@ -30,6 +30,7 @@ using WinCTB_CTS.Module.BusinessObjects.Comum;
 using WinCTB_CTS.Module.BusinessObjects.Tubulacao;
 using WinCTB_CTS.Module.BusinessObjects.Tubulacao.Auxiliar;
 using WinCTB_CTS.Module.Comum;
+using WinCTB_CTS.Module.Importer;
 using WinCTB_CTS.Module.Win.Actions;
 using WinCTB_CTS.Module.Win.Editors;
 
@@ -443,10 +444,5 @@ namespace WinCTB_CTS.Module.Win.Controllers
         }
     }
 
-    public class ImportProgressReport
-    {
-        public int TotalRows { get; set; }
-        public double CurrentRow { get; set; }
-        public string MessageImport { get; set; }
-    }
+
 }
