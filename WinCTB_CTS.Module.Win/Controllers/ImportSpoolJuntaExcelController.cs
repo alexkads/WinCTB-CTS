@@ -231,11 +231,12 @@ namespace WinCTB_CTS.Module.Win.Controllers
                     spool.DataRomaneio = Utils.ConvertDateTime(linha[72]);
                     spool.DataLiberacao = Utils.ConvertDateTime(linha[73]);
                     spool.PesoMontagem = Utils.ConvertDouble(linha[74]);
-                    spool.DataLineCheck = Utils.ConvertDateTime(linha[75]);
-                    spool.SituacaoFabricacao = Convert.ToString(linha[76]);
-                    spool.SituacaoMontagem = Convert.ToString(linha[77]);
+                    spool.SituacaoFabricacao = Convert.ToString(linha[75]);
+                    spool.SituacaoMontagem = Convert.ToString(linha[76]);
+                    //spool.DataLineCheck = Utils.ConvertDateTime(linha[75]);
+
                 }
-                
+
 
                 if (i % 1000 == 0)
                 {
