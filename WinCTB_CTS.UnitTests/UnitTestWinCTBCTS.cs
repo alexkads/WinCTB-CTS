@@ -14,7 +14,7 @@ namespace WinCTB_CTS.UnitTests
     public class UnitTestWinCTBCTS
     {
         [TestMethod]
-        [TestCase("QGI", true)]
+        [TestCase()]
         public async Task TesteImportacaoTabelaAuxiliar()
         {
             var application = new Application(false);
@@ -40,6 +40,35 @@ namespace WinCTB_CTS.UnitTests
                 await Observable.Start(() => itba.ImportarProcessoSoldagem(dtcollectionImport["ProcessoSoldagem"], progress));
                 await Observable.Start(() => itba.ImportarContrato(dtcollectionImport["Contrato"], progress));
                 await Observable.Start(() => itba.ImportarEAP(dtcollectionImport["EAPPipe"], progress));
+
+                objectSpace.CommitChanges();
+            }
+        }
+
+
+        [TestMethod]
+        [TestCase()]
+        public async Task TesteImportacaoSpoolEJunta()
+        {
+            var application = new Application(false);
+            IObjectSpaceProvider objectSpaceProvider = application.serverApplication.ObjectSpaceProvider;
+            var objectSpace = objectSpaceProvider.CreateObjectSpace();
+            var parametros = objectSpace.CreateObject<ParametrosImportSpoolJuntaExcel>();
+            MemoryStream stream = new MemoryStream();
+            stream.Seek(0, SeekOrigin.Begin);
+            var arquivo = parametros.Padrao;
+            arquivo.SaveToStream(stream);
+            stream.Seek(0, SeekOrigin.Begin);
+
+            using (var excelReader = new Module.ExcelDataReaderHelper.Excel.Reader(stream))
+            {
+                var dtcollectionImport = excelReader.CreateDataTableCollection(false);
+
+                var itba = new ImportSpoolEJunta(objectSpace, parametros);
+                var progress = new Progress<ImportProgressReport>(itba.LogTrace);
+
+                await Observable.Start(() => itba.ImportarSpools(dtcollectionImport["SGS"], progress));
+                await Observable.Start(() => itba.ImportarJuntas(dtcollectionImport["SGJ"], progress));
 
                 objectSpace.CommitChanges();
             }
