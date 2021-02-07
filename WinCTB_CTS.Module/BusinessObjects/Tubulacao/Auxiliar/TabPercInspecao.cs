@@ -14,7 +14,7 @@ using System.Text;
 
 namespace WinCTB_CTS.Module.BusinessObjects.Tubulacao.Auxiliar
 {
-    [DefaultClassOptions, DefaultProperty("Spec"), ImageName("BO_Contract"), NavigationItem("Tabela Auxiliar")]
+    [DefaultClassOptions, DefaultProperty("PercentualDeInspecao"), ImageName("BO_Contract"), NavigationItem("Tabela Auxiliar")]
     public class TabPercInspecao : BaseObject
     { 
         public TabPercInspecao(Session session)

@@ -212,7 +212,7 @@ namespace WinCTB_CTS.Module.BusinessObjects.Tubulacao
             set => SetPropertyValue(nameof(TabPercInspecao), ref tabPercInspecao, value);
         }
 
-        [XafDisplayName("WDI")]
+        [XafDisplayName("Spec")]
         [PersistentAlias("TabPercInspecao.Spec")]
         public string Spec => (string)EvaluateAlias("Spec");
 
@@ -245,6 +245,8 @@ namespace WinCTB_CTS.Module.BusinessObjects.Tubulacao
             set => SetPropertyValue(nameof(TabDiametro), ref tabDiametro, value);
         }
 
+       
+        [VisibleInListView(false)]
         public TabSchedule TabSchedule
         {
             get => tabSchedule;

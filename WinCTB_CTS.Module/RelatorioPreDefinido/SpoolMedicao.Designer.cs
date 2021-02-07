@@ -1933,6 +1933,8 @@ namespace WinCTB_CTS.Module.RelatorioPreDefinido
             // 
             // xrTableCell82
             // 
+            this.xrTableCell82.ExpressionBindings.AddRange(new DevExpress.XtraReports.UI.ExpressionBinding[] {
+            new DevExpress.XtraReports.UI.ExpressionBinding("BeforePrint", "Text", "[WdiJuntaTotalMont]")});
             this.xrTableCell82.Multiline = true;
             this.xrTableCell82.Name = "xrTableCell82";
             this.xrTableCell82.Weight = 1D;
