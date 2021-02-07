@@ -725,5 +725,15 @@ namespace WinCTB_CTS.Module.BusinessObjects.Tubulacao
                 return GetCollection<MedicaoTubulacaoDetalhe>(nameof(MedicaoTubulacaoDetalhes));
             }
         }
+
+        #region Campos Cálculados
+        [XafDisplayName("Total Wdi Campo")]
+        [PersistentAlias("Juntas[CampoOuPipe == 'CAMPO'].Sum(TabDiametro.Wdi)")]
+        public double TotalWdiCampo => Convert.ToDouble(EvaluateAlias("TotalWdiCampo"));
+
+        [XafDisplayName("Quantidade de Junta")]
+        [PersistentAlias("Juntas[].Count()")]
+        public int QuantidadeDeJunta => Convert.ToInt32(EvaluateAlias("QuantidadeDeJunta"));
+        #endregion
     }
 }
