@@ -215,12 +215,11 @@ namespace WinCTB_CTS.Module.BusinessObjects.Tubulacao
 
         [XafDisplayName("Percentual de Inspeção")]
         [PersistentAlias("TabPercInspecao.PercentualDeInspecao")]
-        public string PercentualDeInspecao => (string)EvaluateAlias("PercentualDeInspecao");
+        public double PercentualDeInspecao => Convert.ToDouble(EvaluateAlias("PercentualDeInspecao"));
 
         [XafDisplayName("Spec")]
         [PersistentAlias("TabPercInspecao.Spec")]
         public string Spec => (string)EvaluateAlias("Spec");
-
 
         [Size(100), XafDisplayName("Material")]
         public string MaterialPt
