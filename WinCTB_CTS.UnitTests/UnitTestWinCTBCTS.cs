@@ -6,6 +6,7 @@ using System.IO;
 using System.Reactive.Linq;
 using System.Threading.Tasks;
 using WinCTB_CTS.Module.Importer;
+using WinCTB_CTS.Module.Importer.Estrutura;
 using WinCTB_CTS.Module.Importer.Tubulacao;
 
 namespace WinCTB_CTS.UnitTests
@@ -69,6 +70,34 @@ namespace WinCTB_CTS.UnitTests
 
                 await Observable.Start(() => itba.ImportarSpools(dtcollectionImport["SGS"], progress));
                 await Observable.Start(() => itba.ImportarJuntas(dtcollectionImport["SGJ"], progress));
+
+                objectSpace.CommitChanges();
+            }
+        }
+
+        [TestMethod]
+        [TestCase()]
+        public async Task TesteImportacaoPieceAndJoints()
+        {
+            var application = new Application(false);
+            IObjectSpaceProvider objectSpaceProvider = application.serverApplication.ObjectSpaceProvider;
+            var objectSpace = objectSpaceProvider.CreateObjectSpace();
+            var parametros = objectSpace.CreateObject<ParametrosImportComponentEJunta>();
+            MemoryStream stream = new MemoryStream();
+            stream.Seek(0, SeekOrigin.Begin);
+            var arquivo = parametros.Padrao;
+            arquivo.SaveToStream(stream);
+            stream.Seek(0, SeekOrigin.Begin);
+
+            using (var excelReader = new Module.ExcelDataReaderHelper.Excel.Reader(stream))
+            {
+                var dtcollectionImport = excelReader.CreateDataTableCollection(false);
+
+                var piecejoints = new ImportComponentEJunta(objectSpace, parametros);
+                var progress = new Progress<ImportProgressReport>(piecejoints.LogTrace);
+
+                await Observable.Start(() => piecejoints.ImportarComponente(dtcollectionImport["Piece"], progress));
+                //await Observable.Start(() => piecejoints.ImportarJuntas(dtcollectionImport["Joints"], progress));
 
                 objectSpace.CommitChanges();
             }

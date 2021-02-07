@@ -106,8 +106,8 @@ namespace WinCTB_CTS.Module.Win.Controllers
             var import = new ImportComponentEJunta(objectSpace, parametrosImportComponentEJunta);
             var progress = new Progress<ImportProgressReport>(import.LogTrace);
 
-            await Observable.Start(() => import.ImportarComponente(dtcollectionImport["Componente"], progress));
-            await Observable.Start(() => import.ImportarJuntas(dtcollectionImport["Junta"], progress));
+            await Observable.Start(() => import.ImportarComponente(dtcollectionImport["Piece"], progress));
+            await Observable.Start(() => import.ImportarJuntas(dtcollectionImport["Joints"], progress));
 
             objectSpace.CommitChanges();
             e.AcceptActionArgs.Action.Caption = "Finalizado";

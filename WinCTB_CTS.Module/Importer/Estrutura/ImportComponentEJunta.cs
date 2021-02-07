@@ -74,13 +74,13 @@ namespace WinCTB_CTS.Module.Importer.Estrutura
                 if (i >= 3)
                 {
                     var linha = dtSpoolsImport.Rows[i];
-                    var contrato = uow.FindObject<Contrato>(new BinaryOperator("NomeDoContrato", linha[0].ToString()));
-                    var documento = linha[2].ToString();
-                    var desenho = linha[9].ToString();
-                    var tagSpool = $"{Convert.ToString(linha[9])}-{Convert.ToString(linha[10])}";
+                    var documentoReferencia = linha[1].ToString();
+                    var desenhoMontagem = linha[2].ToString();
+                    var transmital = linha[3].ToString();
+                    var peca = linha[4].ToString();
 
-                    var criteriaOperator = CriteriaOperator.Parse("Contrato.Oid = ? And Documento = ? And Isometrico = ? And TagSpool = ?",
-                        contrato.Oid, documento, desenho, tagSpool);
+                    var criteriaOperator = CriteriaOperator.Parse("DocumentoReferencia = ? And DesenhoMontagem = ? And Transmital = ? And Peca = ?",
+                        documentoReferencia, desenhoMontagem, transmital, peca);
 
                     var componente = uow.FindObject<Componente>(criteriaOperator);
 
@@ -93,10 +93,10 @@ namespace WinCTB_CTS.Module.Importer.Estrutura
                     //componente.Contrato = contrato;
 
                     componente.Modulo = linha[0].ToString();
-                    componente.DocumentoReferencia = linha[1].ToString();
-                    componente.DesenhoMontagem = linha[2].ToString();
-                    componente.Transmital = linha[3].ToString();
-                    componente.Peca = linha[4].ToString();
+                    componente.DocumentoReferencia = documentoReferencia;
+                    componente.DesenhoMontagem = desenhoMontagem;
+                    componente.Transmital = transmital;
+                    componente.Peca = peca;
                     componente.Revisao = linha[5].ToString();
                     componente.TipoEstrutura = linha[6].ToString();
                     componente.Posicao = linha[7].ToString();
