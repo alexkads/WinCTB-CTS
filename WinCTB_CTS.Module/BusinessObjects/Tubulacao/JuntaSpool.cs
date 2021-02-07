@@ -221,6 +221,10 @@ namespace WinCTB_CTS.Module.BusinessObjects.Tubulacao
         [PersistentAlias("TabPercInspecao.Spec")]
         public string Spec => (string)EvaluateAlias("Spec");
 
+        [XafDisplayName("Wdi")]
+        [PersistentAlias("TabDiametro.Wdi")]
+        public double Wdi => Convert.ToDouble(EvaluateAlias("Wdi"));
+
         [Size(100), XafDisplayName("Material")]
         public string MaterialPt
         {
