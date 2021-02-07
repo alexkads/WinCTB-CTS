@@ -26,42 +26,45 @@ namespace WinCTB_CTS.Module.BusinessObjects.Estrutura
             base.AfterConstruction();
         }
 
+        
         private string statusJunta;
         private string statusUs;
         private double comprimentoReparoUs;
         private string inspetorUs;
-        private DateTime dataUs;
+        private string relatorioUs;
+        private DateTime? dataUs;
         private string sampleUs;
         private string statusRx;
         private double comprimentoReparoRx;
         private string inspetorRx;
         private string relatorioRx;
-        private DateTime dataRx;
+        private DateTime? dataRx;
         private string sampleRx;
         private string statusPm;
         private string inspetorPm;
         private string relatorioPm;
-        private DateTime dataPm;
+        private DateTime? dataPm;
         private string statusLp;
         private string inspetorLp;
         private string relatorioLp;
-        private DateTime dataLP;
+        private DateTime? dataLP;
         private string sampleMp;
+        private string statusVisualSolda;
         private string inspetorVisualSolda;
         private string relatorioVisualSolda;
-        private DateTime dataVisual;
+        private DateTime? dataVisual;
         private string statusSolda;
         private string inspetorSoldagem;
         private string relatorioSolda;
         private string wps;
         private string consumiveis;
         private string soldadores;
-        private DateTime dataSolda;
+        private DateTime? dataSolda;
         private string statusFitup;
         private string inspFitup;
         private string relatorioFitup;
-        private DateTime dataFitup;
-        private DateTime posiocionamento;
+        private DateTime? dataFitup;
+        private DateTime? posiocionamento;
         private string posicaoDf2;
         private string tipoDf2;
         private double esp2;
@@ -97,7 +100,7 @@ namespace WinCTB_CTS.Module.BusinessObjects.Estrutura
         [PersistentAlias("Concat(Componente,'-',Junta)")]
         public string ConcatComponenteJunta => (string)EvaluateAlias("Relatorio");
 
-        
+
         [Size(100), XafDisplayName("Tipo de Junta")]
         public string TipoJunta
         {
@@ -200,7 +203,7 @@ namespace WinCTB_CTS.Module.BusinessObjects.Estrutura
 
         [ModelDefault("EditMask", "G")]
         [ModelDefault("DisplayFormat", "G")]
-        public DateTime Posiocionamento
+        public DateTime? Posiocionamento
         {
             get => posiocionamento;
             set => SetPropertyValue(nameof(Posiocionamento), ref posiocionamento, value);
@@ -209,7 +212,7 @@ namespace WinCTB_CTS.Module.BusinessObjects.Estrutura
         [XafDisplayName("Data do Fitup")]
         [ModelDefault("EditMask", "G")]
         [ModelDefault("DisplayFormat", "G")]
-        public DateTime DataFitup
+        public DateTime? DataFitup
         {
             get => dataFitup;
             set => SetPropertyValue(nameof(DataFitup), ref dataFitup, value);
@@ -239,7 +242,7 @@ namespace WinCTB_CTS.Module.BusinessObjects.Estrutura
         [XafDisplayName("Data de Soldagem")]
         [ModelDefault("EditMask", "G")]
         [ModelDefault("DisplayFormat", "G")]
-        public DateTime DataSolda
+        public DateTime? DataSolda
         {
             get => dataSolda;
             set => SetPropertyValue(nameof(DataSolda), ref dataSolda, value);
@@ -290,7 +293,7 @@ namespace WinCTB_CTS.Module.BusinessObjects.Estrutura
         [XafDisplayName("Data de Vidual de Solda")]
         [ModelDefault("EditMask", "G")]
         [ModelDefault("DisplayFormat", "G")]
-        public DateTime DataVisual
+        public DateTime? DataVisual
         {
             get => dataVisual;
             set => SetPropertyValue(nameof(DataVisual), ref dataVisual, value);
@@ -310,6 +313,14 @@ namespace WinCTB_CTS.Module.BusinessObjects.Estrutura
             set => SetPropertyValue(nameof(InspetorVisualSolda), ref inspetorVisualSolda, value);
         }
 
+
+        [Size(100), XafDisplayName("Status Visual de Solda")]
+        public string StatusVisualSolda
+        {
+            get => statusVisualSolda;
+            set => SetPropertyValue(nameof(StatusVisualSolda), ref statusVisualSolda, value);
+        }
+
         [Size(100), XafDisplayName("SAMPLE_MP")]
         public string SampleMp
         {
@@ -318,7 +329,7 @@ namespace WinCTB_CTS.Module.BusinessObjects.Estrutura
         }
 
         [XafDisplayName("Data LP")]
-        public DateTime DataLP
+        public DateTime? DataLP
         {
             get => dataLP;
             set => SetPropertyValue(nameof(DataLP), ref dataLP, value);
@@ -348,7 +359,7 @@ namespace WinCTB_CTS.Module.BusinessObjects.Estrutura
         [XafDisplayName("Data PM")]
         [ModelDefault("EditMask", "G")]
         [ModelDefault("DisplayFormat", "G")]
-        public DateTime DataPm
+        public DateTime? DataPm
         {
             get => dataPm;
             set => SetPropertyValue(nameof(DataPm), ref dataPm, value);
@@ -385,7 +396,7 @@ namespace WinCTB_CTS.Module.BusinessObjects.Estrutura
         [XafDisplayName("Data do RX")]
         [ModelDefault("EditMask", "G")]
         [ModelDefault("DisplayFormat", "G")]
-        public DateTime DataRx
+        public DateTime? DataRx
         {
             get => dataRx;
             set => SetPropertyValue(nameof(DataRx), ref dataRx, value);
@@ -430,10 +441,18 @@ namespace WinCTB_CTS.Module.BusinessObjects.Estrutura
         [XafDisplayName("Data do US")]
         [ModelDefault("EditMask", "G")]
         [ModelDefault("DisplayFormat", "G")]
-        public DateTime DataUs
+        public DateTime? DataUs
         {
             get => dataUs;
             set => SetPropertyValue(nameof(DataUs), ref dataUs, value);
+        }
+
+        
+        [Size(100), XafDisplayName("Relatório de US")]
+        public string RelatorioUs
+        {
+            get => relatorioUs;
+            set => SetPropertyValue(nameof(RelatorioUs), ref relatorioUs, value);
         }
 
         [Size(100), XafDisplayName("Inspetor de US")]

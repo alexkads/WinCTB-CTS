@@ -29,17 +29,17 @@ namespace WinCTB_CTS.Module.BusinessObjects.Estrutura
 
 
         private string statusPeca;
-        private DateTime dataPintura;
+        private DateTime? dataPintura;
         private string inspPintura;
         private string relPintura;
         private string progPintura;
         private string relatorioDimensional;
-        private DateTime dataDimensional;
-        private DateTime dataPosicionamento;
+        private DateTime? dataDimensional;
+        private DateTime? dataPosicionamento;
         private string progNdt;
         private string progWeld;
         private string progFitup;
-        private DateTime dataRecebimento;
+        private DateTime? dataRecebimento;
         private string relatorioRecebimento;
         private double areaPintura;
         private double pesoTotal;
@@ -151,7 +151,7 @@ namespace WinCTB_CTS.Module.BusinessObjects.Estrutura
         [XafDisplayName("Data de Recebimento")]
         [ModelDefault("EditMask", "G")]
         [ModelDefault("DisplayFormat", "G")]
-        public DateTime DataRecebimento
+        public DateTime? DataRecebimento
         {
             get => dataRecebimento;
             set => SetPropertyValue(nameof(DataRecebimento), ref dataRecebimento, value);
@@ -181,7 +181,7 @@ namespace WinCTB_CTS.Module.BusinessObjects.Estrutura
         [XafDisplayName("Data de Posicionamento")]
         [ModelDefault("EditMask", "G")]
         [ModelDefault("DisplayFormat", "G")]
-        public DateTime DataPosicionamento
+        public DateTime? DataPosicionamento
         {
             get => dataPosicionamento;
             set => SetPropertyValue(nameof(DataPosicionamento), ref dataPosicionamento, value);
@@ -190,7 +190,7 @@ namespace WinCTB_CTS.Module.BusinessObjects.Estrutura
         [XafDisplayName("Data do Dimensional")]
         [ModelDefault("EditMask", "G")]
         [ModelDefault("DisplayFormat", "G")]
-        public DateTime DataDimensional
+        public DateTime? DataDimensional
         {
             get => dataDimensional;
             set => SetPropertyValue(nameof(DataDimensional), ref dataDimensional, value);
@@ -227,7 +227,7 @@ namespace WinCTB_CTS.Module.BusinessObjects.Estrutura
         [XafDisplayName("Data de Pintura")]
         [ModelDefault("EditMask", "G")]
         [ModelDefault("DisplayFormat", "G")]
-        public DateTime DataPintura
+        public DateTime? DataPintura
         {
             get => dataPintura;
             set => SetPropertyValue(nameof(DataPintura), ref dataPintura, value);

@@ -51,7 +51,7 @@ namespace WinCTB_CTS.Module.Importer.Estrutura
             {
                 if (padrao == null)
                 {
-                    var NomeDoRecurso = "ComponenteEjuntas.xlsx";
+                    var NomeDoRecurso = "MapaMontagemEBR.xlsx";
                     var os = XPObjectSpace.FindObjectSpaceByObject(this);
                     var fdata = os.FindObject<FileData>(new BinaryOperator("FileName", NomeDoRecurso));
                     if (fdata == null)
