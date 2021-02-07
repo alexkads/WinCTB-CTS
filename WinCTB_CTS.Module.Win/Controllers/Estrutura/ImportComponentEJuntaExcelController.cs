@@ -49,7 +49,7 @@ namespace WinCTB_CTS.Module.Win.Controllers
 
             SimpleAction simpleActionImport = new SimpleAction(this, "PopupWindowShowActionImportComponentEJuntaExcelController", PredefinedCategory.RecordEdit)
             {
-                Caption = "Importar SGEC e SGEJ",
+                Caption = "Importar Estrutura",
                 ImageName = "Action_Debug_Step"
             };
 
@@ -89,7 +89,7 @@ namespace WinCTB_CTS.Module.Win.Controllers
             e.Cancel = true;
             e.AcceptActionArgs.Action.Caption = "Procesando";
 
-            var parametros = (ParametrosImportSpoolJuntaExcel)e.AcceptActionArgs.SelectedObjects[0];
+            var parametros = (ParametrosImportComponentEJunta)e.AcceptActionArgs.SelectedObjects[0];
             MemoryStream stream = new MemoryStream();
             stream.Seek(0, SeekOrigin.Begin);
 

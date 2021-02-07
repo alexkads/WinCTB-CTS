@@ -48,7 +48,7 @@ namespace WinCTB_CTS.Module.Win.Controllers
 
             SimpleAction simpleActionImport = new SimpleAction(this, "PopupWindowShowActionImportSpoolJuntaExcelController", PredefinedCategory.RecordEdit)
             {
-                Caption = "Importar SGS e SGJ",
+                Caption = "Importar Tubulação",
                 ImageName = "Action_Debug_Step"
             };
 

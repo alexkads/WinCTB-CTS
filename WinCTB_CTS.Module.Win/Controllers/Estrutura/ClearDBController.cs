@@ -17,11 +17,12 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using WinCTB_CTS.Module.BusinessObjects.Estrutura;
 using WinCTB_CTS.Module.BusinessObjects.Tubulacao;
 using WinCTB_CTS.Module.BusinessObjects.Tubulacao.Medicao;
 using WinCTB_CTS.Module.Comum;
 
-namespace WinCTB_CTS.Module.Win.Controllers.Tubulacao
+namespace WinCTB_CTS.Module.Win.Controllers.Estrutura
 {
     // For more typical usage scenarios, be sure to check out https://documentation.devexpress.com/eXpressAppFramework/clsDevExpressExpressAppWindowControllertopic.aspx.
     public partial class ClearDBController : WindowController
@@ -30,9 +31,9 @@ namespace WinCTB_CTS.Module.Win.Controllers.Tubulacao
         public ClearDBController()
         {
             TargetWindowType = WindowType.Main;
-            ActionClearDB = new SimpleAction(this, "ActionClearDBTubulacao", PredefinedCategory.RecordEdit)
+            ActionClearDB = new SimpleAction(this, "ActionClearDBEstrutura", PredefinedCategory.RecordEdit)
             {
-                Caption = "Excluir Tubulação",
+                Caption = "Excluir Estrutura",
                 ImageName = "ClearAll"
             };
 
@@ -48,16 +49,13 @@ namespace WinCTB_CTS.Module.Win.Controllers.Tubulacao
                     
                     var objectSpace = Application.CreateObjectSpace();
                     UnitOfWork uow = new UnitOfWork(((XPObjectSpace)objectSpace).Session.ObjectLayer);
-
-                    Utils.DeleteAllRecords<MedicaoTubulacaoDetalhe>(uow);
-                    Utils.DeleteAllRecords<MedicaoTubulacao>(uow);
                     
-                    Utils.DeleteAllRecords<Spool>(uow);
-                    Utils.DeleteAllRecords<JuntaSpool>(uow);
+                    Utils.DeleteAllRecords<Componente>(uow);
+                    Utils.DeleteAllRecords<JuntaComponente>(uow);
 
                     uow.CommitChanges();
                     uow.Dispose();
-                    XtraMessageBox.Show("SGS e SGJ foram execluídos!");
+                    XtraMessageBox.Show("Componentes e Juntas de Estrura foram execluídos!");
                 };
             }
         }

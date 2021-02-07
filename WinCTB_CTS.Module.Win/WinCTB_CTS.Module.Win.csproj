@@ -197,6 +197,9 @@
     <Compile Include="Actions\DisableControllersForNonPersistentObjects.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="Controllers\Estrutura\ClearDBController.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Controllers\Estrutura\ImportComponentEJuntaExcelController.cs">
       <SubType>Component</SubType>
     </Compile>
