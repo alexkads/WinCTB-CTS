@@ -197,23 +197,26 @@
     <Compile Include="Actions\DisableControllersForNonPersistentObjects.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Controllers\ClearDBController.cs">
+    <Compile Include="Controllers\Estrutura\ImportComponentEJuntaExcelController.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Controllers\FechamentoMedicaoTubulacaoController.cs">
+    <Compile Include="Controllers\Tubualcao\ClearDBController.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Controllers\ImportSpoolJuntaExcelController.cs">
+    <Compile Include="Controllers\Tubualcao\FechamentoMedicaoTubulacaoController.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Controllers\ImportTabelasAxiliaresController.cs">
+    <Compile Include="Controllers\Tubualcao\ImportSpoolJuntaExcelController.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Controllers\InstantReport\WinInstantPrintReportController.cs" />
-    <Compile Include="Controllers\XtraProgressImport.cs">
+    <Compile Include="Controllers\Tubualcao\ImportTabelasAxiliaresController.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Controllers\Comum\InstantReport\WinInstantPrintReportController.cs" />
+    <Compile Include="Controllers\Comum\XtraProgressImport.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Controllers\XtraProgressImport.Designer.cs">
+    <Compile Include="Controllers\Comum\XtraProgressImport.Designer.cs">
       <DependentUpon>XtraProgressImport.cs</DependentUpon>
     </Compile>
     <Compile Include="Custom\CustomGridController.cs" />
@@ -227,7 +230,7 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Controllers\XtraProgressImport.resx">
+    <EmbeddedResource Include="Controllers\Comum\XtraProgressImport.resx">
       <DependentUpon>XtraProgressImport.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Model.DesignedDiffs.xafml" />
