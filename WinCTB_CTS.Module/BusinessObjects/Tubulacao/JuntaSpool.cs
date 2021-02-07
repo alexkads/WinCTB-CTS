@@ -205,12 +205,17 @@ namespace WinCTB_CTS.Module.BusinessObjects.Tubulacao
             set => SetPropertyValue(nameof(TipoJunta), ref tipoJunta, value);
         }
 
+        [VisibleInListView(false)]
         [Association("TabPercInspecao-JuntaSpools")]
         public TabPercInspecao TabPercInspecao
         {
             get => tabPercInspecao;
             set => SetPropertyValue(nameof(TabPercInspecao), ref tabPercInspecao, value);
         }
+
+        [XafDisplayName("Percentual de Inspeção")]
+        [PersistentAlias("TabPercInspecao.PercentualDeInspecao")]
+        public string PercentualDeInspecao => (string)EvaluateAlias("PercentualDeInspecao");
 
         [XafDisplayName("Spec")]
         [PersistentAlias("TabPercInspecao.Spec")]
@@ -238,6 +243,7 @@ namespace WinCTB_CTS.Module.BusinessObjects.Tubulacao
             set => SetPropertyValue(nameof(ClasseInspecao), ref classeInspecao, value);
         }
 
+        [VisibleInListView(false)]
         [Association("TabDiametro-JuntaSpools")]
         public TabDiametro TabDiametro
         {
