@@ -146,7 +146,7 @@ namespace WinCTB_CTS.Module.Win.Controllers.InstantReport
                         else
                             filter = string.Empty;
 
-                        var sorting = GetReportParametersObject.GetSorting();
+                        var sorting = GetReportParametersObject?.GetSorting();
 
                         XtraReport report = ReportDataProvider.ReportsStorage.LoadReport(currentReport);
                         ReportsModuleV2 reportsModule = ReportsModuleV2.FindReportsModule(Application.Modules);
