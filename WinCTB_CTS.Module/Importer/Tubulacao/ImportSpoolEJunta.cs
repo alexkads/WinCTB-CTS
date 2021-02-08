@@ -68,7 +68,7 @@ namespace WinCTB_CTS.Module.Importer.Tubulacao
                 MessageImport = "Inicializando importação"
             });
 
-            uow.ExplicitBeginTransaction();
+            uow.BeginTransaction();
 
             for (int i = 0; i < TotalDeJuntas; i++)
             {
@@ -177,11 +177,11 @@ namespace WinCTB_CTS.Module.Importer.Tubulacao
                 {
                     try
                     {
-                        uow.ExplicitCommitTransaction();
+                        uow.CommitTransaction();
                     }
                     catch
                     {
-                        uow.ExplicitRollbackTransaction();
+                        uow.RollbackTransaction();
                         throw new Exception("Process aborted by system");
                     }
                 }
@@ -194,7 +194,7 @@ namespace WinCTB_CTS.Module.Importer.Tubulacao
                 });
             }
 
-            uow.ExplicitCommitTransaction();
+            uow.CommitTransaction();
             uow.PurgeDeletedObjects();
             uow.CommitChanges();
             uow.Dispose();
@@ -225,7 +225,7 @@ namespace WinCTB_CTS.Module.Importer.Tubulacao
                 MessageImport = "Inicializando importação de juntas"
             });
 
-            uow.ExplicitBeginTransaction();
+            uow.BeginTransaction();
 
             ////Limpar registros
             //Utils.DeleteAllRecords<JuntaSpool>(uow);
@@ -345,11 +345,11 @@ namespace WinCTB_CTS.Module.Importer.Tubulacao
                 {
                     try
                     {
-                        uow.ExplicitCommitTransaction();
+                        uow.CommitTransaction();
                     }
                     catch
                     {
-                        uow.ExplicitRollbackTransaction();
+                        uow.RollbackTransaction();
                         throw new Exception("Process aborted by system");
                     }
                 }
@@ -362,7 +362,7 @@ namespace WinCTB_CTS.Module.Importer.Tubulacao
                 });
             }
 
-            uow.ExplicitCommitTransaction();
+            uow.CommitTransaction();
             uow.PurgeDeletedObjects();
             uow.CommitChanges();
             uow.Dispose();

@@ -67,7 +67,7 @@ namespace WinCTB_CTS.Module.Importer.Estrutura
                 MessageImport = "Inicializando importação"
             });
 
-            uow.ExplicitBeginTransaction();
+            uow.BeginTransaction();
 
             for (int i = 0; i < TotalDeJuntas; i++)
             {
@@ -127,11 +127,11 @@ namespace WinCTB_CTS.Module.Importer.Estrutura
                 {
                     try
                     {
-                        uow.ExplicitCommitTransaction();
+                        uow.CommitTransaction();
                     }
                     catch
                     {
-                        uow.ExplicitRollbackTransaction();
+                        uow.RollbackTransaction();
                         throw new Exception("Process aborted by system");
                     }
                 }
@@ -144,7 +144,7 @@ namespace WinCTB_CTS.Module.Importer.Estrutura
                 });
             }
 
-            uow.ExplicitCommitTransaction();
+            uow.CommitTransaction();
             uow.PurgeDeletedObjects();
             uow.CommitChanges();
             uow.Dispose();
@@ -175,7 +175,7 @@ namespace WinCTB_CTS.Module.Importer.Estrutura
                 MessageImport = "Inicializando importação de juntas"
             });
 
-            uow.ExplicitBeginTransaction();
+            uow.BeginTransaction();
 
             ////Limpar registros
             //Utils.DeleteAllRecords<JuntaSpool>(uow);
@@ -265,15 +265,15 @@ namespace WinCTB_CTS.Module.Importer.Estrutura
 
 
 
-                if (i % 1000 == 0)
+                if (i % 500 == 0)
                 {
                     try
                     {
-                        uow.ExplicitCommitTransaction();
+                        uow.CommitTransaction();
                     }
                     catch
                     {
-                        uow.ExplicitRollbackTransaction();
+                        uow.RollbackTransaction();
                         throw new Exception("Process aborted by system");
                     }
                 }
@@ -286,7 +286,7 @@ namespace WinCTB_CTS.Module.Importer.Estrutura
                 });
             }
 
-            uow.ExplicitCommitTransaction();
+            uow.CommitTransaction();
             uow.PurgeDeletedObjects();
             uow.CommitChanges();
             uow.Dispose();
