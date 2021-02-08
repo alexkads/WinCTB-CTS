@@ -228,10 +228,10 @@ namespace WinCTB_CTS.Module.RelatorioPreDefinido
             this.xrTableCell94 = new DevExpress.XtraReports.UI.XRTableCell();
             this.xrTableCell95 = new DevExpress.XtraReports.UI.XRTableCell();
             this.xrTableCell96 = new DevExpress.XtraReports.UI.XRTableCell();
-            this.collectionDataSource1 = new DevExpress.Persistent.Base.ReportsV2.CollectionDataSource();
             this.PesoAcumuladoFab = new DevExpress.XtraReports.UI.CalculatedField();
             this.PesoPonderadoMontKg = new DevExpress.XtraReports.UI.CalculatedField();
             this.PesoMedicaoAnteriorFab = new DevExpress.XtraReports.UI.CalculatedField();
+            this.collectionDataSource1 = new DevExpress.Persistent.Base.ReportsV2.CollectionDataSource();
             ((System.ComponentModel.ISupportInitialize)(this.xrTable2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.xrTable1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.collectionDataSource1)).BeginInit();
@@ -1941,24 +1941,32 @@ namespace WinCTB_CTS.Module.RelatorioPreDefinido
             // 
             // xrTableCell83
             // 
+            this.xrTableCell83.ExpressionBindings.AddRange(new DevExpress.XtraReports.UI.ExpressionBinding[] {
+            new DevExpress.XtraReports.UI.ExpressionBinding("BeforePrint", "Text", "[Spool].[VaE]")});
             this.xrTableCell83.Multiline = true;
             this.xrTableCell83.Name = "xrTableCell83";
             this.xrTableCell83.Weight = 1D;
             // 
             // xrTableCell84
             // 
+            this.xrTableCell84.ExpressionBindings.AddRange(new DevExpress.XtraReports.UI.ExpressionBinding[] {
+            new DevExpress.XtraReports.UI.ExpressionBinding("BeforePrint", "Text", "[Spool].[VaAp]")});
             this.xrTableCell84.Multiline = true;
             this.xrTableCell84.Name = "xrTableCell84";
             this.xrTableCell84.Weight = 1D;
             // 
             // xrTableCell85
             // 
+            this.xrTableCell85.ExpressionBindings.AddRange(new DevExpress.XtraReports.UI.ExpressionBinding[] {
+            new DevExpress.XtraReports.UI.ExpressionBinding("BeforePrint", "Text", "[Spool].[AsE]")});
             this.xrTableCell85.Multiline = true;
             this.xrTableCell85.Name = "xrTableCell85";
             this.xrTableCell85.Weight = 1D;
             // 
             // xrTableCell86
             // 
+            this.xrTableCell86.ExpressionBindings.AddRange(new DevExpress.XtraReports.UI.ExpressionBinding[] {
+            new DevExpress.XtraReports.UI.ExpressionBinding("BeforePrint", "Text", "[Spool].[AsAp]")});
             this.xrTableCell86.Multiline = true;
             this.xrTableCell86.Name = "xrTableCell86";
             this.xrTableCell86.Weight = 1D;
@@ -2033,12 +2041,6 @@ namespace WinCTB_CTS.Module.RelatorioPreDefinido
             this.xrTableCell96.Name = "xrTableCell96";
             this.xrTableCell96.Weight = 1D;
             // 
-            // collectionDataSource1
-            // 
-            this.collectionDataSource1.Name = "collectionDataSource1";
-            this.collectionDataSource1.ObjectTypeName = "WinCTB_CTS.Module.BusinessObjects.Tubulacao.Medicao.MedicaoTubulacaoDetalhe";
-            this.collectionDataSource1.TopReturnedRecords = 0;
-            // 
             // PesoAcumuladoFab
             // 
             this.PesoAcumuladoFab.DisplayName = "(Calc) Peso Acumulado Fab";
@@ -2061,6 +2063,12 @@ namespace WinCTB_CTS.Module.RelatorioPreDefinido
             this.PesoMedicaoAnteriorFab.Expression = "[MedicaoAnterior].[PesoSpoolCorteFab] + \n[MedicaoAnterior].[PesoSpoolVAFab]  +\n[M" +
     "edicaoAnterior].[PesoSpoolSoldFab] + \n[MedicaoAnterior].[PesoSpoolENDFab]";
             this.PesoMedicaoAnteriorFab.Name = "PesoMedicaoAnteriorFab";
+            // 
+            // collectionDataSource1
+            // 
+            this.collectionDataSource1.Name = "collectionDataSource1";
+            this.collectionDataSource1.ObjectTypeName = "WinCTB_CTS.Module.BusinessObjects.Tubulacao.Medicao.MedicaoTubulacaoDetalhe";
+            this.collectionDataSource1.TopReturnedRecords = 0;
             // 
             // SpoolMedicao
             // 
