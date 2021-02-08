@@ -735,6 +735,15 @@ namespace WinCTB_CTS.Module.BusinessObjects.Tubulacao
         [XafDisplayName("Quantidade de Junta")]
         [PersistentAlias("Juntas[].Count()")]
         public int QuantidadeDeJunta => Convert.ToInt32(EvaluateAlias("QuantidadeDeJunta"));
+
+        [XafDisplayName("VA (E)")]
+        [PersistentAlias("Juntas[CampoOuPipe == 'CAMPO' and statusVa != 'N'].Sum(TabDiametro.Wdi)")]
+        public double VaE => Convert.ToDouble(EvaluateAlias("VaE"));
+
+        [XafDisplayName("VA (A)")]
+        [PersistentAlias("Juntas[CampoOuPipe == 'CAMPO' and statusVa == 'A'].Sum(TabDiametro.Wdi)")]
+        public double VaAp => Convert.ToDouble(EvaluateAlias("VaAp"));
+
         #endregion
     }
 }
