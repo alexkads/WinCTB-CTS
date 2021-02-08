@@ -55,6 +55,7 @@ namespace WinCTB_CTS.Module.Win.Controllers.Tubulacao
                     Utils.DeleteAllRecords<Spool>(uow);
                     Utils.DeleteAllRecords<JuntaSpool>(uow);
 
+                    uow.PurgeDeletedObjects();
                     uow.CommitChanges();
                     uow.Dispose();
                     XtraMessageBox.Show("SGS e SGJ foram execluídos!");

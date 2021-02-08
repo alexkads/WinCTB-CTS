@@ -53,7 +53,9 @@ namespace WinCTB_CTS.Module.Win.Controllers.Estrutura
                     Utils.DeleteAllRecords<Componente>(uow);
                     Utils.DeleteAllRecords<JuntaComponente>(uow);
 
+                    uow.PurgeDeletedObjects();
                     uow.CommitChanges();
+
                     uow.Dispose();
                     XtraMessageBox.Show("Componentes e Juntas de Estrura foram execluídos!");
                 };
