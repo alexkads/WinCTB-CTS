@@ -57,6 +57,22 @@ namespace WinCTB_CTS.Module.Importer.Tubulacao
         public void ImportarSpools(DataTable dtSpoolsImport, IProgress<ImportProgressReport> progress)
         {
             UnitOfWork uow = new UnitOfWork(((XPObjectSpace)objectSpace).Session.ObjectLayer);
+
+            if (uow.FindObject<TabDiametro>(CriteriaOperator.Parse("")) is null)
+                throw new ArgumentNullException("TabDiametro vazia!");
+
+            if (uow.FindObject<TabEAPPipe>(CriteriaOperator.Parse("")) is null)
+                throw new ArgumentNullException("TabEAPPPipe vazia!");
+
+            if (uow.FindObject<TabPercInspecao>(CriteriaOperator.Parse("")) is null)
+                throw new ArgumentNullException("TabPercInspecao vazia!");
+
+            if (uow.FindObject<TabProcessoSoldagem>(CriteriaOperator.Parse("")) is null)
+                throw new ArgumentNullException("TabProcessoSoldagem vazia!");
+
+            if (uow.FindObject<TabSchedule>(CriteriaOperator.Parse("")) is null)
+                throw new ArgumentNullException("TabSchedule vazia!");
+
             var TotalDeJuntas = dtSpoolsImport.Rows.Count;
 
             var oldSpools = Utils.GetOldDatasForCheck<Spool>(uow);
