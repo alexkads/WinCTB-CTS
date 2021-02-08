@@ -99,7 +99,7 @@ namespace WinCTB_CTS.Module.BusinessObjects.Estrutura
 
         [XafDisplayName("Componente-Junta")]
         [PersistentAlias("Concat(Componente,'-',Junta)")]
-        public string ConcatComponenteJunta => (string)EvaluateAlias("Relatorio");
+        public string ConcatComponenteJunta => (string)EvaluateAlias("ConcatComponenteJunta");
 
 
         [Size(100), XafDisplayName("Tipo de Junta")]

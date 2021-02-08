@@ -259,10 +259,8 @@ namespace WinCTB_CTS.Module.Importer.Estrutura
                         juntaComponente.ComprimentoReparoUs = Utils.ConvertDouble(linha[58]);
                         juntaComponente.StatusUs = linha[59].ToString();
                         juntaComponente.StatusJunta = linha[60].ToString();
-
-
+                        juntaComponente.Componente = componente;
                     }
-
                 }
 
 
