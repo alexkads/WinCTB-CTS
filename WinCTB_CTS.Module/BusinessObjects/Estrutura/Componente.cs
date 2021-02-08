@@ -15,6 +15,7 @@ using System.Text;
 namespace WinCTB_CTS.Module.BusinessObjects.Estrutura
 {
     [DefaultClassOptions, DefaultProperty("DocumentoReferencia"), ImageName("BO_Contract"), NavigationItem("Estrutura")]
+    [Indices("DesenhoMontagem;Peca")]
     public class Componente : BaseObject
     { 
         public Componente(Session session)

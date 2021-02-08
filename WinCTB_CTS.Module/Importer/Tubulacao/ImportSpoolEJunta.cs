@@ -68,7 +68,7 @@ namespace WinCTB_CTS.Module.Importer.Tubulacao
                 MessageImport = "Inicializando importação"
             });
 
-            uow.BeginTransaction();
+            uow.ExplicitBeginTransaction();
 
             for (int i = 0; i < TotalDeJuntas; i++)
             {
@@ -177,11 +177,11 @@ namespace WinCTB_CTS.Module.Importer.Tubulacao
                 {
                     try
                     {
-                        uow.CommitTransaction();
+                        uow.ExplicitCommitTransaction();
                     }
                     catch
                     {
-                        uow.RollbackTransaction();
+                        uow.ExplicitRollbackTransaction();
                         throw new Exception("Process aborted by system");
                     }
                 }
@@ -194,7 +194,7 @@ namespace WinCTB_CTS.Module.Importer.Tubulacao
                 });
             }
 
-            uow.CommitTransaction();
+            uow.ExplicitCommitTransaction();
             uow.PurgeDeletedObjects();
             uow.CommitChanges();
             uow.Dispose();

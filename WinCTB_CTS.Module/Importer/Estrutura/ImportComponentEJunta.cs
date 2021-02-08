@@ -79,8 +79,8 @@ namespace WinCTB_CTS.Module.Importer.Estrutura
                     var transmital = linha[3].ToString();
                     var peca = linha[4].ToString();
 
-                    var criteriaOperator = CriteriaOperator.Parse("DocumentoReferencia = ? And DesenhoMontagem = ? And Transmital = ? And Peca = ?",
-                        documentoReferencia, desenhoMontagem, transmital, peca);
+                    var criteriaOperator = CriteriaOperator.Parse("DesenhoMontagem = ? And Peca = ?",
+                        desenhoMontagem, peca);
 
                     var componente = uow.FindObject<Componente>(criteriaOperator);
 
@@ -175,7 +175,7 @@ namespace WinCTB_CTS.Module.Importer.Estrutura
                 MessageImport = "Inicializando importação de juntas"
             });
 
-            uow.BeginTransaction();
+            uow.ExplicitBeginTransaction();
 
             ////Limpar registros
             //Utils.DeleteAllRecords<JuntaSpool>(uow);
@@ -186,8 +186,9 @@ namespace WinCTB_CTS.Module.Importer.Estrutura
                 if (i >= 2)
                 {
                     var linha = dtJuntasImport.Rows[i];
-                    var PesquisarSpool = linha[8].ToString();
-                    var FiltroPesquisa = new BinaryOperator("TagSpool", PesquisarSpool);
+                    var desenhoMontagem = linha[2].ToString();
+                    var peca = linha[3].ToString();
+                    var FiltroPesquisa = CriteriaOperator.Parse("DesenhoMontagem = ? And Peca = ?", desenhoMontagem, peca);
                     var componente = uow.FindObject<Componente>(FiltroPesquisa);
                     if (componente != null)
                     {
@@ -209,16 +210,16 @@ namespace WinCTB_CTS.Module.Importer.Estrutura
                         juntaComponente.Junta = linha[5].ToString();
                         juntaComponente.TipoJunta = linha[7].ToString();
                         juntaComponente.Site = linha[8].ToString();
-                        juntaComponente.Comprimento = Convert.ToDouble(linha[9]);
+                        juntaComponente.Comprimento = Utils.ConvertDouble(linha[9]);
                         juntaComponente.ClasseInspecao = linha[10].ToString();
                         juntaComponente.Df1 = linha[11].ToString();
                         juntaComponente.Mat1 = linha[12].ToString();
-                        juntaComponente.Esp1 = Convert.ToDouble(linha[13]);
+                        juntaComponente.Esp1 = Utils.ConvertDouble(linha[13]);
                         juntaComponente.TipoDf1 = linha[14].ToString();
                         juntaComponente.PosicaoDf1 = linha[15].ToString();
                         juntaComponente.Df2 = linha[17].ToString();
                         juntaComponente.Mat2 = linha[18].ToString();
-                        juntaComponente.Esp2 = Convert.ToDouble(linha[19]);
+                        juntaComponente.Esp2 = Utils.ConvertDouble(linha[19]);
                         juntaComponente.TipoDf2 = linha[20].ToString();
                         juntaComponente.PosicaoDf2 = linha[21].ToString();
                         juntaComponente.Posiocionamento = Utils.ConvertDateTime(linha[23]);
@@ -249,13 +250,13 @@ namespace WinCTB_CTS.Module.Importer.Estrutura
                         juntaComponente.DataRx = Utils.ConvertDateTime(linha[49]);
                         juntaComponente.RelatorioRx = linha[50].ToString();
                         juntaComponente.InspetorRx = linha[51].ToString();
-                        juntaComponente.ComprimentoReparoRx = Convert.ToDouble(linha[52]);
+                        juntaComponente.ComprimentoReparoRx = Utils.ConvertDouble(linha[52]);
                         juntaComponente.StatusRx = linha[53].ToString();
                         juntaComponente.SampleUs = linha[54].ToString();
                         juntaComponente.DataUs = Utils.ConvertDateTime(linha[55]);
                         juntaComponente.RelatorioUs = linha[56].ToString();
                         juntaComponente.InspetorUs = linha[57].ToString();
-                        juntaComponente.ComprimentoReparoUs = Convert.ToDouble(linha[58]);
+                        juntaComponente.ComprimentoReparoUs = Utils.ConvertDouble(linha[58]);
                         juntaComponente.StatusUs = linha[59].ToString();
                         juntaComponente.StatusJunta = linha[60].ToString();
 
@@ -270,11 +271,11 @@ namespace WinCTB_CTS.Module.Importer.Estrutura
                 {
                     try
                     {
-                        uow.CommitTransaction();
+                        uow.ExplicitCommitTransaction();
                     }
                     catch
                     {
-                        uow.RollbackTransaction();
+                        uow.ExplicitRollbackTransaction();
                         throw new Exception("Process aborted by system");
                     }
                 }
@@ -287,7 +288,7 @@ namespace WinCTB_CTS.Module.Importer.Estrutura
                 });
             }
 
-            uow.CommitTransaction();
+            uow.ExplicitCommitTransaction();
             uow.PurgeDeletedObjects();
             uow.CommitChanges();
             uow.Dispose();

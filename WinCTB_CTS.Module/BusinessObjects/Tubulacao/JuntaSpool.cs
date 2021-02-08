@@ -16,6 +16,7 @@ using WinCTB_CTS.Module.BusinessObjects.Tubulacao.Auxiliar;
 namespace WinCTB_CTS.Module.BusinessObjects.Tubulacao
 {
     [DefaultClassOptions, DefaultProperty("Junta"), ImageName("BO_Contract"), NavigationItem("Tubulação")]
+    [Indices("Spool;Junta")]
     public class JuntaSpool : BaseObject
     { // Inherit from a different class to provide a custom primary key, concurrency and deletion behavior, etc. (https://documentation.devexpress.com/eXpressAppFramework/CustomDocument113146.aspx).
         public JuntaSpool(Session session)
