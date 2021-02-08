@@ -8,11 +8,11 @@
     <SchemaModule Name="SystemModule" Version="18.2.14.0" IsNewNode="True" />
   </SchemaModules>
   <Views>
-    <ListView Id="Componente_ListView" DataAccessMode="InstantFeedback" />
-    <ListView Id="JuntaComponente_ListView" DataAccessMode="InstantFeedback" />
-    <ListView Id="JuntaSpool_ListView" DataAccessMode="InstantFeedback" />
-    <ListView Id="MedicaoTubulacao_ListView" DataAccessMode="InstantFeedback" />
-    <ListView Id="MedicaoTubulacao_MedicaoTubulacaoDetalhes_ListView" DataAccessMode="InstantFeedback" />
-    <ListView Id="Spool_ListView" DataAccessMode="InstantFeedback" />
+    <ListView Id="Componente_ListView" DataAccessMode="Server" />
+    <ListView Id="JuntaComponente_ListView" DataAccessMode="Server" />
+    <ListView Id="JuntaSpool_ListView" DataAccessMode="Server" />
+    <ListView Id="MedicaoTubulacao_ListView" DataAccessMode="Server" />
+    <ListView Id="MedicaoTubulacao_MedicaoTubulacaoDetalhes_ListView" DataAccessMode="Server" />
+    <ListView Id="Spool_ListView" DataAccessMode="Server" />
   </Views>
 </Application>
