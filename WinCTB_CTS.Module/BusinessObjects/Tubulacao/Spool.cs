@@ -728,9 +728,9 @@ namespace WinCTB_CTS.Module.BusinessObjects.Tubulacao
         }
 
         #region Campos Cálculados
-        //[XafDisplayName("Pend End Fab")]
-        //[PersistentAlias("Juntas[IsNullorEmpty(dataLiberacaoJunta) And CampoOuPipe == 'PIPE'].Count(JuntaSpool.junta)")]
-        //public double PendEndFab => Convert.ToDouble(EvaluateAlias("PendEndFab"));
+        [XafDisplayName("Pend End Fab")]
+        [PersistentAlias("Juntas[IsNullorEmpty(dataLiberacaoJunta) And CampoOuPipe == 'PIPE'].Count()")]
+        public double PendEndFab => Convert.ToDouble(EvaluateAlias("PendEndFab"));
 
         [XafDisplayName("Total Wdi Campo")]
         [PersistentAlias("Juntas[CampoOuPipe == 'CAMPO'].Sum(TabDiametro.Wdi)")]
