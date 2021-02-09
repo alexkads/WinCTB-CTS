@@ -1012,7 +1012,7 @@ namespace WinCTB_CTS.Module.RelatorioPreDefinido
             // 
             // xrTableCell177
             // 
-            this.xrTableCell177.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(128)))));
+            this.xrTableCell177.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(192)))), ((int)(((byte)(128)))));
             this.xrTableCell177.Multiline = true;
             this.xrTableCell177.Name = "xrTableCell177";
             this.xrTableCell177.StylePriority.UseBackColor = false;
@@ -2239,29 +2239,37 @@ namespace WinCTB_CTS.Module.RelatorioPreDefinido
             // 
             // xrTableCell193
             // 
+            this.xrTableCell193.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(0)))));
             this.xrTableCell193.Multiline = true;
             this.xrTableCell193.Name = "xrTableCell193";
+            this.xrTableCell193.StylePriority.UseBackColor = false;
             this.xrTableCell193.Text = "AVANÇO DE JUNTAS (MONTAGEM)";
             this.xrTableCell193.Weight = 2.7210440420646114D;
             // 
             // xrTableCell194
             // 
+            this.xrTableCell194.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(0)))));
             this.xrTableCell194.Multiline = true;
             this.xrTableCell194.Name = "xrTableCell194";
+            this.xrTableCell194.StylePriority.UseBackColor = false;
             this.xrTableCell194.Text = "AVANÇO PERCENTUAL (MONTAGEM)";
             this.xrTableCell194.Weight = 1.8140308376384824D;
             // 
             // xrTableCell195
             // 
+            this.xrTableCell195.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(0)))));
             this.xrTableCell195.Multiline = true;
             this.xrTableCell195.Name = "xrTableCell195";
+            this.xrTableCell195.StylePriority.UseBackColor = false;
             this.xrTableCell195.Text = "AVANÇO PONDERADO (MONTAGEM)";
             this.xrTableCell195.Weight = 2.2675385470481033D;
             // 
             // xrTableCell196
             // 
+            this.xrTableCell196.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(192)))), ((int)(((byte)(128)))));
             this.xrTableCell196.Multiline = true;
             this.xrTableCell196.Name = "xrTableCell196";
+            this.xrTableCell196.StylePriority.UseBackColor = false;
             this.xrTableCell196.Text = "AVANÇO DE FABRICAÇÃO (PESO)";
             this.xrTableCell196.Weight = 1.814035266424707D;
             // 
