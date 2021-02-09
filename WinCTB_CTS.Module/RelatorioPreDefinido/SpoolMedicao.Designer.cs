@@ -231,6 +231,11 @@ namespace WinCTB_CTS.Module.RelatorioPreDefinido
             this.PesoAcumuladoFab = new DevExpress.XtraReports.UI.CalculatedField();
             this.PesoPonderadoMontKg = new DevExpress.XtraReports.UI.CalculatedField();
             this.PesoMedicaoAnteriorFab = new DevExpress.XtraReports.UI.CalculatedField();
+            this.VaPerc = new DevExpress.XtraReports.UI.CalculatedField();
+            this.AsPerc = new DevExpress.XtraReports.UI.CalculatedField();
+            this.EndPerc = new DevExpress.XtraReports.UI.CalculatedField();
+            this.PondPerc = new DevExpress.XtraReports.UI.CalculatedField();
+            this.PosPerc = new DevExpress.XtraReports.UI.CalculatedField();
             this.collectionDataSource1 = new DevExpress.Persistent.Base.ReportsV2.CollectionDataSource();
             ((System.ComponentModel.ISupportInitialize)(this.xrTable2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.xrTable1)).BeginInit();
@@ -1973,38 +1978,52 @@ namespace WinCTB_CTS.Module.RelatorioPreDefinido
             // 
             // xrTableCell87
             // 
+            this.xrTableCell87.ExpressionBindings.AddRange(new DevExpress.XtraReports.UI.ExpressionBinding[] {
+            new DevExpress.XtraReports.UI.ExpressionBinding("BeforePrint", "Text", "[Spool].[EndA]")});
             this.xrTableCell87.Multiline = true;
             this.xrTableCell87.Name = "xrTableCell87";
             this.xrTableCell87.Weight = 1D;
             // 
             // xrTableCell88
             // 
+            this.xrTableCell88.ExpressionBindings.AddRange(new DevExpress.XtraReports.UI.ExpressionBinding[] {
+            new DevExpress.XtraReports.UI.ExpressionBinding("BeforePrint", "Text", "[VaPerc]")});
             this.xrTableCell88.Multiline = true;
             this.xrTableCell88.Name = "xrTableCell88";
+            this.xrTableCell88.TextFormatString = "{0:0.00%}";
             this.xrTableCell88.Weight = 1D;
             // 
             // xrTableCell89
             // 
+            this.xrTableCell89.ExpressionBindings.AddRange(new DevExpress.XtraReports.UI.ExpressionBinding[] {
+            new DevExpress.XtraReports.UI.ExpressionBinding("BeforePrint", "Text", "[AsPerc]")});
             this.xrTableCell89.Multiline = true;
             this.xrTableCell89.Name = "xrTableCell89";
+            this.xrTableCell89.TextFormatString = "{0:0.00%}";
             this.xrTableCell89.Weight = 1D;
             // 
             // xrTableCell90
             // 
+            this.xrTableCell90.ExpressionBindings.AddRange(new DevExpress.XtraReports.UI.ExpressionBinding[] {
+            new DevExpress.XtraReports.UI.ExpressionBinding("BeforePrint", "Text", "[EndPerc]")});
             this.xrTableCell90.Multiline = true;
             this.xrTableCell90.Name = "xrTableCell90";
+            this.xrTableCell90.TextFormatString = "{0:0.00%}";
             this.xrTableCell90.Weight = 1D;
             // 
             // xrTableCell91
             // 
+            this.xrTableCell91.ExpressionBindings.AddRange(new DevExpress.XtraReports.UI.ExpressionBinding[] {
+            new DevExpress.XtraReports.UI.ExpressionBinding("BeforePrint", "Text", "[PondPerc]")});
             this.xrTableCell91.Multiline = true;
             this.xrTableCell91.Name = "xrTableCell91";
+            this.xrTableCell91.TextFormatString = "{0:0.00%}";
             this.xrTableCell91.Weight = 1D;
             // 
             // xrTableCell92
             // 
             this.xrTableCell92.ExpressionBindings.AddRange(new DevExpress.XtraReports.UI.ExpressionBinding[] {
-            new DevExpress.XtraReports.UI.ExpressionBinding("BeforePrint", "Text", "[PesoSpoolPosiMont]*[PesoMontagem]")});
+            new DevExpress.XtraReports.UI.ExpressionBinding("BeforePrint", "Text", "[PosPerc]*[Spool].[PesoMontagem]")});
             this.xrTableCell92.Multiline = true;
             this.xrTableCell92.Name = "xrTableCell92";
             this.xrTableCell92.Weight = 1D;
@@ -2012,7 +2031,7 @@ namespace WinCTB_CTS.Module.RelatorioPreDefinido
             // xrTableCell93
             // 
             this.xrTableCell93.ExpressionBindings.AddRange(new DevExpress.XtraReports.UI.ExpressionBinding[] {
-            new DevExpress.XtraReports.UI.ExpressionBinding("BeforePrint", "Text", "[AvancoJuntaVAMont]*[PesoMontagem]")});
+            new DevExpress.XtraReports.UI.ExpressionBinding("BeforePrint", "Text", "[VaPerc]*[PesoMontagem]")});
             this.xrTableCell93.Multiline = true;
             this.xrTableCell93.Name = "xrTableCell93";
             this.xrTableCell93.Weight = 1D;
@@ -2020,7 +2039,7 @@ namespace WinCTB_CTS.Module.RelatorioPreDefinido
             // xrTableCell94
             // 
             this.xrTableCell94.ExpressionBindings.AddRange(new DevExpress.XtraReports.UI.ExpressionBinding[] {
-            new DevExpress.XtraReports.UI.ExpressionBinding("BeforePrint", "Text", "[AvancoJuntaSoldMont]*[PesoMontagem]")});
+            new DevExpress.XtraReports.UI.ExpressionBinding("BeforePrint", "Text", "[AsPerc]*[PesoMontagem]")});
             this.xrTableCell94.Multiline = true;
             this.xrTableCell94.Name = "xrTableCell94";
             this.xrTableCell94.Weight = 1D;
@@ -2028,7 +2047,7 @@ namespace WinCTB_CTS.Module.RelatorioPreDefinido
             // xrTableCell95
             // 
             this.xrTableCell95.ExpressionBindings.AddRange(new DevExpress.XtraReports.UI.ExpressionBinding[] {
-            new DevExpress.XtraReports.UI.ExpressionBinding("BeforePrint", "Text", "[AvancoJuntaENDMont]*[PesoMontagem]")});
+            new DevExpress.XtraReports.UI.ExpressionBinding("BeforePrint", "Text", "[EndPerc]*[PesoMontagem]")});
             this.xrTableCell95.Multiline = true;
             this.xrTableCell95.Name = "xrTableCell95";
             this.xrTableCell95.Weight = 1D;
@@ -2064,6 +2083,41 @@ namespace WinCTB_CTS.Module.RelatorioPreDefinido
     "edicaoAnterior].[PesoSpoolSoldFab] + \n[MedicaoAnterior].[PesoSpoolENDFab]";
             this.PesoMedicaoAnteriorFab.Name = "PesoMedicaoAnteriorFab";
             // 
+            // VaPerc
+            // 
+            this.VaPerc.Expression = "Iif([Spool].[VaE] == 0 Or [Spool].[VaAp] == 0 , 0 , [Spool].[VaAp]/[Spool].[VaE])" +
+    "";
+            this.VaPerc.FieldType = DevExpress.XtraReports.UI.FieldType.Double;
+            this.VaPerc.Name = "VaPerc";
+            // 
+            // AsPerc
+            // 
+            this.AsPerc.Expression = "Iif([Spool].[AsE] == 0 Or [Spool].[AsAp] == 0 , 0 , [Spool].[AsAp]/[Spool].[AsE])" +
+    "";
+            this.AsPerc.FieldType = DevExpress.XtraReports.UI.FieldType.Double;
+            this.AsPerc.Name = "AsPerc";
+            // 
+            // EndPerc
+            // 
+            this.EndPerc.Expression = "Iif([Spool].[EndA] == 0 Or [WdiJuntaTotalMont] == 0 , 0 , [Spool].[EndA]/[WdiJunt" +
+    "aTotalMont])";
+            this.EndPerc.FieldType = DevExpress.XtraReports.UI.FieldType.Double;
+            this.EndPerc.Name = "EndPerc";
+            // 
+            // PondPerc
+            // 
+            this.PondPerc.Expression = "([VaPerc]*[Spool].[Contrato].[TabEAPPipes].[AvancoJuntaVAMont]) + ([AsPerc]*[Spoo" +
+    "l].[Contrato].[TabEAPPipes].[AvancoJuntaSoldMont]) + ([EndPerc]*[Spool].[Contrat" +
+    "o].[TabEAPPipes].[AvancoJuntaENDMont])";
+            this.PondPerc.FieldType = DevExpress.XtraReports.UI.FieldType.Double;
+            this.PondPerc.Name = "PondPerc";
+            // 
+            // PosPerc
+            // 
+            this.PosPerc.Expression = "Iif(IsNullOrEmpty([Spool].[DataPreMontagem]),0 ,1 )";
+            this.PosPerc.FieldType = DevExpress.XtraReports.UI.FieldType.Double;
+            this.PosPerc.Name = "PosPerc";
+            // 
             // collectionDataSource1
             // 
             this.collectionDataSource1.Name = "collectionDataSource1";
@@ -2079,7 +2133,12 @@ namespace WinCTB_CTS.Module.RelatorioPreDefinido
             this.CalculatedFields.AddRange(new DevExpress.XtraReports.UI.CalculatedField[] {
             this.PesoAcumuladoFab,
             this.PesoPonderadoMontKg,
-            this.PesoMedicaoAnteriorFab});
+            this.PesoMedicaoAnteriorFab,
+            this.VaPerc,
+            this.AsPerc,
+            this.EndPerc,
+            this.PondPerc,
+            this.PosPerc});
             this.ComponentStorage.AddRange(new System.ComponentModel.IComponent[] {
             this.collectionDataSource1});
             this.DataSource = this.collectionDataSource1;
@@ -2302,5 +2361,10 @@ namespace WinCTB_CTS.Module.RelatorioPreDefinido
         private DevExpress.XtraReports.UI.CalculatedField PesoAcumuladoFab;
         private DevExpress.XtraReports.UI.CalculatedField PesoPonderadoMontKg;
         private DevExpress.XtraReports.UI.CalculatedField PesoMedicaoAnteriorFab;
+        private DevExpress.XtraReports.UI.CalculatedField VaPerc;
+        private DevExpress.XtraReports.UI.CalculatedField AsPerc;
+        private DevExpress.XtraReports.UI.CalculatedField EndPerc;
+        private DevExpress.XtraReports.UI.CalculatedField PondPerc;
+        private DevExpress.XtraReports.UI.CalculatedField PosPerc;
     }
 }

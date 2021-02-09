@@ -728,6 +728,10 @@ namespace WinCTB_CTS.Module.BusinessObjects.Tubulacao
         }
 
         #region Campos Cálculados
+        //[XafDisplayName("Pend End Fab")]
+        //[PersistentAlias("Juntas[IsNullorEmpty(dataLiberacaoJunta) And CampoOuPipe == 'PIPE'].Count(JuntaSpool.junta)")]
+        //public double PendEndFab => Convert.ToDouble(EvaluateAlias("PendEndFab"));
+
         [XafDisplayName("Total Wdi Campo")]
         [PersistentAlias("Juntas[CampoOuPipe == 'CAMPO'].Sum(TabDiametro.Wdi)")]
         public double TotalWdiCampo => Convert.ToDouble(EvaluateAlias("TotalWdiCampo"));
@@ -745,12 +749,16 @@ namespace WinCTB_CTS.Module.BusinessObjects.Tubulacao
         public double VaAp => Convert.ToDouble(EvaluateAlias("VaAp"));
 
         [XafDisplayName("AS (E)")]
-        [PersistentAlias("Juntas[CampoOuPipe == 'CAMPO' and statusResold =! 'N'].Sum(TabDiametro.Wdi)")]
+        [PersistentAlias("Juntas[CampoOuPipe == 'CAMPO' And statusResold <> 'N'].Sum(TabDiametro.Wdi)")]
         public double AsE => Convert.ToDouble(EvaluateAlias("AsE"));
 
         [XafDisplayName("AS (A)")]
-        [PersistentAlias("Juntas[CampoOuPipe == 'CAMPO' and statusResold == 'A'].Sum(TabDiametro.Wdi)")]
+        [PersistentAlias("Juntas[CampoOuPipe == 'CAMPO' And statusResold == 'A'].Sum(TabDiametro.Wdi)")]
         public double AsAp => Convert.ToDouble(EvaluateAlias("AsAp"));
+
+        [XafDisplayName("END (A)")]
+        [PersistentAlias("Juntas[Not IsNullorEmpty(dataLiberacaoJunta) And CampoOuPipe == 'CAMPO'].Sum(TabDiametro.Wdi)")]
+        public double EndA => Convert.ToDouble(EvaluateAlias("EndA"));
 
         #endregion
     }
