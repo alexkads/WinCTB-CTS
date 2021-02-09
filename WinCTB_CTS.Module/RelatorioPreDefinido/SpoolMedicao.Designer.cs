@@ -236,17 +236,28 @@ namespace WinCTB_CTS.Module.RelatorioPreDefinido
             this.EndPerc = new DevExpress.XtraReports.UI.CalculatedField();
             this.PondPerc = new DevExpress.XtraReports.UI.CalculatedField();
             this.PosPerc = new DevExpress.XtraReports.UI.CalculatedField();
+            this.xrTable3 = new DevExpress.XtraReports.UI.XRTable();
+            this.xrTableRow3 = new DevExpress.XtraReports.UI.XRTableRow();
+            this.xrTableCell193 = new DevExpress.XtraReports.UI.XRTableCell();
+            this.xrTableCell194 = new DevExpress.XtraReports.UI.XRTableCell();
+            this.xrTableCell195 = new DevExpress.XtraReports.UI.XRTableCell();
+            this.xrTableCell196 = new DevExpress.XtraReports.UI.XRTableCell();
+            this.VaMontKg = new DevExpress.XtraReports.UI.CalculatedField();
             this.collectionDataSource1 = new DevExpress.Persistent.Base.ReportsV2.CollectionDataSource();
             ((System.ComponentModel.ISupportInitialize)(this.xrTable2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.xrTable1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.xrTable3)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.collectionDataSource1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this)).BeginInit();
             // 
             // TopMargin
             // 
             this.TopMargin.Controls.AddRange(new DevExpress.XtraReports.UI.XRControl[] {
+            this.xrTable3,
             this.xrTable2});
             this.TopMargin.Name = "TopMargin";
+            this.TopMargin.StylePriority.UseTextAlignment = false;
+            this.TopMargin.TextAlignment = DevExpress.XtraPrinting.TextAlignment.MiddleCenter;
             // 
             // xrTable2
             // 
@@ -373,218 +384,280 @@ namespace WinCTB_CTS.Module.RelatorioPreDefinido
             // 
             // xrTableCell97
             // 
+            this.xrTableCell97.BackColor = System.Drawing.Color.LightBlue;
             this.xrTableCell97.Multiline = true;
             this.xrTableCell97.Name = "xrTableCell97";
+            this.xrTableCell97.StylePriority.UseBackColor = false;
             this.xrTableCell97.Text = "Tag Spool";
             this.xrTableCell97.Weight = 1D;
             // 
             // xrTableCell98
             // 
+            this.xrTableCell98.BackColor = System.Drawing.Color.LightBlue;
             this.xrTableCell98.Multiline = true;
             this.xrTableCell98.Name = "xrTableCell98";
+            this.xrTableCell98.StylePriority.UseBackColor = false;
             this.xrTableCell98.Text = "Contrato";
             this.xrTableCell98.Weight = 1D;
             // 
             // xrTableCell99
             // 
+            this.xrTableCell99.BackColor = System.Drawing.Color.LightBlue;
             this.xrTableCell99.Multiline = true;
             this.xrTableCell99.Name = "xrTableCell99";
+            this.xrTableCell99.StylePriority.UseBackColor = false;
             this.xrTableCell99.Text = "Documento";
             this.xrTableCell99.Weight = 1D;
             // 
             // xrTableCell100
             // 
+            this.xrTableCell100.BackColor = System.Drawing.Color.LightBlue;
             this.xrTableCell100.Multiline = true;
             this.xrTableCell100.Name = "xrTableCell100";
+            this.xrTableCell100.StylePriority.UseBackColor = false;
             this.xrTableCell100.Text = "Campo Extra";
             this.xrTableCell100.Weight = 1D;
             // 
             // xrTableCell101
             // 
+            this.xrTableCell101.BackColor = System.Drawing.Color.LightBlue;
             this.xrTableCell101.Multiline = true;
             this.xrTableCell101.Name = "xrTableCell101";
+            this.xrTableCell101.StylePriority.UseBackColor = false;
             this.xrTableCell101.Text = "SOP";
             this.xrTableCell101.Weight = 1D;
             // 
             // xrTableCell102
             // 
+            this.xrTableCell102.BackColor = System.Drawing.Color.LightBlue;
             this.xrTableCell102.Multiline = true;
             this.xrTableCell102.Name = "xrTableCell102";
+            this.xrTableCell102.StylePriority.UseBackColor = false;
             this.xrTableCell102.Text = "Área Física";
             this.xrTableCell102.Weight = 1D;
             // 
             // xrTableCell103
             // 
+            this.xrTableCell103.BackColor = System.Drawing.Color.LightBlue;
             this.xrTableCell103.Multiline = true;
             this.xrTableCell103.Name = "xrTableCell103";
+            this.xrTableCell103.StylePriority.UseBackColor = false;
             this.xrTableCell103.Text = "STH";
             this.xrTableCell103.Weight = 1D;
             // 
             // xrTableCell104
             // 
+            this.xrTableCell104.BackColor = System.Drawing.Color.LightBlue;
             this.xrTableCell104.Multiline = true;
             this.xrTableCell104.Name = "xrTableCell104";
+            this.xrTableCell104.StylePriority.UseBackColor = false;
             this.xrTableCell104.Text = "Linha";
             this.xrTableCell104.Weight = 1D;
             // 
             // xrTableCell105
             // 
+            this.xrTableCell105.BackColor = System.Drawing.Color.LightBlue;
             this.xrTableCell105.Multiline = true;
             this.xrTableCell105.Name = "xrTableCell105";
+            this.xrTableCell105.StylePriority.UseBackColor = false;
             this.xrTableCell105.Text = "Fabricante";
             this.xrTableCell105.Weight = 1D;
             // 
             // xrTableCell106
             // 
+            this.xrTableCell106.BackColor = System.Drawing.Color.LightBlue;
             this.xrTableCell106.Multiline = true;
             this.xrTableCell106.Name = "xrTableCell106";
+            this.xrTableCell106.StylePriority.UseBackColor = false;
             this.xrTableCell106.Text = "Isométrico";
             this.xrTableCell106.Weight = 1D;
             // 
             // xrTableCell107
             // 
+            this.xrTableCell107.BackColor = System.Drawing.Color.LightBlue;
             this.xrTableCell107.Multiline = true;
             this.xrTableCell107.Name = "xrTableCell107";
+            this.xrTableCell107.StylePriority.UseBackColor = false;
             this.xrTableCell107.Text = "Spool";
             this.xrTableCell107.Weight = 1D;
             // 
             // xrTableCell108
             // 
+            this.xrTableCell108.BackColor = System.Drawing.Color.LightBlue;
             this.xrTableCell108.Multiline = true;
             this.xrTableCell108.Name = "xrTableCell108";
+            this.xrTableCell108.StylePriority.UseBackColor = false;
             this.xrTableCell108.Text = "Rev. Spool";
             this.xrTableCell108.Weight = 1D;
             // 
             // xrTableCell109
             // 
+            this.xrTableCell109.BackColor = System.Drawing.Color.LightBlue;
             this.xrTableCell109.Multiline = true;
             this.xrTableCell109.Name = "xrTableCell109";
+            this.xrTableCell109.StylePriority.UseBackColor = false;
             this.xrTableCell109.Text = "Rev. Iso";
             this.xrTableCell109.Weight = 1D;
             // 
             // xrTableCell110
             // 
+            this.xrTableCell110.BackColor = System.Drawing.Color.LightBlue;
             this.xrTableCell110.Multiline = true;
             this.xrTableCell110.Name = "xrTableCell110";
+            this.xrTableCell110.StylePriority.UseBackColor = false;
             this.xrTableCell110.Text = "Mat. [PT]";
             this.xrTableCell110.Weight = 1D;
             // 
             // xrTableCell111
             // 
+            this.xrTableCell111.BackColor = System.Drawing.Color.LightBlue;
             this.xrTableCell111.Multiline = true;
             this.xrTableCell111.Name = "xrTableCell111";
+            this.xrTableCell111.StylePriority.UseBackColor = false;
             this.xrTableCell111.Text = "Mat. [EN]";
             this.xrTableCell111.Weight = 1D;
             // 
             // xrTableCell112
             // 
+            this.xrTableCell112.BackColor = System.Drawing.Color.LightBlue;
             this.xrTableCell112.Multiline = true;
             this.xrTableCell112.Name = "xrTableCell112";
+            this.xrTableCell112.StylePriority.UseBackColor = false;
             this.xrTableCell112.Text = "Diâmetro [mm]";
             this.xrTableCell112.Weight = 1D;
             // 
             // xrTableCell113
             // 
+            this.xrTableCell113.BackColor = System.Drawing.Color.LightBlue;
             this.xrTableCell113.Multiline = true;
             this.xrTableCell113.Name = "xrTableCell113";
+            this.xrTableCell113.StylePriority.UseBackColor = false;
             this.xrTableCell113.Text = "Diâmetro [pol]";
             this.xrTableCell113.Weight = 1D;
             // 
             // xrTableCell114
             // 
+            this.xrTableCell114.BackColor = System.Drawing.Color.LightBlue;
             this.xrTableCell114.Multiline = true;
             this.xrTableCell114.Name = "xrTableCell114";
+            this.xrTableCell114.StylePriority.UseBackColor = false;
             this.xrTableCell114.Text = "Espessura";
             this.xrTableCell114.Weight = 1D;
             // 
             // xrTableCell115
             // 
+            this.xrTableCell115.BackColor = System.Drawing.Color.LightBlue;
             this.xrTableCell115.Multiline = true;
             this.xrTableCell115.Name = "xrTableCell115";
+            this.xrTableCell115.StylePriority.UseBackColor = false;
             this.xrTableCell115.Text = "Espec";
             this.xrTableCell115.Weight = 1D;
             // 
             // xrTableCell116
             // 
+            this.xrTableCell116.BackColor = System.Drawing.Color.LightBlue;
             this.xrTableCell116.Multiline = true;
             this.xrTableCell116.Name = "xrTableCell116";
+            this.xrTableCell116.StylePriority.UseBackColor = false;
             this.xrTableCell116.Text = "PNumber";
             this.xrTableCell116.Weight = 1D;
             // 
             // xrTableCell117
             // 
+            this.xrTableCell117.BackColor = System.Drawing.Color.LightBlue;
             this.xrTableCell117.Multiline = true;
             this.xrTableCell117.Name = "xrTableCell117";
+            this.xrTableCell117.StylePriority.UseBackColor = false;
             this.xrTableCell117.Text = "Fluido";
             this.xrTableCell117.Weight = 1D;
             // 
             // xrTableCell118
             // 
+            this.xrTableCell118.BackColor = System.Drawing.Color.LightBlue;
             this.xrTableCell118.Multiline = true;
             this.xrTableCell118.Name = "xrTableCell118";
+            this.xrTableCell118.StylePriority.UseBackColor = false;
             this.xrTableCell118.Text = "Tipo de Isolamento";
             this.xrTableCell118.Weight = 1D;
             // 
             // xrTableCell119
             // 
+            this.xrTableCell119.BackColor = System.Drawing.Color.LightBlue;
             this.xrTableCell119.Multiline = true;
             this.xrTableCell119.Name = "xrTableCell119";
+            this.xrTableCell119.StylePriority.UseBackColor = false;
             this.xrTableCell119.Text = "Condição de Pintura";
             this.xrTableCell119.Weight = 1D;
             // 
             // xrTableCell120
             // 
+            this.xrTableCell120.BackColor = System.Drawing.Color.LightBlue;
             this.xrTableCell120.Multiline = true;
             this.xrTableCell120.Name = "xrTableCell120";
+            this.xrTableCell120.StylePriority.UseBackColor = false;
             this.xrTableCell120.Text = "Comprimento";
             this.xrTableCell120.Weight = 1D;
             // 
             // xrTableCell121
             // 
+            this.xrTableCell121.BackColor = System.Drawing.Color.LightBlue;
             this.xrTableCell121.Multiline = true;
             this.xrTableCell121.Name = "xrTableCell121";
+            this.xrTableCell121.StylePriority.UseBackColor = false;
             this.xrTableCell121.Text = "Peso Fabricação";
             this.xrTableCell121.Weight = 1D;
             // 
             // xrTableCell122
             // 
+            this.xrTableCell122.BackColor = System.Drawing.Color.LightBlue;
             this.xrTableCell122.Multiline = true;
             this.xrTableCell122.Name = "xrTableCell122";
+            this.xrTableCell122.StylePriority.UseBackColor = false;
             this.xrTableCell122.Text = "Área";
             this.xrTableCell122.Weight = 1D;
             // 
             // xrTableCell123
             // 
+            this.xrTableCell123.BackColor = System.Drawing.Color.LightBlue;
             this.xrTableCell123.Multiline = true;
             this.xrTableCell123.Name = "xrTableCell123";
+            this.xrTableCell123.StylePriority.UseBackColor = false;
             this.xrTableCell123.Text = "Esp. do Isolamento";
             this.xrTableCell123.Weight = 1D;
             // 
             // xrTableCell124
             // 
+            this.xrTableCell124.BackColor = System.Drawing.Color.LightBlue;
             this.xrTableCell124.Multiline = true;
             this.xrTableCell124.Name = "xrTableCell124";
+            this.xrTableCell124.StylePriority.UseBackColor = false;
             this.xrTableCell124.Text = "QTD. do Isolamento";
             this.xrTableCell124.Weight = 1D;
             // 
             // xrTableCell125
             // 
+            this.xrTableCell125.BackColor = System.Drawing.Color.LightBlue;
             this.xrTableCell125.Multiline = true;
             this.xrTableCell125.Name = "xrTableCell125";
+            this.xrTableCell125.StylePriority.UseBackColor = false;
             this.xrTableCell125.Text = "Total de Juntas";
             this.xrTableCell125.Weight = 1D;
             // 
             // xrTableCell126
             // 
+            this.xrTableCell126.BackColor = System.Drawing.Color.LightBlue;
             this.xrTableCell126.Multiline = true;
             this.xrTableCell126.Name = "xrTableCell126";
+            this.xrTableCell126.StylePriority.UseBackColor = false;
             this.xrTableCell126.Text = "Total de Juntas [PIPE]";
             this.xrTableCell126.Weight = 1D;
             // 
             // xrTableCell127
             // 
+            this.xrTableCell127.BackColor = System.Drawing.Color.LightBlue;
             this.xrTableCell127.Multiline = true;
             this.xrTableCell127.Name = "xrTableCell127";
+            this.xrTableCell127.StylePriority.UseBackColor = false;
             this.xrTableCell127.Text = "Data de Cadastro";
             this.xrTableCell127.Weight = 1D;
             // 
@@ -1424,6 +1497,7 @@ namespace WinCTB_CTS.Module.RelatorioPreDefinido
             this.xrTableCell24.Multiline = true;
             this.xrTableCell24.Name = "xrTableCell24";
             this.xrTableCell24.Text = "xrTableCell24";
+            this.xrTableCell24.TextFormatString = "{0:n2}";
             this.xrTableCell24.Weight = 1D;
             // 
             // xrTableCell25
@@ -1433,6 +1507,7 @@ namespace WinCTB_CTS.Module.RelatorioPreDefinido
             this.xrTableCell25.Multiline = true;
             this.xrTableCell25.Name = "xrTableCell25";
             this.xrTableCell25.Text = "xrTableCell25";
+            this.xrTableCell25.TextFormatString = "{0:n2}";
             this.xrTableCell25.Weight = 1D;
             // 
             // xrTableCell26
@@ -1442,6 +1517,7 @@ namespace WinCTB_CTS.Module.RelatorioPreDefinido
             this.xrTableCell26.Multiline = true;
             this.xrTableCell26.Name = "xrTableCell26";
             this.xrTableCell26.Text = "xrTableCell26";
+            this.xrTableCell26.TextFormatString = "{0:n2}";
             this.xrTableCell26.Weight = 1D;
             // 
             // xrTableCell27
@@ -1451,6 +1527,7 @@ namespace WinCTB_CTS.Module.RelatorioPreDefinido
             this.xrTableCell27.Multiline = true;
             this.xrTableCell27.Name = "xrTableCell27";
             this.xrTableCell27.Text = "xrTableCell27";
+            this.xrTableCell27.TextFormatString = "{0:n2}";
             this.xrTableCell27.Weight = 1D;
             // 
             // xrTableCell28
@@ -1487,6 +1564,7 @@ namespace WinCTB_CTS.Module.RelatorioPreDefinido
             this.xrTableCell31.Multiline = true;
             this.xrTableCell31.Name = "xrTableCell31";
             this.xrTableCell31.Text = "xrTableCell31";
+            this.xrTableCell31.TextFormatString = "{0:dd/MM/yyyy}";
             this.xrTableCell31.Weight = 1D;
             // 
             // xrTableCell32
@@ -1532,6 +1610,7 @@ namespace WinCTB_CTS.Module.RelatorioPreDefinido
             this.xrTableCell36.Multiline = true;
             this.xrTableCell36.Name = "xrTableCell36";
             this.xrTableCell36.Text = "xrTableCell36";
+            this.xrTableCell36.TextFormatString = "{0:dd/MM/yyyy}";
             this.xrTableCell36.Weight = 1D;
             // 
             // xrTableCell37
@@ -1874,6 +1953,7 @@ namespace WinCTB_CTS.Module.RelatorioPreDefinido
             this.xrTableCell74.Multiline = true;
             this.xrTableCell74.Name = "xrTableCell74";
             this.xrTableCell74.Text = "xrTableCell74";
+            this.xrTableCell74.TextFormatString = "{0:dd/MM/yyyy}";
             this.xrTableCell74.Weight = 1D;
             // 
             // xrTableCell75
@@ -1883,6 +1963,7 @@ namespace WinCTB_CTS.Module.RelatorioPreDefinido
             this.xrTableCell75.Multiline = true;
             this.xrTableCell75.Name = "xrTableCell75";
             this.xrTableCell75.Text = "xrTableCell75";
+            this.xrTableCell75.TextFormatString = "{0:n2}";
             this.xrTableCell75.Weight = 1D;
             // 
             // xrTableCell76
@@ -1910,6 +1991,7 @@ namespace WinCTB_CTS.Module.RelatorioPreDefinido
             this.xrTableCell78.Multiline = true;
             this.xrTableCell78.Name = "xrTableCell78";
             this.xrTableCell78.Text = "xrTableCell78";
+            this.xrTableCell78.TextFormatString = "{0:n2}";
             this.xrTableCell78.Weight = 1D;
             // 
             // xrTableCell79
@@ -1919,6 +2001,7 @@ namespace WinCTB_CTS.Module.RelatorioPreDefinido
             this.xrTableCell79.Multiline = true;
             this.xrTableCell79.Name = "xrTableCell79";
             this.xrTableCell79.Text = "xrTableCell79";
+            this.xrTableCell79.TextFormatString = "{0:n2}";
             this.xrTableCell79.Weight = 1D;
             // 
             // xrTableCell80
@@ -1928,10 +2011,13 @@ namespace WinCTB_CTS.Module.RelatorioPreDefinido
             this.xrTableCell80.Multiline = true;
             this.xrTableCell80.Name = "xrTableCell80";
             this.xrTableCell80.Text = "xrTableCell80";
+            this.xrTableCell80.TextFormatString = "{0:n2}";
             this.xrTableCell80.Weight = 1D;
             // 
             // xrTableCell81
             // 
+            this.xrTableCell81.ExpressionBindings.AddRange(new DevExpress.XtraReports.UI.ExpressionBinding[] {
+            new DevExpress.XtraReports.UI.ExpressionBinding("BeforePrint", "Text", "[Spool].[PendEndFab]")});
             this.xrTableCell81.Multiline = true;
             this.xrTableCell81.Name = "xrTableCell81";
             this.xrTableCell81.Weight = 1D;
@@ -2023,33 +2109,40 @@ namespace WinCTB_CTS.Module.RelatorioPreDefinido
             // xrTableCell92
             // 
             this.xrTableCell92.ExpressionBindings.AddRange(new DevExpress.XtraReports.UI.ExpressionBinding[] {
-            new DevExpress.XtraReports.UI.ExpressionBinding("BeforePrint", "Text", "[PosPerc]*[Spool].[PesoMontagem]")});
+            new DevExpress.XtraReports.UI.ExpressionBinding("BeforePrint", "Text", "[PosPerc]*[Spool].[PesoMontagem]*[Spool].[Contrato].[TabEAPPipes].[AvancoSpoolPos" +
+                    "icionamento]")});
             this.xrTableCell92.Multiline = true;
             this.xrTableCell92.Name = "xrTableCell92";
+            this.xrTableCell92.TextFormatString = "{0:n2}";
             this.xrTableCell92.Weight = 1D;
             // 
             // xrTableCell93
             // 
             this.xrTableCell93.ExpressionBindings.AddRange(new DevExpress.XtraReports.UI.ExpressionBinding[] {
-            new DevExpress.XtraReports.UI.ExpressionBinding("BeforePrint", "Text", "[VaPerc]*[PesoMontagem]")});
+            new DevExpress.XtraReports.UI.ExpressionBinding("BeforePrint", "Text", "[VaMontKg]*[Spool].[Contrato].[TabEAPPipes].[AvancoJuntaVAMont]")});
             this.xrTableCell93.Multiline = true;
             this.xrTableCell93.Name = "xrTableCell93";
+            this.xrTableCell93.TextFormatString = "{0:n2}";
             this.xrTableCell93.Weight = 1D;
             // 
             // xrTableCell94
             // 
             this.xrTableCell94.ExpressionBindings.AddRange(new DevExpress.XtraReports.UI.ExpressionBinding[] {
-            new DevExpress.XtraReports.UI.ExpressionBinding("BeforePrint", "Text", "[AsPerc]*[PesoMontagem]")});
+            new DevExpress.XtraReports.UI.ExpressionBinding("BeforePrint", "Text", "[AsPerc]*[Spool].[PesoMontagem]*[Spool].[Contrato].[TabEAPPipes].[AvancoJuntaSold" +
+                    "Mont]")});
             this.xrTableCell94.Multiline = true;
             this.xrTableCell94.Name = "xrTableCell94";
+            this.xrTableCell94.TextFormatString = "{0:n2}";
             this.xrTableCell94.Weight = 1D;
             // 
             // xrTableCell95
             // 
             this.xrTableCell95.ExpressionBindings.AddRange(new DevExpress.XtraReports.UI.ExpressionBinding[] {
-            new DevExpress.XtraReports.UI.ExpressionBinding("BeforePrint", "Text", "[EndPerc]*[PesoMontagem]")});
+            new DevExpress.XtraReports.UI.ExpressionBinding("BeforePrint", "Text", "[EndPerc]*[Spool].[PesoMontagem]*[Spool].[Contrato].[TabEAPPipes].[AvancoJuntaEND" +
+                    "Mont]")});
             this.xrTableCell95.Multiline = true;
             this.xrTableCell95.Name = "xrTableCell95";
+            this.xrTableCell95.TextFormatString = "{0:n2}";
             this.xrTableCell95.Weight = 1D;
             // 
             // xrTableCell96
@@ -2058,6 +2151,7 @@ namespace WinCTB_CTS.Module.RelatorioPreDefinido
             new DevExpress.XtraReports.UI.ExpressionBinding("BeforePrint", "Text", "[PesoPonderadoMontKg]")});
             this.xrTableCell96.Multiline = true;
             this.xrTableCell96.Name = "xrTableCell96";
+            this.xrTableCell96.TextFormatString = "{0:n2}";
             this.xrTableCell96.Weight = 1D;
             // 
             // PesoAcumuladoFab
@@ -2118,6 +2212,66 @@ namespace WinCTB_CTS.Module.RelatorioPreDefinido
             this.PosPerc.FieldType = DevExpress.XtraReports.UI.FieldType.Double;
             this.PosPerc.Name = "PosPerc";
             // 
+            // xrTable3
+            // 
+            this.xrTable3.Borders = ((DevExpress.XtraPrinting.BorderSide)((((DevExpress.XtraPrinting.BorderSide.Left | DevExpress.XtraPrinting.BorderSide.Top) 
+            | DevExpress.XtraPrinting.BorderSide.Right) 
+            | DevExpress.XtraPrinting.BorderSide.Bottom)));
+            this.xrTable3.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.xrTable3.LocationFloat = new DevExpress.Utils.PointFloat(7700F, 50F);
+            this.xrTable3.Name = "xrTable3";
+            this.xrTable3.Padding = new DevExpress.XtraPrinting.PaddingInfo(2, 2, 0, 0, 96F);
+            this.xrTable3.Rows.AddRange(new DevExpress.XtraReports.UI.XRTableRow[] {
+            this.xrTableRow3});
+            this.xrTable3.SizeF = new System.Drawing.SizeF(1900F, 25F);
+            this.xrTable3.StylePriority.UseBorders = false;
+            this.xrTable3.StylePriority.UseFont = false;
+            // 
+            // xrTableRow3
+            // 
+            this.xrTableRow3.Cells.AddRange(new DevExpress.XtraReports.UI.XRTableCell[] {
+            this.xrTableCell196,
+            this.xrTableCell193,
+            this.xrTableCell194,
+            this.xrTableCell195});
+            this.xrTableRow3.Name = "xrTableRow3";
+            this.xrTableRow3.Weight = 1D;
+            // 
+            // xrTableCell193
+            // 
+            this.xrTableCell193.Multiline = true;
+            this.xrTableCell193.Name = "xrTableCell193";
+            this.xrTableCell193.Text = "AVANÇO DE JUNTAS (MONTAGEM)";
+            this.xrTableCell193.Weight = 2.7210440420646114D;
+            // 
+            // xrTableCell194
+            // 
+            this.xrTableCell194.Multiline = true;
+            this.xrTableCell194.Name = "xrTableCell194";
+            this.xrTableCell194.Text = "AVANÇO PERCENTUAL (MONTAGEM)";
+            this.xrTableCell194.Weight = 1.8140308376384824D;
+            // 
+            // xrTableCell195
+            // 
+            this.xrTableCell195.Multiline = true;
+            this.xrTableCell195.Name = "xrTableCell195";
+            this.xrTableCell195.Text = "AVANÇO PONDERADO (MONTAGEM)";
+            this.xrTableCell195.Weight = 2.2675385470481033D;
+            // 
+            // xrTableCell196
+            // 
+            this.xrTableCell196.Multiline = true;
+            this.xrTableCell196.Name = "xrTableCell196";
+            this.xrTableCell196.Text = "AVANÇO DE FABRICAÇÃO (PESO)";
+            this.xrTableCell196.Weight = 1.814035266424707D;
+            // 
+            // VaMontKg
+            // 
+            this.VaMontKg.Expression = "Iif([Spool].[VaE] == 0, Iif(IsNullOrEmpty([Spool].[DataPreMontagem]), 0,[Spool].[" +
+    "PesoMontagem] ), [VaPerc]*[Spool].[PesoMontagem] )";
+            this.VaMontKg.FieldType = DevExpress.XtraReports.UI.FieldType.Double;
+            this.VaMontKg.Name = "VaMontKg";
+            // 
             // collectionDataSource1
             // 
             this.collectionDataSource1.Name = "collectionDataSource1";
@@ -2138,7 +2292,8 @@ namespace WinCTB_CTS.Module.RelatorioPreDefinido
             this.AsPerc,
             this.EndPerc,
             this.PondPerc,
-            this.PosPerc});
+            this.PosPerc,
+            this.VaMontKg});
             this.ComponentStorage.AddRange(new System.ComponentModel.IComponent[] {
             this.collectionDataSource1});
             this.DataSource = this.collectionDataSource1;
@@ -2151,6 +2306,7 @@ namespace WinCTB_CTS.Module.RelatorioPreDefinido
             this.Version = "18.2";
             ((System.ComponentModel.ISupportInitialize)(this.xrTable2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.xrTable1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.xrTable3)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.collectionDataSource1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this)).EndInit();
 
@@ -2366,5 +2522,12 @@ namespace WinCTB_CTS.Module.RelatorioPreDefinido
         private DevExpress.XtraReports.UI.CalculatedField EndPerc;
         private DevExpress.XtraReports.UI.CalculatedField PondPerc;
         private DevExpress.XtraReports.UI.CalculatedField PosPerc;
+        private DevExpress.XtraReports.UI.XRTable xrTable3;
+        private DevExpress.XtraReports.UI.XRTableRow xrTableRow3;
+        private DevExpress.XtraReports.UI.XRTableCell xrTableCell193;
+        private DevExpress.XtraReports.UI.XRTableCell xrTableCell194;
+        private DevExpress.XtraReports.UI.XRTableCell xrTableCell195;
+        private DevExpress.XtraReports.UI.XRTableCell xrTableCell196;
+        private DevExpress.XtraReports.UI.CalculatedField VaMontKg;
     }
 }
