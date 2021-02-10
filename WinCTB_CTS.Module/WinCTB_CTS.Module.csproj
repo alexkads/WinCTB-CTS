@@ -180,6 +180,12 @@
     <Compile Include="RelatorioPreDefinido\ComponentesMedicao.Designer.cs">
       <DependentUpon>ComponentesMedicao.cs</DependentUpon>
     </Compile>
+    <Compile Include="RelatorioPreDefinido\JuntaComponentes.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="RelatorioPreDefinido\JuntaComponentes.Designer.cs">
+      <DependentUpon>JuntaComponentes.cs</DependentUpon>
+    </Compile>
     <Compile Include="RelatorioPreDefinido\JuntaMedicao.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -223,6 +229,9 @@
     <None Include="DatabaseUpdate\ReadMe.txt" />
     <EmbeddedResource Include="RelatorioPreDefinido\ComponentesMedicao.resx">
       <DependentUpon>ComponentesMedicao.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="RelatorioPreDefinido\JuntaComponentes.resx">
+      <DependentUpon>JuntaComponentes.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="RelatorioPreDefinido\JuntaMedicao.resx">
       <DependentUpon>JuntaMedicao.cs</DependentUpon>

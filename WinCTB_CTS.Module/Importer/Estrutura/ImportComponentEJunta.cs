@@ -236,7 +236,8 @@ namespace WinCTB_CTS.Module.Importer.Estrutura
                         juntaComponente.StatusSolda = linha[34].ToString();
                         juntaComponente.DataVisual = Utils.ConvertDateTime(linha[35]);
                         juntaComponente.RelatorioVisualSolda = linha[36].ToString();
-                        juntaComponente.StatusVisualSolda = linha[37].ToString();
+                        juntaComponente.InspetorVisualSolda = linha[37].ToString();
+                        juntaComponente.StatusVisualSolda = linha[38].ToString();
                         juntaComponente.SampleMp = linha[39].ToString();
                         juntaComponente.DataLP = Utils.ConvertDateTime(linha[40]);
                         juntaComponente.RelatorioLp = linha[41].ToString();
