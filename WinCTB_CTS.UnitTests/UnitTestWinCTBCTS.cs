@@ -46,7 +46,6 @@ namespace WinCTB_CTS.UnitTests
             }
         }
 
-
         [TestMethod]
         [TestCase()]
         public async Task TesteImportacaoSpoolEJunta()
