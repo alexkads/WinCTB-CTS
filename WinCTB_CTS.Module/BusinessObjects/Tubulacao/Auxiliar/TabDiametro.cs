@@ -15,6 +15,7 @@ using System.Text;
 namespace WinCTB_CTS.Module.BusinessObjects.Tubulacao.Auxiliar
 {
     [DefaultClassOptions, DefaultProperty("DiametroPolegada"), ImageName("BO_Contract"), NavigationItem("Tabela Auxiliar")]
+    [Indices("DiametroPolegada")]
 
     public class TabDiametro : BaseObject
     { 

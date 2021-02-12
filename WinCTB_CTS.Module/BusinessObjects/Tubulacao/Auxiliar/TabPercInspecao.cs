@@ -15,6 +15,7 @@ using System.Text;
 namespace WinCTB_CTS.Module.BusinessObjects.Tubulacao.Auxiliar
 {
     [DefaultClassOptions, DefaultProperty("PercentualDeInspecao"), ImageName("BO_Contract"), NavigationItem("Tabela Auxiliar")]
+    [Indices("Spec")]
     public class TabPercInspecao : BaseObject
     { 
         public TabPercInspecao(Session session)
@@ -32,7 +33,6 @@ namespace WinCTB_CTS.Module.BusinessObjects.Tubulacao.Auxiliar
         private string spec;
 
         [Size(20)]
-        [Indexed(Unique = false)]
         [RuleRequiredField(DefaultContexts.Save, ResultType = ValidationResultType.Error)]
         public string Spec
         {

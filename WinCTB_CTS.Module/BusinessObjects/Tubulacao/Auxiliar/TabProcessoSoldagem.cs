@@ -15,6 +15,7 @@ using System.Text;
 namespace WinCTB_CTS.Module.BusinessObjects.Tubulacao.Auxiliar
 {
     [DefaultClassOptions, DefaultProperty("Eps"), ImageName("BO_Contract"), NavigationItem("Tabela Auxiliar")]
+    [Indices("Eps")]
     public class TabProcessoSoldagem : BaseObject
     { 
         public TabProcessoSoldagem(Session session)

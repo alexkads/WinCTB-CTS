@@ -14,7 +14,8 @@ using System.Text;
 
 namespace WinCTB_CTS.Module.BusinessObjects.Tubulacao.Auxiliar
 {
-    [DefaultClassOptions, DefaultProperty("PipingClass"), ImageName("BO_Contract"), NavigationItem("Tabela Auxiliar")]
+    [DefaultClassOptions, DefaultProperty("ScheduleTag"), ImageName("BO_Contract"), NavigationItem("Tabela Auxiliar")]
+    [Indices("PipingClass;Material")]
     public class TabSchedule : BaseObject
     {
         public TabSchedule(Session session)

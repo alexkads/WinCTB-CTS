@@ -258,7 +258,7 @@ namespace WinCTB_CTS.Module.BusinessObjects.Tubulacao
         }
 
 
-        [VisibleInListView(false)]
+        [VisibleInListView(false), XafDisplayName("Schedule")]
         public TabSchedule TabSchedule
         {
             get => tabSchedule;

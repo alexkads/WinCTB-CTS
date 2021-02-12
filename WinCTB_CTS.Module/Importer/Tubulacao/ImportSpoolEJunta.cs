@@ -232,6 +232,9 @@ namespace WinCTB_CTS.Module.Importer.Tubulacao
             UnitOfWork uow = new UnitOfWork(((XPObjectSpace)objectSpace).Session.ObjectLayer);
             var TotalDeJuntas = dtJuntasImport.Rows.Count;
 
+            //var juntas = new XPCollection<JuntaSpool>(uow);
+            //var spools = new XPCollection<Spool>(uow);
+
             var oldJuntas = Utils.GetOldDatasForCheck<JuntaSpool>(uow);
 
             progress.Report(new ImportProgressReport
@@ -254,7 +257,10 @@ namespace WinCTB_CTS.Module.Importer.Tubulacao
                     var linha = dtJuntasImport.Rows[i];
                     var PesquisarSpool = linha[8].ToString();
                     var FiltroPesquisa = new BinaryOperator("TagSpool", PesquisarSpool);
+
                     var spool = uow.FindObject<Spool>(FiltroPesquisa);
+                    //var spool = spools.FirstOrDefault(x => x.TagSpool == PesquisarSpool);
+
                     if (spool != null)
                     {
                         var junta = linha[9].ToString();
@@ -263,6 +269,7 @@ namespace WinCTB_CTS.Module.Importer.Tubulacao
                             spool.Oid, junta);
 
                         var juntaSpool = uow.FindObject<JuntaSpool>(criteriaOperator);
+                        //var juntaSpool = juntas.FirstOrDefault(x => x.Spool.Oid == spool.Oid && x.Junta == junta);
 
                         if (juntaSpool == null)
                             juntaSpool = new JuntaSpool(uow);
@@ -365,7 +372,7 @@ namespace WinCTB_CTS.Module.Importer.Tubulacao
                             : uow.QueryInTransaction<TabProcessoSoldagem>()
                                 .FirstOrDefault(proc => proc.Eps == juntaSpool.Eps)?.Ench;
 
-                        juntaSpool.TabSchedule = 
+                        juntaSpool.TabSchedule =
                             juntaSpool?.TabPercInspecao == null
                             ? null
                             : uow.QueryInTransaction<TabSchedule>()
@@ -376,7 +383,7 @@ namespace WinCTB_CTS.Module.Importer.Tubulacao
 
 
 
-                if (i % 1000 == 0)
+                if (i % 100 == 0)
                 {
                     try
                     {
