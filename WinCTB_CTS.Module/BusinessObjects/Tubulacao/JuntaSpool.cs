@@ -36,7 +36,9 @@ namespace WinCTB_CTS.Module.BusinessObjects.Tubulacao
         }
 
 
-        TabSchedule tabSchedule;
+        private string processoEnch;
+        private string processoRaiz;
+        private TabSchedule tabSchedule;
         private TabPercInspecao tabPercInspecao;
         private TabDiametro tabDiametro;
         private string relDimFab;
@@ -255,7 +257,7 @@ namespace WinCTB_CTS.Module.BusinessObjects.Tubulacao
             set => SetPropertyValue(nameof(TabDiametro), ref tabDiametro, value);
         }
 
-       
+
         [VisibleInListView(false)]
         public TabSchedule TabSchedule
         {
@@ -384,6 +386,20 @@ namespace WinCTB_CTS.Module.BusinessObjects.Tubulacao
         {
             get => consumivelEnch;
             set => SetPropertyValue(nameof(ConsumivelEnch), ref consumivelEnch, value);
+        }
+
+        [Size(50), XafDisplayName("Processo Raíz")]
+        public string ProcessoRaiz
+        {
+            get => processoRaiz;
+            set => SetPropertyValue(nameof(ProcessoRaiz), ref processoRaiz, value);
+        }
+        
+        [Size(50), XafDisplayName("Processo Enchimento")]
+        public string ProcessoEnch
+        {
+            get => processoEnch;
+            set => SetPropertyValue(nameof(ProcessoEnch), ref processoEnch, value);
         }
 
         [Size(100), XafDisplayName("Consumível de Acabamento")]

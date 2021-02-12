@@ -351,6 +351,11 @@ namespace WinCTB_CTS.Module.Importer.Tubulacao
                         juntaSpool.DataLiberacaoJunta = Utils.ConvertDateTime(linha[82]);
                         juntaSpool.SituacaoJunta = linha[83].ToString();
                         juntaSpool.Spool = spool;
+
+                        //Complemento
+                        juntaSpool.ProcessoRaiz = uow.QueryInTransaction<TabProcessoSoldagem>().FirstOrDefault(proc => proc.Eps == juntaSpool.Eps).Raiz;
+                        juntaSpool.ProcessoEnch = uow.QueryInTransaction<TabProcessoSoldagem>().FirstOrDefault(proc => proc.Eps == juntaSpool.Eps).Ench;
+                        juntaSpool.TabSchedule = uow.QueryInTransaction<TabSchedule>().FirstOrDefault(sch => sch.PipingClass == juntaSpool.TabPercInspecao.Spec && sch.Wdi == juntaSpool.Wdi);
                     }
 
                 }
