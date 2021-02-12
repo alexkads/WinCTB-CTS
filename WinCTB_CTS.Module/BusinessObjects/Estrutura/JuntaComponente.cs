@@ -11,13 +11,14 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using System.Text;
+using WinCTB_CTS.Module.BusinessObjects.Estrutura.Lotes;
 
 namespace WinCTB_CTS.Module.BusinessObjects.Estrutura
 {
     [DefaultClassOptions, DefaultProperty("ConcatComponenteJunta"), ImageName("BO_Contract"), NavigationItem("Estrutura")]
     [Indices("Componente;Junta")]
     public class JuntaComponente : BaseObject
-    { 
+    {
         public JuntaComponente(Session session)
             : base(session)
         {
@@ -28,9 +29,9 @@ namespace WinCTB_CTS.Module.BusinessObjects.Estrutura
         }
 
 
-        private int percRt;
-        private int percUt;
-        private int percLpPm;
+        private double percRt;
+        private double percUt;
+        private double percLpPm;
         private string statusJunta;
         private string statusUs;
         private double comprimentoReparoUs;
@@ -473,6 +474,12 @@ namespace WinCTB_CTS.Module.BusinessObjects.Estrutura
             set => SetPropertyValue(nameof(ComprimentoReparoUs), ref comprimentoReparoUs, value);
         }
 
+        public double PercLpPm
+        {
+            get => percLpPm;
+            set => SetPropertyValue(nameof(PercLpPm), ref percLpPm, value);
+        }
+
         [Size(100), XafDisplayName("Status de US")]
         public string StatusUs
         {
@@ -487,29 +494,26 @@ namespace WinCTB_CTS.Module.BusinessObjects.Estrutura
             set => SetPropertyValue(nameof(StatusJunta), ref statusJunta, value);
         }
 
-
-        public int PercLpPm
-        {
-            get => percLpPm;
-            set => SetPropertyValue(nameof(PercLpPm), ref percLpPm, value);
-        }
-
-
-        public int PercUt
+        public double PercUt
         {
             get => percUt;
             set => SetPropertyValue(nameof(PercUt), ref percUt, value);
         }
 
-        
-        public int PercRt
+        public double PercRt
         {
             get => percRt;
             set => SetPropertyValue(nameof(PercRt), ref percRt, value);
         }
 
 
-
+        #region Lotes
+        [ModelDefault("AllowEdit", "False")]
+        [VisibleInDetailView(false)]
+        [Association("JuntaComponente-LoteLPPMJuntaEstruturas")]
+        public XPCollection<LoteLPPMJuntaEstrutura> LoteLPPMJuntaEstruturas
+            => GetCollection<LoteLPPMJuntaEstrutura>(nameof(LoteLPPMJuntaEstruturas));
+        #endregion
 
 
     }

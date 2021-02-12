@@ -101,5 +101,16 @@ namespace WinCTB_CTS.UnitTests
                 objectSpace.CommitChanges();
             }
         }
+
+        [TestMethod]
+        [TestCase()]
+        public async Task TesteGeradoresDeLotes()
+        {
+            var application = new Application(false);
+            IObjectSpaceProvider objectSpaceProvider = application.serverApplication.ObjectSpaceProvider;
+            var progress = new Progress<string>();
+            var gerador = new Module.Calculator.GerarLoteLPPM(objectSpaceProvider);
+            await gerador.GerarLoteLPPMAsync(progress);
+        }
     }
 }

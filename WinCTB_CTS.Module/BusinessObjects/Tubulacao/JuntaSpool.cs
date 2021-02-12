@@ -122,7 +122,6 @@ namespace WinCTB_CTS.Module.BusinessObjects.Tubulacao
         private string site;
         private Spool spool;
 
-
         [Size(100)]
         public string Site
         {

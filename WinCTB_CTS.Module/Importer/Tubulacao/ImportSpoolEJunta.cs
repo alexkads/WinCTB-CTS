@@ -256,7 +256,7 @@ namespace WinCTB_CTS.Module.Importer.Tubulacao
                 {
                     var linha = dtJuntasImport.Rows[i];
                     var PesquisarSpool = linha[8].ToString();
-                    var FiltroPesquisa = new BinaryOperator("TagSpool", PesquisarSpool);
+                    var FiltroPesquisa = CriteriaOperator.Parse("TagSpool = ?", PesquisarSpool);
 
                     var spool = uow.FindObject<Spool>(FiltroPesquisa);
                     //var spool = spools.FirstOrDefault(x => x.TagSpool == PesquisarSpool);
@@ -290,7 +290,6 @@ namespace WinCTB_CTS.Module.Importer.Tubulacao
                         juntaSpool.TipoJunta = linha[14].ToString();
                         juntaSpool.TabPercInspecao = uow.FindObject<TabPercInspecao>(new BinaryOperator("Spec", linha[15].ToString()));
                         juntaSpool.MaterialPt = linha[16].ToString();
-                        //juntaSpool.MaterialEn = linha[17].ToString();
                         juntaSpool.ClasseInspecao = linha[18].ToString();
                         juntaSpool.Norma = linha[19].ToString();
                         juntaSpool.CampoOuPipe = Utils.ConvertStringEnumCampoPipe(linha[20].ToString());
@@ -378,12 +377,10 @@ namespace WinCTB_CTS.Module.Importer.Tubulacao
                             : uow.QueryInTransaction<TabSchedule>()
                                 .FirstOrDefault(sch => sch.PipingClass == juntaSpool.TabPercInspecao.Spec && sch.Wdi == juntaSpool.Wdi);
                     }
-
                 }
 
 
-
-                if (i % 100 == 0)
+                if (i % 500 == 0)
                 {
                     try
                     {

@@ -138,9 +138,13 @@
   <ItemGroup>
     <Compile Include="Action\ActionBaseObject.cs" />
     <Compile Include="BusinessObjects\Comum\Contrato.cs" />
+    <Compile Include="BusinessObjects\Comum\InspecaoLaudo.cs" />
     <Compile Include="BusinessObjects\Estrutura\Componente.cs" />
     <Compile Include="BusinessObjects\Estrutura\JuntaComponente.cs" />
     <Compile Include="BusinessObjects\Editor\EditorsProviders.cs" />
+    <Compile Include="BusinessObjects\Estrutura\Lotes\LoteUSEstrutura.cs" />
+    <Compile Include="BusinessObjects\Estrutura\Lotes\LoteRXEstrutura.cs" />
+    <Compile Include="BusinessObjects\Estrutura\Lotes\LoteLPPMEstrutura.cs" />
     <Compile Include="BusinessObjects\Tubulacao\Auxiliar\TabDiametro.cs" />
     <Compile Include="BusinessObjects\Tubulacao\Auxiliar\TabEAPPipe.cs" />
     <Compile Include="BusinessObjects\Tubulacao\Auxiliar\TabPercInspecao.cs" />
@@ -152,6 +156,7 @@
     <Compile Include="BusinessObjects\Tubulacao\Spool.cs" />
     <Compile Include="Calculator\CalculoComponente.cs" />
     <Compile Include="Calculator\CalculoSpool.cs" />
+    <Compile Include="Calculator\GeradoresDeLotes.cs" />
     <Compile Include="Comum\CachedDataStoreProvider.cs" />
     <Compile Include="Comum\CustomIXpoDataStoreProvider.cs" />
     <Compile Include="DatabaseUpdate\Updater.cs" />
@@ -164,6 +169,8 @@
     <Compile Include="Importer\Tubulacao\ImportTabelaAuxiliares.cs" />
     <Compile Include="Importer\Tubulacao\ParametrosAtualizacaoTabelasAuxiliares.cs" />
     <Compile Include="Importer\Tubulacao\ParametrosImportSpoolJuntaExcel.cs" />
+    <Compile Include="Interfaces\ILote.cs" />
+    <Compile Include="Interfaces\ILoteDetalhe.cs" />
     <Compile Include="Module.cs">
       <SubType>Component</SubType>
     </Compile>
