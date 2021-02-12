@@ -513,6 +513,18 @@ namespace WinCTB_CTS.Module.BusinessObjects.Estrutura
         [Association("JuntaComponente-LoteLPPMJuntaEstruturas")]
         public XPCollection<LoteLPPMJuntaEstrutura> LoteLPPMJuntaEstruturas
             => GetCollection<LoteLPPMJuntaEstrutura>(nameof(LoteLPPMJuntaEstruturas));
+
+        [ModelDefault("AllowEdit", "False")]
+        [VisibleInDetailView(false)]
+        [Association("JuntaComponente-LoteRXJuntaEstruturas")]
+        public XPCollection<LoteRXJuntaEstrutura> LoteRXJuntaEstruturas
+            => GetCollection<LoteRXJuntaEstrutura>(nameof(LoteRXJuntaEstruturas));
+
+        [ModelDefault("AllowEdit", "False")]
+        [VisibleInDetailView(false)]
+        [Association("JuntaComponente-LoteUSJuntaEstruturas")]
+        public XPCollection<LoteUSJuntaEstrutura> LoteUSJuntaEstruturas
+            => GetCollection<LoteUSJuntaEstrutura>(nameof(LoteUSJuntaEstruturas));
         #endregion
 
 
