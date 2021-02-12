@@ -27,7 +27,10 @@ namespace WinCTB_CTS.Module.BusinessObjects.Estrutura
             base.AfterConstruction();
         }
 
-        
+
+        private int percRt;
+        private int percUt;
+        private int percLpPm;
         private string statusJunta;
         private string statusUs;
         private double comprimentoReparoUs;
@@ -448,7 +451,7 @@ namespace WinCTB_CTS.Module.BusinessObjects.Estrutura
             set => SetPropertyValue(nameof(DataUs), ref dataUs, value);
         }
 
-        
+
         [Size(100), XafDisplayName("Relatório de US")]
         public string RelatorioUs
         {
@@ -476,13 +479,35 @@ namespace WinCTB_CTS.Module.BusinessObjects.Estrutura
             get => statusUs;
             set => SetPropertyValue(nameof(StatusUs), ref statusUs, value);
         }
-        
+
         [Size(100), XafDisplayName("Status da Junta")]
         public string StatusJunta
         {
             get => statusJunta;
             set => SetPropertyValue(nameof(StatusJunta), ref statusJunta, value);
         }
+
+
+        public int PercLpPm
+        {
+            get => percLpPm;
+            set => SetPropertyValue(nameof(PercLpPm), ref percLpPm, value);
+        }
+
+
+        public int PercUt
+        {
+            get => percUt;
+            set => SetPropertyValue(nameof(PercUt), ref percUt, value);
+        }
+
+        
+        public int PercRt
+        {
+            get => percRt;
+            set => SetPropertyValue(nameof(PercRt), ref percRt, value);
+        }
+
 
 
 
