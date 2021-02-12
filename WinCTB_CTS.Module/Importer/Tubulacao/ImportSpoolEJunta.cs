@@ -365,7 +365,8 @@ namespace WinCTB_CTS.Module.Importer.Tubulacao
                             : uow.QueryInTransaction<TabProcessoSoldagem>()
                                 .FirstOrDefault(proc => proc.Eps == juntaSpool.Eps)?.Ench;
 
-                        juntaSpool.TabSchedule = juntaSpool?.TabPercInspecao == null
+                        juntaSpool.TabSchedule = 
+                            juntaSpool?.TabPercInspecao == null
                             ? null
                             : uow.QueryInTransaction<TabSchedule>()
                                 .FirstOrDefault(sch => sch.PipingClass == juntaSpool.TabPercInspecao.Spec && sch.Wdi == juntaSpool.Wdi);
