@@ -29,6 +29,8 @@ namespace WinCTB_CTS.Module.BusinessObjects.Estrutura
         }
 
 
+        private DateTime? posDf2;
+        private DateTime? posDf1;
         private double percRt;
         private double percUt;
         private double percLpPm;
@@ -506,6 +508,24 @@ namespace WinCTB_CTS.Module.BusinessObjects.Estrutura
             set => SetPropertyValue(nameof(PercRt), ref percRt, value);
         }
 
+        [XafDisplayName("Posicionamento Df1")]
+        [ModelDefault("EditMask", "G")]
+        [ModelDefault("DisplayFormat", "G")]
+        public DateTime? PosDf1
+        {
+            get => posDf1;
+            set => SetPropertyValue(nameof(PosDf1), ref posDf1, value);
+        }
+
+        [XafDisplayName("Posicionamento Df2")]
+        [ModelDefault("EditMask", "G")]
+        [ModelDefault("DisplayFormat", "G")]
+        public DateTime? PosDf2
+        {
+            get => posDf2;
+            set => SetPropertyValue(nameof(PosDf2), ref posDf2, value);
+        }
+
 
         #region Lotes
         [ModelDefault("AllowEdit", "False")]
@@ -526,6 +546,7 @@ namespace WinCTB_CTS.Module.BusinessObjects.Estrutura
         public XPCollection<LoteUSJuntaEstrutura> LoteUSJuntaEstruturas
             => GetCollection<LoteUSJuntaEstrutura>(nameof(LoteUSJuntaEstruturas));
         #endregion
+
 
 
     }
