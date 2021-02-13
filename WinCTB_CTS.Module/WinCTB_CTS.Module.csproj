@@ -156,7 +156,7 @@
     <Compile Include="BusinessObjects\Tubulacao\Spool.cs" />
     <Compile Include="Calculator\CalculoComponente.cs" />
     <Compile Include="Calculator\CalculoSpool.cs" />
-    <Compile Include="Calculator\GeradoresDeLotes.cs" />
+    <Compile Include="Calculator\GerarLoteLPPM.cs" />
     <Compile Include="Comum\CachedDataStoreProvider.cs" />
     <Compile Include="Comum\CustomIXpoDataStoreProvider.cs" />
     <Compile Include="DatabaseUpdate\Updater.cs" />

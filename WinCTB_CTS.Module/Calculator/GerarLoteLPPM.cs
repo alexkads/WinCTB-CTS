@@ -45,17 +45,17 @@ namespace WinCTB_CTS.Module.Calculator
         {
             ObjectSpace = ObjectSpaceProvider.CreateObjectSpace();
 
-            var FiltroSemLote00 = new AggregateOperand("VisualDeSoldaEstruturaDetalhes", Aggregate.Exists, new BinaryOperator("CicloTermico", 1));
+            var FiltroSemLote00 = new AggregateOperand("DataVisual", Aggregate.Exists, new BinaryOperator("CicloTermico", 1));
             var FiltroSemLote01 = new UnaryOperator(UnaryOperatorType.Not, new AggregateOperand("LoteLPPMJuntaEstruturas", Aggregate.Exists));
-            var FiltroSemLote02 = new BetweenOperator("NivelDeInspecaoEstruturaDetalhe.PercentualLiquidoPenetrante", 0.01, 0.99);
+            var FiltroSemLote02 = new BetweenOperator("PercLpPm", 0.01, 0.99);
 
             var criteria = new GroupOperator(GroupOperatorType.And, FiltroSemLote00, FiltroSemLote01, FiltroSemLote02);
 
             var juntasSemLote = new XPCollection<JuntaComponente>(((XPObjectSpace)ObjectSpace).Session);
 
             juntasSemLote.Criteria = criteria;
-            juntasSemLote.Sorting.Add(new SortProperty("NivelDeInspecaoEstruturaDetalhe.PercentualLiquidoPenetrante", SortingDirection.Ascending));
-            juntasSemLote.Sorting.Add(new SortProperty("VisualDeSoldaEstruturaDetalhes.Min(CriadoEm)", SortingDirection.Ascending));
+            juntasSemLote.Sorting.Add(new SortProperty("PercLpPm", SortingDirection.Ascending));
+            juntasSemLote.Sorting.Add(new SortProperty("DataVisual", SortingDirection.Ascending));
 
             double totalDataStore = juntasSemLote.EvaluateDatastoreCount();
             if (totalDataStore == 0)
