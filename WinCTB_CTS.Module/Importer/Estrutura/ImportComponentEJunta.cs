@@ -260,9 +260,9 @@ namespace WinCTB_CTS.Module.Importer.Estrutura
                         juntaComponente.ComprimentoReparoUs = Utils.ConvertDouble(linha[58]);
                         juntaComponente.StatusUs = linha[59].ToString();
                         juntaComponente.StatusJunta = linha[60].ToString();
-                        juntaComponente.PercLpPm = Utils.ConvertDouble(linha[63]);
-                        juntaComponente.PercUt = Utils.ConvertDouble(linha[64]);
-                        juntaComponente.PercRt = Utils.ConvertDouble(linha[65]);
+                        juntaComponente.PercLpPm = Utils.ConvertDouble(linha[63]) / 100;
+                        juntaComponente.PercUt = Utils.ConvertDouble(linha[64]) / 100;
+                        juntaComponente.PercRt = Utils.ConvertDouble(linha[65]) / 100;
                         juntaComponente.Componente = componente;
                     }
                 }

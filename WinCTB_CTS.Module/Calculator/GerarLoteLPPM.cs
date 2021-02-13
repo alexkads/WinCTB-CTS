@@ -45,7 +45,7 @@ namespace WinCTB_CTS.Module.Calculator
         {
             ObjectSpace = ObjectSpaceProvider.CreateObjectSpace();
 
-            var FiltroSemLote00 = new AggregateOperand("DataVisual", Aggregate.Exists, new BinaryOperator("CicloTermico", 1));
+            var FiltroSemLote00 = CriteriaOperator.Parse("IsNullOrEmpty(DataVisual)");
             var FiltroSemLote01 = new UnaryOperator(UnaryOperatorType.Not, new AggregateOperand("LoteLPPMJuntaEstruturas", Aggregate.Exists));
             var FiltroSemLote02 = new BetweenOperator("PercLpPm", 0.01, 0.99);
 
@@ -76,7 +76,6 @@ namespace WinCTB_CTS.Module.Calculator
 
                 Func<CriteriaOperator> CriterioFormacao = () =>
                     CriteriaOperator.Parse($"PercentualNivelDeInspecao = ? And JuntasNoLote < QuantidadeNecessaria", juntaComponente.PercLpPm); ;
-
 
                 var loteLPPMEstrutura = ObjectSpace.FindObject<LoteLPPMEstrutura>(CriterioFormacao());
 
