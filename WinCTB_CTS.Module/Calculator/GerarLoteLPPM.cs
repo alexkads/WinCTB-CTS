@@ -45,7 +45,7 @@ namespace WinCTB_CTS.Module.Calculator
         {
             ObjectSpace = ObjectSpaceProvider.CreateObjectSpace();
 
-            var FiltroSemLote00 = CriteriaOperator.Parse("IsNullOrEmpty(DataVisual)");
+            var FiltroSemLote00 = CriteriaOperator.Parse("Not IsNullOrEmpty(DataVisual)");
             var FiltroSemLote01 = new UnaryOperator(UnaryOperatorType.Not, new AggregateOperand("LoteLPPMJuntaEstruturas", Aggregate.Exists));
             var FiltroSemLote02 = new BetweenOperator("PercLpPm", 0.01, 0.99);
 
@@ -70,8 +70,7 @@ namespace WinCTB_CTS.Module.Calculator
 
             observable.Subscribe(juntaComponente =>
             {
-                string Area = null;
-                Guid GuidComponente = Guid.NewGuid();
+                  Guid GuidComponente = Guid.NewGuid();
                 GuidComponente = juntaComponente.Componente.Oid;
 
                 Func<CriteriaOperator> CriterioFormacao = () =>
@@ -96,6 +95,7 @@ namespace WinCTB_CTS.Module.Calculator
             juntasSemLote.Dispose();
             ObjectSpace.Dispose();
         }
+
 
         public int QuantidadeDeJunta(double percent)
         {

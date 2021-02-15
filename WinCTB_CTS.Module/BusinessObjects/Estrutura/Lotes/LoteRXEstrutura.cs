@@ -229,8 +229,7 @@ namespace WinCTB_CTS.Module.BusinessObjects.Estrutura.Lotes
     [Appearance("", AppearanceItemType = nameof(Action), TargetItems = nameof(Delete), Visibility = ViewItemVisibility.Hide)]
     public class LoteRXJuntaEstrutura : BaseObject, ILoteDetalhe
     {
-        JuntaComponente juntaComponente;
-        JuntaComponente propertyName;
+        private JuntaComponente juntaComponente;
         private bool _AprovouLote;
         private int _CicloTermico;
         private DateTime _DataInclusao;
@@ -238,7 +237,6 @@ namespace WinCTB_CTS.Module.BusinessObjects.Estrutura.Lotes
 
         // Fields...
         private bool _InspecaoExcesso;
-        private JuntaComponente _juntaComponente;
         private InspecaoLaudo? _Laudo;
         private LoteRXEstrutura _loteRXEstrutura;
         private string _NumeroDoRelatorio;
