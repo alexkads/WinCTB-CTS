@@ -12,6 +12,7 @@ using System.Text;
 using System.Threading.Tasks;
 using WinCTB_CTS.Module.BusinessObjects.Estrutura;
 using WinCTB_CTS.Module.BusinessObjects.Estrutura.Lotes;
+using WinCTB_CTS.Module.Comum;
 
 namespace WinCTB_CTS.Module.Calculator
 {
@@ -44,6 +45,10 @@ namespace WinCTB_CTS.Module.Calculator
         public async Task GerarLoteLPPMAsync(IProgress<string> progress)
         {
             ObjectSpace = ObjectSpaceProvider.CreateObjectSpace();
+
+            progress.Report($"Limpando lotes de LPPM");
+            Utils.DeleteAllRecords<LoteLPPMJuntaEstrutura>(((XPObjectSpace)ObjectSpace).Session);
+            Utils.DeleteAllRecords<LoteLPPMEstrutura>(((XPObjectSpace)ObjectSpace).Session);
 
             var FiltroSemLote00 = CriteriaOperator.Parse("Not IsNullOrEmpty(DataVisual)");
             var FiltroSemLote01 = new UnaryOperator(UnaryOperatorType.Not, new AggregateOperand("LoteLPPMJuntaEstruturas", Aggregate.Exists));
