@@ -106,7 +106,8 @@ namespace WinCTB_CTS.Module.Win.Controllers
                 dtcollectionImport = excelReader.CreateDataTableCollection(false);
             }
 
-            var import = new ImportComponentEJunta(objectSpace, parametrosImportComponentEJunta);
+
+            var import = new ImportComponentEJunta(objectSpaceProvider, parametrosImportComponentEJunta);
             var progress = new Progress<ImportProgressReport>(import.LogTrace);
             var simpleProgress = new Progress<string>();
 

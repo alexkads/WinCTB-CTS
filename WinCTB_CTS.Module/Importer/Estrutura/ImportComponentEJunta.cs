@@ -35,11 +35,11 @@ namespace WinCTB_CTS.Module.Importer.Estrutura
 {
     public class ImportComponentEJunta
     {
-        IObjectSpace objectSpace = null;
+        private IObjectSpaceProvider _objectSpaceProvider;
         ParametrosImportComponentEJunta parametrosImportComponentEJunta;
-        public ImportComponentEJunta(IObjectSpace _objectSpace, ParametrosImportComponentEJunta _parametrosImportComponentEJunta)
+        public ImportComponentEJunta(IObjectSpaceProvider objectSpaceProvider, ParametrosImportComponentEJunta _parametrosImportComponentEJunta)
         {
-            this.objectSpace = _objectSpace;
+            this._objectSpaceProvider = objectSpaceProvider;
             this.parametrosImportComponentEJunta = _parametrosImportComponentEJunta;
         }
 
@@ -55,10 +55,10 @@ namespace WinCTB_CTS.Module.Importer.Estrutura
 
         public void ImportarComponente(DataTable dtSpoolsImport, IProgress<ImportProgressReport> progress)
         {
-            UnitOfWork uow = new UnitOfWork(((XPObjectSpace)objectSpace).Session.ObjectLayer);
+            var objectSpace = _objectSpaceProvider.CreateObjectSpace();
             var TotalDeJuntas = dtSpoolsImport.Rows.Count;
 
-            var oldComponets = Utils.GetOldDatasForCheck<Componente>(uow);
+            var oldComponets = Utils.GetOldDatasForCheck<Componente>(((XPObjectSpace)objectSpace).Session);
 
             progress.Report(new ImportProgressReport
             {
@@ -66,8 +66,6 @@ namespace WinCTB_CTS.Module.Importer.Estrutura
                 CurrentRow = 0,
                 MessageImport = "Inicializando importação"
             });
-
-            uow.BeginTransaction();
 
             for (int i = 0; i < TotalDeJuntas; i++)
             {
@@ -82,10 +80,10 @@ namespace WinCTB_CTS.Module.Importer.Estrutura
                     var criteriaOperator = CriteriaOperator.Parse("DesenhoMontagem = ? And Peca = ?",
                         desenhoMontagem, peca);
 
-                    var componente = uow.FindObject<Componente>(criteriaOperator);
+                    var componente = objectSpace.FindObject<Componente>(criteriaOperator);
 
                     if (componente == null)
-                        componente = new Componente(uow);
+                        componente = objectSpace.CreateObject<Componente>();
                     else
                         oldComponets.FirstOrDefault(x => x.Oid == componente.Oid).DataExist = true;
 
@@ -120,18 +118,15 @@ namespace WinCTB_CTS.Module.Importer.Estrutura
 
                 }
 
-
-
-
                 if (i % 1000 == 0)
                 {
                     try
                     {
-                        uow.CommitTransaction();
+                        objectSpace.CommitChanges();
                     }
                     catch
                     {
-                        uow.RollbackTransaction();
+                        objectSpace.Rollback();
                         throw new Exception("Process aborted by system");
                     }
                 }
@@ -144,10 +139,8 @@ namespace WinCTB_CTS.Module.Importer.Estrutura
                 });
             }
 
-            uow.CommitTransaction();
-            uow.PurgeDeletedObjects();
-            uow.CommitChanges();
-            uow.Dispose();
+            objectSpace.CommitChanges();
+            objectSpace.Dispose();
 
             progress.Report(new ImportProgressReport
             {
@@ -163,10 +156,10 @@ namespace WinCTB_CTS.Module.Importer.Estrutura
 
         public void ImportarJuntas(DataTable dtJuntasImport, IProgress<ImportProgressReport> progress)
         {
-            UnitOfWork uow = new UnitOfWork(((XPObjectSpace)objectSpace).Session.ObjectLayer);
+            var objectSpace = _objectSpaceProvider.CreateObjectSpace();
             var TotalDeJuntas = dtJuntasImport.Rows.Count;
 
-            var oldJuntas = Utils.GetOldDatasForCheck<JuntaComponente>(uow);
+            var oldJuntas = Utils.GetOldDatasForCheck<JuntaComponente>(((XPObjectSpace)objectSpace).Session);
 
             progress.Report(new ImportProgressReport
             {
@@ -174,12 +167,6 @@ namespace WinCTB_CTS.Module.Importer.Estrutura
                 CurrentRow = 0,
                 MessageImport = "Inicializando importação de juntas"
             });
-
-            uow.BeginTransaction();
-
-            ////Limpar registros
-            //Utils.DeleteAllRecords<JuntaSpool>(uow);
-            //uow.CommitTransaction();
 
             for (int i = 0; i < TotalDeJuntas; i++)
             {
@@ -189,7 +176,7 @@ namespace WinCTB_CTS.Module.Importer.Estrutura
                     var desenhoMontagem = linha[2].ToString();
                     var peca = linha[3].ToString();
                     var FiltroPesquisa = CriteriaOperator.Parse("DesenhoMontagem = ? And Peca = ?", desenhoMontagem, peca);
-                    var componente = uow.FindObject<Componente>(FiltroPesquisa);
+                    var componente = objectSpace.FindObject<Componente>(FiltroPesquisa);
                     if (componente != null)
                     {
                         var junta = linha[9].ToString();
@@ -197,15 +184,12 @@ namespace WinCTB_CTS.Module.Importer.Estrutura
                         var criteriaOperator = CriteriaOperator.Parse("Componente.Oid = ? And Junta = ?",
                             componente.Oid, junta);
 
-                        var juntaComponente = uow.FindObject<JuntaComponente>(criteriaOperator);
+                        var juntaComponente = objectSpace.FindObject<JuntaComponente>(criteriaOperator);
 
                         if (juntaComponente == null)
-                            juntaComponente = new JuntaComponente(uow);
+                            juntaComponente = objectSpace.CreateObject<JuntaComponente>();
                         else
                             oldJuntas.FirstOrDefault(x => x.Oid == juntaComponente.Oid).DataExist = true;
-
-                        //Mapear campos aqui
-                        //juntaComponente.Site = linha[0].ToString();
 
                         juntaComponente.Junta = linha[5].ToString();
                         juntaComponente.TipoJunta = linha[7].ToString();
@@ -267,10 +251,10 @@ namespace WinCTB_CTS.Module.Importer.Estrutura
 
                         //Complemento                      
                         //juntaComponente.PosDf1 = Utils.ConvertDateTime(juntaComponente.Evaluate(CriteriaOperator.Parse("[<Componente>][Peca = ^.Df1].Max(DataPosicionamento)")));
-                        juntaComponente.PosDf1 = uow.FindObject<Componente>(new BinaryOperator("Peca", juntaComponente.Df1))?.DataPosicionamento;
-                        
+                        juntaComponente.PosDf1 = objectSpace.FindObject<Componente>(new BinaryOperator("Peca", juntaComponente.Df1))?.DataPosicionamento;
+
                         //juntaComponente.PosDf2 = Utils.ConvertDateTime(juntaComponente.Evaluate(CriteriaOperator.Parse("[<Componente>][Peca = ^.Df2].Max(DataPosicionamento)")));
-                        juntaComponente.PosDf2 = uow.FindObject<Componente>(new BinaryOperator("Peca", juntaComponente.Df2))?.DataPosicionamento;
+                        juntaComponente.PosDf2 = objectSpace.FindObject<Componente>(new BinaryOperator("Peca", juntaComponente.Df2))?.DataPosicionamento;
 
 
                         //Antigo (Daniel)
@@ -290,15 +274,15 @@ namespace WinCTB_CTS.Module.Importer.Estrutura
                 }
 
 
-                if (i % 500 == 0)
+                if (i % 100 == 0)
                 {
                     try
                     {
-                        uow.CommitTransaction();
+                        objectSpace.CommitChanges();
                     }
                     catch
                     {
-                        uow.RollbackTransaction();
+                        objectSpace.Rollback();
                         throw new Exception("Process aborted by system");
                     }
                 }
@@ -311,10 +295,8 @@ namespace WinCTB_CTS.Module.Importer.Estrutura
                 });
             }
 
-            uow.CommitTransaction();
-            uow.PurgeDeletedObjects();
-            uow.CommitChanges();
-            uow.Dispose();
+            objectSpace.CommitChanges();
+            objectSpace.Dispose();
 
             progress.Report(new ImportProgressReport
             {

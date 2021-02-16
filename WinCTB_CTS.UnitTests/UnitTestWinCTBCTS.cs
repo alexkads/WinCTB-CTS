@@ -92,7 +92,7 @@ namespace WinCTB_CTS.UnitTests
             {
                 var dtcollectionImport = excelReader.CreateDataTableCollection(false);
 
-                var piecejoints = new ImportComponentEJunta(objectSpace, parametros);
+                var piecejoints = new ImportComponentEJunta(objectSpaceProvider, parametros);
                 var progress = new Progress<ImportProgressReport>(piecejoints.LogTrace);
 
                 await Observable.Start(() => piecejoints.ImportarComponente(dtcollectionImport["Piece"], progress));
