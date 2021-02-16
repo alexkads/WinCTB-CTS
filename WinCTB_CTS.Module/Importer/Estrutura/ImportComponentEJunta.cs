@@ -274,7 +274,7 @@ namespace WinCTB_CTS.Module.Importer.Estrutura
                 }
 
 
-                if (i % 100 == 0)
+                if (i % 5000 == 0)
                 {
                     try
                     {
