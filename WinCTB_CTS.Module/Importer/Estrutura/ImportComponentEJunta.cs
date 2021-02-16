@@ -265,10 +265,15 @@ namespace WinCTB_CTS.Module.Importer.Estrutura
                         juntaComponente.PercRt = Utils.ConvertDouble(linha[65]) / 100;
                         juntaComponente.Componente = componente;
 
-                        //Complemento
+                        //Complemento                      
+                        //juntaComponente.PosDf1 = Utils.ConvertDateTime(juntaComponente.Evaluate(CriteriaOperator.Parse("[<Componente>][Peca = ^.Df1].Max(DataPosicionamento)")));
                         juntaComponente.PosDf1 = uow.FindObject<Componente>(new BinaryOperator("Peca", juntaComponente.Df1))?.DataPosicionamento;
-                        juntaComponente.PosDf2 = uow.FindObject<Componente>(new BinaryOperator("Peca", juntaComponente.Df2))?.DataPosicionamento;                        
-                       
+                        
+                        //juntaComponente.PosDf2 = Utils.ConvertDateTime(juntaComponente.Evaluate(CriteriaOperator.Parse("[<Componente>][Peca = ^.Df2].Max(DataPosicionamento)")));
+                        juntaComponente.PosDf2 = uow.FindObject<Componente>(new BinaryOperator("Peca", juntaComponente.Df2))?.DataPosicionamento;
+
+
+                        //Antigo (Daniel)
                         //juntaComponente.PosDf1 =
                         //        string.IsNullOrEmpty(juntaComponente.Df1)
                         //        ? null
