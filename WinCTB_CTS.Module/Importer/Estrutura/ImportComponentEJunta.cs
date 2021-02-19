@@ -272,13 +272,13 @@ namespace WinCTB_CTS.Module.Importer.Estrutura
                                 string.IsNullOrEmpty(juntaComponente.Df1)
                                 ? null
                                 : uow.QueryInTransaction<Componente>()
-                                    .FirstOrDefault(x => componente.Peca == juntaComponente.Df1)?.DataPosicionamento;
+                                    .FirstOrDefault(comp => comp.Peca == juntaComponente.Df1)?.DataPosicionamento;
 
                         juntaComponente.PosDf2 =
                                 string.IsNullOrEmpty(juntaComponente.Df2)
                                 ? null
                                 : uow.QueryInTransaction<Componente>()
-                                    .FirstOrDefault(y => componente.Peca == juntaComponente.Df2)?.DataPosicionamento;
+                                    .FirstOrDefault(comp => comp.Peca == juntaComponente.Df2)?.DataPosicionamento;
 
                     }
                 }
