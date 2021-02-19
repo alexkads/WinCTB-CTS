@@ -229,8 +229,7 @@ namespace WinCTB_CTS.Module.BusinessObjects.Estrutura.Lotes
     [Appearance("", AppearanceItemType = nameof(Action), TargetItems = nameof(Delete), Visibility = ViewItemVisibility.Hide)]
     public class LoteLPPMJuntaEstrutura : BaseObject, ILoteDetalhe
     {
-        JuntaComponente juntaComponente;
-        JuntaComponente propertyName;
+        private JuntaComponente juntaComponente;
         private bool _AprovouLote;
         private int _CicloTermico;
         private DateTime _DataInclusao;
@@ -238,7 +237,6 @@ namespace WinCTB_CTS.Module.BusinessObjects.Estrutura.Lotes
 
         // Fields...
         private bool _InspecaoExcesso;
-        private JuntaComponente _juntaComponente;
         private InspecaoLaudo? _Laudo;
         private LoteLPPMEstrutura _loteLPPMEstrutura;
         private string _NumeroDoRelatorio;
@@ -270,10 +268,10 @@ namespace WinCTB_CTS.Module.BusinessObjects.Estrutura.Lotes
             set => SetPropertyValue(nameof(CicloTermico), ref _CicloTermico, value);
         }
 
-        [XafDisplayName(nameof(Componente))]
-        [VisibleInLookupListView(true)]
-        [PersistentAlias("JuntaEstrutura.IdentificacaoDoComponentes")]
-        public string Componente => (string)EvaluateAlias(nameof(Componente));
+        //[XafDisplayName(nameof(Componente))]
+        //[VisibleInLookupListView(true)]
+        //[PersistentAlias("JuntaEstrutura.IdentificacaoDoComponentes")]
+        //public string Componente => (string)EvaluateAlias(nameof(Componente));
 
         [ModelDefault("EditMask", "G")]
         [ModelDefault("DisplayFormat", "G")]
@@ -297,9 +295,9 @@ namespace WinCTB_CTS.Module.BusinessObjects.Estrutura.Lotes
             set => SetPropertyValue(nameof(DataInspecao), ref _DataInspecao, value);
         }
 
-        [XafDisplayName("Desenho de Detalhamento")]
-        [PersistentAlias("JuntaEstrutura.Desenho")]
-        public string Desenho => (string)EvaluateAlias(nameof(Desenho));
+        //[XafDisplayName("Desenho de Detalhamento")]
+        //[PersistentAlias("JuntaEstrutura.Desenho")]
+        //public string Desenho => (string)EvaluateAlias(nameof(Desenho));
 
         [XafDisplayName("Inspeção em excesso")]
         [ModelDefault("AllowEdit", "False")]

@@ -16,7 +16,6 @@ using WinCTB_CTS.Module.BusinessObjects.Estrutura.Lotes;
 namespace WinCTB_CTS.Module.BusinessObjects.Estrutura
 {
     [DefaultClassOptions, DefaultProperty("ConcatComponenteJunta"), ImageName("BO_Contract"), NavigationItem("Estrutura")]
-    [Indices("Componente;Junta")]
     public class JuntaComponente : BaseObject
     {
         public JuntaComponente(Session session)

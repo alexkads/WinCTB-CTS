@@ -12,13 +12,16 @@ using System.Text;
 using System.Threading.Tasks;
 using WinCTB_CTS.Module.BusinessObjects.Estrutura;
 using WinCTB_CTS.Module.BusinessObjects.Estrutura.Lotes;
+using WinCTB_CTS.Module.Comum;
 
-namespace WinCTB_CTS.Module.Calculator
+namespace WinCTB_CTS.Module.Calculator.ProcessoLoteLPPM
 {
     public class GerarLoteLPPM
     {
         private IObjectSpace ObjectSpace;
+
         private IObjectSpaceProvider ObjectSpaceProvider;
+
         public GerarLoteLPPM(IObjectSpaceProvider objectSpaceProvider) => this.ObjectSpaceProvider = objectSpaceProvider;
 
         private void IncluirJuntaNoLote(LoteLPPMEstrutura lote, JuntaComponente juntaComponente, int cicloTermico)
@@ -27,10 +30,12 @@ namespace WinCTB_CTS.Module.Calculator
             var juntaLote = nestedObjectSpace.CreateObject<LoteLPPMJuntaEstrutura>();
             juntaLote.LoteLPPMEstrutura = nestedObjectSpace.GetObject(lote);
             juntaLote.JuntaComponente = nestedObjectSpace.GetObject(juntaComponente);
+            juntaLote.DataInclusao = DateTime.Now;                      
             juntaLote.CicloTermico = cicloTermico;
             juntaLote.PercentualNivelDeInspecao = juntaComponente.PercLpPm;
             nestedObjectSpace.CommitChanges();
         }
+
         private LoteLPPMEstrutura NovoLote(JuntaComponente juntaComponente)
         {
             var nestedObjectSpace = ObjectSpace.CreateNestedObjectSpace();
@@ -45,7 +50,11 @@ namespace WinCTB_CTS.Module.Calculator
         {
             ObjectSpace = ObjectSpaceProvider.CreateObjectSpace();
 
-            var FiltroSemLote00 = CriteriaOperator.Parse("IsNullOrEmpty(DataVisual)");
+            progress.Report($"Limpando lotes de LPPM");
+            Utils.DeleteAllRecords<LoteLPPMJuntaEstrutura>(((XPObjectSpace)ObjectSpace).Session);
+            Utils.DeleteAllRecords<LoteLPPMEstrutura>(((XPObjectSpace)ObjectSpace).Session);
+
+            var FiltroSemLote00 = CriteriaOperator.Parse("Not IsNullOrEmpty(DataVisual)");
             var FiltroSemLote01 = new UnaryOperator(UnaryOperatorType.Not, new AggregateOperand("LoteLPPMJuntaEstruturas", Aggregate.Exists));
             var FiltroSemLote02 = new BetweenOperator("PercLpPm", 0.01, 0.99);
 
@@ -70,8 +79,7 @@ namespace WinCTB_CTS.Module.Calculator
 
             observable.Subscribe(juntaComponente =>
             {
-                string Area = null;
-                Guid GuidComponente = Guid.NewGuid();
+                  Guid GuidComponente = Guid.NewGuid();
                 GuidComponente = juntaComponente.Componente.Oid;
 
                 Func<CriteriaOperator> CriterioFormacao = () =>

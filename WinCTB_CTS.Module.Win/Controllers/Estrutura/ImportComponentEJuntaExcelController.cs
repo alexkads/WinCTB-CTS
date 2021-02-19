@@ -42,6 +42,7 @@ namespace WinCTB_CTS.Module.Win.Controllers
     public partial class ImportComponentEJuntaExcelController : WindowController
     {
         IObjectSpace objectSpace = null;
+        IObjectSpaceProvider objectSpaceProvider;
         ParametrosImportComponentEJunta parametrosImportComponentEJunta;
         public ImportComponentEJuntaExcelController()
         {
@@ -58,6 +59,7 @@ namespace WinCTB_CTS.Module.Win.Controllers
 
         private void SimpleActionImport_Execute(object sender, SimpleActionExecuteEventArgs e)
         {
+            objectSpaceProvider = Application.ObjectSpaceProvider;
             objectSpace = Application.CreateObjectSpace(typeof(ParametrosImportSpoolJuntaExcel));
             parametrosImportComponentEJunta = objectSpace.CreateObject<ParametrosImportComponentEJunta>();
             DetailView view = Application.CreateDetailView(objectSpace, parametrosImportComponentEJunta);
@@ -83,6 +85,7 @@ namespace WinCTB_CTS.Module.Win.Controllers
         {
 
             DataTableCollection dtcollectionImport = null;
+            
 
             ((DialogController)sender).AcceptAction.Enabled["NoEnabled"] = false;
             //Necessário para não fechar a janela após a conclusão do processamento
@@ -103,11 +106,21 @@ namespace WinCTB_CTS.Module.Win.Controllers
                 dtcollectionImport = excelReader.CreateDataTableCollection(false);
             }
 
-            var import = new ImportComponentEJunta(objectSpace, parametrosImportComponentEJunta);
+
+            var import = new ImportComponentEJunta(objectSpaceProvider, parametrosImportComponentEJunta);
             var progress = new Progress<ImportProgressReport>(import.LogTrace);
+            var simpleProgress = new Progress<string>();
 
             await Observable.Start(() => import.ImportarComponente(dtcollectionImport["Piece"], progress));
+            parametros.ConcluidoComponente = true;
+
             await Observable.Start(() => import.ImportarJuntas(dtcollectionImport["Joints"], progress));
+            parametros.ConcluidoJuntas = true;
+                                   
+            //var gerador = new Calculator.ProcessoLoteLPPM.GerarLoteLPPM(objectSpaceProvider);
+            //await gerador.GerarLoteLPPMAsync(simpleProgress);
+            //parametros.ConcluidoLoteLPPM = true;                      
+
 
             objectSpace.CommitChanges();
             e.AcceptActionArgs.Action.Caption = "Finalizado";

@@ -24,6 +24,11 @@ namespace WinCTB_CTS.Module.Importer.Estrutura
     public class ParametrosImportComponentEJunta : BaseObject
     {
 
+        private bool concluidoLoteUS;
+        private bool concluidoLoteRX;
+        private bool concluidoLoteLPPM;
+        private bool concluidoJuntas;
+        private bool concluidoComponente;
         private FileData padrao;
 
         public ParametrosImportComponentEJunta(Session session)
@@ -71,6 +76,44 @@ namespace WinCTB_CTS.Module.Importer.Estrutura
         {
             get { return GetDelayedPropertyValue<double>("Progresso"); }
             set { SetDelayedPropertyValue<double>("Progresso", value); }
+        }
+
+        [ModelDefault("AllowEdit", "False")]
+        public bool ConcluidoComponente
+        {
+            get => concluidoComponente;
+            set => SetPropertyValue(nameof(ConcluidoComponente), ref concluidoComponente, value);
+        }
+
+        [ModelDefault("AllowEdit", "False")]
+        public bool ConcluidoJuntas
+        {
+            get => concluidoJuntas;
+            set => SetPropertyValue(nameof(ConcluidoJuntas), ref concluidoJuntas, value);
+        }
+
+        [ModelDefault("AllowEdit", "False")]
+        [XafDisplayName("Concluído Lotes (LP/PM)")]
+        public bool ConcluidoLoteLPPM
+        {
+            get => concluidoLoteLPPM;
+            set => SetPropertyValue(nameof(ConcluidoLoteLPPM), ref concluidoLoteLPPM, value);
+        }
+
+        [ModelDefault("AllowEdit", "False")]
+        [XafDisplayName("Concluído Lotes (RX)")]
+        public bool ConcluidoLoteRX
+        {
+            get => concluidoLoteRX;
+            set => SetPropertyValue(nameof(ConcluidoLoteRX), ref concluidoLoteRX, value);
+        }
+
+        [ModelDefault("AllowEdit", "False")]
+        [XafDisplayName("Concluído Lotes (US)")]
+        public bool ConcluidoLoteUS
+        {
+            get => concluidoLoteUS;
+            set => SetPropertyValue(nameof(ConcluidoLoteUS), ref concluidoLoteUS, value);
         }
     }
 }

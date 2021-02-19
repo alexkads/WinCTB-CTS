@@ -4,6 +4,7 @@ using NUnit.Framework;
 using System;
 using System.IO;
 using System.Reactive.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 using WinCTB_CTS.Module.Importer;
 using WinCTB_CTS.Module.Importer.Estrutura;
@@ -92,10 +93,39 @@ namespace WinCTB_CTS.UnitTests
             {
                 var dtcollectionImport = excelReader.CreateDataTableCollection(false);
 
-                var piecejoints = new ImportComponentEJunta(objectSpace, parametros);
+                var piecejoints = new ImportComponentEJunta(objectSpaceProvider, parametros);
                 var progress = new Progress<ImportProgressReport>(piecejoints.LogTrace);
 
-                await Observable.Start(() => piecejoints.ImportarComponente(dtcollectionImport["Piece"], progress));
+                await Task.Run(() => piecejoints.ImportarComponente(dtcollectionImport["Piece"], progress));
+                //await Observable.Start(() => piecejoints.ImportarJuntas(dtcollectionImport["Joints"], progress));
+
+                objectSpace.CommitChanges();
+            }
+        }
+
+        [TestMethod]
+        [TestCase()]
+        public void TesteImportacaoPieceAndJointsThread()
+        {
+            var application = new Application(false);
+            IObjectSpaceProvider objectSpaceProvider = application.serverApplication.ObjectSpaceProvider;
+            var objectSpace = objectSpaceProvider.CreateObjectSpace();
+            var parametros = objectSpace.CreateObject<ParametrosImportComponentEJunta>();
+            MemoryStream stream = new MemoryStream();
+            stream.Seek(0, SeekOrigin.Begin);
+            var arquivo = parametros.Padrao;
+            arquivo.SaveToStream(stream);
+            stream.Seek(0, SeekOrigin.Begin);
+
+            using (var excelReader = new Module.ExcelDataReaderHelper.Excel.Reader(stream))
+            {
+                var dtcollectionImport = excelReader.CreateDataTableCollection(false);
+
+                var piecejoints = new ImportComponentEJunta(objectSpaceProvider, parametros);
+                var progress = new Progress<ImportProgressReport>(piecejoints.LogTrace);
+
+                Action<object> ActionProcess = (obj) => piecejoints.ImportarComponente(dtcollectionImport["Piece"], progress);
+                ThreadPool.QueueUserWorkItem(new WaitCallback(ActionProcess));
                 //await Observable.Start(() => piecejoints.ImportarJuntas(dtcollectionImport["Joints"], progress));
 
                 objectSpace.CommitChanges();
@@ -109,7 +139,7 @@ namespace WinCTB_CTS.UnitTests
             var application = new Application(false);
             IObjectSpaceProvider objectSpaceProvider = application.serverApplication.ObjectSpaceProvider;
             var progress = new Progress<string>();
-            var gerador = new Module.Calculator.GerarLoteLPPM(objectSpaceProvider);
+            var gerador = new Module.Calculator.ProcessoLoteLPPM.GerarLoteLPPM(objectSpaceProvider);
             await gerador.GerarLoteLPPMAsync(progress);
         }
     }
