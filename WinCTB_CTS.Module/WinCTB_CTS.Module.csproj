@@ -156,10 +156,7 @@
     <Compile Include="BusinessObjects\Tubulacao\Spool.cs" />
     <Compile Include="Calculator\CalculoComponente.cs" />
     <Compile Include="Calculator\CalculoSpool.cs" />
-    <Compile Include="Calculator\ProcessoLoteLPPM\BalanceamentoDeLotesEstrutura.cs" />
-    <Compile Include="Calculator\ProcessoLoteLPPM\GerarLoteLPPM.cs" />
-    <Compile Include="Calculator\ProcessoLoteLPPM\LotesDeEstruturaAlinhamento.cs" />
-    <Compile Include="Calculator\ProcessoLoteLPPM\LotesDeEstruturaInspecao.cs" />
+    <Compile Include="Calculator\GerarLoteLPPM.cs" />
     <Compile Include="Comum\CachedDataStoreProvider.cs" />
     <Compile Include="Comum\CustomIXpoDataStoreProvider.cs" />
     <Compile Include="DatabaseUpdate\Updater.cs" />

@@ -36,7 +36,7 @@ namespace WinCTB_CTS.Module.Importer.Estrutura
     public class ImportComponentEJunta
     {
         private IObjectSpaceProvider _objectSpaceProvider;
-        private ParametrosImportComponentEJunta parametrosImportComponentEJunta;
+        ParametrosImportComponentEJunta parametrosImportComponentEJunta;
         public ImportComponentEJunta(IObjectSpaceProvider objectSpaceProvider, ParametrosImportComponentEJunta _parametrosImportComponentEJunta)
         {
             this._objectSpaceProvider = objectSpaceProvider;
@@ -159,7 +159,7 @@ namespace WinCTB_CTS.Module.Importer.Estrutura
             var objectSpace = _objectSpaceProvider.CreateObjectSpace();
             var TotalDeJuntas = dtJuntasImport.Rows.Count;
 
-            //var oldJuntas = Utils.GetOldDatasForCheck<JuntaComponente>(((XPObjectSpace)objectSpace).Session);
+            var oldJuntas = Utils.GetOldDatasForCheck<JuntaComponente>(((XPObjectSpace)objectSpace).Session);
 
             progress.Report(new ImportProgressReport
             {
@@ -188,8 +188,8 @@ namespace WinCTB_CTS.Module.Importer.Estrutura
 
                         if (juntaComponente == null)
                             juntaComponente = objectSpace.CreateObject<JuntaComponente>();
-                        //else
-                        //    oldJuntas.FirstOrDefault(x => x.Oid == juntaComponente.Oid).DataExist = true;
+                        else
+                            oldJuntas.FirstOrDefault(x => x.Oid == juntaComponente.Oid).DataExist = true;
 
                         juntaComponente.Junta = linha[5].ToString();
                         juntaComponente.TipoJunta = linha[7].ToString();
@@ -256,6 +256,7 @@ namespace WinCTB_CTS.Module.Importer.Estrutura
                         //juntaComponente.PosDf2 = Utils.ConvertDateTime(juntaComponente.Evaluate(CriteriaOperator.Parse("[<Componente>][Peca = ^.Df2].Max(DataPosicionamento)")));
                         juntaComponente.PosDf2 = objectSpace.FindObject<Componente>(new BinaryOperator("Peca", juntaComponente.Df2))?.DataPosicionamento;
 
+
                         //Antigo (Daniel)
                         //juntaComponente.PosDf1 =
                         //        string.IsNullOrEmpty(juntaComponente.Df1)
@@ -273,7 +274,7 @@ namespace WinCTB_CTS.Module.Importer.Estrutura
                 }
 
 
-                if (i % 100 == 0)
+                if (i % 5000 == 0)
                 {
                     try
                     {

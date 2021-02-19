@@ -14,14 +14,12 @@ using WinCTB_CTS.Module.BusinessObjects.Estrutura;
 using WinCTB_CTS.Module.BusinessObjects.Estrutura.Lotes;
 using WinCTB_CTS.Module.Comum;
 
-namespace WinCTB_CTS.Module.Calculator.ProcessoLoteLPPM
+namespace WinCTB_CTS.Module.Calculator
 {
     public class GerarLoteLPPM
     {
         private IObjectSpace ObjectSpace;
-
         private IObjectSpaceProvider ObjectSpaceProvider;
-
         public GerarLoteLPPM(IObjectSpaceProvider objectSpaceProvider) => this.ObjectSpaceProvider = objectSpaceProvider;
 
         private void IncluirJuntaNoLote(LoteLPPMEstrutura lote, JuntaComponente juntaComponente, int cicloTermico)
@@ -30,12 +28,10 @@ namespace WinCTB_CTS.Module.Calculator.ProcessoLoteLPPM
             var juntaLote = nestedObjectSpace.CreateObject<LoteLPPMJuntaEstrutura>();
             juntaLote.LoteLPPMEstrutura = nestedObjectSpace.GetObject(lote);
             juntaLote.JuntaComponente = nestedObjectSpace.GetObject(juntaComponente);
-            juntaLote.DataInclusao = DateTime.Now;                      
             juntaLote.CicloTermico = cicloTermico;
             juntaLote.PercentualNivelDeInspecao = juntaComponente.PercLpPm;
             nestedObjectSpace.CommitChanges();
         }
-
         private LoteLPPMEstrutura NovoLote(JuntaComponente juntaComponente)
         {
             var nestedObjectSpace = ObjectSpace.CreateNestedObjectSpace();
@@ -104,6 +100,7 @@ namespace WinCTB_CTS.Module.Calculator.ProcessoLoteLPPM
             juntasSemLote.Dispose();
             ObjectSpace.Dispose();
         }
+
 
         public int QuantidadeDeJunta(double percent)
         {

@@ -117,9 +117,9 @@ namespace WinCTB_CTS.Module.Win.Controllers
             await Observable.Start(() => import.ImportarJuntas(dtcollectionImport["Joints"], progress));
             parametros.ConcluidoJuntas = true;
                                    
-            //var gerador = new Calculator.ProcessoLoteLPPM.GerarLoteLPPM(objectSpaceProvider);
-            //await gerador.GerarLoteLPPMAsync(simpleProgress);
-            //parametros.ConcluidoLoteLPPM = true;                      
+            var gerador = new Calculator.GerarLoteLPPM(objectSpaceProvider);
+            await gerador.GerarLoteLPPMAsync(simpleProgress);
+            parametros.ConcluidoLoteLPPM = true;                      
 
 
             objectSpace.CommitChanges();
