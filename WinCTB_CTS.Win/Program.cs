@@ -12,6 +12,7 @@ using DevExpress.Persistent.Base;
 using DevExpress.Persistent.BaseImpl;
 using DevExpress.Xpo;
 using DevExpress.XtraEditors;
+using WinCTB_CTS.Module.Comum;
 
 namespace WinCTB_CTS.Win
 {
@@ -64,9 +65,10 @@ namespace WinCTB_CTS.Win
             DevExpress.ExpressApp.Utils.ImageLoader.Instance.UseSvgImages = true;
             winApplication.DatabaseUpdateMode = DatabaseUpdateMode.UpdateDatabaseAlways;
             winApplication.EnableModelCache = true;
+            winApplication.OptimizedControllersCreation = true;
             winApplication.CustomizeFormattingCulture += WinApplication_CustomizeFormattingCulture;
-            winApplication.CreateCustomObjectSpaceProvider += WinApplication_CreateCustomObjectSpaceProvider;
-            winApplication.DatabaseVersionMismatch += WinApplication_DatabaseVersionMismatch;
+            //winApplication.CreateCustomObjectSpaceProvider += WinApplication_CreateCustomObjectSpaceProvider;
+            //winApplication.DatabaseVersionMismatch += WinApplication_DatabaseVersionMismatch;
             winApplication.ConnectionString = connectionStringSettings();
 
             try
@@ -80,23 +82,18 @@ namespace WinCTB_CTS.Win
                 winApplication.HandleException(e);
             }
         }
-
-        private static void WinApplication_CreateCustomObjectSpaceProvider(object sender, CreateCustomObjectSpaceProviderEventArgs e)
-        {
-            e.ObjectSpaceProvider = new XPObjectSpaceProvider(e.ConnectionString, e.Connection, true);
-            e.ObjectSpaceProvider = new XPObjectSpaceProvider(new Module.Comum.CachedDataStoreProvider(e.ConnectionString), true);
-        }
+           
+        //private static void WinApplication_CreateCustomObjectSpaceProvider(object sender, CreateCustomObjectSpaceProviderEventArgs e)
+        //{
+        //    //e.ObjectSpaceProvider = new XPObjectSpaceProvider(e.ConnectionString, e.Connection, true);
+        //    //e.ObjectSpaceProvider = new XPObjectSpaceProvider(new CustomIXpoDataStoreProvider(e.ConnectionString, e.Connection, true), false);
+        //    e.ObjectSpaceProvider = new XPObjectSpaceProvider(new CachedDataStoreProvider(e.ConnectionString), true);
+        //}
 
         private static void WinApplication_CustomizeFormattingCulture(object sender, CustomizeFormattingCultureEventArgs e)
         {
             e.FormattingCulture.DateTimeFormat = Thread.CurrentThread.CurrentCulture.DateTimeFormat;
             e.FormattingCulture.NumberFormat = Thread.CurrentThread.CurrentCulture.NumberFormat;
-        }
-
-        private static void WinApplication_DatabaseVersionMismatch(object sender, DatabaseVersionMismatchEventArgs e)
-        {
-            e.Updater.Update();
-            e.Handled = true;
         }
     }
 }

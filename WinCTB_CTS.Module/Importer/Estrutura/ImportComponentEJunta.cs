@@ -30,6 +30,7 @@ using System.Windows.Forms;
 using WinCTB_CTS.Module.BusinessObjects.Comum;
 using WinCTB_CTS.Module.BusinessObjects.Estrutura;
 using WinCTB_CTS.Module.Comum;
+using WinCTB_CTS.Module.Helpers;
 using WinCTB_CTS.Module.Importer;
 
 namespace WinCTB_CTS.Module.Importer.Estrutura
@@ -164,7 +165,12 @@ namespace WinCTB_CTS.Module.Importer.Estrutura
         {
             await Task.Factory.StartNew(() =>
             {
-                var objectSpace = _objectSpaceProvider.CreateObjectSpace();
+                var objectSpace = _objectSpaceProvider.CreateObjectSpace();               
+                var session = ((XPObjectSpace)objectSpace).Session;
+                //UnitOfWork uow = new UnitOfWork(ProviderDataLayer.GetCacheDataLayer()); ;
+                UnitOfWork uow = new UnitOfWork(session.DataLayer); ;
+
+
                 var TotalDeJuntas = dtJuntasImport.Rows.Count;
 
                 //var oldJuntas = Utils.GetOldDatasForCheck<JuntaComponente>(((XPObjectSpace)objectSpace).Session);
@@ -176,10 +182,12 @@ namespace WinCTB_CTS.Module.Importer.Estrutura
                     MessageImport = "Inicializando importação de juntas"
                 });
 
+                uow.BeginTransaction();
+
                 var source = Enumerable.Range(0, TotalDeJuntas);
                     
                 source.AsParallel()
-                    .WithDegreeOfParallelism(2)
+                    .WithDegreeOfParallelism(1)
                     .ForAll<int>(i => {
                         if (i >= 2)
                         {
@@ -187,7 +195,7 @@ namespace WinCTB_CTS.Module.Importer.Estrutura
                             var desenhoMontagem = linha[2].ToString();
                             var peca = linha[3].ToString();
                             var FiltroPesquisa = CriteriaOperator.Parse("DesenhoMontagem = ? And Peca = ?", desenhoMontagem, peca);
-                            var componente = objectSpace.FindObject<Componente>(FiltroPesquisa);
+                            var componente = uow.FindObject<Componente>(FiltroPesquisa);
                             if (componente != null)
                             {
                                 var junta = linha[9].ToString();
@@ -195,10 +203,10 @@ namespace WinCTB_CTS.Module.Importer.Estrutura
                                 var criteriaOperator = CriteriaOperator.Parse("Componente.Oid = ? And Junta = ?",
                                     componente.Oid, junta);
 
-                                var juntaComponente = objectSpace.FindObject<JuntaComponente>(criteriaOperator);
+                                var juntaComponente = uow.FindObject<JuntaComponente>(criteriaOperator);
 
                                 if (juntaComponente == null)
-                                    juntaComponente = objectSpace.CreateObject<JuntaComponente>();
+                                    juntaComponente = new JuntaComponente(uow);
                                 //else
                                 //    oldJuntas.FirstOrDefault(x => x.Oid == juntaComponente.Oid).DataExist = true;
 
@@ -262,10 +270,10 @@ namespace WinCTB_CTS.Module.Importer.Estrutura
 
                                 //Complemento                      
                                 //juntaComponente.PosDf1 = Utils.ConvertDateTime(juntaComponente.Evaluate(CriteriaOperator.Parse("[<Componente>][Peca = ^.Df1].Max(DataPosicionamento)")));
-                                juntaComponente.PosDf1 = objectSpace.FindObject<Componente>(new BinaryOperator("Peca", juntaComponente.Df1))?.DataPosicionamento;
+                                juntaComponente.PosDf1 = uow.FindObject<Componente>(new BinaryOperator("Peca", juntaComponente.Df1))?.DataPosicionamento;
 
                                 //juntaComponente.PosDf2 = Utils.ConvertDateTime(juntaComponente.Evaluate(CriteriaOperator.Parse("[<Componente>][Peca = ^.Df2].Max(DataPosicionamento)")));
-                                juntaComponente.PosDf2 = objectSpace.FindObject<Componente>(new BinaryOperator("Peca", juntaComponente.Df2))?.DataPosicionamento;
+                                juntaComponente.PosDf2 = uow.FindObject<Componente>(new BinaryOperator("Peca", juntaComponente.Df2))?.DataPosicionamento;
 
                                 //Antigo (Daniel)
                                 //juntaComponente.PosDf1 =
@@ -284,15 +292,15 @@ namespace WinCTB_CTS.Module.Importer.Estrutura
                         }
 
 
-                        if (i % 100 == 0)
+                        if (i % 1000 == 0)
                         {
                             try
                             {
-                                objectSpace.CommitChanges();
+                                uow.CommitTransaction();
                             }
                             catch
                             {
-                                objectSpace.Rollback();
+                                uow.RollbackTransaction();
                                 throw new Exception("Process aborted by system");
                             }
                         }
@@ -304,9 +312,10 @@ namespace WinCTB_CTS.Module.Importer.Estrutura
                             MessageImport = $"Importando linha {i}/{TotalDeJuntas}"
                         });
                     });
-                                
-                objectSpace.CommitChanges();
-                objectSpace.Dispose();
+
+                uow.CommitTransaction();
+                uow.CommitChanges();
+                uow.Dispose();
 
                 progress.Report(new ImportProgressReport
                 {

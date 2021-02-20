@@ -32,8 +32,14 @@ namespace WinCTB_CTS.Module.Comum
             if (root == null)
                 root = new DataCacheRoot(base.CreateWorkingStore(out rootDisposableObjects));
 
+            var cacheNode = new DataCacheNode(root)
+            {
+                MaxCacheLatency = TimeSpan.FromMinutes(60),
+                TotalMemoryPurgeThreshold = 32 * 1024 * 1024
+            };
+
             disposableObjects = new IDisposable[0];
-            return new DataCacheNode(root);
+            return new DataCacheNode(cacheNode);
         }
     }
 }

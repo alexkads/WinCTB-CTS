@@ -13,16 +13,22 @@ namespace WinCTB_CTS.Module.Helpers
 {
     class ProviderDataLayer
     {
-        private IDataLayer dataLayer;
-
-        public ProviderDataLayer()
+        public static IDataLayer GetThreadSafeDataLayer()
         {
-            this.dataLayer = GetThreadSafeDataLayer();
+            XpoDefault.Session = null;
+            string conn = ConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString;
+            Guard.ArgumentNotNull(conn, "connection");
+
+            conn = XpoDefault.GetConnectionPoolString(conn);
+            XPDictionary dict = new ReflectionDictionary();
+            IDataStore store = XpoDefault.GetConnectionProvider(conn, AutoCreateOption.None);
+            dict.GetDataStoreSchema(System.Reflection.Assembly.GetExecutingAssembly());
+
+            IDataLayer dataLayer = new ThreadSafeDataLayer(dict, store);
+            return dataLayer;
         }
 
-        public IDataLayer DataLayer { get => dataLayer; }
-
-        private IDataLayer GetThreadSafeDataLayer()
+        public static IDataLayer GetCacheDataLayer()
         {
             XpoDefault.Session = null;
             string conn = ConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString;
@@ -36,11 +42,11 @@ namespace WinCTB_CTS.Module.Helpers
             var cacheRoot = new DataCacheRoot(store);
             var cacheNode = new DataCacheNode(cacheRoot)
             {
-                MaxCacheLatency = TimeSpan.FromSeconds(2),
+                MaxCacheLatency = TimeSpan.FromMinutes(60),
                 TotalMemoryPurgeThreshold = 32 * 1024 * 1024
             };
 
-            IDataLayer dataLayer = new ThreadSafeDataLayer(dict, cacheNode);
+            IDataLayer dataLayer = new SimpleDataLayer(dict, cacheNode);
             return dataLayer;
         }
     }

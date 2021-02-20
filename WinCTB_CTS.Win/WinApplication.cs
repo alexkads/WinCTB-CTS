@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using DevExpress.ExpressApp.Updating;
 using DevExpress.ExpressApp.Win.Utils;
 using DevExpress.ExpressApp.Xpo;
+using WinCTB_CTS.Module.Comum;
 
 namespace WinCTB_CTS.Win
 {
@@ -35,7 +36,10 @@ namespace WinCTB_CTS.Win
         }
         protected override void CreateDefaultObjectSpaceProvider(CreateCustomObjectSpaceProviderEventArgs args)
         {
-            args.ObjectSpaceProviders.Add(new XPObjectSpaceProvider(XPObjectSpaceProvider.GetDataStoreProvider(args.ConnectionString, args.Connection, true), false));
+            //Padrão Devexpress
+            //args.ObjectSpaceProviders.Add(new XPObjectSpaceProvider(XPObjectSpaceProvider.GetDataStoreProvider(args.ConnectionString, args.Connection, true), false));
+            //args.ObjectSpaceProviders.Add(new XPObjectSpaceProvider(new CustomIXpoDataStoreProvider(args.ConnectionString, args.Connection, true), true));
+            args.ObjectSpaceProviders.Add(new XPObjectSpaceProvider(new CachedDataStoreProvider(args.ConnectionString), false));
             args.ObjectSpaceProviders.Add(new NonPersistentObjectSpaceProvider(TypesInfo, null));
         }
         private void WinCTB_CTSWindowsFormsApplication_CustomizeLanguagesList(object sender, CustomizeLanguagesListEventArgs e)
