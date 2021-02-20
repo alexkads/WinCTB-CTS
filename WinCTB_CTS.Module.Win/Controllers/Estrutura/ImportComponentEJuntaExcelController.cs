@@ -90,7 +90,7 @@ namespace WinCTB_CTS.Module.Win.Controllers
             ((DialogController)sender).AcceptAction.Enabled["NoEnabled"] = false;
             //Necessário para não fechar a janela após a conclusão do processamento
             e.Cancel = true;
-            e.AcceptActionArgs.Action.Caption = "Procesando";
+            e.AcceptActionArgs.Action.Caption = "Processando";
 
             var parametros = (ParametrosImportComponentEJunta)e.AcceptActionArgs.SelectedObjects[0];
             MemoryStream stream = new MemoryStream();
