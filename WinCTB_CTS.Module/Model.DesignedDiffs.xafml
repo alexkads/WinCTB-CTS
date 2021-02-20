@@ -6,6 +6,10 @@
     <SchemaModule Name="SystemModule" Version="18.2.14.0" IsNewNode="True" />
   </SchemaModules>
   <Views>
+    <ListView Id="Componente_JuntaComponentes_ListView" AllowDelete="False" AllowLink="False" AllowNew="False" DataAccessMode="InstantFeedback" />
+    <ListView Id="Componente_ListView" AllowDelete="False" AllowLink="False" AllowNew="False" DataAccessMode="InstantFeedback" />
+    <ListView Id="JuntaComponente_ListView" AllowDelete="False" AllowLink="False" AllowNew="False" DataAccessMode="InstantFeedback" />
+    <ListView Id="JuntaSpool_ListView" AllowDelete="False" AllowLink="False" AllowNew="False" DataAccessMode="InstantFeedback" />
     <DetailView Id="ParametrosImportComponentEJunta_DetailView">
       <Layout>
         <LayoutGroup Id="Main" RelativeSize="100">
@@ -34,5 +38,7 @@
         </LayoutGroup>
       </Layout>
     </DetailView>
+    <ListView Id="Spool_Juntas_ListView" AllowDelete="False" AllowLink="False" AllowNew="False" DataAccessMode="InstantFeedback" />
+    <ListView Id="Spool_ListView" AllowDelete="False" AllowLink="False" AllowNew="False" DataAccessMode="InstantFeedback" />
   </Views>
 </Application>

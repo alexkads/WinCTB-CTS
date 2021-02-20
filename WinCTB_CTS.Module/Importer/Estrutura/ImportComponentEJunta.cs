@@ -35,16 +35,17 @@ using WinCTB_CTS.Module.Importer;
 
 namespace WinCTB_CTS.Module.Importer.Estrutura
 {
-    public class ImportComponentEJunta
+    public class ImportComponentEJunta : IDisposable
     {
-        private IObjectSpaceProvider _objectSpaceProvider;
         private CancellationTokenSource _cts;
         private ParametrosImportComponentEJunta _parametrosImportComponentEJunta;
-        public ImportComponentEJunta(IObjectSpaceProvider objectSpaceProvider, ParametrosImportComponentEJunta parametrosImportComponentEJunta, CancellationTokenSource cts)
+        private ProviderDataLayer providerDataLayer;
+
+        public ImportComponentEJunta(ParametrosImportComponentEJunta parametrosImportComponentEJunta, CancellationTokenSource cts)
         {
-            this._objectSpaceProvider = objectSpaceProvider;
             this._parametrosImportComponentEJunta = parametrosImportComponentEJunta;
             this._cts = cts;
+            this.providerDataLayer = new ProviderDataLayer();
         }
 
         public void LogTrace(ImportProgressReport value)
@@ -64,7 +65,8 @@ namespace WinCTB_CTS.Module.Importer.Estrutura
             {
                 //var objectSpace = _objectSpaceProvider.CreateObjectSpace();
                 //var objectSpace = _objectSpaceProvider.CreateObjectSpace();
-                UnitOfWork uow = new UnitOfWork(ProviderDataLayer.GetCacheDataLayer());
+                
+                UnitOfWork uow = new UnitOfWork(providerDataLayer.GetCacheDataLayer());
                 //UnitOfWork uow = new UnitOfWork(dl);
                 //UnitOfWork uow = new UnitOfWork(((XPObjectSpace)objectSpace).Session.ObjectLayer);
 
@@ -172,7 +174,7 @@ namespace WinCTB_CTS.Module.Importer.Estrutura
             await Task.Factory.StartNew(() =>
             {
                 //var objectSpace = _objectSpaceProvider.CreateObjectSpace();
-                UnitOfWork uow = new UnitOfWork(ProviderDataLayer.GetCacheDataLayer());
+                UnitOfWork uow = new UnitOfWork(providerDataLayer.GetCacheDataLayer());
                 //UnitOfWork uow = new UnitOfWork(dl);
                 //UnitOfWork uow = new UnitOfWork(((XPObjectSpace)objectSpace).Session.ObjectLayer);
                 var TotalDeJuntas = dtJuntasImport.Rows.Count;
@@ -201,7 +203,7 @@ namespace WinCTB_CTS.Module.Importer.Estrutura
                         var componente = uow.FindObject<Componente>(FiltroPesquisa);
                         if (componente != null)
                         {
-                            var junta = linha[9].ToString();
+                            var junta = linha[5].ToString();
 
                             var criteriaOperator = CriteriaOperator.Parse("Componente.Oid = ? And Junta = ?",
                                 componente.Oid, junta);
@@ -214,7 +216,7 @@ namespace WinCTB_CTS.Module.Importer.Estrutura
                             //else
                             //    oldJuntas.FirstOrDefault(x => x.Oid == juntaComponente.Oid).DataExist = true;
 
-                            juntaComponente.Junta = linha[5].ToString();
+                            juntaComponente.Junta = junta;
                             juntaComponente.TipoJunta = linha[7].ToString();
                             juntaComponente.Site = linha[8].ToString();
                             juntaComponente.Comprimento = Utils.ConvertDouble(linha[9]);
@@ -329,6 +331,11 @@ namespace WinCTB_CTS.Module.Importer.Estrutura
                 // Implatar funcionalidade
                 //var excluirJuntasNaoImportado = oldJuntas.Where(x => x.DataExist = false);
             }, _cts.Token, TaskCreationOptions.LongRunning, TaskScheduler.Default);
+        }
+
+        public void Dispose()
+        {
+            ((IDisposable)providerDataLayer).Dispose();
         }
     }
 }

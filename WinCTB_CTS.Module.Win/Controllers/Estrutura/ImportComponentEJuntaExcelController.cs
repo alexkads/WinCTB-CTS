@@ -108,7 +108,7 @@ namespace WinCTB_CTS.Module.Win.Controllers
 
             var cts = new CancellationTokenSource();
 
-            var import = new ImportComponentEJunta(objectSpaceProvider, parametrosImportComponentEJunta, cts);
+            var import = new ImportComponentEJunta(parametrosImportComponentEJunta, cts);
             var progress = new Progress<ImportProgressReport>(import.LogTrace);
             var simpleProgress = new Progress<string>();
 
@@ -123,6 +123,7 @@ namespace WinCTB_CTS.Module.Win.Controllers
             //parametros.ConcluidoLoteLPPM = true;                      
 
             objectSpace.CommitChanges();
+            import.Dispose();
             e.AcceptActionArgs.Action.Caption = "Finalizado";
             ((DialogController)sender).AcceptAction.Enabled["NoEnabled"] = true;
         }
