@@ -64,7 +64,7 @@ namespace WinCTB_CTS.Module.Importer.Estrutura
             {
                 //var objectSpace = _objectSpaceProvider.CreateObjectSpace();
                 //var objectSpace = _objectSpaceProvider.CreateObjectSpace();
-                UnitOfWork uow = new UnitOfWork(ProviderDataLayer.GetSimpleDataLayer());
+                UnitOfWork uow = new UnitOfWork(ProviderDataLayer.GetCacheDataLayer());
                 //UnitOfWork uow = new UnitOfWork(dl);
                 //UnitOfWork uow = new UnitOfWork(((XPObjectSpace)objectSpace).Session.ObjectLayer);
 
@@ -172,7 +172,7 @@ namespace WinCTB_CTS.Module.Importer.Estrutura
             await Task.Factory.StartNew(() =>
             {
                 //var objectSpace = _objectSpaceProvider.CreateObjectSpace();
-                UnitOfWork uow = new UnitOfWork(ProviderDataLayer.GetSimpleDataLayer());
+                UnitOfWork uow = new UnitOfWork(ProviderDataLayer.GetCacheDataLayer());
                 //UnitOfWork uow = new UnitOfWork(dl);
                 //UnitOfWork uow = new UnitOfWork(((XPObjectSpace)objectSpace).Session.ObjectLayer);
                 var TotalDeJuntas = dtJuntasImport.Rows.Count;
