@@ -93,12 +93,12 @@ namespace WinCTB_CTS.UnitTests
             {
                 var dtcollectionImport = excelReader.CreateDataTableCollection(false);
 
-                var piecejoints = new ImportComponentEJunta(objectSpaceProvider, parametros);
+                var cts = new CancellationTokenSource();                
+                var piecejoints = new ImportComponentEJunta(objectSpaceProvider, parametros, cts);
                 var progress = new Progress<ImportProgressReport>(piecejoints.LogTrace);
 
-                await Task.Run(() => piecejoints.ImportarComponente(dtcollectionImport["Piece"], progress));
-                //await Observable.Start(() => piecejoints.ImportarJuntas(dtcollectionImport["Joints"], progress));
-
+                await piecejoints.ImportarComponente(dtcollectionImport["Piece"], progress);
+                await piecejoints.ImportarJuntas(dtcollectionImport["Joints"], progress);
                 objectSpace.CommitChanges();
             }
         }
@@ -120,12 +120,10 @@ namespace WinCTB_CTS.UnitTests
             using (var excelReader = new Module.ExcelDataReaderHelper.Excel.Reader(stream))
             {
                 var dtcollectionImport = excelReader.CreateDataTableCollection(false);
-
-                var piecejoints = new ImportComponentEJunta(objectSpaceProvider, parametros);
+                var cts = new CancellationTokenSource();
+                var piecejoints = new ImportComponentEJunta(objectSpaceProvider, parametros, cts);
                 var progress = new Progress<ImportProgressReport>(piecejoints.LogTrace);
 
-                Action<object> ActionProcess = (obj) => piecejoints.ImportarComponente(dtcollectionImport["Piece"], progress);
-                ThreadPool.QueueUserWorkItem(new WaitCallback(ActionProcess));
                 //await Observable.Start(() => piecejoints.ImportarJuntas(dtcollectionImport["Joints"], progress));
 
                 objectSpace.CommitChanges();

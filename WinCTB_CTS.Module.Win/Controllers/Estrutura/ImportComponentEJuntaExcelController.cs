@@ -85,7 +85,7 @@ namespace WinCTB_CTS.Module.Win.Controllers
         {
 
             DataTableCollection dtcollectionImport = null;
-            
+
 
             ((DialogController)sender).AcceptAction.Enabled["NoEnabled"] = false;
             //Necessário para não fechar a janela após a conclusão do processamento
@@ -106,21 +106,21 @@ namespace WinCTB_CTS.Module.Win.Controllers
                 dtcollectionImport = excelReader.CreateDataTableCollection(false);
             }
 
+            var cts = new CancellationTokenSource();
 
-            var import = new ImportComponentEJunta(objectSpaceProvider, parametrosImportComponentEJunta);
+            var import = new ImportComponentEJunta(objectSpaceProvider, parametrosImportComponentEJunta, cts);
             var progress = new Progress<ImportProgressReport>(import.LogTrace);
             var simpleProgress = new Progress<string>();
 
-            await Observable.Start(() => import.ImportarComponente(dtcollectionImport["Piece"], progress));
+            await import.ImportarComponente(dtcollectionImport["Piece"], progress);
             parametros.ConcluidoComponente = true;
 
-            await Observable.Start(() => import.ImportarJuntas(dtcollectionImport["Joints"], progress));
+            await import.ImportarJuntas(dtcollectionImport["Joints"], progress);
             parametros.ConcluidoJuntas = true;
-                                   
+
             //var gerador = new Calculator.ProcessoLoteLPPM.GerarLoteLPPM(objectSpaceProvider);
             //await gerador.GerarLoteLPPMAsync(simpleProgress);
             //parametros.ConcluidoLoteLPPM = true;                      
-
 
             objectSpace.CommitChanges();
             e.AcceptActionArgs.Action.Caption = "Finalizado";

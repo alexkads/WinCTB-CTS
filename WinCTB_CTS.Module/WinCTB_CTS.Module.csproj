@@ -122,6 +122,7 @@
       <Name>System</Name>
       <Private>False</Private>
     </Reference>
+    <Reference Include="System.Configuration" />
     <Reference Include="System.Data">
       <Name>System.Data</Name>
       <Private>False</Private>
@@ -165,6 +166,7 @@
     <Compile Include="DatabaseUpdate\Updater.cs" />
     <Compile Include="Helpers\ExcelDataReaderHelper.cs" />
     <Compile Include="Helpers\OpenXMLHelpers.cs" />
+    <Compile Include="Helpers\ProviderDataLayer.cs" />
     <Compile Include="Importer\Estrutura\ImportComponentEJunta.cs" />
     <Compile Include="Importer\Estrutura\ParametrosImportComponentEJunta.cs" />
     <Compile Include="Importer\ImportProgressReport.cs" />
