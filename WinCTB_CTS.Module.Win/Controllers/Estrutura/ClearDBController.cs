@@ -48,8 +48,9 @@ namespace WinCTB_CTS.Module.Win.Controllers.Estrutura
                 barItem.ItemClick += (s, args) => {
                     
                     var objectSpace = Application.CreateObjectSpace();
-                    UnitOfWork uow = new UnitOfWork(((XPObjectSpace)objectSpace).Session.ObjectLayer);
-                    
+                    //UnitOfWork uow = new UnitOfWork(((XPObjectSpace)objectSpace).Session.ObjectLayer);
+                    UnitOfWork uow = new UnitOfWork(((XPObjectSpace)objectSpace).Session.DataLayer);
+
                     Utils.DeleteAllRecords<Componente>(uow);
                     Utils.DeleteAllRecords<JuntaComponente>(uow);
 
@@ -57,6 +58,7 @@ namespace WinCTB_CTS.Module.Win.Controllers.Estrutura
                     uow.CommitChanges();
 
                     uow.Dispose();
+                    objectSpace.Dispose();
                     XtraMessageBox.Show("Componentes e Juntas de Estrura foram execluídos!");
                 };
             }

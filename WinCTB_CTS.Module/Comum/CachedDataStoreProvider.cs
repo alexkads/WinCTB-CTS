@@ -34,8 +34,8 @@ namespace WinCTB_CTS.Module.Comum
 
             var cacheNode = new DataCacheNode(root)
             {
-                MaxCacheLatency = TimeSpan.FromMinutes(60),
-                TotalMemoryPurgeThreshold = 32 * 1024 * 1024
+                MaxCacheLatency = TimeSpan.FromSeconds(5),
+                TotalMemoryPurgeThreshold = 2 * 1024 * 1024
             };
 
             disposableObjects = new IDisposable[0];
