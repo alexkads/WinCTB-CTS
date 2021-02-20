@@ -62,10 +62,16 @@ namespace WinCTB_CTS.Module.Importer.Estrutura
 
             await Task.Factory.StartNew(() =>
             {
-                var objectSpace = _objectSpaceProvider.CreateObjectSpace();
+                //var objectSpace = _objectSpaceProvider.CreateObjectSpace();
+                //var objectSpace = _objectSpaceProvider.CreateObjectSpace();
+                UnitOfWork uow = new UnitOfWork(ProviderDataLayer.GetSimpleDataLayer());
+                //UnitOfWork uow = new UnitOfWork(dl);
+                //UnitOfWork uow = new UnitOfWork(((XPObjectSpace)objectSpace).Session.ObjectLayer);
+
+
                 var TotalDeComponentes = dtSpoolsImport.Rows.Count;
 
-                var oldComponets = Utils.GetOldDatasForCheck<Componente>(((XPObjectSpace)objectSpace).Session);
+                //var oldComponets = Utils.GetOldDatasForCheck<Componente>(((XPObjectSpace)objectSpace).Session);
 
                 progress.Report(new ImportProgressReport
                 {
@@ -89,12 +95,12 @@ namespace WinCTB_CTS.Module.Importer.Estrutura
                             var criteriaOperator = CriteriaOperator.Parse("DesenhoMontagem = ? And Peca = ?",
                                 desenhoMontagem, peca);
 
-                            var componente = objectSpace.FindObject<Componente>(criteriaOperator);
+                            var componente = uow.FindObject<Componente>(criteriaOperator);
 
                             if (componente == null)
-                                componente = objectSpace.CreateObject<Componente>();
-                            else
-                                oldComponets.FirstOrDefault(x => x.Oid == componente.Oid).DataExist = true;
+                                componente = new Componente(uow);
+                            //else
+                            //oldComponets.FirstOrDefault(x => x.Oid == componente.Oid).DataExist = true;
 
                             //Mapear campos aqui
                             //componente.Contrato = contrato;
@@ -129,11 +135,11 @@ namespace WinCTB_CTS.Module.Importer.Estrutura
                             {
                                 try
                                 {
-                                    objectSpace.CommitChanges();
+                                    uow.CommitTransaction();
                                 }
                                 catch
                                 {
-                                    objectSpace.Rollback();
+                                    uow.RollbackTransaction();
                                     throw new Exception("Process aborted by system");
                                 }
                             }
@@ -146,8 +152,8 @@ namespace WinCTB_CTS.Module.Importer.Estrutura
                             });
                         });
 
-                objectSpace.CommitChanges();
-                objectSpace.Dispose();
+                uow.CommitChanges();
+                uow.Dispose();
 
                 progress.Report(new ImportProgressReport
                 {
@@ -166,7 +172,7 @@ namespace WinCTB_CTS.Module.Importer.Estrutura
             await Task.Factory.StartNew(() =>
             {
                 //var objectSpace = _objectSpaceProvider.CreateObjectSpace();
-                ExplicitUnitOfWork uow = new ExplicitUnitOfWork(ProviderDataLayer.GetSimpleDataLayer());
+                UnitOfWork uow = new UnitOfWork(ProviderDataLayer.GetSimpleDataLayer());
                 //UnitOfWork uow = new UnitOfWork(dl);
                 //UnitOfWork uow = new UnitOfWork(((XPObjectSpace)objectSpace).Session.ObjectLayer);
                 var TotalDeJuntas = dtJuntasImport.Rows.Count;
@@ -180,11 +186,13 @@ namespace WinCTB_CTS.Module.Importer.Estrutura
                     MessageImport = "Inicializando importação de juntas"
                 });
 
-                uow.ExplicitBeginTransaction();
+                uow.BeginTransaction();
 
-                for (int i = 0; i < TotalDeJuntas; i++)
-                {
-                    if (i >= 2)
+                var observableTotalDeJuntas = Observable.Range(0, TotalDeJuntas);
+
+                observableTotalDeJuntas
+                    .Where(row => row >= 2)
+                    .Subscribe(i =>
                     {
                         var linha = dtJuntasImport.Rows[i];
                         var desenhoMontagem = linha[2].ToString();
@@ -284,30 +292,30 @@ namespace WinCTB_CTS.Module.Importer.Estrutura
                             //        : uow.QueryInTransaction<Componente>()
                             //            .FirstOrDefault(comp => comp.Peca == juntaComponente.Df2)?.DataPosicionamento;
                         }
-                    }
 
-                    if (i % 1000 == 0)
-                    {
-                        try
-                        {
-                            uow.ExplicitCommitTransaction();
-                        }
-                        catch
-                        {
-                            uow.ExplicitRollbackTransaction();
-                            throw new Exception("Process aborted by system");
-                        }
-                    }
 
-                    progress.Report(new ImportProgressReport
-                    {
-                        TotalRows = TotalDeJuntas,
-                        CurrentRow = i + 1,
-                        MessageImport = $"Importando linha {i}/{TotalDeJuntas}"
+                        if (i % 1000 == 0)
+                        {
+                            try
+                            {
+                                uow.CommitTransaction();
+                            }
+                            catch
+                            {
+                                uow.RollbackTransaction();
+                                throw new Exception("Process aborted by system");
+                            }
+                        }
+
+                        progress.Report(new ImportProgressReport
+                        {
+                            TotalRows = TotalDeJuntas,
+                            CurrentRow = i + 1,
+                            MessageImport = $"Importando linha {i}/{TotalDeJuntas}"
+                        });
                     });
-                };
 
-                uow.ExplicitCommitTransaction();
+                uow.CommitTransaction();
                 uow.CommitChanges();
                 uow.Dispose();
 
