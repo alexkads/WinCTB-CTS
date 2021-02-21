@@ -163,11 +163,15 @@
     <Compile Include="Calculator\ProcessoLoteLPPM\LotesDeEstruturaInspecao.cs" />
     <Compile Include="Comum\CachedDataStoreProvider.cs" />
     <Compile Include="Comum\CustomIXpoDataStoreProvider.cs" />
+    <Compile Include="Comum\ImporterPatterns\DataImporter.cs" />
+    <Compile Include="Comum\ImporterPatterns\IDataImporter.cs" />
+    <Compile Include="Comum\ImporterPatterns\MapImporterEventArgs.cs" />
     <Compile Include="DatabaseUpdate\Updater.cs" />
     <Compile Include="Helpers\ExcelDataReaderHelper.cs" />
     <Compile Include="Helpers\OpenXMLHelpers.cs" />
     <Compile Include="Helpers\ProviderDataLayer.cs" />
     <Compile Include="Importer\Estrutura\ImportComponentEJunta.cs" />
+    <Compile Include="Importer\ParametrosImportBase.cs" />
     <Compile Include="Importer\Estrutura\ParametrosImportComponentEJunta.cs" />
     <Compile Include="Importer\ImportProgressReport.cs" />
     <Compile Include="Importer\Tubulacao\ImportSpoolEJunta.cs" />

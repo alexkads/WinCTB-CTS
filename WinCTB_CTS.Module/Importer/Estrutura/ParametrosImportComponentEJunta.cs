@@ -16,67 +16,21 @@ using WinCTB_CTS.Module.BusinessObjects.Padrao;
 
 namespace WinCTB_CTS.Module.Importer.Estrutura
 {
-    //[ModelDefault("Caption", "Parâmetros de importação")]
+    [ModelDefault("Caption", "Importação DE Componentes e Juntas")]
     [ModelDefault("VisibleProperties", "Caption, ToolTip, ImageName, AcceptButtonCaption, CancelButtonCaption, IsSizeable")]
     [NonPersistent, ImageName("Action_SingleChoiceAction")]
-    [FileAttachment(nameof(Padrao))]
-    //[RuleCriteria("", DefaultContexts.Save, @"DataInicial > DataFinal", SkipNullOrEmptyValues = false, CustomMessageTemplate = "Data Inicial > Data Final")]
-    public class ParametrosImportComponentEJunta : BaseObject
-    {
-
+   
+    public class ParametrosImportComponentEJunta : ParametrosImportBase
+    {        
         private bool concluidoLoteUS;
         private bool concluidoLoteRX;
         private bool concluidoLoteLPPM;
         private bool concluidoJuntas;
         private bool concluidoComponente;
-        private FileData padrao;
 
-        public ParametrosImportComponentEJunta(Session session)
-            : base(session) { }
-
-        public override void AfterConstruction()
-        {
-            base.AfterConstruction();
-        }
-
-        private static Stream GetManifestResource(string ResourceName)
-        {
-            Type moduleType = typeof(WinCTB_CTSModule);
-            string name = $"{moduleType.Namespace}.Resources.{ResourceName}";
-            return moduleType.Assembly.GetManifestResourceStream(name);
-        }
-
-        [RuleRequiredField, ImmediatePostData]
-        [ExpandObjectMembers(ExpandObjectMembers.Never)]
-        [XafDisplayName("Padrão")]
-        [NonPersistent]
-        public FileData Padrao
-        {
-            get
-            {
-                if (padrao == null)
-                {
-                    var NomeDoRecurso = "MapaMontagemEBR.xlsx";
-                    var os = XPObjectSpace.FindObjectSpaceByObject(this);
-                    var fdata = os.FindObject<FileData>(new BinaryOperator("FileName", NomeDoRecurso));
-                    if (fdata == null)
-                        fdata = os.CreateObject<FileData>();
-
-                    fdata.LoadFromStream(NomeDoRecurso, GetManifestResource(NomeDoRecurso));
-                    fdata.Save();
-                    padrao = fdata;
-                }
-                return padrao;
-            }
-        }
-
-        [EditorAlias(EditorsProviders.ProgressPropertyAlias)]
-        [Delayed, VisibleInListView(false)]
-        public double Progresso
-        {
-            get { return GetDelayedPropertyValue<double>("Progresso"); }
-            set { SetDelayedPropertyValue<double>("Progresso", value); }
-        }
+        public ParametrosImportComponentEJunta(Session session) : base(session) { }
+                      
+        public override string NomeDoRecurso { get => "MapaMontagemEBR.xlsx"; }
 
         [ModelDefault("AllowEdit", "False")]
         public bool ConcluidoComponente

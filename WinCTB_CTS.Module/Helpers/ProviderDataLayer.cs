@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace WinCTB_CTS.Module.Helpers
 {
-    class ProviderDataLayer : IDisposable
+    public class ProviderDataLayer : IDisposable
     {
         private IDataLayer cacheDataLayer;
         private DataCacheRoot cacheRoot;

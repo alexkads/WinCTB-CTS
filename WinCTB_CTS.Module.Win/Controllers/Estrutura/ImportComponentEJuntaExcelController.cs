@@ -96,7 +96,7 @@ namespace WinCTB_CTS.Module.Win.Controllers
             MemoryStream stream = new MemoryStream();
             stream.Seek(0, SeekOrigin.Begin);
 
-            var arquivo = parametros.Padrao;
+            var arquivo = parametros.PadraoDeArquivo;
             arquivo.SaveToStream(stream);
 
             stream.Seek(0, SeekOrigin.Begin);

@@ -25,7 +25,7 @@ namespace WinCTB_CTS.UnitTests
             var parametros = objectSpace.CreateObject<ParametrosAtualizacaoTabelasAuxiliares>();
             MemoryStream stream = new MemoryStream();
             stream.Seek(0, SeekOrigin.Begin);
-            var arquivo = parametros.Padrao;
+            var arquivo = parametros.PadraoDeArquivo;
             arquivo.SaveToStream(stream);
             stream.Seek(0, SeekOrigin.Begin);
 
@@ -57,7 +57,7 @@ namespace WinCTB_CTS.UnitTests
             var parametros = objectSpace.CreateObject<ParametrosImportSpoolJuntaExcel>();
             MemoryStream stream = new MemoryStream();
             stream.Seek(0, SeekOrigin.Begin);
-            var arquivo = parametros.Padrao;
+            var arquivo = parametros.PadraoDeArquivo;
             arquivo.SaveToStream(stream);
             stream.Seek(0, SeekOrigin.Begin);
 
@@ -87,7 +87,7 @@ namespace WinCTB_CTS.UnitTests
             var parametros = objectSpace.CreateObject<ParametrosImportComponentEJunta>();
             MemoryStream stream = new MemoryStream();
             stream.Seek(0, SeekOrigin.Begin);
-            var arquivo = parametros.Padrao;
+            var arquivo = parametros.PadraoDeArquivo;
             arquivo.SaveToStream(stream);
             stream.Seek(0, SeekOrigin.Begin);
 
@@ -115,7 +115,7 @@ namespace WinCTB_CTS.UnitTests
             var parametros = objectSpace.CreateObject<ParametrosImportComponentEJunta>();
             MemoryStream stream = new MemoryStream();
             stream.Seek(0, SeekOrigin.Begin);
-            var arquivo = parametros.Padrao;
+            var arquivo = parametros.PadraoDeArquivo;
             arquivo.SaveToStream(stream);
             stream.Seek(0, SeekOrigin.Begin);
 
