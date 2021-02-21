@@ -57,11 +57,11 @@ namespace WinCTB_CTS.Module.Helpers
             cacheRoot = new DataCacheRoot(store);
             cacheNode = new DataCacheNode(cacheRoot)
             {
-                MaxCacheLatency = TimeSpan.FromMinutes(60),
+                MaxCacheLatency = TimeSpan.FromMinutes(10),
                 TotalMemoryPurgeThreshold = 32 * 1024 * 1024
             };
 
-            cacheDataLayer = new SimpleDataLayer(dict, cacheNode);
+            cacheDataLayer = new ThreadSafeDataLayer(dict, cacheNode);
             return cacheDataLayer;
         }
 
