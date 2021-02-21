@@ -24,6 +24,10 @@ namespace WinCTB_CTS.Module.Comum.ImporterPatterns
 
         void LogTrace(ImportProgressReport value);
 
+        event EventHandler<MapImporterEventArgs> MapImporter;
+        
+        //event EventHandler<ImportProgressReport> ProgressHandler;
+
         Task Start();
 
         Task InitializeImport(DataTable DataTableImport, IProgress<ImportProgressReport> progress);

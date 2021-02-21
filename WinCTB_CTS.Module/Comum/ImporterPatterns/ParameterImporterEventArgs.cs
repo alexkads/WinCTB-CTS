@@ -5,7 +5,7 @@ using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using WinCTB_CTS.Module.Importer.Estrutura;
+using WinCTB_CTS.Module.Importer;
 
 namespace WinCTB_CTS.Module.Comum.ImporterPatterns
 {

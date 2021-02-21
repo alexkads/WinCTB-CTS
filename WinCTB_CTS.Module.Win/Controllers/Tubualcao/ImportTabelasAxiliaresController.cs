@@ -29,6 +29,7 @@ using System.Threading;
 using WinCTB_CTS.Module.BusinessObjects.Comum;
 using WinCTB_CTS.Module.Importer;
 using WinCTB_CTS.Module.Importer.Tubulacao;
+using System.Diagnostics;
 
 namespace WinCTB_CTS.Module.Win.Controllers
 {
@@ -81,37 +82,27 @@ namespace WinCTB_CTS.Module.Win.Controllers
             //Necessário para não fechar a janela após a conclusão do processamento
             e.Cancel = true;
             e.AcceptActionArgs.Action.Caption = "Procesando";
-
+           
+            var cts = new CancellationTokenSource();
             var parametros = (ParametrosAtualizacaoTabelasAuxiliares)e.AcceptActionArgs.SelectedObjects[0];
-            MemoryStream stream = new MemoryStream();
-            stream.Seek(0, SeekOrigin.Begin);
+            var tabDia = new ImportDiametro(cts, "TabDiametro", parametros);
+            var tabSch = new ImportSchedule(cts, "Schedule", parametros);
+            var tabPIn = new ImportPercInspecao(cts, "PercInspecao", parametros);
+            var tabPSo = new ImportProcessoSoldagem(cts, "ProcessoSoldagem", parametros);
+            var tabCon = new ImportContrato(cts, "Contrato", parametros);
+            var tabEAP = new ImportEAP(cts, "EAPPipe", parametros);
 
-            var arquivo = parametros.PadraoDeArquivo;
-            arquivo.SaveToStream(stream);
-
-            stream.Seek(0, SeekOrigin.Begin);
-
-            using (var excelReader = new ExcelDataReaderHelper.Excel.Reader(stream))
-            {
-                dtcollectionImport = excelReader.CreateDataTableCollection(false);
-            }
-
-            var itba = new ImportTabelaAuxiliares(objectSpace, parametrosAtualizacaoTabelasAuxiliares);
-            var progress = new Progress<ImportProgressReport>(itba.LogTrace);
-
-            await Observable.Start(() => itba.ImportarDiametro(dtcollectionImport["TabDiametro"], progress));
-            await Observable.Start(() => itba.ImportarSchedule(dtcollectionImport["Schedule"], progress));
-            await Observable.Start(() => itba.ImportarPercInspecao(dtcollectionImport["PercInspecao"], progress));
-            await Observable.Start(() => itba.ImportarProcessoSoldagem(dtcollectionImport["ProcessoSoldagem"], progress));
-            await Observable.Start(() => itba.ImportarContrato(dtcollectionImport["Contrato"], progress));
-            await Observable.Start(() => itba.ImportarEAP(dtcollectionImport["EAPPipe"], progress));
+            await tabDia.Start();
+            await tabSch.Start();
+            await tabPIn.Start();
+            await tabPSo.Start();
+            await tabCon.Start();
+            await tabEAP.Start();
 
             objectSpace.CommitChanges();
             e.AcceptActionArgs.Action.Caption = "Finalizado";
             ((DialogController)sender).AcceptAction.Enabled["NoEnabled"] = true;
         }
-
-        DataTableCollection dtcollectionImport;
 
         protected override void OnActivated()
         {

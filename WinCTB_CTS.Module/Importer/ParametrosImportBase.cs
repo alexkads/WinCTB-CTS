@@ -11,7 +11,7 @@ using System.ComponentModel;
 using System.IO;
 using WinCTB_CTS.Module.BusinessObjects.Padrao;
 
-namespace WinCTB_CTS.Module.Importer.Estrutura
+namespace WinCTB_CTS.Module.Importer
 {
     [FileAttachment("PadraoDeArquivo"), ImageName("Action_SingleChoiceAction"), ModelDefault("VisibleProperties", "Caption, ToolTip, ImageName, AcceptButtonCaption, CancelButtonCaption, IsSizeable"), NonPersistent]
     public abstract class ParametrosImportBase : BaseObject

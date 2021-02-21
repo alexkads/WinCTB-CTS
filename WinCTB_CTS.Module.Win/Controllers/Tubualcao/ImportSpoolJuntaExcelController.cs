@@ -80,39 +80,24 @@ namespace WinCTB_CTS.Module.Win.Controllers
 
         private async void DialogControllerImportarPlanilha_Accepting(object sender, DialogControllerAcceptingEventArgs e)
         {
-
-            DataTableCollection dtcollectionImport = null;
-
             ((DialogController)sender).AcceptAction.Enabled["NoEnabled"] = false;
             //Necessário para não fechar a janela após a conclusão do processamento
             e.Cancel = true;
             e.AcceptActionArgs.Action.Caption = "Procesando";
 
-            var parametros = (ParametrosImportSpoolJuntaExcel)e.AcceptActionArgs.SelectedObjects[0];
-            MemoryStream stream = new MemoryStream();
-            stream.Seek(0, SeekOrigin.Begin);
-
-            var arquivo = parametros.PadraoDeArquivo;
-            arquivo.SaveToStream(stream);
-
-            stream.Seek(0, SeekOrigin.Begin);
-
-            using (var excelReader = new ExcelDataReaderHelper.Excel.Reader(stream))
-            {
-                dtcollectionImport = excelReader.CreateDataTableCollection(false);
-            }
-
             var cts = new CancellationTokenSource();
-            var import = new ImportSpoolEJunta(parametrosImportSpoolJuntaExcel, cts);
-            var progress = new Progress<ImportProgressReport>(import.LogTrace);
+            var parametros = (ParametrosImportSpoolJuntaExcel)e.AcceptActionArgs.SelectedObjects[0];
 
-            await import.ImportarSpools(dtcollectionImport["SGS"], progress);
-            await import.ImportarJuntas(dtcollectionImport["SGJ"], progress);
+            var sgs = new ImportSpool(cts, "SGS", parametros);
+            var sgj = new ImportJuntaSpool(cts, "SGJ", parametros);
+
+            await sgs.Start();
+            await sgj.Start();
 
             objectSpace.CommitChanges();
-            import.Dispose();
-            e.AcceptActionArgs.Action.Caption = "Finalizado";
-            ((DialogController)sender).AcceptAction.Enabled["NoEnabled"] = true;
+
+            e.AcceptActionArgs.Action.Caption = "Finalizado";            
+            ((DialogController)sender).AcceptAction.Enabled["NoEnabled"] = false;
         }
     }
 }

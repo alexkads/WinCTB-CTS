@@ -177,9 +177,11 @@
     <Compile Include="Importer\ImportProgressReport.cs" />
     <Compile Include="Importer\Tubulacao\ImportEAP.cs" />
     <Compile Include="Importer\Tubulacao\ImportContrato.cs" />
+    <Compile Include="Importer\Tubulacao\ImportSpool.cs" />
     <Compile Include="Importer\Tubulacao\ImportProcessoSoldagem.cs" />
     <Compile Include="Importer\Tubulacao\ImportPercInspecao.cs" />
     <Compile Include="Importer\Tubulacao\ImportSchedule.cs" />
+    <Compile Include="Importer\Tubulacao\ImportJuntaSpool.cs" />
     <Compile Include="Importer\Tubulacao\ImportSpoolEJunta.cs" />
     <Compile Include="Importer\Tubulacao\ImportDiametro.cs" />
     <Compile Include="Importer\Tubulacao\ImportTabelaAuxiliares.cs" />

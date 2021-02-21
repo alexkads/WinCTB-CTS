@@ -2,6 +2,8 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using NUnit.Framework;
 using System;
+using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Reactive.Linq;
 using System.Threading;
@@ -32,7 +34,7 @@ namespace WinCTB_CTS.UnitTests
             var tabPSo = new ImportProcessoSoldagem(cts, "ProcessoSoldagem", parametros);
             var tabCon = new ImportContrato(cts, "Contrato", parametros);
             var tabEAP = new ImportEAP(cts, "EAPPipe", parametros);
-            
+
             await tabDia.Start();
             await tabSch.Start();
             await tabPIn.Start();
@@ -40,6 +42,7 @@ namespace WinCTB_CTS.UnitTests
             await tabCon.Start();
             await tabEAP.Start();
         }
+
 
         [TestMethod]
         [TestCase()]

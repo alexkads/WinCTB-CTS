@@ -29,6 +29,8 @@ namespace WinCTB_CTS.Module.Comum.ImporterPatterns
 
         public event EventHandler<MapImporterEventArgs> MapImporter;
 
+        //public event EventHandler<ImportProgressReport> ProgressHandler;
+
         public DataImporter(CancellationTokenSource cancellationTokenSource, string TabName, ParametrosImportBase parametros)
         {
             this.SetCancellationTokenSource = cancellationTokenSource;
@@ -45,6 +47,11 @@ namespace WinCTB_CTS.Module.Comum.ImporterPatterns
                 : 0D;
 
             SetParametros.Progresso = progresso;
+
+            ////Notificar Progresso
+
+            //if (ProgressHandler != null && value != null)
+            //    ProgressHandler(this, value);
         }
 
         public async Task Start()
