@@ -165,6 +165,7 @@
     <Compile Include="Comum\CustomIXpoDataStoreProvider.cs" />
     <Compile Include="Comum\ImporterPatterns\DataImporter.cs" />
     <Compile Include="Comum\ImporterPatterns\IDataImporter.cs" />
+    <Compile Include="Comum\ImporterPatterns\ParameterImporterEventArgs.cs" />
     <Compile Include="Comum\ImporterPatterns\MapImporterEventArgs.cs" />
     <Compile Include="DatabaseUpdate\Updater.cs" />
     <Compile Include="Helpers\ExcelDataReaderHelper.cs" />
@@ -174,7 +175,13 @@
     <Compile Include="Importer\ParametrosImportBase.cs" />
     <Compile Include="Importer\Estrutura\ParametrosImportComponentEJunta.cs" />
     <Compile Include="Importer\ImportProgressReport.cs" />
+    <Compile Include="Importer\Tubulacao\ImportEAP.cs" />
+    <Compile Include="Importer\Tubulacao\ImportContrato.cs" />
+    <Compile Include="Importer\Tubulacao\ImportProcessoSoldagem.cs" />
+    <Compile Include="Importer\Tubulacao\ImportPercInspecao.cs" />
+    <Compile Include="Importer\Tubulacao\ImportSchedule.cs" />
     <Compile Include="Importer\Tubulacao\ImportSpoolEJunta.cs" />
+    <Compile Include="Importer\Tubulacao\ImportDiametro.cs" />
     <Compile Include="Importer\Tubulacao\ImportTabelaAuxiliares.cs" />
     <Compile Include="Importer\Tubulacao\ParametrosAtualizacaoTabelasAuxiliares.cs" />
     <Compile Include="Importer\Tubulacao\ParametrosImportSpoolJuntaExcel.cs" />

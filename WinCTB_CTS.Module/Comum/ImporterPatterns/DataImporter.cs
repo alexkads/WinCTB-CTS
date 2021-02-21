@@ -3,6 +3,8 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Data;
+using System.Diagnostics;
+using System.IO;
 using System.Linq;
 using System.Reactive.Linq;
 using System.Text;
@@ -17,18 +19,23 @@ namespace WinCTB_CTS.Module.Comum.ImporterPatterns
     public abstract class DataImporter : IDataImporter
     {
         public CancellationTokenSource SetCancellationTokenSource { get; set; }
-        public ProviderDataLayer providerDataLayer { get; set; }
         public ParametrosImportBase SetParametros { get; set; }
+        public ProviderDataLayer providerDataLayer { get; set; }
         public IList ObjectsForImporter { get; set; }
         public object CurrentObject { get; set; }
         public object ObjectMap { get; set; }
+        public string SetTabName { get; set; }
+
         public event EventHandler<MapImporterEventArgs> MapImporter;
-        public DataImporter(ParametrosImportBase Parametros, CancellationTokenSource _cancellationTokenSource)
+
+        public DataImporter(CancellationTokenSource cancellationTokenSource, string TabName, ParametrosImportBase parametros)
         {
-            this.SetCancellationTokenSource = _cancellationTokenSource;
+            this.SetCancellationTokenSource = cancellationTokenSource;
+            this.SetTabName = TabName;
+            this.SetParametros = parametros;
             this.providerDataLayer = new ProviderDataLayer();
-            this.SetParametros = Parametros;
         }
+
         public void LogTrace(ImportProgressReport value)
         {
             var progresso = (value.TotalRows > 0 && value.CurrentRow > 0)
@@ -37,6 +44,25 @@ namespace WinCTB_CTS.Module.Comum.ImporterPatterns
 
             SetParametros.Progresso = progresso;
         }
+
+        public async Task Start()
+        {
+            MemoryStream stream = new MemoryStream();
+            stream.Seek(0, SeekOrigin.Begin);
+
+            var arquivo = ((ParametrosImportBase)SetParametros).PadraoDeArquivo;
+            arquivo.SaveToStream(stream);
+
+            stream.Seek(0, SeekOrigin.Begin);
+
+            using (var excelReader = new ExcelDataReaderHelper.Excel.Reader(stream))
+            {
+                var dtcollectionImport = excelReader.CreateDataTableCollection(false);
+                var progress = new Progress<ImportProgressReport>(LogTrace);
+                await InitializeImport(dtcollectionImport[SetTabName], progress);
+            }
+        }
+
         public async Task InitializeImport(DataTable DataTableImport, IProgress<ImportProgressReport> progress)
         {
             await Task.Factory.StartNew(() =>
@@ -51,6 +77,8 @@ namespace WinCTB_CTS.Module.Comum.ImporterPatterns
                     MessageImport = "Inicializando importação"
                 });
 
+                Debug.WriteLine($"Inicializando importação da Tabela {SetTabName}");
+
                 uow.BeginTransaction();
 
                 Observable.Range(0, TotalRowsForImporter)
@@ -59,7 +87,7 @@ namespace WinCTB_CTS.Module.Comum.ImporterPatterns
                     var linha = DataTableImport.Rows[i];
 
                     //Mapear importação
-                    OnMapImporter(uow, linha);
+                    OnMapImporter(uow, DataTableImport, linha, TotalRowsForImporter, i);
 
                     if (i % 1000 == 0)
                     {
@@ -104,11 +132,12 @@ namespace WinCTB_CTS.Module.Comum.ImporterPatterns
             });
         }
 
-        protected virtual void OnMapImporter(UnitOfWork uow, DataRow rowForMap)
+        protected virtual void OnMapImporter(UnitOfWork uow, DataTable dataTable, DataRow rowForMap, int expectedTotal, int index)
         {
             if (MapImporter != null)
             {
-                MapImporter(this, new MapImporterEventArgs(uow, rowForMap));
+                //Debug.WriteLine($"Importando registro: {index.ToString().PadLeft(8, '0')}/{expectedTotal.ToString().PadLeft(8, '0')} da Tabela {SetTabName}");
+                MapImporter(this, new MapImporterEventArgs(uow, dataTable, rowForMap, expectedTotal, index));
             }
         }
     }

@@ -19,32 +19,25 @@ namespace WinCTB_CTS.UnitTests
         [TestCase()]
         public async Task TesteImportacaoTabelaAuxiliar()
         {
+            var cts = new CancellationTokenSource();
             var application = new Application(false);
             IObjectSpaceProvider objectSpaceProvider = application.serverApplication.ObjectSpaceProvider;
             var objectSpace = objectSpaceProvider.CreateObjectSpace();
             var parametros = objectSpace.CreateObject<ParametrosAtualizacaoTabelasAuxiliares>();
-            MemoryStream stream = new MemoryStream();
-            stream.Seek(0, SeekOrigin.Begin);
-            var arquivo = parametros.PadraoDeArquivo;
-            arquivo.SaveToStream(stream);
-            stream.Seek(0, SeekOrigin.Begin);
 
-            using (var excelReader = new Module.ExcelDataReaderHelper.Excel.Reader(stream))
-            {
-                var dtcollectionImport = excelReader.CreateDataTableCollection(false);
-
-                var itba = new ImportTabelaAuxiliares(objectSpace, parametros);
-                var progress = new Progress<ImportProgressReport>(itba.LogTrace);
-
-                await Observable.Start(() => itba.ImportarDiametro(dtcollectionImport["TabDiametro"], progress));
-                await Observable.Start(() => itba.ImportarSchedule(dtcollectionImport["Schedule"], progress));
-                await Observable.Start(() => itba.ImportarPercInspecao(dtcollectionImport["PercInspecao"], progress));
-                await Observable.Start(() => itba.ImportarProcessoSoldagem(dtcollectionImport["ProcessoSoldagem"], progress));
-                await Observable.Start(() => itba.ImportarContrato(dtcollectionImport["Contrato"], progress));
-                await Observable.Start(() => itba.ImportarEAP(dtcollectionImport["EAPPipe"], progress));
-
-                objectSpace.CommitChanges();
-            }
+            var tabDia = new ImportDiametro(cts, "TabDiametro", parametros);
+            var tabSch = new ImportSchedule(cts, "Schedule", parametros);
+            var tabPIn = new ImportPercInspecao(cts, "PercInspecao", parametros);
+            var tabPSo = new ImportProcessoSoldagem(cts, "ProcessoSoldagem", parametros);
+            var tabCon = new ImportContrato(cts, "Contrato", parametros);
+            var tabEAP = new ImportEAP(cts, "EAPPipe", parametros);
+            
+            await tabDia.Start();
+            await tabSch.Start();
+            await tabPIn.Start();
+            await tabPSo.Start();
+            await tabCon.Start();
+            await tabEAP.Start();
         }
 
         [TestMethod]
@@ -64,7 +57,7 @@ namespace WinCTB_CTS.UnitTests
             using (var excelReader = new Module.ExcelDataReaderHelper.Excel.Reader(stream))
             {
                 var dtcollectionImport = excelReader.CreateDataTableCollection(false);
-                
+
                 var cts = new CancellationTokenSource();
                 var itba = new ImportSpoolEJunta(parametros, cts);
                 var progress = new Progress<ImportProgressReport>(itba.LogTrace);
@@ -95,7 +88,7 @@ namespace WinCTB_CTS.UnitTests
             {
                 var dtcollectionImport = excelReader.CreateDataTableCollection(false);
 
-                var cts = new CancellationTokenSource();                
+                var cts = new CancellationTokenSource();
                 var piecejoints = new ImportComponentEJunta(parametros, cts);
                 var progress = new Progress<ImportProgressReport>(piecejoints.LogTrace);
 

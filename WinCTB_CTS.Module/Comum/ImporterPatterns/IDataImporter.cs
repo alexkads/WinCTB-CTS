@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DevExpress.Xpo;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -16,11 +17,14 @@ namespace WinCTB_CTS.Module.Comum.ImporterPatterns
     interface IDataImporter
     {
         CancellationTokenSource SetCancellationTokenSource { get; set; }
-        ProviderDataLayer providerDataLayer { get; set; }
         ParametrosImportBase SetParametros { get; set; }
+        string SetTabName { get; set; }
+        ProviderDataLayer providerDataLayer { get; set; }      
         
-        event EventHandler<MapImporterEventArgs> MapImporter;
-        void LogTrace(ImportProgressReport value);        
+        void LogTrace(ImportProgressReport value);
+
+        Task Start();
+
         Task InitializeImport(DataTable DataTableImport, IProgress<ImportProgressReport> progress);
     }
 }
