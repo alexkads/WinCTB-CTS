@@ -84,48 +84,31 @@ namespace WinCTB_CTS.Module.Win.Controllers
         private async void DialogControllerImportarPlanilha_Accepting(object sender, DialogControllerAcceptingEventArgs e)
         {
 
-            DataTableCollection dtcollectionImport = null;
-
-
             ((DialogController)sender).AcceptAction.Enabled["NoEnabled"] = false;
             //Necessário para não fechar a janela após a conclusão do processamento
             e.Cancel = true;
             e.AcceptActionArgs.Action.Caption = "Processando";
 
-            var parametros = (ParametrosImportComponentEJunta)e.AcceptActionArgs.SelectedObjects[0];
-            MemoryStream stream = new MemoryStream();
-            stream.Seek(0, SeekOrigin.Begin);
-
-            var arquivo = parametros.PadraoDeArquivo;
-            arquivo.SaveToStream(stream);
-
-            stream.Seek(0, SeekOrigin.Begin);
-
-            using (var excelReader = new ExcelDataReaderHelper.Excel.Reader(stream))
-            {
-                dtcollectionImport = excelReader.CreateDataTableCollection(false);
-            }
-
             var cts = new CancellationTokenSource();
+            var parametros = (ParametrosImportComponentEJunta)e.AcceptActionArgs.SelectedObjects[0];
 
-            var import = new ImportComponentEJunta(parametrosImportComponentEJunta, cts);
-            var progress = new Progress<ImportProgressReport>(import.LogTrace);
-            var simpleProgress = new Progress<string>();
+            var compo = new ImportComponente(cts, "Piece", parametros);
+            var junta = new ImportJuntaComponente(cts, "Joints", parametros);
 
-            await import.ImportarComponente(dtcollectionImport["Piece"], progress);
+            await compo.Start();
             parametros.ConcluidoComponente = true;
 
-            await import.ImportarJuntas(dtcollectionImport["Joints"], progress);
+            await junta.Start();
             parametros.ConcluidoJuntas = true;
-
+           
             //var gerador = new Calculator.ProcessoLoteLPPM.GerarLoteLPPM(objectSpaceProvider);
             //await gerador.GerarLoteLPPMAsync(simpleProgress);
             //parametros.ConcluidoLoteLPPM = true;                      
 
             objectSpace.CommitChanges();
-            import.Dispose();
+
             e.AcceptActionArgs.Action.Caption = "Finalizado";
-            ((DialogController)sender).AcceptAction.Enabled["NoEnabled"] = true;
+            ((DialogController)sender).AcceptAction.Enabled["NoEnabled"] = false;
         }
     }
 }

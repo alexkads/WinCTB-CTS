@@ -44,91 +44,91 @@ namespace WinCTB_CTS.UnitTests
         }
 
 
-        [TestMethod]
-        [TestCase()]
-        public async Task TesteImportacaoSpoolEJunta()
-        {
-            var application = new Application(false);
-            IObjectSpaceProvider objectSpaceProvider = application.serverApplication.ObjectSpaceProvider;
-            var objectSpace = objectSpaceProvider.CreateObjectSpace();
-            var parametros = objectSpace.CreateObject<ParametrosImportSpoolJuntaExcel>();
-            MemoryStream stream = new MemoryStream();
-            stream.Seek(0, SeekOrigin.Begin);
-            var arquivo = parametros.PadraoDeArquivo;
-            arquivo.SaveToStream(stream);
-            stream.Seek(0, SeekOrigin.Begin);
+        //[TestMethod]
+        //[TestCase()]
+        //public async Task TesteImportacaoSpoolEJunta()
+        //{
+        //    var application = new Application(false);
+        //    IObjectSpaceProvider objectSpaceProvider = application.serverApplication.ObjectSpaceProvider;
+        //    var objectSpace = objectSpaceProvider.CreateObjectSpace();
+        //    var parametros = objectSpace.CreateObject<ParametrosImportSpoolJuntaExcel>();
+        //    MemoryStream stream = new MemoryStream();
+        //    stream.Seek(0, SeekOrigin.Begin);
+        //    var arquivo = parametros.PadraoDeArquivo;
+        //    arquivo.SaveToStream(stream);
+        //    stream.Seek(0, SeekOrigin.Begin);
 
-            using (var excelReader = new Module.ExcelDataReaderHelper.Excel.Reader(stream))
-            {
-                var dtcollectionImport = excelReader.CreateDataTableCollection(false);
+        //    using (var excelReader = new Module.ExcelDataReaderHelper.Excel.Reader(stream))
+        //    {
+        //        var dtcollectionImport = excelReader.CreateDataTableCollection(false);
 
-                var cts = new CancellationTokenSource();
-                var itba = new ImportSpoolEJunta(parametros, cts);
-                var progress = new Progress<ImportProgressReport>(itba.LogTrace);
+        //        var cts = new CancellationTokenSource();
+        //        var itba = new ImportSpoolEJunta(parametros, cts);
+        //        var progress = new Progress<ImportProgressReport>(itba.LogTrace);
 
-                await itba.ImportarSpools(dtcollectionImport["SGS"], progress);
-                await itba.ImportarJuntas(dtcollectionImport["SGJ"], progress);
+        //        await itba.ImportarSpools(dtcollectionImport["SGS"], progress);
+        //        await itba.ImportarJuntas(dtcollectionImport["SGJ"], progress);
 
-                objectSpace.CommitChanges();
-                itba.Dispose();
-            }
-        }
+        //        objectSpace.CommitChanges();
+        //        itba.Dispose();
+        //    }
+        //}
 
-        [TestMethod]
-        [TestCase()]
-        public async Task TesteImportacaoPieceAndJoints()
-        {
-            var application = new Application(false);
-            IObjectSpaceProvider objectSpaceProvider = application.serverApplication.ObjectSpaceProvider;
-            var objectSpace = objectSpaceProvider.CreateObjectSpace();
-            var parametros = objectSpace.CreateObject<ParametrosImportComponentEJunta>();
-            MemoryStream stream = new MemoryStream();
-            stream.Seek(0, SeekOrigin.Begin);
-            var arquivo = parametros.PadraoDeArquivo;
-            arquivo.SaveToStream(stream);
-            stream.Seek(0, SeekOrigin.Begin);
+        //[TestMethod]
+        //[TestCase()]
+        //public async Task TesteImportacaoPieceAndJoints()
+        //{
+        //    var application = new Application(false);
+        //    IObjectSpaceProvider objectSpaceProvider = application.serverApplication.ObjectSpaceProvider;
+        //    var objectSpace = objectSpaceProvider.CreateObjectSpace();
+        //    var parametros = objectSpace.CreateObject<ParametrosImportComponentEJunta>();
+        //    MemoryStream stream = new MemoryStream();
+        //    stream.Seek(0, SeekOrigin.Begin);
+        //    var arquivo = parametros.PadraoDeArquivo;
+        //    arquivo.SaveToStream(stream);
+        //    stream.Seek(0, SeekOrigin.Begin);
 
-            using (var excelReader = new Module.ExcelDataReaderHelper.Excel.Reader(stream))
-            {
-                var dtcollectionImport = excelReader.CreateDataTableCollection(false);
+        //    using (var excelReader = new Module.ExcelDataReaderHelper.Excel.Reader(stream))
+        //    {
+        //        var dtcollectionImport = excelReader.CreateDataTableCollection(false);
 
-                var cts = new CancellationTokenSource();
-                var piecejoints = new ImportComponentEJunta(parametros, cts);
-                var progress = new Progress<ImportProgressReport>(piecejoints.LogTrace);
+        //        var cts = new CancellationTokenSource();
+        //        var piecejoints = new ImportComponentEJunta(parametros, cts);
+        //        var progress = new Progress<ImportProgressReport>(piecejoints.LogTrace);
 
-                await piecejoints.ImportarComponente(dtcollectionImport["Piece"], progress);
-                await piecejoints.ImportarJuntas(dtcollectionImport["Joints"], progress);
-                objectSpace.CommitChanges();
-            }
-        }
+        //        await piecejoints.ImportarComponente(dtcollectionImport["Piece"], progress);
+        //        await piecejoints.ImportarJuntas(dtcollectionImport["Joints"], progress);
+        //        objectSpace.CommitChanges();
+        //    }
+        //}
 
-        [TestMethod]
-        [TestCase()]
-        public void TesteImportacaoPieceAndJointsThread()
-        {
-            var application = new Application(false);
-            IObjectSpaceProvider objectSpaceProvider = application.serverApplication.ObjectSpaceProvider;
-            var objectSpace = objectSpaceProvider.CreateObjectSpace();
-            var parametros = objectSpace.CreateObject<ParametrosImportComponentEJunta>();
-            MemoryStream stream = new MemoryStream();
-            stream.Seek(0, SeekOrigin.Begin);
-            var arquivo = parametros.PadraoDeArquivo;
-            arquivo.SaveToStream(stream);
-            stream.Seek(0, SeekOrigin.Begin);
+        //[TestMethod]
+        //[TestCase()]
+        //public void TesteImportacaoPieceAndJointsThread()
+        //{
+        //    var application = new Application(false);
+        //    IObjectSpaceProvider objectSpaceProvider = application.serverApplication.ObjectSpaceProvider;
+        //    var objectSpace = objectSpaceProvider.CreateObjectSpace();
+        //    var parametros = objectSpace.CreateObject<ParametrosImportComponentEJunta>();
+        //    MemoryStream stream = new MemoryStream();
+        //    stream.Seek(0, SeekOrigin.Begin);
+        //    var arquivo = parametros.PadraoDeArquivo;
+        //    arquivo.SaveToStream(stream);
+        //    stream.Seek(0, SeekOrigin.Begin);
 
-            using (var excelReader = new Module.ExcelDataReaderHelper.Excel.Reader(stream))
-            {
-                var dtcollectionImport = excelReader.CreateDataTableCollection(false);
-                var cts = new CancellationTokenSource();
-                var piecejoints = new ImportComponentEJunta(parametros, cts);
-                var progress = new Progress<ImportProgressReport>(piecejoints.LogTrace);
+        //    using (var excelReader = new Module.ExcelDataReaderHelper.Excel.Reader(stream))
+        //    {
+        //        var dtcollectionImport = excelReader.CreateDataTableCollection(false);
+        //        var cts = new CancellationTokenSource();
+        //        var piecejoints = new ImportComponentEJunta(parametros, cts);
+        //        var progress = new Progress<ImportProgressReport>(piecejoints.LogTrace);
 
-                //await Observable.Start(() => piecejoints.ImportarJuntas(dtcollectionImport["Joints"], progress));
+        //        //await Observable.Start(() => piecejoints.ImportarJuntas(dtcollectionImport["Joints"], progress));
 
-                objectSpace.CommitChanges();
-                piecejoints.Dispose();
-            }
-        }
+        //        objectSpace.CommitChanges();
+        //        piecejoints.Dispose();
+        //    }
+        //}
 
         [TestMethod]
         [TestCase()]

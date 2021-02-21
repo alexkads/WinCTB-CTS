@@ -171,6 +171,8 @@
     <Compile Include="Helpers\ExcelDataReaderHelper.cs" />
     <Compile Include="Helpers\OpenXMLHelpers.cs" />
     <Compile Include="Helpers\ProviderDataLayer.cs" />
+    <Compile Include="Importer\Estrutura\ImportJuntaComponente.cs" />
+    <Compile Include="Importer\Estrutura\ImportComponente.cs" />
     <Compile Include="Importer\Estrutura\ImportComponentEJunta.cs" />
     <Compile Include="Importer\ParametrosImportBase.cs" />
     <Compile Include="Importer\Estrutura\ParametrosImportComponentEJunta.cs" />

@@ -141,12 +141,12 @@ namespace WinCTB_CTS.Module.Comum.ImporterPatterns
             });
         }
 
-        protected virtual void OnMapImporter(UnitOfWork uow, DataTable dataTable, DataRow rowForMap, int expectedTotal, int index)
+        protected virtual void OnMapImporter(UnitOfWork uow, DataTable dataTable, DataRow rowForMap, int expectedTotal, int currentIndex)
         {
             if (MapImporter != null)
             {
                 //Debug.WriteLine($"Importando registro: {index.ToString().PadLeft(8, '0')}/{expectedTotal.ToString().PadLeft(8, '0')} da Tabela {SetTabName}");
-                MapImporter(this, new MapImporterEventArgs(uow, dataTable, rowForMap, expectedTotal, index));
+                MapImporter(this, new MapImporterEventArgs(uow, dataTable, rowForMap, expectedTotal, currentIndex));
             }
         }
     }
