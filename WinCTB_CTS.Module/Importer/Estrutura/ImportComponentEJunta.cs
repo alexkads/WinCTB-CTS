@@ -65,7 +65,7 @@ namespace WinCTB_CTS.Module.Importer.Estrutura
             {
                 //var objectSpace = _objectSpaceProvider.CreateObjectSpace();
                 //var objectSpace = _objectSpaceProvider.CreateObjectSpace();
-                
+
                 UnitOfWork uow = new UnitOfWork(providerDataLayer.GetCacheDataLayer());
                 //UnitOfWork uow = new UnitOfWork(dl);
                 //UnitOfWork uow = new UnitOfWork(((XPObjectSpace)objectSpace).Session.ObjectLayer);
@@ -296,7 +296,7 @@ namespace WinCTB_CTS.Module.Importer.Estrutura
                         }
 
 
-                        if (i % 1000 == 0)
+                        if (i % 500 == 0)
                         {
                             try
                             {
@@ -307,14 +307,14 @@ namespace WinCTB_CTS.Module.Importer.Estrutura
                                 uow.RollbackTransaction();
                                 throw new Exception("Process aborted by system");
                             }
-                        }
 
-                        progress.Report(new ImportProgressReport
-                        {
-                            TotalRows = TotalDeJuntas,
-                            CurrentRow = i + 1,
-                            MessageImport = $"Importando linha {i}/{TotalDeJuntas}"
-                        });
+                            progress.Report(new ImportProgressReport
+                            {
+                                TotalRows = TotalDeJuntas,
+                                CurrentRow = i + 1,
+                                MessageImport = $"Importando linha {i}/{TotalDeJuntas}"
+                            });
+                        }
                     });
 
                 uow.CommitTransaction();
