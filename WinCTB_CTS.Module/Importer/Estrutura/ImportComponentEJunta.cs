@@ -211,12 +211,16 @@ namespace WinCTB_CTS.Module.Importer.Estrutura
                             var juntaComponente = uow.FindObject<JuntaComponente>(criteriaOperator);
 
                             if (juntaComponente == null)
+                            {
                                 juntaComponente = new JuntaComponente(uow);
+                                juntaComponente.Junta = junta;
+                                juntaComponente.Componente = componente;
+                            }
+                                
                             //juntaComponente = objectSpace.CreateObject<JuntaComponente>();
                             //else
                             //    oldJuntas.FirstOrDefault(x => x.Oid == juntaComponente.Oid).DataExist = true;
-
-                            juntaComponente.Junta = junta;
+                                                       
                             juntaComponente.TipoJunta = linha[7].ToString();
                             juntaComponente.Site = linha[8].ToString();
                             juntaComponente.Comprimento = Utils.ConvertDouble(linha[9]);
@@ -272,8 +276,7 @@ namespace WinCTB_CTS.Module.Importer.Estrutura
                             juntaComponente.PercLpPm = Utils.ConvertDouble(linha[63]) / 100;
                             juntaComponente.PercUt = Utils.ConvertDouble(linha[64]) / 100;
                             juntaComponente.PercRt = Utils.ConvertDouble(linha[65]) / 100;
-                            juntaComponente.Componente = componente;
-
+                            
                             //Complemento                      
                             //juntaComponente.PosDf1 = Utils.ConvertDateTime(juntaComponente.Evaluate(CriteriaOperator.Parse("[<Componente>][Peca = ^.Df1].Max(DataPosicionamento)")));
                             juntaComponente.PosDf1 = uow.FindObject<Componente>(new BinaryOperator("Peca", juntaComponente.Df1))?.DataPosicionamento;
