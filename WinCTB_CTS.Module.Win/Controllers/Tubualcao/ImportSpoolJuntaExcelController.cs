@@ -102,13 +102,15 @@ namespace WinCTB_CTS.Module.Win.Controllers
                 dtcollectionImport = excelReader.CreateDataTableCollection(false);
             }
 
-            var import = new ImportSpoolEJunta(objectSpace, parametrosImportSpoolJuntaExcel);
+            var cts = new CancellationTokenSource();
+            var import = new ImportSpoolEJunta(parametrosImportSpoolJuntaExcel, cts);
             var progress = new Progress<ImportProgressReport>(import.LogTrace);
 
-            await Observable.Start(() => import.ImportarSpools(dtcollectionImport["SGS"], progress));
-            await Observable.Start(() => import.ImportarJuntas(dtcollectionImport["SGJ"], progress));
+            await import.ImportarSpools(dtcollectionImport["SGS"], progress);
+            await import.ImportarJuntas(dtcollectionImport["SGJ"], progress);
 
             objectSpace.CommitChanges();
+            import.Dispose();
             e.AcceptActionArgs.Action.Caption = "Finalizado";
             ((DialogController)sender).AcceptAction.Enabled["NoEnabled"] = true;
         }

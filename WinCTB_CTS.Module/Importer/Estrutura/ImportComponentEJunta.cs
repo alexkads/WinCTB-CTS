@@ -82,6 +82,8 @@ namespace WinCTB_CTS.Module.Importer.Estrutura
                     MessageImport = "Inicializando importação"
                 });
 
+                uow.BeginTransaction();
+
                 var observableComponentes = Observable.Range(0, TotalDeComponentes);
 
                 observableComponentes
@@ -216,8 +218,7 @@ namespace WinCTB_CTS.Module.Importer.Estrutura
                                 juntaComponente.Junta = junta;
                                 juntaComponente.Componente = componente;
                             }
-                                
-                            //juntaComponente = objectSpace.CreateObject<JuntaComponente>();
+                               
                             //else
                             //    oldJuntas.FirstOrDefault(x => x.Oid == juntaComponente.Oid).DataExist = true;
                                                        

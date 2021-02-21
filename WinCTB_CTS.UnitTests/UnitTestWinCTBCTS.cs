@@ -64,14 +64,16 @@ namespace WinCTB_CTS.UnitTests
             using (var excelReader = new Module.ExcelDataReaderHelper.Excel.Reader(stream))
             {
                 var dtcollectionImport = excelReader.CreateDataTableCollection(false);
-
-                var itba = new ImportSpoolEJunta(objectSpace, parametros);
+                
+                var cts = new CancellationTokenSource();
+                var itba = new ImportSpoolEJunta(parametros, cts);
                 var progress = new Progress<ImportProgressReport>(itba.LogTrace);
 
-                await Observable.Start(() => itba.ImportarSpools(dtcollectionImport["SGS"], progress));
-                await Observable.Start(() => itba.ImportarJuntas(dtcollectionImport["SGJ"], progress));
+                await itba.ImportarSpools(dtcollectionImport["SGS"], progress);
+                await itba.ImportarJuntas(dtcollectionImport["SGJ"], progress);
 
                 objectSpace.CommitChanges();
+                itba.Dispose();
             }
         }
 

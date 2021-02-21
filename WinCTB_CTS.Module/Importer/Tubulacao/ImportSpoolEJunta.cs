@@ -30,18 +30,21 @@ using WinCTB_CTS.Module.BusinessObjects.Comum;
 using WinCTB_CTS.Module.BusinessObjects.Tubulacao;
 using WinCTB_CTS.Module.BusinessObjects.Tubulacao.Auxiliar;
 using WinCTB_CTS.Module.Comum;
+using WinCTB_CTS.Module.Helpers;
 using WinCTB_CTS.Module.Importer;
 
 namespace WinCTB_CTS.Module.Importer.Tubulacao
 {
-    public class ImportSpoolEJunta
+    public class ImportSpoolEJunta : IDisposable
     {
-        IObjectSpace objectSpace = null;
+        private CancellationTokenSource _cts;
         ParametrosImportSpoolJuntaExcel parametrosImportSpoolJuntaExcel;
-        public ImportSpoolEJunta(IObjectSpace _objectSpace, ParametrosImportSpoolJuntaExcel _parametrosImportSpoolJuntaExcel)
+        private ProviderDataLayer providerDataLayer;
+        public ImportSpoolEJunta(ParametrosImportSpoolJuntaExcel _parametrosImportSpoolJuntaExcel, CancellationTokenSource cts)
         {
-            this.objectSpace = _objectSpace;
             this.parametrosImportSpoolJuntaExcel = _parametrosImportSpoolJuntaExcel;
+            this._cts = cts;
+            this.providerDataLayer = new ProviderDataLayer();
         }
 
         public void LogTrace(ImportProgressReport value)
@@ -54,41 +57,43 @@ namespace WinCTB_CTS.Module.Importer.Tubulacao
             //statusProgess.Text = value.MessageImport;
         }
 
-        public void ImportarSpools(DataTable dtSpoolsImport, IProgress<ImportProgressReport> progress)
+        public async Task ImportarSpools(DataTable dtSpoolsImport, IProgress<ImportProgressReport> progress)
         {
-            UnitOfWork uow = new UnitOfWork(((XPObjectSpace)objectSpace).Session.ObjectLayer);
-
-            if (uow.FindObject<TabDiametro>(CriteriaOperator.Parse("")) is null)
-                throw new ArgumentNullException("TabDiametro vazia!");
-
-            if (uow.FindObject<TabEAPPipe>(CriteriaOperator.Parse("")) is null)
-                throw new ArgumentNullException("TabEAPPPipe vazia!");
-
-            if (uow.FindObject<TabPercInspecao>(CriteriaOperator.Parse("")) is null)
-                throw new ArgumentNullException("TabPercInspecao vazia!");
-
-            if (uow.FindObject<TabProcessoSoldagem>(CriteriaOperator.Parse("")) is null)
-                throw new ArgumentNullException("TabProcessoSoldagem vazia!");
-
-            if (uow.FindObject<TabSchedule>(CriteriaOperator.Parse("")) is null)
-                throw new ArgumentNullException("TabSchedule vazia!");
-
-            var TotalDeJuntas = dtSpoolsImport.Rows.Count;
-
-            var oldSpools = Utils.GetOldDatasForCheck<Spool>(uow);
-
-            progress.Report(new ImportProgressReport
+            await Task.Factory.StartNew(() =>
             {
-                TotalRows = TotalDeJuntas,
-                CurrentRow = 0,
-                MessageImport = "Inicializando importação"
-            });
+                UnitOfWork uow = new UnitOfWork(providerDataLayer.GetCacheDataLayer());
 
-            uow.BeginTransaction();
+                if (uow.FindObject<TabDiametro>(CriteriaOperator.Parse("")) is null)
+                    throw new ArgumentNullException("TabDiametro vazia!");
 
-            for (int i = 0; i < TotalDeJuntas; i++)
-            {
-                if (i >= 7)
+                if (uow.FindObject<TabEAPPipe>(CriteriaOperator.Parse("")) is null)
+                    throw new ArgumentNullException("TabEAPPPipe vazia!");
+
+                if (uow.FindObject<TabPercInspecao>(CriteriaOperator.Parse("")) is null)
+                    throw new ArgumentNullException("TabPercInspecao vazia!");
+
+                if (uow.FindObject<TabProcessoSoldagem>(CriteriaOperator.Parse("")) is null)
+                    throw new ArgumentNullException("TabProcessoSoldagem vazia!");
+
+                if (uow.FindObject<TabSchedule>(CriteriaOperator.Parse("")) is null)
+                    throw new ArgumentNullException("TabSchedule vazia!");
+
+                var TotalDeJuntas = dtSpoolsImport.Rows.Count;
+
+                var oldSpools = Utils.GetOldDatasForCheck<Spool>(uow);
+
+                progress.Report(new ImportProgressReport
+                {
+                    TotalRows = TotalDeJuntas,
+                    CurrentRow = 0,
+                    MessageImport = "Inicializando importação"
+                });
+
+                uow.BeginTransaction();
+
+                Observable.Range(0, TotalDeJuntas)
+                .Where(row => row >= 7)
+                .Subscribe(i =>
                 {
                     var linha = dtSpoolsImport.Rows[i];
                     var contrato = uow.FindObject<Contrato>(new BinaryOperator("NomeDoContrato", linha[0].ToString()));
@@ -186,73 +191,70 @@ namespace WinCTB_CTS.Module.Importer.Tubulacao
                     spool.SituacaoMontagem = Convert.ToString(linha[76]);
                     //spool.DataLineCheck = Utils.ConvertDateTime(linha[75]);
 
-                }
+                    if (i % 1000 == 0)
+                    {
+                        try
+                        {
+                            uow.CommitTransaction();
+                        }
+                        catch
+                        {
+                            uow.RollbackTransaction();
+                            throw new Exception("Process aborted by system");
+                        }
+
+                        progress.Report(new ImportProgressReport
+                        {
+                            TotalRows = TotalDeJuntas,
+                            CurrentRow = i + 1,
+                            MessageImport = $"Importando linha {i}/{TotalDeJuntas}"
+                        });
+                    }
+                });
 
 
-                if (i % 1000 == 0)
-                {
-                    try
-                    {
-                        uow.CommitTransaction();
-                    }
-                    catch
-                    {
-                        uow.RollbackTransaction();
-                        throw new Exception("Process aborted by system");
-                    }
-                }
+                uow.CommitTransaction();
+                uow.PurgeDeletedObjects();
+                uow.CommitChanges();
+                uow.Dispose();
 
                 progress.Report(new ImportProgressReport
                 {
                     TotalRows = TotalDeJuntas,
-                    CurrentRow = i + 1,
-                    MessageImport = $"Importando linha {i}/{TotalDeJuntas}"
+                    CurrentRow = TotalDeJuntas,
+                    MessageImport = $"Gravando Alterações no Banco"
                 });
-            }
 
-            uow.CommitTransaction();
-            uow.PurgeDeletedObjects();
-            uow.CommitChanges();
-            uow.Dispose();
 
-            progress.Report(new ImportProgressReport
-            {
-                TotalRows = TotalDeJuntas,
-                CurrentRow = TotalDeJuntas,
-                MessageImport = $"Gravando Alterações no Banco"
+                // Implatar funcionalidade
+                //var excluirSpoolsNaoImportado = oldSpools.Where(x => x.DataExist = false);
             });
-
-
-            // Implatar funcionalidade
-            //var excluirSpoolsNaoImportado = oldSpools.Where(x => x.DataExist = false);
         }
 
-        public void ImportarJuntas(DataTable dtJuntasImport, IProgress<ImportProgressReport> progress)
+        public async Task ImportarJuntas(DataTable dtJuntasImport, IProgress<ImportProgressReport> progress)
         {
-            UnitOfWork uow = new UnitOfWork(((XPObjectSpace)objectSpace).Session.ObjectLayer);
-            var TotalDeJuntas = dtJuntasImport.Rows.Count;
-
-            //var juntas = new XPCollection<JuntaSpool>(uow);
-            //var spools = new XPCollection<Spool>(uow);
-
-            var oldJuntas = Utils.GetOldDatasForCheck<JuntaSpool>(uow);
-
-            progress.Report(new ImportProgressReport
+            await Task.Factory.StartNew(() =>
             {
-                TotalRows = TotalDeJuntas,
-                CurrentRow = 0,
-                MessageImport = "Inicializando importação de juntas"
-            });
+                UnitOfWork uow = new UnitOfWork(providerDataLayer.GetCacheDataLayer());
+                var TotalDeJuntas = dtJuntasImport.Rows.Count;
 
-            uow.BeginTransaction();
+                //var juntas = new XPCollection<JuntaSpool>(uow);
+                //var spools = new XPCollection<Spool>(uow);
 
-            ////Limpar registros
-            //Utils.DeleteAllRecords<JuntaSpool>(uow);
-            //uow.CommitTransaction();
+                var oldJuntas = Utils.GetOldDatasForCheck<JuntaSpool>(uow);
 
-            for (int i = 0; i < TotalDeJuntas; i++)
-            {
-                if (i >= 9)
+                progress.Report(new ImportProgressReport
+                {
+                    TotalRows = TotalDeJuntas,
+                    CurrentRow = 0,
+                    MessageImport = "Inicializando importação de juntas"
+                });
+
+                uow.BeginTransaction();
+
+                Observable.Range(0, TotalDeJuntas)
+                .Where(row => row >= 9)
+                .Subscribe(i =>
                 {
                     var linha = dtJuntasImport.Rows[i];
                     var PesquisarSpool = linha[8].ToString();
@@ -377,44 +379,48 @@ namespace WinCTB_CTS.Module.Importer.Tubulacao
                             : uow.QueryInTransaction<TabSchedule>()
                                 .FirstOrDefault(sch => sch.PipingClass == juntaSpool.TabPercInspecao.Spec && sch.Wdi == juntaSpool.Wdi);
                     }
-                }
+
+                    if (i % 500 == 0)
+                    {
+                        try
+                        {
+                            uow.CommitTransaction();
+                        }
+                        catch
+                        {
+                            uow.RollbackTransaction();
+                            throw new Exception("Process aborted by system");
+                        }
+
+                        progress.Report(new ImportProgressReport
+                        {
+                            TotalRows = TotalDeJuntas,
+                            CurrentRow = i + 1,
+                            MessageImport = $"Importando linha {i}/{TotalDeJuntas}"
+                        });
+                    }
+                });
 
 
-                if (i % 500 == 0)
-                {
-                    try
-                    {
-                        uow.CommitTransaction();
-                    }
-                    catch
-                    {
-                        uow.RollbackTransaction();
-                        throw new Exception("Process aborted by system");
-                    }
-                }
+                uow.CommitTransaction();
+                uow.CommitChanges();
+                uow.Dispose();
 
                 progress.Report(new ImportProgressReport
                 {
                     TotalRows = TotalDeJuntas,
-                    CurrentRow = i + 1,
-                    MessageImport = $"Importando linha {i}/{TotalDeJuntas}"
+                    CurrentRow = TotalDeJuntas,
+                    MessageImport = $"Gravando Alterações no Banco"
                 });
-            }
 
-            uow.CommitTransaction();
-            uow.PurgeDeletedObjects();
-            uow.CommitChanges();
-            uow.Dispose();
-
-            progress.Report(new ImportProgressReport
-            {
-                TotalRows = TotalDeJuntas,
-                CurrentRow = TotalDeJuntas,
-                MessageImport = $"Gravando Alterações no Banco"
+                // Implatar funcionalidade
+                //var excluirJuntasNaoImportado = oldJuntas.Where(x => x.DataExist = false);
             });
+        }
 
-            // Implatar funcionalidade
-            //var excluirJuntasNaoImportado = oldJuntas.Where(x => x.DataExist = false);
+        public void Dispose()
+        {
+            ((IDisposable)providerDataLayer).Dispose();
         }
     }
 }
