@@ -25,6 +25,7 @@ namespace WinCTB_CTS.Module.Comum.ImporterPatterns
         public object CurrentObject { get; set; }
         public object ObjectMap { get; set; }
         public string SetTabName { get; set; }
+        public IProgress<ImportProgressReport> SetProgress { get; set; }
 
         public event EventHandler<MapImporterEventArgs> MapImporter;
 
@@ -33,6 +34,7 @@ namespace WinCTB_CTS.Module.Comum.ImporterPatterns
             this.SetCancellationTokenSource = cancellationTokenSource;
             this.SetTabName = TabName;
             this.SetParametros = parametros;
+            this.SetProgress = new Progress<ImportProgressReport>(LogTrace);
             this.providerDataLayer = new ProviderDataLayer();
         }
 
@@ -59,7 +61,7 @@ namespace WinCTB_CTS.Module.Comum.ImporterPatterns
             {
                 var dtcollectionImport = excelReader.CreateDataTableCollection(false);
                 var progress = new Progress<ImportProgressReport>(LogTrace);
-                await InitializeImport(dtcollectionImport[SetTabName], progress);
+                await InitializeImport(dtcollectionImport[SetTabName], SetProgress);
             }
         }
 

@@ -20,7 +20,7 @@ namespace WinCTB_CTS.Module.Importer.Tubulacao
 {
     public class ImportContrato : DataImporter
     {
-        public ImportContrato(CancellationTokenSource cancellationTokenSource, string TabName, ParametrosImportBase parametros)
+        public ImportContrato(CancellationTokenSource cancellationTokenSource, string TabName, ParametrosImportBase parametros) 
             : base(cancellationTokenSource, TabName, parametros)
         {
         }

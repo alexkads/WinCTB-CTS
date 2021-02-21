@@ -6,6 +6,7 @@ using System.IO;
 using System.Reactive.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using WinCTB_CTS.Module.Comum.ImporterPatterns;
 using WinCTB_CTS.Module.Importer;
 using WinCTB_CTS.Module.Importer.Estrutura;
 using WinCTB_CTS.Module.Importer.Tubulacao;

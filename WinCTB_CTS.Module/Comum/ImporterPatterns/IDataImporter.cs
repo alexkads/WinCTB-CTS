@@ -17,10 +17,11 @@ namespace WinCTB_CTS.Module.Comum.ImporterPatterns
     interface IDataImporter
     {
         CancellationTokenSource SetCancellationTokenSource { get; set; }
+        IProgress<ImportProgressReport> SetProgress { get; set; }
         ParametrosImportBase SetParametros { get; set; }
         string SetTabName { get; set; }
-        ProviderDataLayer providerDataLayer { get; set; }      
-        
+        ProviderDataLayer providerDataLayer { get; set; }
+
         void LogTrace(ImportProgressReport value);
 
         Task Start();
