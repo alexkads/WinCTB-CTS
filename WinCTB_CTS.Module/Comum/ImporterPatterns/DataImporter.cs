@@ -78,6 +78,7 @@ namespace WinCTB_CTS.Module.Comum.ImporterPatterns
             {
                 UnitOfWork uow = new UnitOfWork(providerDataLayer.GetCacheDataLayer());
                 var TotalRowsForImporter = DataTableImport.Rows.Count;
+                var nuow = uow.BeginNestedUnitOfWork();
 
                 progress.Report(new ImportProgressReport
                 {
@@ -88,7 +89,7 @@ namespace WinCTB_CTS.Module.Comum.ImporterPatterns
 
                 Debug.WriteLine($"Inicializando importação da Tabela {SetTabName}");
 
-                uow.BeginTransaction();
+                nuow.BeginTransaction();
 
                 Observable.Range(0, TotalRowsForImporter)
                 .Subscribe(i =>
@@ -96,17 +97,17 @@ namespace WinCTB_CTS.Module.Comum.ImporterPatterns
                     var linha = DataTableImport.Rows[i];
 
                     //Mapear importação
-                    OnMapImporter(uow, DataTableImport, linha, TotalRowsForImporter, i);
+                    OnMapImporter(nuow, DataTableImport, linha, TotalRowsForImporter, i);
 
                     if (i % 1000 == 0)
                     {
                         try
                         {
-                            uow.CommitTransaction();
+                            nuow.CommitTransaction();
                         }
                         catch
                         {
-                            uow.RollbackTransaction();
+                            nuow.RollbackTransaction();
                             throw new Exception("Process aborted by system");
                         }
 
@@ -127,8 +128,10 @@ namespace WinCTB_CTS.Module.Comum.ImporterPatterns
                     MessageImport = $"Gravando Alterações no Banco"
                 });
 
-                uow.CommitTransaction();
-                uow.PurgeDeletedObjects();
+                nuow.CommitTransaction();
+                nuow.CommitChanges();
+                nuow.Dispose();
+                
                 uow.CommitChanges();
                 uow.Dispose();
 
