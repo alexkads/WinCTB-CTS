@@ -78,7 +78,6 @@ namespace WinCTB_CTS.Module.Comum.ImporterPatterns
             {
                 UnitOfWork uow = new UnitOfWork(providerDataLayer.GetCacheDataLayer());
                 var TotalRowsForImporter = DataTableImport.Rows.Count;
-                var nuow = uow.BeginNestedUnitOfWork();
 
                 progress.Report(new ImportProgressReport
                 {
@@ -89,7 +88,7 @@ namespace WinCTB_CTS.Module.Comum.ImporterPatterns
 
                 Debug.WriteLine($"Inicializando importação da Tabela {SetTabName}");
 
-                nuow.BeginTransaction();
+                uow.BeginTransaction();
 
                 Observable.Range(0, TotalRowsForImporter)
                 .Subscribe(i =>
@@ -97,17 +96,17 @@ namespace WinCTB_CTS.Module.Comum.ImporterPatterns
                     var linha = DataTableImport.Rows[i];
 
                     //Mapear importação
-                    OnMapImporter(nuow, DataTableImport, linha, TotalRowsForImporter, i);
+                    OnMapImporter(uow, DataTableImport, linha, TotalRowsForImporter, i);
 
                     if (i % 1000 == 0)
                     {
                         try
                         {
-                            nuow.CommitTransaction();
+                            uow.CommitTransaction();
                         }
                         catch
                         {
-                            nuow.RollbackTransaction();
+                            uow.RollbackTransaction();
                             throw new Exception("Process aborted by system");
                         }
 
@@ -128,10 +127,7 @@ namespace WinCTB_CTS.Module.Comum.ImporterPatterns
                     MessageImport = $"Gravando Alterações no Banco"
                 });
 
-                nuow.CommitTransaction();
-                nuow.CommitChanges();
-                nuow.Dispose();
-                
+                uow.CommitTransaction();                
                 uow.CommitChanges();
                 uow.Dispose();
 
