@@ -21,11 +21,11 @@ namespace WinCTB_CTS.Module.Helpers
 
         public void Dispose()
         {
-            cacheRoot.Reset();
-            cacheNode.Reset();
+            cacheRoot?.Reset();
+            cacheNode?.Reset();
             cacheRoot = null;
             cacheNode = null;
-            cacheDataLayer.Dispose();
+            cacheDataLayer?.Dispose();
         }
 
         //public static IDataLayer GetThreadSafeDataLayer()
@@ -65,19 +65,19 @@ namespace WinCTB_CTS.Module.Helpers
             return cacheDataLayer;
         }
 
-        //public static IDataLayer GetSimpleDataLayer()
-        //{
-        //    XpoDefault.Session = null;
-        //    string conn = ConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString;
-        //    Guard.ArgumentNotNull(conn, "connection");
+        public IDataLayer GetSimpleDataLayer()
+        {
+            XpoDefault.Session = null;
+            string conn = ConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString;
+            Guard.ArgumentNotNull(conn, "connection");
 
-        //    conn = XpoDefault.GetConnectionPoolString(conn);
-        //    XPDictionary dict = new ReflectionDictionary();
-        //    IDataStore store = XpoDefault.GetConnectionProvider(conn, AutoCreateOption.None);
-        //    dict.GetDataStoreSchema(System.Reflection.Assembly.GetExecutingAssembly());
+            conn = XpoDefault.GetConnectionPoolString(conn);
+            XPDictionary dict = new ReflectionDictionary();
+            IDataStore store = XpoDefault.GetConnectionProvider(conn, AutoCreateOption.None);
+            dict.GetDataStoreSchema(System.Reflection.Assembly.GetExecutingAssembly());
 
-        //    IDataLayer dataLayer = new SimpleDataLayer(dict, store);
-        //    return dataLayer;
-        //}
+            IDataLayer dataLayer = new SimpleDataLayer(dict, store);
+            return dataLayer;
+        }
     }
 }

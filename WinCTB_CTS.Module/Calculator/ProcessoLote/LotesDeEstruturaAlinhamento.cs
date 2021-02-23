@@ -13,7 +13,7 @@ using WinCTB_CTS.Module.BusinessObjects.Comum;
 using WinCTB_CTS.Module.BusinessObjects.Estrutura.Lotes;
 using WinCTB_CTS.Module.Interfaces;
 
-namespace WinCTB_CTS.Module.Calculator.ProcessoLoteLPPM
+namespace WinCTB_CTS.Module.Calculator.ProcessoLote
 {
     class LotesDeEstruturaAlinhamento
     {
@@ -25,13 +25,13 @@ namespace WinCTB_CTS.Module.Calculator.ProcessoLoteLPPM
         {
             using (var ObjectSpace = ObjectSpaceProvider.CreateObjectSpace())
             {
-                var lotes = new XPCollection<LoteLPPMEstrutura>(((XPObjectSpace)ObjectSpace).Session, new BinaryOperator("Projeto.Estabelecimento.Oid", OidEstabelecimento));
+                var lotes = new XPCollection<LoteEstrutura>(((XPObjectSpace)ObjectSpace).Session, new BinaryOperator("Projeto.Estabelecimento.Oid", OidEstabelecimento));
                 lotes.Sorting.Add(new SortProperty("NumeroDoLote", SortingDirection.Ascending));
 
                 double totalDatastore = lotes.EvaluateDatastoreCount();
                 double currentProcess = 0D;
 
-                await Observable.ForEachAsync<LoteLPPMEstrutura>(lotes.ToObservable(), lote => {
+                await Observable.ForEachAsync<LoteEstrutura>(lotes.ToObservable(), lote => {
                     AtualizarStatusLote(lote);
                     ObjectSpace.CommitChanges();
                     currentProcess++;
@@ -40,7 +40,7 @@ namespace WinCTB_CTS.Module.Calculator.ProcessoLoteLPPM
             }
         }
 
-        public static void AtualizarStatusLote(LoteLPPMEstrutura lote)
+        public static void AtualizarStatusLote(LoteEstrutura lote)
         {
             int Necessidade = (int)Math.Ceiling(lote.JuntasNoLote * lote.PercentualNivelDeInspecao);
             if (Necessidade == 0)
@@ -48,16 +48,16 @@ namespace WinCTB_CTS.Module.Calculator.ProcessoLoteLPPM
             int Reprovacao = 0;
             int NecessidadeDeInspecaoFinal = 0;
             DateTime DataDaJuntaQueAprovouLote = DateTime.MinValue;
-            lote.ComJuntaReprovada = lote.LoteLPPMjuntaEstruturas.Any(x => x.Laudo == InspecaoLaudo.R);
-            lote.JuntasNoLote = lote.LoteLPPMjuntaEstruturas.EvaluateDatastoreCount();
+            lote.ComJuntaReprovada = lote.LotejuntaEstruturas.Any(x => x.Laudo == InspecaoLaudo.R);
+            lote.JuntasNoLote = lote.LotejuntaEstruturas.EvaluateDatastoreCount();
 
-            if (lote.LoteLPPMjuntaEstruturas.Count < lote.QuantidadeNecessaria)
+            if (lote.LotejuntaEstruturas.Count < lote.QuantidadeNecessaria)
                 lote.SituacaoQuantidade = SituacoesQuantidade.Incompleto;
-            else if (lote.LoteLPPMjuntaEstruturas.Count == lote.QuantidadeNecessaria)
+            else if (lote.LotejuntaEstruturas.Count == lote.QuantidadeNecessaria)
                 lote.SituacaoQuantidade = SituacoesQuantidade.Completo;
-            lote.JuntasNoLote = lote.LoteLPPMjuntaEstruturas.Count;
+            lote.JuntasNoLote = lote.LotejuntaEstruturas.Count;
 
-            using (var LoteJuntas = new XPCollection<LoteLPPMJuntaEstrutura>(PersistentCriteriaEvaluationBehavior.BeforeTransaction, lote.Session, new BinaryOperator(nameof(LoteLPPMEstrutura), lote.NumeroDoLote)))
+            using (var LoteJuntas = new XPCollection<LoteJuntaEstrutura>(PersistentCriteriaEvaluationBehavior.BeforeTransaction, lote.Session, new BinaryOperator(nameof(LoteEstrutura), lote.NumeroDoLote)))
             {
                 foreach (var LoteJunta in LoteJuntas.OrderBy(o => o.DataInspecao).ToArray())
                 {
@@ -79,10 +79,10 @@ namespace WinCTB_CTS.Module.Calculator.ProcessoLoteLPPM
                 }
 
                 lote.ComJuntaReprovada = LoteJuntas.Any(x => x.Laudo == InspecaoLaudo.R);
-                var NaoInspecionado = lote.LoteLPPMjuntaEstruturas.Where(x => string.IsNullOrEmpty(x.NumeroDoRelatorio)).Count();
+                var NaoInspecionado = lote.LotejuntaEstruturas.Where(x => string.IsNullOrEmpty(x.NumeroDoRelatorio)).Count();
                 NecessidadeDeInspecaoFinal = Reprovacao > 3 ? NaoInspecionado : Necessidade;
                 lote.NecessidadeDeInspecao = NecessidadeDeInspecaoFinal > 0 ? NecessidadeDeInspecaoFinal : 0;
-                lote.QuantidadeInspecionada = lote.LoteLPPMjuntaEstruturas.Count(x => !string.IsNullOrEmpty(x.NumeroDoRelatorio));
+                lote.QuantidadeInspecionada = lote.LotejuntaEstruturas.Count(x => !string.IsNullOrEmpty(x.NumeroDoRelatorio));
                 lote.ExcessoDeInspecao = LoteJuntas.Count(x => x.InspecaoExcesso);
 
                 if (Necessidade <= 0)
