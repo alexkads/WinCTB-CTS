@@ -24,7 +24,7 @@ namespace WinCTB_CTS.Module.Calculator.ProcessoLote
         public ProviderDataLayer providerDataLayer { get; set; }
 
         public GerarLote()
-        {             
+        {
             this.providerDataLayer = new ProviderDataLayer();
         }
 
@@ -36,15 +36,33 @@ namespace WinCTB_CTS.Module.Calculator.ProcessoLote
             juntaLote.JuntaComponente = nuow.GetNestedObject<JuntaComponente>(juntaComponente);
             juntaLote.DataInclusao = DateTime.Now;
             juntaLote.CicloTermico = cicloTermico;
-            juntaLote.PercentualNivelDeInspecao = juntaComponente.PercLpPm;
+
+            if (ensaio == ENDS.LPPM)
+                juntaLote.PercentualNivelDeInspecao = juntaComponente.PercLpPm;
+
+            if (ensaio == ENDS.RX)
+                juntaLote.PercentualNivelDeInspecao = juntaComponente.PercRt;
+
+            if (ensaio == ENDS.US)
+                juntaLote.PercentualNivelDeInspecao = juntaComponente.PercUt;
+
             nuow.CommitChanges();
         }
 
         private LoteEstrutura NovoLote(UnitOfWork uow, ENDS ensaio, JuntaComponente juntaComponente)
         {
             var lote = new LoteEstrutura(uow);
-            lote.PercentualNivelDeInspecao = juntaComponente.PercLpPm;
-            lote.Ensaio = ensaio; 
+
+            if (ensaio == ENDS.LPPM)
+                lote.PercentualNivelDeInspecao = juntaComponente.PercLpPm;
+
+            if (ensaio == ENDS.RX)
+                lote.PercentualNivelDeInspecao = juntaComponente.PercRt;
+
+            if (ensaio == ENDS.US)
+                lote.PercentualNivelDeInspecao = juntaComponente.PercUt;
+
+            lote.Ensaio = ensaio;
             lote.QuantidadeNecessaria = QuantidadeDeJunta(lote.PercentualNivelDeInspecao);
             return lote;
         }
@@ -54,10 +72,10 @@ namespace WinCTB_CTS.Module.Calculator.ProcessoLote
             await Task.Factory.StartNew(() =>
             {
                 UnitOfWork uow = new UnitOfWork(providerDataLayer.GetSimpleDataLayer());
-                
+
                 uow.BeginTransaction();
 
-                var juntasSemLote = GetJuntasSemLotes(uow, ensaio);                
+                var juntasSemLote = GetJuntasSemLotes(uow, ensaio);
                 int totalDataStore = juntasSemLote.EvaluateDatastoreCount();
 
                 if (totalDataStore == 0)
@@ -97,7 +115,7 @@ namespace WinCTB_CTS.Module.Calculator.ProcessoLote
                         loteEstrutura = NovoLote(uow, ensaio, juntaComponente);
 
                     IncluirJuntaNoLote(uow, ensaio, loteEstrutura, juntaComponente, 1);
-                    loteEstrutura.JuntasNoLote = loteEstrutura.LotejuntaEstruturas.Count;                   
+                    loteEstrutura.JuntasNoLote = loteEstrutura.LotejuntaEstruturas.Count;
 
                     currentProgress++;
 
