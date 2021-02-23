@@ -72,9 +72,6 @@ namespace WinCTB_CTS.Module.Calculator.ProcessoLote
             await Task.Factory.StartNew(() =>
             {
                 UnitOfWork uow = new UnitOfWork(providerDataLayer.GetSimpleDataLayer());
-
-                uow.BeginTransaction();
-
                 var juntasSemLote = GetJuntasSemLotes(uow, ensaio);
                 int totalDataStore = juntasSemLote.EvaluateDatastoreCount();
 
@@ -89,9 +86,9 @@ namespace WinCTB_CTS.Module.Calculator.ProcessoLote
                     return;
                 }
 
-                //var observable = juntasSemLote.ToObservable(Scheduler.CurrentThread);
-                var observable = juntasSemLote.ToObservable();
+                uow.BeginTransaction();
 
+                var observable = juntasSemLote.ToObservable(Scheduler.CurrentThread);
                 double currentProgress = 0D;
 
                 observable.Subscribe(juntaComponente =>
@@ -114,24 +111,14 @@ namespace WinCTB_CTS.Module.Calculator.ProcessoLote
                     if (loteEstrutura == null)
                         loteEstrutura = NovoLote(uow, ensaio, juntaComponente);
 
-                    IncluirJuntaNoLote(uow, ensaio, loteEstrutura, juntaComponente, 1);
-                    loteEstrutura.JuntasNoLote = loteEstrutura.LotejuntaEstruturas.Count;
+                    IncluirJuntaNoLote(uow, ensaio, loteEstrutura, juntaComponente, 1);                
+                    loteEstrutura.JuntasNoLote = loteEstrutura.LotejuntaEstruturas.EvaluateDatastoreCount();
+                    uow.CommitTransaction();
 
                     currentProgress++;
 
                     if (currentProgress % 100 == 0)
                     {
-                        try
-                        {
-                            uow.CommitTransaction();
-                        }
-                        catch
-                        {
-                            uow.RollbackTransaction();
-                            throw new Exception("Process aborted by system");
-                        }
-
-
                         progress.Report(new ImportProgressReport
                         {
                             TotalRows = totalDataStore,
@@ -148,7 +135,6 @@ namespace WinCTB_CTS.Module.Calculator.ProcessoLote
                     MessageImport = $"Finalizando..."
                 });
 
-                uow.CommitTransaction();
                 uow.CommitChanges();
                 juntasSemLote.Dispose();
                 uow.Dispose();
