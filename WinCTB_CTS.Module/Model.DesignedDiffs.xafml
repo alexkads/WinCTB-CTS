@@ -14,18 +14,19 @@
       <Layout>
         <LayoutGroup Id="Main" RelativeSize="100">
           <LayoutGroup Id="SimpleEditors" RelativeSize="100">
-            <LayoutGroup Id="ParametrosImportComponentEJunta" RelativeSize="100" Direction="Vertical">
+            <LayoutGroup Id="ParametrosImportComponentEJunta" RelativeSize="56.768558951965062" Direction="Vertical">
               <LayoutGroup Id="ParametrosImportComponentEJunta_col1" RelativeSize="100">
-                <LayoutItem Id="Padrao" RelativeSize="8.2262210796915163" />
-                <LayoutItem Id="Progresso" RelativeSize="6.1696658097686372" />
+                <LayoutItem Id="PadraoDeArquivo" ViewItem="PadraoDeArquivo" Index="0" RelativeSize="14.159292035398231" IsNewNode="True" />
+                <LayoutItem Id="ConcluidoLoteLPPM" Index="1" RelativeSize="6.2176165803108807" Removed="True" />
+                <LayoutItem Id="Progresso" ViewItem="Progresso" Index="1" RelativeSize="10.619469026548673" IsNewNode="True" />
                 <LayoutItem Id="ConcluidoComponente" ViewItem="ConcluidoComponente" Index="2" RelativeSize="6.1696658097686372" Removed="True" />
                 <LayoutItem Id="ConcluidoJuntas" ViewItem="ConcluidoJuntas" Index="2" RelativeSize="6.1696658097686372" Removed="True" />
-                <LayoutGroup Id="Item1" ShowCaption="True" CaptionLocation="Top" Index="2" RelativeSize="85.604113110539842" Caption="Etapas:" IsNewNode="True">
-                  <LayoutItem Id="ConcluidoComponente" ViewItem="ConcluidoComponente" Index="0" RelativeSize="10.702341137123746" IsNewNode="True" />
-                  <LayoutItem Id="ConcluidoJuntas" ViewItem="ConcluidoJuntas" Index="1" RelativeSize="8.02675585284281" IsNewNode="True" />
-                  <LayoutItem Id="ConcluidoLoteLPPM" ViewItem="ConcluidoLoteLPPM" Index="2" RelativeSize="8.02675585284281" IsNewNode="True" />
-                  <LayoutItem Id="ConcluidoLoteUS" ViewItem="ConcluidoLoteUS" Index="3" RelativeSize="8.02675585284281" IsNewNode="True" />
-                  <LayoutItem Id="ConcluidoLoteRX" ViewItem="ConcluidoLoteRX" Index="4" RelativeSize="65.217391304347828" IsNewNode="True" />
+                <LayoutGroup Id="Item1" ShowCaption="True" CaptionLocation="Top" Index="2" RelativeSize="75.221238938053091" Caption="Etapas:" IsNewNode="True">
+                  <LayoutItem Id="ConcluidoComponente" ViewItem="ConcluidoComponente" Index="0" RelativeSize="23.529411764705884" IsNewNode="True" />
+                  <LayoutItem Id="ConcluidoJuntas" ViewItem="ConcluidoJuntas" Index="1" RelativeSize="17.647058823529413" IsNewNode="True" />
+                  <LayoutItem Id="ConcluidoLoteLPPM1" ViewItem="ConcluidoLoteLPPM" Index="2" RelativeSize="17.647058823529413" IsNewNode="True" />
+                  <LayoutItem Id="ConcluidoLoteUS" ViewItem="ConcluidoLoteUS" Index="3" RelativeSize="17.647058823529413" IsNewNode="True" />
+                  <LayoutItem Id="ConcluidoLoteRX" ViewItem="ConcluidoLoteRX" Index="4" RelativeSize="23.529411764705884" IsNewNode="True" />
                 </LayoutGroup>
               </LayoutGroup>
               <LayoutGroup Id="ParametrosImportComponentEJunta_col2" RelativeSize="32.18181818181818" Caption="ParametrosImportComponentEJunta_col2" Direction="Horizontal" Removed="True">
@@ -33,6 +34,10 @@
                 <LayoutItem Id="ConcluidoLoteUS" Index="0" RelativeSize="100" Removed="True" />
                 <LayoutItem Id="ConcluidoLoteLPPM" Removed="True" />
               </LayoutGroup>
+            </LayoutGroup>
+            <LayoutGroup Id="ParametrosImportBase" Caption="ParametrosImportBase" RelativeSize="43.231441048034938" Direction="Horizontal">
+              <LayoutItem Id="PadraoDeArquivo" RelativeSize="100" Removed="True" />
+              <LayoutItem Id="Progresso" Removed="True" />
             </LayoutGroup>
           </LayoutGroup>
         </LayoutGroup>
