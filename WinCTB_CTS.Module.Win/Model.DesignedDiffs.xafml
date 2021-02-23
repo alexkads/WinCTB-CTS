@@ -1,2 +1,28 @@
-﻿<?xml version="1.0" ?>
-<Application />
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Application>
+  <SchemaModules>
+    <SchemaModule Name="CloneObjectModule" Version="18.2.14.0" IsNewNode="True" />
+    <SchemaModule Name="SystemModule" Version="18.2.14.0" IsNewNode="True" />
+    <SchemaModule Name="SystemWindowsFormsModule" Version="18.2.14.0" IsNewNode="True" />
+  </SchemaModules>
+  <Views>
+    <DetailView Id="ProgressoGerarLotes_DetailView">
+      <Items>
+        <ActionContainerViewItem Id="DetailViewContainer" ActionContainer="DetailViewActions" Caption="DetailViewContainer(8)" IsNewNode="True" />
+      </Items>
+      <Layout>
+        <LayoutGroup Id="Main" RelativeSize="17.264957264957264">
+          <LayoutGroup Id="SimpleEditors" RelativeSize="100">
+            <LayoutGroup Id="ProgressoGerarLotes" RelativeSize="100">
+              <LayoutItem Id="Progresso" RelativeSize="31.683168316831683" />
+              <LayoutItem Id="ConcluidoLPPM" RelativeSize="20.792079207920793" />
+              <LayoutItem Id="ConcluidoRX" RelativeSize="20.792079207920793" />
+              <LayoutItem Id="ConcluidoUS" RelativeSize="26.732673267326732" />
+            </LayoutGroup>
+          </LayoutGroup>
+        </LayoutGroup>
+        <LayoutItem Id="DetailViewContainer" ViewItem="DetailViewContainer" Index="1" RelativeSize="82.73504273504274" IsNewNode="True" />
+      </Layout>
+    </DetailView>
+  </Views>
+</Application>

@@ -94,16 +94,16 @@ namespace WinCTB_CTS.Module.Win.Controllers
             TelaProgressoGerarLotes.Progresso = progresso;
         }
 
-        private void ClearLotes() {
-            var providerDataLayer = new ProviderDataLayer();
-            UnitOfWork uow = new UnitOfWork(providerDataLayer.GetSimpleDataLayer());
+        //private void ClearLotes() {
+        //    var providerDataLayer = new ProviderDataLayer();
+        //    UnitOfWork uow = new UnitOfWork(providerDataLayer.GetSimpleDataLayer());
 
-            //progress.Report($"Limpando lotes");
-            Utils.DeleteAllRecords<LoteJuntaEstrutura>(uow);
-            Utils.DeleteAllRecords<LoteEstrutura>(uow);
-            uow.Dispose();
-            providerDataLayer.Dispose();
-        }
+        //    //progress.Report($"Limpando lotes");
+        //    Utils.DeleteAllRecords<LoteJuntaEstrutura>(uow);
+        //    Utils.DeleteAllRecords<LoteEstrutura>(uow);
+        //    uow.Dispose();
+        //    providerDataLayer.Dispose();
+        //}
 
         private async void DialogControllerImportarPlanilha_Accepting(object sender, DialogControllerAcceptingEventArgs e)
         {
@@ -116,7 +116,7 @@ namespace WinCTB_CTS.Module.Win.Controllers
             var telaDeProgresso = (ProgressoGerarLotes)e.AcceptActionArgs.SelectedObjects[0];
 
             //Executar em testes;
-            ClearLotes();
+            //ClearLotes();
 
             var progress = new Progress<ImportProgressReport>(LogTrace);
             var gerador = new GerarLote();
