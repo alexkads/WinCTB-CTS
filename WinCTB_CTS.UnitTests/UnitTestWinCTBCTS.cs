@@ -12,6 +12,7 @@ using WinCTB_CTS.Module.Comum.ImporterPatterns;
 using WinCTB_CTS.Module.Importer;
 using WinCTB_CTS.Module.Importer.Estrutura;
 using WinCTB_CTS.Module.Importer.Tubulacao;
+using WinCTB_CTS.Module.Interfaces;
 
 namespace WinCTB_CTS.UnitTests
 {
@@ -136,9 +137,11 @@ namespace WinCTB_CTS.UnitTests
         {
             var application = new Application(false);
             IObjectSpaceProvider objectSpaceProvider = application.serverApplication.ObjectSpaceProvider;
-            var progress = new Progress<string>();
-            var gerador = new Module.Calculator.ProcessoLoteLPPM.GerarLoteLPPM(objectSpaceProvider);
-            await gerador.GerarLoteLPPMAsync(progress);
+            var progress = new Progress<ImportProgressReport>();
+            var gerador = new Module.Calculator.ProcessoLote.GerarLote();
+            await gerador.GerarLoteAsync(ENDS.LPPM, progress);
+            await gerador.GerarLoteAsync(ENDS.US, progress);
+            await gerador.GerarLoteAsync(ENDS.RX, progress);
         }
     }
 }

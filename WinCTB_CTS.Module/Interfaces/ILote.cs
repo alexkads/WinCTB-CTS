@@ -23,17 +23,13 @@ namespace WinCTB_CTS.Module.Interfaces
         Aprovado = 1
     }
 
-    interface ILote
+    public enum ENDS
     {
-        bool ComJuntaReprovada { get; set; }
-        int ExcessoDeInspecao { get; set; }
-        DateTime InicioDoCicloDoLote { get; set; }
-        int JuntasNoLote { get; set; }
-        int NecessidadeDeInspecao { get; set; }
-        string NumeroDoLote { get; set; }
-        int QuantidadeInspecionada { get; set; }
-        SituacoesInspecao SituacaoInspecao { get; set; }
-        SituacoesQuantidade SituacaoQuantidade { get; set; }
-        DateTime TerminoDoCicloDoLote { get; set; }
+        [XafDisplayName("LP/PM")]
+        LPPM = 0,
+        [XafDisplayName("Radiografia")]
+        RX = 1,
+        [XafDisplayName("US")]
+        US = 2
     }
 }

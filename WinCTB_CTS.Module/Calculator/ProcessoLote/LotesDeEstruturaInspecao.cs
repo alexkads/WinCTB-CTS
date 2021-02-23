@@ -9,7 +9,7 @@ using System.Reactive.Linq;
 using System.Threading.Tasks;
 using WinCTB_CTS.Module.BusinessObjects.Estrutura;
 
-namespace WinCTB_CTS.Module.Calculator.ProcessoLoteLPPM
+namespace WinCTB_CTS.Module.Calculator.ProcessoLote
 {
     public class LotesDeEstruturaInspecao
     {
@@ -33,7 +33,7 @@ namespace WinCTB_CTS.Module.Calculator.ProcessoLoteLPPM
                     var observable = JuntaComponentes.ToObservable();
                     observable.Subscribe(current => {
 
-                        foreach (var juntaDoLote in current.LoteLPPMJuntaEstruturas)
+                        foreach (var juntaDoLote in current.LoteJuntaEstruturas)
                         {
                             if (current.DataLP != null)
                             {
@@ -84,7 +84,7 @@ namespace WinCTB_CTS.Module.Calculator.ProcessoLoteLPPM
                     var observable = JuntaComponentes.ToObservable();
                     observable.Subscribe(current => {
 
-                        foreach (var juntaDoLote in current.LoteLPPMJuntaEstruturas)
+                        foreach (var juntaDoLote in current.LoteJuntaEstruturas)
                         {
                             if (current.DataLP != null)
                             {
@@ -136,7 +136,7 @@ namespace WinCTB_CTS.Module.Calculator.ProcessoLoteLPPM
                     var observable = JuntaComponentes.ToObservable();
                     observable.Subscribe(current => {
 
-                        foreach (var juntaDoLote in current.LoteLPPMJuntaEstruturas)
+                        foreach (var juntaDoLote in current.LoteJuntaEstruturas)
                         {
                             if (current.DataLP != null)
                             {

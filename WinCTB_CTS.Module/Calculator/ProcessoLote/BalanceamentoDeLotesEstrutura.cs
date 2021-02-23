@@ -9,9 +9,10 @@ using System.Reactive.Linq;
 using System.Threading.Tasks;
 using WinCTB_CTS.Module.BusinessObjects.Comum;
 using WinCTB_CTS.Module.BusinessObjects.Estrutura.Lotes;
+using WinCTB_CTS.Module.Calculator.ProcessoLote;
 using WinCTB_CTS.Module.Interfaces;
 
-namespace WinCTB_CTS.Module.Calculator.ProcessoLoteLPPM
+namespace WinCTB_CTS.Module.Calculator.ProcessoLote
 {
     class BalanceamentoDeLotesEstrutura
     {
@@ -19,7 +20,7 @@ namespace WinCTB_CTS.Module.Calculator.ProcessoLoteLPPM
 
         public BalanceamentoDeLotesEstrutura(IObjectSpaceProvider objectSpaceProvider) => this.ObjectSpaceProvider = objectSpaceProvider;
 
-        public void BalancearLotesLPPMEstruturaPorPercentualAsync()
+        public void BalancearLotesEstruturaPorPercentualAsync()
         {
             using (var ObjectSpace = ObjectSpaceProvider.CreateObjectSpace())
             {
@@ -27,8 +28,8 @@ namespace WinCTB_CTS.Module.Calculator.ProcessoLoteLPPM
                 int possibilidades = 0;
                 do
                 {
-                    var QueryLotesExcesso = new XPCollection<LoteLPPMEstrutura>(session, CriteriaOperator.Parse($"ExcessoDeInspecao > 0 And NecessidadeDeInspecao <= 0 And LoteLPPMjuntaEstruturas[ InspecaoExcesso = 'True' ].Exists"));
-                    var QueryLotesPendente = new XPCollection<LoteLPPMEstrutura>(session, CriteriaOperator.Parse($"NecessidadeDeInspecao > 0 And LoteLPPMjuntaEstruturas[ IsNull(NumeroDoRelatorio) ].Exists"));
+                    var QueryLotesExcesso = new XPCollection<LoteEstrutura>(session, CriteriaOperator.Parse($"ExcessoDeInspecao > 0 And NecessidadeDeInspecao <= 0 And LotejuntaEstruturas[ InspecaoExcesso = 'True' ].Exists"));
+                    var QueryLotesPendente = new XPCollection<LoteEstrutura>(session, CriteriaOperator.Parse($"NecessidadeDeInspecao > 0 And LotejuntaEstruturas[ IsNull(NumeroDoRelatorio) ].Exists"));
 
                     var lotesComPossibilidade =
                         from ex in QueryLotesExcesso
@@ -39,19 +40,19 @@ namespace WinCTB_CTS.Module.Calculator.ProcessoLoteLPPM
                     possibilidades = lotesComPossibilidade.Count();
                     foreach (var l in lotesComPossibilidade)
                     {
-                        var loteExcesso = session.GetObjectByKey<LoteLPPMEstrutura>(l.Excesso.NumeroDoLote);
-                        var lotePendente = session.GetObjectByKey<LoteLPPMEstrutura>(l.Pendentes.FirstOrDefault().NumeroDoLote);
+                        var loteExcesso = session.GetObjectByKey<LoteEstrutura>(l.Excesso.NumeroDoLote);
+                        var lotePendente = session.GetObjectByKey<LoteEstrutura>(l.Pendentes.FirstOrDefault().NumeroDoLote);
 
-                        var filtroExecesso = new XPQuery<LoteLPPMJuntaEstrutura>(session, false).TransformExpression(x => x.LoteLPPMEstrutura.NumeroDoLote == loteExcesso.NumeroDoLote && x.NumeroDoRelatorio != null && x.InspecaoExcesso == true);
-                        var filtroPendente = new XPQuery<LoteLPPMJuntaEstrutura>(session, false).TransformExpression(x => x.LoteLPPMEstrutura.NumeroDoLote == lotePendente.NumeroDoLote && x.NumeroDoRelatorio == null);
+                        var filtroExecesso = new XPQuery<LoteJuntaEstrutura>(session, false).TransformExpression(x => x.LoteEstrutura.NumeroDoLote == loteExcesso.NumeroDoLote && x.NumeroDoRelatorio != null && x.InspecaoExcesso == true);
+                        var filtroPendente = new XPQuery<LoteJuntaEstrutura>(session, false).TransformExpression(x => x.LoteEstrutura.NumeroDoLote == lotePendente.NumeroDoLote && x.NumeroDoRelatorio == null);
 
-                        var JuntaExcesso = session.FindObject<LoteLPPMJuntaEstrutura>(filtroExecesso);
-                        var JuntaPendente = session.FindObject<LoteLPPMJuntaEstrutura>(filtroPendente);
+                        var JuntaExcesso = session.FindObject<LoteJuntaEstrutura>(filtroExecesso);
+                        var JuntaPendente = session.FindObject<LoteJuntaEstrutura>(filtroPendente);
 
                         if (JuntaPendente != null && JuntaExcesso != null && lotePendente.SituacaoInspecao == SituacoesInspecao.Pendente)
                         {
-                            lotePendente.LoteLPPMjuntaEstruturas.Add(JuntaExcesso);
-                            loteExcesso.LoteLPPMjuntaEstruturas.Add(JuntaPendente);
+                            lotePendente.LotejuntaEstruturas.Add(JuntaExcesso);
+                            loteExcesso.LotejuntaEstruturas.Add(JuntaPendente);
                             JuntaExcesso.InspecaoExcesso = false;
                             LotesDeEstruturaAlinhamento.AtualizarStatusLote(lotePendente);
                             LotesDeEstruturaAlinhamento.AtualizarStatusLote(loteExcesso);

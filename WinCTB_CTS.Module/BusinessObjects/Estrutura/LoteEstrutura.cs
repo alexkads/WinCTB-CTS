@@ -21,12 +21,13 @@ using WinCTB_CTS.Module.Interfaces;
 
 namespace WinCTB_CTS.Module.BusinessObjects.Estrutura.Lotes
 {
-    [DefaultProperty(nameof(NumeroDoLote)), Persistent("WT_LoteRXEstrutura"), ImageName("BO_Contract"), NavigationItem("Lote")]
+    [DefaultProperty(nameof(NumeroDoLote)), Persistent("WT_LoteEstrutura"), ImageName("BO_Contract"), NavigationItem("Lote")]
     [Appearance("", AppearanceItemType = nameof(Action), TargetItems = "CloneObject, New", Visibility = ViewItemVisibility.Hide)]
-    [XafDisplayName("Lote de RX Estrutura")]
+    [XafDisplayName("Lote de Estrutura")]
     [FriendlyKeyProperty(nameof(NumeroDoLote))]
-    public class LoteRXEstrutura : XPBaseObject, ILote
+    public class LoteEstrutura : XPBaseObject
     {
+        private ENDS ensaio;
         private string _Area;
         private bool _ComJuntaReprovada;
         private int _ExcessoDeInspecao;
@@ -46,7 +47,7 @@ namespace WinCTB_CTS.Module.BusinessObjects.Estrutura.Lotes
         private SituacoesQuantidade _SituacaoQuantidade;
         private DateTime _TerminoDoCicloDoLote;
 
-        public LoteRXEstrutura(Session session)
+        public LoteEstrutura(Session session)
             : base(session)
         {
         }
@@ -54,7 +55,7 @@ namespace WinCTB_CTS.Module.BusinessObjects.Estrutura.Lotes
         protected override void OnDeleting()
         {
             base.OnDeleting();
-            new HashSet<LoteRXJuntaEstrutura>(LoteRXjuntaEstruturas)
+            new HashSet<LoteJuntaEstrutura>(LotejuntaEstruturas)
                 .ToObservable(Scheduler.CurrentThread)
                 .Subscribe(juntasDoLote =>
                 {
@@ -136,8 +137,8 @@ namespace WinCTB_CTS.Module.BusinessObjects.Estrutura.Lotes
             set => SetPropertyValue(nameof(JuntasNoLote), ref _JuntasNoLote, value);
         }
 
-        [Association("LoteRXEstrutura-LoteRXjuntaEstruturas"), DevExpress.Xpo.Aggregated]
-        public XPCollection<LoteRXJuntaEstrutura> LoteRXjuntaEstruturas => GetCollection<LoteRXJuntaEstrutura>(nameof(LoteRXjuntaEstruturas));
+        [Association("LoteEstrutura-LotejuntaEstruturas"), DevExpress.Xpo.Aggregated]
+        public XPCollection<LoteJuntaEstrutura> LotejuntaEstruturas => GetCollection<LoteJuntaEstrutura>(nameof(LotejuntaEstruturas));
 
         [ModelDefault("AllowEdit", "False")]
         [XafDisplayName("Necessidade De Inspeção")]
@@ -203,6 +204,15 @@ namespace WinCTB_CTS.Module.BusinessObjects.Estrutura.Lotes
             set => SetPropertyValue(nameof(SituacaoInspecao), ref _SituacaoInspecao, value);
         }
 
+
+        [ModelDefault("AllowEdit", "False")]
+        [XafDisplayName("Ensaio do Lote")]
+        public ENDS Ensaio
+        {
+            get => ensaio;
+            set => SetPropertyValue(nameof(Ensaio), ref ensaio, value);
+        }
+
         [ModelDefault("AllowEdit", "False")]
         [Indexed(Unique = false)]
         [XafDisplayName("Situação Quantidade")]
@@ -224,10 +234,10 @@ namespace WinCTB_CTS.Module.BusinessObjects.Estrutura.Lotes
         }
     }
 
-    [Persistent("WT_LoteRXJuntaEstrutura")]
+    [Persistent("WT_LoteJuntaEstrutura")]
     [Appearance("", AppearanceItemType = nameof(Action), TargetItems = "CloneObject, New", Visibility = ViewItemVisibility.Hide)]
     [Appearance("", AppearanceItemType = nameof(Action), TargetItems = nameof(Delete), Visibility = ViewItemVisibility.Hide)]
-    public class LoteRXJuntaEstrutura : BaseObject, ILoteDetalhe
+    public class LoteJuntaEstrutura : BaseObject
     {
         private JuntaComponente juntaComponente;
         private bool _AprovouLote;
@@ -238,11 +248,11 @@ namespace WinCTB_CTS.Module.BusinessObjects.Estrutura.Lotes
         // Fields...
         private bool _InspecaoExcesso;
         private InspecaoLaudo? _Laudo;
-        private LoteRXEstrutura _loteRXEstrutura;
+        private LoteEstrutura _loteEstrutura;
         private string _NumeroDoRelatorio;
         private double _percentualNivelDeInspecao;
 
-        public LoteRXJuntaEstrutura(Session session)
+        public LoteJuntaEstrutura(Session session)
             : base(session) { }
 
         protected override void OnDeleting()
@@ -268,10 +278,10 @@ namespace WinCTB_CTS.Module.BusinessObjects.Estrutura.Lotes
             set => SetPropertyValue(nameof(CicloTermico), ref _CicloTermico, value);
         }
 
-        [XafDisplayName(nameof(Componente))]
-        [VisibleInLookupListView(true)]
-        [PersistentAlias("JuntaEstrutura.IdentificacaoDoComponentes")]
-        public string Componente => (string)EvaluateAlias(nameof(Componente));
+        //[XafDisplayName(nameof(Componente))]
+        //[VisibleInLookupListView(true)]
+        //[PersistentAlias("JuntaEstrutura.IdentificacaoDoComponentes")]
+        //public string Componente => (string)EvaluateAlias(nameof(Componente));
 
         [ModelDefault("EditMask", "G")]
         [ModelDefault("DisplayFormat", "G")]
@@ -295,9 +305,9 @@ namespace WinCTB_CTS.Module.BusinessObjects.Estrutura.Lotes
             set => SetPropertyValue(nameof(DataInspecao), ref _DataInspecao, value);
         }
 
-        [XafDisplayName("Desenho de Detalhamento")]
-        [PersistentAlias("JuntaEstrutura.Desenho")]
-        public string Desenho => (string)EvaluateAlias(nameof(Desenho));
+        //[XafDisplayName("Desenho de Detalhamento")]
+        //[PersistentAlias("JuntaEstrutura.Desenho")]
+        //public string Desenho => (string)EvaluateAlias(nameof(Desenho));
 
         [XafDisplayName("Inspeção em excesso")]
         [ModelDefault("AllowEdit", "False")]
@@ -309,7 +319,7 @@ namespace WinCTB_CTS.Module.BusinessObjects.Estrutura.Lotes
 
         [XafDisplayName("Junta")]
         [Indexed(Unique = false)]
-        [Association("JuntaComponente-LoteRXJuntaEstruturas")]
+        [Association("JuntaComponente-LoteJuntaEstruturas")]
         [ModelDefault("AllowEdit", "False")]
         public JuntaComponente JuntaComponente
         {
@@ -326,14 +336,14 @@ namespace WinCTB_CTS.Module.BusinessObjects.Estrutura.Lotes
         }
 
         [ModelDefault("AllowEdit", "False")]
-        [XafDisplayName("Lote LP/PM Estrutura")]
-        [Association("LoteRXEstrutura-LoteRXjuntaEstruturas")]
-        public LoteRXEstrutura LoteRXEstrutura
+        [XafDisplayName("Lote Estrutura")]
+        [Association("LoteEstrutura-LotejuntaEstruturas")]
+        public LoteEstrutura LoteEstrutura
         {
-            get => _loteRXEstrutura;
-            set => SetPropertyValue(nameof(LoteRXEstrutura), ref _loteRXEstrutura, value);
+            get => _loteEstrutura;
+            set => SetPropertyValue(nameof(LoteEstrutura), ref _loteEstrutura, value);
         }
-               
+
         [ModelDefault("AllowEdit", "False")]
         [XafDisplayName("Número do Relatório")]
         public string NumeroDoRelatorio
