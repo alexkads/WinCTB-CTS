@@ -120,7 +120,10 @@ namespace WinCTB_CTS.Module.Win.Controllers
 
             var progress = new Progress<ImportProgressReport>(LogTrace);
             var gerador = new GerarLote();
-            
+            var inspecao = new LotesDeEstruturaInspecao();
+            var alinhamento = new LotesDeEstruturaAlinhamento();
+            var balanceamento = new BalanceamentoDeLotesEstrutura();
+
             await gerador.GerarLoteAsync(ENDS.LPPM, progress);
             telaDeProgresso.ConcluidoLPPM = true;
 
@@ -129,6 +132,21 @@ namespace WinCTB_CTS.Module.Win.Controllers
 
             await gerador.GerarLoteAsync(ENDS.US, progress);
             telaDeProgresso.ConcluidoUS = true;
+
+            await inspecao.InserirInspecaoLPPMEstrutura(progress);
+            telaDeProgresso.ConcluidoInspecaoLPPM = true;
+
+            await inspecao.InserirInspecaoRXEstrutura(progress);
+            telaDeProgresso.ConcluidoInspecaoRX = true;
+
+            await inspecao.InserirInspecaoUSEstrutura(progress);
+            telaDeProgresso.ConcluidoInspecaoUS = true;
+
+            await alinhamento.AlinhaLotes(progress);
+            telaDeProgresso.ConcluidoAlinhamentoDeLotes = true;
+
+            await balanceamento.BalancearLotesEstruturaPorPercentualAsync();
+            telaDeProgresso.ConcluidoBalanceamentoDeLotes = true;
 
             objectSpace.CommitChanges();
 

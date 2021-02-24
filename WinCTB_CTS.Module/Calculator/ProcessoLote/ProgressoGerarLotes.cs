@@ -53,5 +53,40 @@ namespace WinCTB_CTS.Module.Calculator.ProcessoLote
             get { return GetDelayedPropertyValue<bool>("ConcluidoUS"); }
             set { SetDelayedPropertyValue<bool>("ConcluidoUS", value); }
         }
+
+        [Delayed]
+        public bool ConcluidoInspecaoLPPM
+        {
+            get { return GetDelayedPropertyValue<bool>("ConcluidoInspecaoLPPM"); }
+            set { SetDelayedPropertyValue<bool>("ConcluidoInspecaoLPPM", value); }
+        }
+
+        [Delayed]
+        public bool ConcluidoInspecaoRX
+        {
+            get { return GetDelayedPropertyValue<bool>("ConcluidoInspecaoRX"); }
+            set { SetDelayedPropertyValue<bool>("ConcluidoInspecaoRX", value); }
+        }
+
+        [Delayed]
+        public bool ConcluidoInspecaoUS
+        {
+            get { return GetDelayedPropertyValue<bool>("ConcluidoInspecaoUS"); }
+            set { SetDelayedPropertyValue<bool>("ConcluidoInspecaoUS", value); }
+        }
+
+        [Delayed]
+        public bool ConcluidoAlinhamentoDeLotes
+        {
+            get { return GetDelayedPropertyValue<bool>("ConcluidoAlinhamentoDeLotes"); }
+            set { SetDelayedPropertyValue<bool>("ConcluidoAlinhamentoDeLotes", value); }
+        }
+
+        [Delayed]
+        public bool ConcluidoBalanceamentoDeLotes
+        {
+            get { return GetDelayedPropertyValue<bool>("ConcluidoBalanceamentoDeLotes"); }
+            set { SetDelayedPropertyValue<bool>("ConcluidoBalanceamentoDeLotes", value); }
+        }
     }
 }

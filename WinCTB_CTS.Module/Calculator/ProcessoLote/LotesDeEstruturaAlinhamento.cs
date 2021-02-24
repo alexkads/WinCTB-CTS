@@ -11,33 +11,62 @@ using System.Reactive.Linq;
 using System.Threading.Tasks;
 using WinCTB_CTS.Module.BusinessObjects.Comum;
 using WinCTB_CTS.Module.BusinessObjects.Estrutura.Lotes;
+using WinCTB_CTS.Module.Helpers;
+using WinCTB_CTS.Module.Importer;
 using WinCTB_CTS.Module.Interfaces;
 
 namespace WinCTB_CTS.Module.Calculator.ProcessoLote
 {
-    class LotesDeEstruturaAlinhamento
+    public class LotesDeEstruturaAlinhamento
     {
-        private IObjectSpaceProvider ObjectSpaceProvider;
+        public ProviderDataLayer providerDataLayer { get; set; }
 
-        public LotesDeEstruturaAlinhamento(IObjectSpaceProvider objectSpaceProvider) => this.ObjectSpaceProvider = objectSpaceProvider;
-
-        public async Task AlinhaLotesLPPM(Guid OidEstabelecimento, IProgress<string> progress)
+        public LotesDeEstruturaAlinhamento()
         {
-            using (var ObjectSpace = ObjectSpaceProvider.CreateObjectSpace())
+            this.providerDataLayer = new ProviderDataLayer();
+        }
+
+        public async Task AlinhaLotes(IProgress<ImportProgressReport> progress)
+        {
+            await Task.Factory.StartNew(() =>
             {
-                var lotes = new XPCollection<LoteEstrutura>(((XPObjectSpace)ObjectSpace).Session, new BinaryOperator("Projeto.Estabelecimento.Oid", OidEstabelecimento));
+                UnitOfWork uow = new UnitOfWork(providerDataLayer.GetSimpleDataLayer());
+                var lotes = new XPCollection<LoteEstrutura>(uow);
                 lotes.Sorting.Add(new SortProperty("NumeroDoLote", SortingDirection.Ascending));
 
-                double totalDatastore = lotes.EvaluateDatastoreCount();
-                double currentProcess = 0D;
+                int totalDatastore = lotes.EvaluateDatastoreCount();
+                int currentProcess = 0;
 
-                await Observable.ForEachAsync<LoteEstrutura>(lotes.ToObservable(), lote => {
+                uow.BeginTransaction();
+
+                Observable.ForEachAsync<LoteEstrutura>(lotes.ToObservable(), lote =>
+                {
                     AtualizarStatusLote(lote);
-                    ObjectSpace.CommitChanges();
                     currentProcess++;
-                    progress.Report($"Inserindo inspeções de (LP ou PM) nos lotes LP/PM Estrutura");
+
+                    if (currentProcess % 100 == 0)
+                    {
+                        uow.CommitTransaction();
+                        progress.Report(new ImportProgressReport
+                        {
+                            TotalRows = totalDatastore,
+                            CurrentRow = currentProcess,
+                            MessageImport = $"Importando linha {currentProcess}/{totalDatastore}"
+                        });
+                    }
                 });
-            }
+
+                progress.Report(new ImportProgressReport
+                {
+                    TotalRows = totalDatastore,
+                    CurrentRow = totalDatastore,
+                    MessageImport = $"Finalizado {totalDatastore}/{totalDatastore}"
+                });
+
+                uow.CommitTransaction();
+                uow.CommitChanges();
+                uow.Dispose();
+            });
         }
 
         public static void AtualizarStatusLote(LoteEstrutura lote)
