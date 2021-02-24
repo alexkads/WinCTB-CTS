@@ -159,7 +159,7 @@ namespace WinCTB_CTS.Module.Calculator.ProcessoLote
             //uow.Query<JuntaComponente>().Where(x=> x.LoteJuntaEstruturas.Where(j=> j.LoteEstrutura.Ensaio == ENDS.US))
 
             var FiltroSemLote00 = CriteriaOperator.Parse("Not IsNullOrEmpty(DataVisual)");
-            var FiltroSemLote01 = CriteriaOperator.Parse("LoteJuntaEstruturas[ LoteEstrutura.Ensaio = ? ].Exists", ensaio);
+            var FiltroSemLote01 = CriteriaOperator.Parse("Not LoteJuntaEstruturas[ LoteEstrutura.Ensaio = ? ].Exists", ensaio);
             var FiltroSemLote02 = new BetweenOperator(field, 0.01, 0.99);
 
             var criteria = new GroupOperator(GroupOperatorType.And, FiltroSemLote00, FiltroSemLote01, FiltroSemLote02 );
