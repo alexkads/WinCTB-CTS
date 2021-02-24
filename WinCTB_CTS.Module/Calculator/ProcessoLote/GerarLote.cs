@@ -30,12 +30,11 @@ namespace WinCTB_CTS.Module.Calculator.ProcessoLote
 
         private void IncluirJuntaNoLote(UnitOfWork uow, ENDS ensaio, LoteEstrutura lote, JuntaComponente juntaComponente, int cicloTermico)
         {
-            var nuow = uow.BeginNestedUnitOfWork();
-            var juntaLote = new LoteJuntaEstrutura(nuow);
-            juntaLote.LoteEstrutura = nuow.GetNestedObject<LoteEstrutura>(lote);
-            juntaLote.JuntaComponente = nuow.GetNestedObject<JuntaComponente>(juntaComponente);
+            var juntaLote = new LoteJuntaEstrutura(uow);
+            juntaLote.LoteEstrutura = lote;
+            juntaLote.JuntaComponente = juntaComponente;
             juntaLote.DataInclusao = DateTime.Now;
-            juntaLote.CicloTermico = cicloTermico;
+            juntaLote.CicloTermico = cicloTermico;            
 
             if (ensaio == ENDS.LPPM)
                 juntaLote.PercentualNivelDeInspecao = juntaComponente.PercLpPm;
@@ -45,8 +44,6 @@ namespace WinCTB_CTS.Module.Calculator.ProcessoLote
 
             if (ensaio == ENDS.US)
                 juntaLote.PercentualNivelDeInspecao = juntaComponente.PercUt;
-
-            nuow.CommitChanges();
         }
 
         private LoteEstrutura NovoLote(UnitOfWork uow, ENDS ensaio, JuntaComponente juntaComponente)
@@ -86,39 +83,34 @@ namespace WinCTB_CTS.Module.Calculator.ProcessoLote
                     return;
                 }
 
-                uow.BeginTransaction();
-
-                var observable = juntasSemLote.ToObservable(Scheduler.CurrentThread);
                 double currentProgress = 0D;
 
-                observable.Subscribe(juntaComponente =>
+                foreach (var juntaComponente in juntasSemLote)
                 {
                     Guid GuidComponente = Guid.NewGuid();
                     GuidComponente = juntaComponente.Componente.Oid;
 
-                    Func<CriteriaOperator> CriterioFormacao = () =>
-                        CriteriaOperator.Parse($"Ensaio = ? And PercentualNivelDeInspecao = ? And JuntasNoLote < QuantidadeNecessaria", ensaio,
-                        ensaio == ENDS.LPPM
-                            ? juntaComponente.PercLpPm
-                            : ensaio == ENDS.RX
-                            ? juntaComponente.PercRt
-                            : ensaio == ENDS.US
-                            ? juntaComponente.PercUt
-                            : 0D);
+                    CriteriaOperator CriterioFormacao = string.Empty;
 
-                    var loteEstrutura = uow.FindObject<LoteEstrutura>(CriterioFormacao());
+                    if (ensaio == ENDS.LPPM)
+                        CriterioFormacao = CriteriaOperator.Parse($"Ensaio = ? And PercentualNivelDeInspecao = ? And JuntasNoLote < QuantidadeNecessaria", ensaio, juntaComponente.PercLpPm);
+                    if (ensaio == ENDS.RX)
+                        CriterioFormacao = CriteriaOperator.Parse($"Ensaio = ? And PercentualNivelDeInspecao = ? And JuntasNoLote < QuantidadeNecessaria", ensaio, juntaComponente.PercRt);
+                    if (ensaio == ENDS.US)
+                        CriterioFormacao = CriteriaOperator.Parse($"Ensaio = ? And PercentualNivelDeInspecao = ? And JuntasNoLote < QuantidadeNecessaria", ensaio, juntaComponente.PercUt);
+
+                    var loteEstrutura = uow.FindObject<LoteEstrutura>(CriterioFormacao);
 
                     if (loteEstrutura == null)
                         loteEstrutura = NovoLote(uow, ensaio, juntaComponente);
 
-                    IncluirJuntaNoLote(uow, ensaio, loteEstrutura, juntaComponente, 1);                
-                    loteEstrutura.JuntasNoLote = loteEstrutura.LotejuntaEstruturas.EvaluateDatastoreCount();
-                    uow.CommitTransaction();
+                    IncluirJuntaNoLote(uow, ensaio, loteEstrutura, juntaComponente, 1);
+                    loteEstrutura.JuntasNoLote = loteEstrutura.LotejuntaEstruturas.Count();
+                    uow.CommitChanges();
 
                     currentProgress++;
-
                     if (currentProgress % 100 == 0)
-                    {
+                    {                        
                         progress.Report(new ImportProgressReport
                         {
                             TotalRows = totalDataStore,
@@ -126,7 +118,7 @@ namespace WinCTB_CTS.Module.Calculator.ProcessoLote
                             MessageImport = $"Importando linha {currentProgress}/{totalDataStore}"
                         });
                     }
-                });
+                }
 
                 progress.Report(new ImportProgressReport
                 {
@@ -135,7 +127,6 @@ namespace WinCTB_CTS.Module.Calculator.ProcessoLote
                     MessageImport = $"Finalizando..."
                 });
 
-                uow.CommitChanges();
                 juntasSemLote.Dispose();
                 uow.Dispose();
             });
@@ -165,11 +156,13 @@ namespace WinCTB_CTS.Module.Calculator.ProcessoLote
         {
             var field = FieldPercInspecaoEndJuntaComponente(ensaio);
 
+            //uow.Query<JuntaComponente>().Where(x=> x.LoteJuntaEstruturas.Where(j=> j.LoteEstrutura.Ensaio == ENDS.US))
+
             var FiltroSemLote00 = CriteriaOperator.Parse("Not IsNullOrEmpty(DataVisual)");
-            var FiltroSemLote01 = new UnaryOperator(UnaryOperatorType.Not, new AggregateOperand("LoteJuntaEstruturas", Aggregate.Exists));
+            var FiltroSemLote01 = CriteriaOperator.Parse("LoteJuntaEstruturas[ LoteEstrutura.Ensaio = ? ].Exists", ensaio);
             var FiltroSemLote02 = new BetweenOperator(field, 0.01, 0.99);
 
-            var criteria = new GroupOperator(GroupOperatorType.And, FiltroSemLote00, FiltroSemLote01, FiltroSemLote02);
+            var criteria = new GroupOperator(GroupOperatorType.And, FiltroSemLote00, FiltroSemLote01, FiltroSemLote02 );
             var juntasSemLote = new XPCollection<JuntaComponente>(uow);
 
             juntasSemLote.Criteria = criteria;

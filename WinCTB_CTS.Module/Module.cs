@@ -21,6 +21,7 @@ using WinCTB_CTS.Module.BusinessObjects.Tubulacao;
 using WinCTB_CTS.Module.RelatorioPreDefinido;
 using DevExpress.Data.Filtering;
 using WinCTB_CTS.Module.BusinessObjects.Tubulacao.Medicao;
+using WinCTB_CTS.Module.Interfaces;
 
 namespace WinCTB_CTS.Module
 {
@@ -31,12 +32,15 @@ namespace WinCTB_CTS.Module
         {
             InitializeComponent();
             BaseObject.OidInitializationMode = OidInitializationMode.AfterConstruction;
+            RegisterEnum();
         }
 
         public static void RegisterEnum()
         {
             EnumProcessingHelper.RegisterEnum(typeof(WinCTB_CTS.Module.BusinessObjects.Tubulacao.JuntaSpool.CampoPipe), "CampoOuPipe");
-
+            EnumProcessingHelper.RegisterEnum(typeof(WinCTB_CTS.Module.Interfaces.ENDS), nameof(ENDS));
+            EnumProcessingHelper.RegisterEnum(typeof(WinCTB_CTS.Module.Interfaces.SituacoesInspecao), nameof(SituacoesInspecao));
+            EnumProcessingHelper.RegisterEnum(typeof(WinCTB_CTS.Module.Interfaces.SituacoesQuantidade), nameof(SituacoesQuantidade));
         }
 
         public override IEnumerable<ModuleUpdater> GetModuleUpdaters(IObjectSpace objectSpace, Version versionFromDB)
