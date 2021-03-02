@@ -1,5 +1,16 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Application Title="WinCTB-CTS">
+  <NavigationItems>
+    <Items>
+      <Item Id="QueriesDynamic" Caption="Consultas" IsNewNode="True">
+        <Items IsNewNode="True">
+          <Item Id="ConsultaJuntaDeLotesDeEstrutura" Caption="Consulta Juntas de Lotes" ImageName="BO_Note" ViewId="LoteJuntaEstrutura_ListView_consulta" IsNewNode="True" />
+          <Item Id="QueriesJuntaComponente" Caption="Consulta Junta Componente" ImageName="BO_Note" ViewId="JuntaComponente_ListView_consulta" IsNewNode="True" />
+          <Item Id="QueriesJuntaSpool" Caption="Consulta Junta Spool" ViewId="JuntaSpool_ListView_consulta" ImageName="BO_Note" IsNewNode="True" />
+        </Items>
+      </Item>
+    </Items>
+  </NavigationItems>
   <Options DataAccessMode="Client" />
   <SchemaModules>
     <SchemaModule Name="CloneObjectModule" Version="18.2.14.0" IsNewNode="True" />
@@ -9,7 +20,10 @@
     <ListView Id="Componente_JuntaComponentes_ListView" AllowDelete="False" AllowLink="False" AllowNew="False" DataAccessMode="InstantFeedback" />
     <ListView Id="Componente_ListView" AllowDelete="False" AllowLink="False" AllowNew="False" DataAccessMode="InstantFeedback" />
     <ListView Id="JuntaComponente_ListView" AllowDelete="False" AllowLink="False" AllowNew="False" DataAccessMode="InstantFeedback" />
+    <ListView Id="JuntaComponente_ListView_consulta" AllowDelete="False" AllowLink="False" AllowNew="False" DataAccessMode="InstantFeedback" />
     <ListView Id="JuntaSpool_ListView" AllowDelete="False" AllowLink="False" AllowNew="False" DataAccessMode="InstantFeedback" />
+    <ListView Id="JuntaSpool_ListView_consulta" AllowDelete="False" AllowLink="False" AllowNew="False" DataAccessMode="InstantFeedback" />
+    <ListView Id="LoteJuntaEstrutura_ListView_consulta" AllowDelete="False" AllowLink="False" AllowNew="False" DataAccessMode="InstantFeedback" />
     <DetailView Id="ParametrosImportComponentEJunta_DetailView">
       <Layout>
         <LayoutGroup Id="Main" RelativeSize="100">

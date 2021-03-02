@@ -12,11 +12,13 @@ using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using WinCTB_CTS.Module.BusinessObjects.Estrutura.Lotes;
+using WinCTB_CTS.Module.Comum.ViewCloner;
 
 namespace WinCTB_CTS.Module.BusinessObjects.Estrutura
 {
     [DefaultClassOptions, DefaultProperty("ConcatPecaDf1Junta"), ImageName("BO_Contract"), NavigationItem("Estrutura")]
     [Indices("Componente;Junta")]
+    [CloneView(CloneViewType.ListView, "JuntaComponente_ListView_consulta")]
     public class JuntaComponente : BaseObject
     {
         public JuntaComponente(Session session)

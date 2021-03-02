@@ -166,6 +166,8 @@
     <Compile Include="Comum\ImporterPatterns\IDataImporter.cs" />
     <Compile Include="Comum\ImporterPatterns\ParameterImporterEventArgs.cs" />
     <Compile Include="Comum\ImporterPatterns\MapImporterEventArgs.cs" />
+    <Compile Include="Comum\ViewCloner\CloneViewAttribute.cs" />
+    <Compile Include="Comum\ViewCloner\ModelViewClonerUpdater.cs" />
     <Compile Include="DatabaseUpdate\Updater.cs" />
     <Compile Include="Helpers\ExcelDataReaderHelper.cs" />
     <Compile Include="Helpers\OpenXMLHelpers.cs" />

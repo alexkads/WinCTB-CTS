@@ -12,6 +12,7 @@ using DevExpress.ExpressApp.Updating;
 using DevExpress.ExpressApp.Model.Core;
 using DevExpress.ExpressApp.Model.DomainLogics;
 using DevExpress.ExpressApp.Model.NodeGenerators;
+using DevExpress.Persistent.BaseImpl;
 
 namespace WinCTB_CTS.Module.Win {
     [ToolboxItemFilter("Xaf.Platform.Win")]
@@ -25,7 +26,21 @@ namespace WinCTB_CTS.Module.Win {
         }
         public override void Setup(XafApplication application) {
             base.Setup(application);
+            application.CreateCustomModelDifferenceStore += Application_CreateCustomModelDifferenceStore;
+            application.CreateCustomUserModelDifferenceStore += Application_CreateCustomUserModelDifferenceStore;
             // Manage various aspects of the application UI and behavior at the module level.
+        }
+
+        private void Application_CreateCustomUserModelDifferenceStore(object sender, CreateCustomModelDifferenceStoreEventArgs e)
+        {
+            e.Store = new ModelDifferenceDbStore((XafApplication)sender, typeof(ModelDifference), true, "Win");
+            e.Handled = true;
+        }
+
+        private void Application_CreateCustomModelDifferenceStore(object sender, CreateCustomModelDifferenceStoreEventArgs e)
+        {
+            e.Store = new ModelDifferenceDbStore((XafApplication)sender, typeof(ModelDifference), false, "Win");
+            e.Handled = true;
         }
     }
 }

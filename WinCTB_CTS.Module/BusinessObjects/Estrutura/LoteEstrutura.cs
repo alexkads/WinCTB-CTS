@@ -17,6 +17,7 @@ using System.Reactive.Concurrency;
 using System.Reactive.Linq;
 using System.Text;
 using WinCTB_CTS.Module.BusinessObjects.Comum;
+using WinCTB_CTS.Module.Comum.ViewCloner;
 using WinCTB_CTS.Module.Interfaces;
 
 namespace WinCTB_CTS.Module.BusinessObjects.Estrutura.Lotes
@@ -237,6 +238,7 @@ namespace WinCTB_CTS.Module.BusinessObjects.Estrutura.Lotes
     [Persistent("WT_LoteJuntaEstrutura")]
     [Appearance("", AppearanceItemType = nameof(Action), TargetItems = "CloneObject, New", Visibility = ViewItemVisibility.Hide)]
     [Appearance("", AppearanceItemType = nameof(Action), TargetItems = nameof(Delete), Visibility = ViewItemVisibility.Hide)]
+    [CloneView(CloneViewType.ListView, "LoteJuntaEstrutura_ListView_consulta")]
     public class LoteJuntaEstrutura : BaseObject
     {
         private JuntaComponente juntaComponente;

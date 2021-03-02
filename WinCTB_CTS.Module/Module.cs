@@ -22,6 +22,7 @@ using WinCTB_CTS.Module.RelatorioPreDefinido;
 using DevExpress.Data.Filtering;
 using WinCTB_CTS.Module.BusinessObjects.Tubulacao.Medicao;
 using WinCTB_CTS.Module.Interfaces;
+using WinCTB_CTS.Module.Comum.ViewCloner;
 
 namespace WinCTB_CTS.Module
 {
@@ -41,6 +42,12 @@ namespace WinCTB_CTS.Module
             EnumProcessingHelper.RegisterEnum(typeof(WinCTB_CTS.Module.Interfaces.ENDS), nameof(ENDS));
             EnumProcessingHelper.RegisterEnum(typeof(WinCTB_CTS.Module.Interfaces.SituacoesInspecao), nameof(SituacoesInspecao));
             EnumProcessingHelper.RegisterEnum(typeof(WinCTB_CTS.Module.Interfaces.SituacoesQuantidade), nameof(SituacoesQuantidade));
+        }
+
+        public override void AddGeneratorUpdaters(ModelNodesGeneratorUpdaters updaters)
+        {
+            base.AddGeneratorUpdaters(updaters);
+            updaters.Add(new ModelViewClonerUpdater());
         }
 
         public override IEnumerable<ModuleUpdater> GetModuleUpdaters(IObjectSpace objectSpace, Version versionFromDB)

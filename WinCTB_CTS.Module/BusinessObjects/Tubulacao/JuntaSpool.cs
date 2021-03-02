@@ -12,11 +12,13 @@ using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using WinCTB_CTS.Module.BusinessObjects.Tubulacao.Auxiliar;
+using WinCTB_CTS.Module.Comum.ViewCloner;
 
 namespace WinCTB_CTS.Module.BusinessObjects.Tubulacao
 {
     [DefaultClassOptions, DefaultProperty("Junta"), ImageName("BO_Contract"), NavigationItem("Tubulação")]
     [Indices("Spool;Junta")]
+    [CloneView(CloneViewType.ListView, "JuntaSpool_ListView_consulta")]
     public class JuntaSpool : BaseObject
     { // Inherit from a different class to provide a custom primary key, concurrency and deletion behavior, etc. (https://documentation.devexpress.com/eXpressAppFramework/CustomDocument113146.aspx).
         public JuntaSpool(Session session)
