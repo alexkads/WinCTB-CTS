@@ -57,10 +57,15 @@ namespace WinCTB_CTS.Module.Win.Controllers
             simpleActionImport.Execute += SimpleActionImport_Execute;
         }
 
+        private string GetModelAssemblyFilePath()
+        {
+            return PathHelper.GetApplicationFolder();
+        }
+
         private void SimpleActionImport_Execute(object sender, SimpleActionExecuteEventArgs e)
         {
             objectSpaceProvider = Application.ObjectSpaceProvider;
-            objectSpace = Application.CreateObjectSpace(typeof(ParametrosImportSpoolJuntaExcel));
+            objectSpace = Application.CreateObjectSpace(typeof(ParametrosImportComponentEJunta));
             parametrosImportComponentEJunta = objectSpace.CreateObject<ParametrosImportComponentEJunta>();
             DetailView view = Application.CreateDetailView(objectSpace, parametrosImportComponentEJunta);
 

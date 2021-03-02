@@ -1,6 +1,7 @@
 ﻿using DevExpress.Data.Filtering;
 using DevExpress.ExpressApp.DC;
 using DevExpress.ExpressApp.Model;
+using DevExpress.ExpressApp.Utils;
 using DevExpress.ExpressApp.Xpo;
 using DevExpress.Persistent.Base;
 using DevExpress.Persistent.BaseImpl;
@@ -22,7 +23,7 @@ namespace WinCTB_CTS.Module.Importer.Estrutura
     [ModelDefault("VisibleProperties", "Caption, ToolTip, ImageName, AcceptButtonCaption, CancelButtonCaption, IsSizeable")]
     [NonPersistent, ImageName("Action_SingleChoiceAction")]
     [Serializable]
-    public class ParametrosImportComponentEJunta : ParametrosImportBase, ISerializable
+    public class ParametrosImportComponentEJunta : ParametrosImportBase, ICustomObjectSerialize
     {
         private string pathFileForImport;
         private bool concluidoLoteUS;
@@ -31,16 +32,9 @@ namespace WinCTB_CTS.Module.Importer.Estrutura
         private bool concluidoJuntas;
         private bool concluidoComponente;
 
-        public ParametrosImportComponentEJunta(Session session) : base(session) { }
-
-        // ISerializable 
-        public ParametrosImportComponentEJunta(Session session, SerializationInfo info, StreamingContext context) : base(session)
-        {
-            if (info.MemberCount > 0)
-            {
-                PathFileForImport = info.GetString("PathFileForImport");
-            }
-        }
+        public ParametrosImportComponentEJunta(Session session) : base(session) {
+            
+        }              
 
         [XafDisplayName("Caminho do Arquivo para Importação")]
         public string PathFileForImport
@@ -131,10 +125,13 @@ namespace WinCTB_CTS.Module.Importer.Estrutura
             }
         }
 
-        [System.Security.SecurityCritical]
-        public void GetObjectData(SerializationInfo info, StreamingContext context)
+        public void ReadPropertyValues(SettingsStorage storage)
         {
-            info.AddValue("PathFileForImport", PathFileForImport);
+            PathFileForImport = storage.LoadOption("", "PathFileForImport");
+        }
+        public void WritePropertyValues(SettingsStorage storage)
+        {
+            storage.SaveOption("", "PathFileForImport", PathFileForImport);
         }
     }
 }
