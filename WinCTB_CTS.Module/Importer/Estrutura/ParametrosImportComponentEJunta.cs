@@ -46,9 +46,15 @@ namespace WinCTB_CTS.Module.Importer.Estrutura
         public string PathFileForImport
         {
             get => pathFileForImport;
-            set => SetPropertyValue(nameof(PathFileForImport), ref pathFileForImport, value);
+            set
+            {
+                if (pathFileForImport != value)
+                {
+                    pathFileForImport = value;
+                    OnPropertyChanged(nameof(PathFileForImport));
+                }
+            }
         }
-
 
         public override string NomeDoRecurso { get => "MapaMontagemEBR.xlsx"; }
 
@@ -56,14 +62,28 @@ namespace WinCTB_CTS.Module.Importer.Estrutura
         public bool ConcluidoComponente
         {
             get => concluidoComponente;
-            set => SetPropertyValue(nameof(ConcluidoComponente), ref concluidoComponente, value);
+            set
+            {
+                if (concluidoComponente != value)
+                {
+                    concluidoComponente = value;
+                    OnPropertyChanged(nameof(ConcluidoComponente));
+                }
+            }
         }
 
         [ModelDefault("AllowEdit", "False")]
         public bool ConcluidoJuntas
         {
             get => concluidoJuntas;
-            set => SetPropertyValue(nameof(ConcluidoJuntas), ref concluidoJuntas, value);
+            set
+            {
+                if (concluidoJuntas != value)
+                {
+                    concluidoJuntas = value;
+                    OnPropertyChanged(nameof(ConcluidoJuntas));
+                }
+            }
         }
 
         [ModelDefault("AllowEdit", "False")]
@@ -71,7 +91,14 @@ namespace WinCTB_CTS.Module.Importer.Estrutura
         public bool ConcluidoLoteLPPM
         {
             get => concluidoLoteLPPM;
-            set => SetPropertyValue(nameof(ConcluidoLoteLPPM), ref concluidoLoteLPPM, value);
+            set
+            {
+                if (concluidoLoteLPPM != value)
+                {
+                    concluidoLoteLPPM = value;
+                    OnPropertyChanged(nameof(ConcluidoLoteLPPM));
+                }
+            }
         }
 
         [ModelDefault("AllowEdit", "False")]
@@ -79,7 +106,14 @@ namespace WinCTB_CTS.Module.Importer.Estrutura
         public bool ConcluidoLoteRX
         {
             get => concluidoLoteRX;
-            set => SetPropertyValue(nameof(ConcluidoLoteRX), ref concluidoLoteRX, value);
+            set
+            {
+                if (concluidoLoteRX != value)
+                {
+                    concluidoLoteRX = value;
+                    OnPropertyChanged(nameof(ConcluidoLoteRX));
+                }
+            }
         }
 
         [ModelDefault("AllowEdit", "False")]
@@ -87,18 +121,15 @@ namespace WinCTB_CTS.Module.Importer.Estrutura
         public bool ConcluidoLoteUS
         {
             get => concluidoLoteUS;
-            set => SetPropertyValue(nameof(ConcluidoLoteUS), ref concluidoLoteUS, value);
-        }
-
-        private void OnPropertyChanged(string propertyName)
-        {
-            if (PropertyChanged != null)
+            set
             {
-                PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+                if (concluidoLoteUS != value)
+                {
+                    concluidoLoteUS = value;
+                    OnPropertyChanged(nameof(ConcluidoLoteUS));
+                }
             }
         }
-
-        public event PropertyChangedEventHandler PropertyChanged;
 
         [System.Security.SecurityCritical]
         public void GetObjectData(SerializationInfo info, StreamingContext context)
