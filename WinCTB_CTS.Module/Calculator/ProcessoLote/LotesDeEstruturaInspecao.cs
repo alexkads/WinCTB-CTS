@@ -65,7 +65,7 @@ namespace WinCTB_CTS.Module.Calculator.ProcessoLote
                             MessageImport = $"Importando linha {progresso}/{registros}"
                         });
                     }
-                    catch (Exception ex)
+                    catch (Exception)
                     {
                         uow.RollbackTransaction();
                     }
@@ -153,7 +153,7 @@ namespace WinCTB_CTS.Module.Calculator.ProcessoLote
                             MessageImport = $"Importando linha {progresso}/{registros}"
                         });
                     }
-                    catch (Exception ex)
+                    catch (Exception)
                     {
                         uow.RollbackTransaction();
                     }
