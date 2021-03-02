@@ -321,6 +321,7 @@ namespace WinCTB_CTS.Module.BusinessObjects.Estrutura.Lotes
         [Indexed(Unique = false)]
         [Association("JuntaComponente-LoteJuntaEstruturas")]
         [ModelDefault("AllowEdit", "False")]
+        [VisibleInListView(false), VisibleInDetailView(false)]
         public JuntaComponente JuntaComponente
         {
             get => juntaComponente;
@@ -348,9 +349,27 @@ namespace WinCTB_CTS.Module.BusinessObjects.Estrutura.Lotes
         [Browsable(false)]
         public string PecaExemplo => JuntaComponente?.Componente?.Peca;
 
+        [PersistentAlias("JuntaComponente.Componente.DesenhoMontagem")]
+        public string DM => (string)EvaluateAlias("DM");
+
+        [PersistentAlias("JuntaComponente.Componente.Dwg")]
+        public string DF => (string)EvaluateAlias("DF");
+
+        [XafDisplayName("DF1")]
+        [PersistentAlias("JuntaComponente.Df1")]
+        public string Df1 => (string)EvaluateAlias("Df1");
+
+        [XafDisplayName("DF2")]
+        [PersistentAlias("JuntaComponente.Df2")]
+        public string Df2 => (string)EvaluateAlias("Df2");
+
         [XafDisplayName("Peça")]
         [PersistentAlias("JuntaComponente.Componente.Peca")]
         public string Peca => (string)EvaluateAlias("Peca");
+
+        [XafDisplayName("Junta")]
+        [PersistentAlias("JuntaComponente.Junta")]
+        public string Junta => (string)EvaluateAlias("Junta");
 
         [ModelDefault("AllowEdit", "False")]
         [XafDisplayName("Número do Relatório")]
