@@ -22,7 +22,7 @@ namespace WinCTB_CTS.Module.Importer.Estrutura
     [ModelDefault("VisibleProperties", "Caption, ToolTip, ImageName, AcceptButtonCaption, CancelButtonCaption, IsSizeable")]
     [NonPersistent, ImageName("Action_SingleChoiceAction")]
     [Serializable]
-    public class ParametrosImportComponentEJunta : ParametrosImportBase, INotifyPropertyChanged, ISerializable
+    public class ParametrosImportComponentEJunta : ParametrosImportBase, ISerializable
     {
         private string pathFileForImport;
         private bool concluidoLoteUS;

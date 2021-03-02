@@ -14,6 +14,7 @@ using WinCTB_CTS.Module.BusinessObjects.Padrao;
 
 namespace WinCTB_CTS.Module.Importer
 {
+    [DomainComponent]
     [FileAttachment("PadraoDeArquivo"), ImageName("Action_SingleChoiceAction"), ModelDefault("VisibleProperties", "Caption, ToolTip, ImageName, AcceptButtonCaption, CancelButtonCaption, IsSizeable"), NonPersistent]
     public abstract class ParametrosImportBase : IXafEntityObject, IObjectSpaceLink, INotifyPropertyChanged
     {
