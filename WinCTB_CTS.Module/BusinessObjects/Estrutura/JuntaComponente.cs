@@ -15,7 +15,7 @@ using WinCTB_CTS.Module.BusinessObjects.Estrutura.Lotes;
 
 namespace WinCTB_CTS.Module.BusinessObjects.Estrutura
 {
-    [DefaultClassOptions, DefaultProperty("ConcatComponenteJunta"), ImageName("BO_Contract"), NavigationItem("Estrutura")]
+    [DefaultClassOptions, DefaultProperty("ConcatComponenteDf1Junta"), ImageName("BO_Contract"), NavigationItem("Estrutura")]
     [Indices("Componente;Junta")]
     public class JuntaComponente : BaseObject
     {
@@ -103,9 +103,9 @@ namespace WinCTB_CTS.Module.BusinessObjects.Estrutura
             set => SetPropertyValue(nameof(Junta), ref junta, value);
         }
 
-        [XafDisplayName("Componente-Junta")]
-        [PersistentAlias("Concat(Componente,'-',Junta)")]
-        public string ConcatComponenteJunta => (string)EvaluateAlias("ConcatComponenteJunta");
+        [XafDisplayName("Componente-DF1-Junta")]
+        [PersistentAlias("Concat(componente,'-',Df1,'-',Junta)")]
+        public string ConcatComponenteDf1Junta => (string)EvaluateAlias("ConcatComponenteDf1Junta");
 
 
         [Size(100), XafDisplayName("Tipo de Junta")]
