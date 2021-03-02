@@ -230,7 +230,7 @@
     </Compile>
     <Compile Include="Custom\CustomGridController.cs" />
     <Compile Include="Editors\WinProgressPropertyEditor.cs" />
-    <Compile Include="Utils\RegisterWindowsManipulation.cs" />
+    <Compile Include="Services\RegisterWindowsManipulation.cs" />
     <Compile Include="WinModule.cs">
       <SubType>Component</SubType>
     </Compile>
