@@ -344,6 +344,14 @@ namespace WinCTB_CTS.Module.BusinessObjects.Estrutura.Lotes
             set => SetPropertyValue(nameof(LoteEstrutura), ref _loteEstrutura, value);
         }
 
+        [NonPersistent]
+        [Browsable(false)]
+        public string PecaExemplo => JuntaComponente?.Componente?.Peca;
+
+        [XafDisplayName("Peça")]
+        [PersistentAlias("JuntaComponente.Componente.Peca")]
+        public string Peca => (string)EvaluateAlias("Peca");
+
         [ModelDefault("AllowEdit", "False")]
         [XafDisplayName("Número do Relatório")]
         public string NumeroDoRelatorio
