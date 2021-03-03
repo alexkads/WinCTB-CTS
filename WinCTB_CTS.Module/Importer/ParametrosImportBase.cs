@@ -19,6 +19,7 @@ namespace WinCTB_CTS.Module.Importer
     public abstract class ParametrosImportBase : IXafEntityObject, IObjectSpaceLink, INotifyPropertyChanged
     {
         private FileData padraoDeArquivo;
+        private string pathFileForImport;
         private double progresso { get; set; }
         private IObjectSpace objectSpace;
 
@@ -56,6 +57,19 @@ namespace WinCTB_CTS.Module.Importer
             }
         }
 
+        [XafDisplayName("Caminho do Arquivo para Importação")]
+        public string PathFileForImport
+        {
+            get => pathFileForImport;
+            set
+            {
+                if (pathFileForImport != value)
+                {
+                    pathFileForImport = value;
+                    OnPropertyChanged(nameof(PathFileForImport));
+                }
+            }
+        }
 
         [EditorAlias(EditorsProviders.ProgressPropertyAlias)]
         public double Progresso

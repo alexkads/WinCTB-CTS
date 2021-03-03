@@ -54,13 +54,30 @@ namespace WinCTB_CTS.Module.Comum.ImporterPatterns
             //    ProgressHandler(this, value);
         }
 
+        private StreamReader GetFileStream(string PathFileForImport) 
+        {
+            string filePath = Path.GetFullPath(PathFileForImport);
+            StreamReader sr = new StreamReader(filePath);
+            return sr;
+        }
+
         public async Task Start()
         {
             MemoryStream stream = new MemoryStream();
-            stream.Seek(0, SeekOrigin.Begin);
-
+            StreamReader streamReader;
+            stream.Seek(0, SeekOrigin.Begin);                                
+            var parametros = (ParametrosImportBase)SetParametros;
             var arquivo = ((ParametrosImportBase)SetParametros).PadraoDeArquivo;
-            arquivo.SaveToStream(stream);
+
+            if (!String.IsNullOrWhiteSpace(parametros.PathFileForImport))
+            {
+                streamReader = GetFileStream(parametros.PathFileForImport);
+                streamReader.BaseStream.CopyTo(stream);
+            }
+            else
+            {
+                arquivo.SaveToStream(stream);
+            }
 
             stream.Seek(0, SeekOrigin.Begin);
 

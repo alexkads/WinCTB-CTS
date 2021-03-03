@@ -138,6 +138,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Action\ActionBaseObject.cs" />
+    <Compile Include="Action\ActionBaseRootObject.cs" />
+    <Compile Include="Action\ActionsDemoStrings.cs" />
+    <Compile Include="Action\AutoCreatableObjectAttribute.cs" />
+    <Compile Include="Action\CustomDetailViewLayoutGenarator.cs" />
+    <Compile Include="Action\CustomLayoutGenarator.cs" />
     <Compile Include="BusinessObjects\Comum\Contrato.cs" />
     <Compile Include="BusinessObjects\Comum\InspecaoLaudo.cs" />
     <Compile Include="BusinessObjects\Estrutura\Componente.cs" />

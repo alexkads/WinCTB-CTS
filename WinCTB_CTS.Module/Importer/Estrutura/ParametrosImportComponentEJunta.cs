@@ -1,4 +1,5 @@
 ﻿using DevExpress.Data.Filtering;
+using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.DC;
 using DevExpress.ExpressApp.Model;
 using DevExpress.ExpressApp.Utils;
@@ -15,17 +16,20 @@ using System.Linq;
 using System.Runtime.Serialization;
 using System.Text;
 using System.Threading.Tasks;
+//using WinCTB_CTS.Module.Action;
 using WinCTB_CTS.Module.BusinessObjects.Padrao;
 
 namespace WinCTB_CTS.Module.Importer.Estrutura
 {
+
+    //[AutoCreatableObject]
     [ModelDefault("Caption", "Importação DE Componentes e Juntas")]
     [ModelDefault("VisibleProperties", "Caption, ToolTip, ImageName, AcceptButtonCaption, CancelButtonCaption, IsSizeable")]
     [NonPersistent, ImageName("Action_SingleChoiceAction")]
     [Serializable]
     public class ParametrosImportComponentEJunta : ParametrosImportBase 
     {
-        private string pathFileForImport;
+        
         private bool concluidoLoteUS;
         private bool concluidoLoteRX;
         private bool concluidoLoteLPPM;
@@ -36,19 +40,7 @@ namespace WinCTB_CTS.Module.Importer.Estrutura
             
         }              
 
-        [XafDisplayName("Caminho do Arquivo para Importação")]
-        public string PathFileForImport
-        {
-            get => pathFileForImport;
-            set
-            {
-                if (pathFileForImport != value)
-                {
-                    pathFileForImport = value;
-                    OnPropertyChanged(nameof(PathFileForImport));
-                }
-            }
-        }
+
 
         public override string NomeDoRecurso { get => "MapaMontagemEBR.xlsx"; }
 

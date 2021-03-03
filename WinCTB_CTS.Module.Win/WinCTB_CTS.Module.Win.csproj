@@ -206,6 +206,9 @@
     <Compile Include="Controllers\Estrutura\GerarLotesController.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="Controllers\Estrutura\GetPathToImportEstrutura.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Controllers\Estrutura\ImportComponentEJuntaExcelController.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -294,6 +297,12 @@
     <PackageReference Include="System.Reactive">
       <Version>5.0.0</Version>
     </PackageReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="UnusableNodes.xml">
+      <DependentUpon>Model.DesignedDiffs.xafml</DependentUpon>
+      <SubType>Designer</SubType>
+    </None>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

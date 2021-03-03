@@ -6,6 +6,37 @@
     <SchemaModule Name="SystemWindowsFormsModule" Version="18.2.14.0" IsNewNode="True" />
   </SchemaModules>
   <Views>
+    <DetailView Id="ParametrosImportComponentEJunta_DetailView">
+      <Items>
+        <ActionContainerViewItem Id="DetailViewActionsContainerImportEstrutura" ActionContainer="DetailViewActions" Caption="DetailViewActionsContainerImportEstrutura" IsNewNode="True" />
+      </Items>
+      <Layout>
+        <LayoutGroup Id="Main">
+          <LayoutGroup Id="SimpleEditors" RelativeSize="89.964788732394368">
+            <LayoutGroup Id="ParametrosImportComponentEJunta" RelativeSize="53.424657534246577">
+              <LayoutGroup Id="ParametrosImportComponentEJunta_col1" Direction="Vertical" Caption="ParametrosImportComponentEJunta_col1">
+                <LayoutItem Id="PadraoDeArquivo" ViewItem="PadraoDeArquivo" Index="0" RelativeSize="13.389121338912133" IsNewNode="True" Removed="True" />
+                <LayoutGroup Id="Auto52e08de1-ee8b-4b90-91df-30cb07bb67aa" ShowCaption="False" Caption="" Direction="Horizontal" Index="1" RelativeSize="11.715481171548117" IsNewNode="True">
+                  <LayoutItem Id="PathFileForImport" ViewItem="PathFileForImport" Index="0" RelativeSize="37.151248164464022" IsNewNode="True" />
+                  <LayoutItem Id="DetailViewActionsContainerImportEstrutura" ViewItem="DetailViewActionsContainerImportEstrutura" Index="1" RelativeSize="62.848751835535978" IsNewNode="True" />
+                </LayoutGroup>
+                <LayoutItem Id="PathFileForImport" ViewItem="PathFileForImport" Index="1" RelativeSize="10.212765957446809" Removed="True" />
+                <LayoutItem Id="Progresso" ViewItem="Progresso" Index="2" RelativeSize="10.0418410041841" IsNewNode="True" Removed="True" />
+                <LayoutGroup Id="Item1" ShowCaption="True" Caption="Etapas:" CaptionLocation="Top" TextAlignMode="AlignWithChildren" Index="3" RelativeSize="64.853556485355654" IsNewNode="True" Removed="True">
+                  <LayoutItem Id="ConcluidoComponente" ViewItem="ConcluidoComponente" Index="0" RelativeSize="23.966942148760332" IsNewNode="True" />
+                  <LayoutItem Id="ConcluidoJuntas" ViewItem="ConcluidoJuntas" Index="1" RelativeSize="17.355371900826448" IsNewNode="True" />
+                  <LayoutItem Id="ConcluidoLoteLPPM" ViewItem="ConcluidoLoteLPPM" Index="2" RelativeSize="17.355371900826448" IsNewNode="True" />
+                  <LayoutItem Id="ConcluidoLoteUS" ViewItem="ConcluidoLoteUS" Index="3" RelativeSize="17.355371900826448" IsNewNode="True" />
+                  <LayoutItem Id="ConcluidoLoteRX" ViewItem="ConcluidoLoteRX" Index="4" RelativeSize="23.966942148760332" IsNewNode="True" />
+                </LayoutGroup>
+              </LayoutGroup>
+            </LayoutGroup>
+            <LayoutGroup Id="ParametrosImportBase" RelativeSize="46.575342465753423" TextAlignMode="UseParentOptions" Direction="Horizontal" />
+          </LayoutGroup>
+          <LayoutItem Id="DatailViewActionContainerImportEstrutura" ShowCaption="" Index="1" RelativeSize="10.035211267605634" IsNewNode="True" />
+        </LayoutGroup>
+      </Layout>
+    </DetailView>
     <DetailView Id="ProgressoGerarLotes_DetailView">
       <Items>
         <ActionContainerViewItem Id="DetailViewContainer" ActionContainer="DetailViewActions" Caption="DetailViewContainer(8)" IsNewNode="True" />
@@ -13,12 +44,7 @@
       <Layout>
         <LayoutGroup Id="Main" RelativeSize="17.264957264957264">
           <LayoutGroup Id="SimpleEditors" RelativeSize="100">
-            <LayoutGroup Id="ProgressoGerarLotes" RelativeSize="100">
-              <LayoutItem Id="Progresso" RelativeSize="31.683168316831683" />
-              <LayoutItem Id="ConcluidoLPPM" RelativeSize="20.792079207920793" />
-              <LayoutItem Id="ConcluidoRX" RelativeSize="20.792079207920793" />
-              <LayoutItem Id="ConcluidoUS" RelativeSize="26.732673267326732" />
-            </LayoutGroup>
+            <LayoutGroup Id="ProgressoGerarLotes" RelativeSize="100" />
           </LayoutGroup>
         </LayoutGroup>
         <LayoutItem Id="DetailViewContainer" ViewItem="DetailViewContainer" Index="1" RelativeSize="82.73504273504274" IsNewNode="True" />

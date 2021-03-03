@@ -1,0 +1,19 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Application>
+  <Views Id="Views">
+    <DetailView Id="ProgressoGerarLotes_DetailView">
+      <Layout Id="Layout">
+        <LayoutGroup Id="Main">
+          <LayoutGroup Id="SimpleEditors">
+            <LayoutGroup Id="ProgressoGerarLotes">
+              <LayoutItem Id="Progresso" RelativeSize="31.683168316831683" />
+              <LayoutItem Id="ConcluidoLPPM" RelativeSize="20.792079207920793" />
+              <LayoutItem Id="ConcluidoRX" RelativeSize="20.792079207920793" />
+              <LayoutItem Id="ConcluidoUS" RelativeSize="26.732673267326732" />
+            </LayoutGroup>
+          </LayoutGroup>
+        </LayoutGroup>
+      </Layout>
+    </DetailView>
+  </Views>
+</Application>

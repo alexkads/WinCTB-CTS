@@ -35,6 +35,7 @@ using WinCTB_CTS.Module.Importer.Estrutura;
 using WinCTB_CTS.Module.Importer.Tubulacao;
 using WinCTB_CTS.Module.Win.Actions;
 using WinCTB_CTS.Module.Win.Editors;
+using WinCTB_CTS.Module.Win.Services;
 
 namespace WinCTB_CTS.Module.Win.Controllers
 {
@@ -44,6 +45,7 @@ namespace WinCTB_CTS.Module.Win.Controllers
         IObjectSpace objectSpace = null;
         IObjectSpaceProvider objectSpaceProvider;
         ParametrosImportComponentEJunta parametrosImportComponentEJunta;
+        MessageOptions messageOptions = new MessageOptions();
         public ImportComponentEJuntaExcelController()
         {
             TargetWindowType = WindowType.Main;
@@ -57,22 +59,33 @@ namespace WinCTB_CTS.Module.Win.Controllers
             simpleActionImport.Execute += SimpleActionImport_Execute;
         }
 
-        private string GetModelAssemblyFilePath()
+        private void InitMessageOptions()
         {
-            return PathHelper.GetApplicationFolder();
+            messageOptions.Duration = 2000;
+            messageOptions.Type = InformationType.Warning;
+            messageOptions.Web.Position = InformationPosition.Left;
+            messageOptions.Win.Caption = "Informação Importante";
+            messageOptions.Win.Type = WinMessageType.Flyout;
+            messageOptions.Message = "Deseja realmente importar a planilha de modelo?";
+            messageOptions.CancelDelegate = () =>
+            {
+                throw new Exception("Processo encerrado pelo usuário!");
+            };
         }
 
         private void SimpleActionImport_Execute(object sender, SimpleActionExecuteEventArgs e)
         {
+            InitMessageOptions();
             objectSpaceProvider = Application.ObjectSpaceProvider;
             objectSpace = Application.CreateObjectSpace(typeof(ParametrosImportComponentEJunta));
             parametrosImportComponentEJunta = objectSpace.CreateObject<ParametrosImportComponentEJunta>();
-            DetailView view = Application.CreateDetailView(objectSpace, parametrosImportComponentEJunta);
+            parametrosImportComponentEJunta.PathFileForImport = RegisterWindowsManipulation.GetRegister("PathFileForImportEstrutura");
 
-            view.ViewEditMode = ViewEditMode.Edit;
+            DetailView datailView = Application.CreateDetailView(objectSpace, parametrosImportComponentEJunta);
+            datailView.ViewEditMode = ViewEditMode.Edit;
 
             e.ShowViewParameters.NewWindowTarget = NewWindowTarget.Separate;
-            e.ShowViewParameters.CreatedView = view;
+            e.ShowViewParameters.CreatedView = datailView;
             e.ShowViewParameters.TargetWindow = TargetWindow.NewModalWindow;
             e.ShowViewParameters.Controllers.Add(dialogControllerAcceptingImportarPlanilha());
         }
@@ -81,7 +94,7 @@ namespace WinCTB_CTS.Module.Win.Controllers
         {
             DialogController dialogControllerImportarPlanilha = Application.CreateController<DialogController>();
             dialogControllerImportarPlanilha.AcceptAction.Caption = "Importar";
-            dialogControllerImportarPlanilha.Accepting += DialogControllerImportarPlanilha_Accepting; ;
+            dialogControllerImportarPlanilha.Accepting += DialogControllerImportarPlanilha_Accepting;
             dialogControllerImportarPlanilha.CancelAction.Active["NoAccept"] = false;
             return dialogControllerImportarPlanilha;
         }
@@ -94,18 +107,28 @@ namespace WinCTB_CTS.Module.Win.Controllers
             e.Cancel = true;
             e.AcceptActionArgs.Action.Caption = "Processando";
 
+            if (String.IsNullOrWhiteSpace(parametrosImportComponentEJunta.PathFileForImport))
+            {
+                Application.ShowViewStrategy.ShowMessage(messageOptions);
+            }
+
             var cts = new CancellationTokenSource();
             var parametros = (ParametrosImportComponentEJunta)e.AcceptActionArgs.SelectedObjects[0];
 
             var compo = new ImportComponente(cts, "Piece", parametros);
             var junta = new ImportJuntaComponente(cts, "Joints", parametros);
 
+
+            //if (String.IsNullOrWhiteSpace(parametrosImportComponentEJunta.PathFileForImport))
+            //    dialogControllerImportarPlanilha.AcceptAction.ConfirmationMessage = "Deseja realmente importar a planilha de modelo?";
+
+
             await compo.Start();
             parametros.ConcluidoComponente = true;
 
             await junta.Start();
             parametros.ConcluidoJuntas = true;
-           
+
             //var gerador = new Calculator.ProcessoLoteLPPM.GerarLoteLPPM(objectSpaceProvider);
             //await gerador.GerarLoteLPPMAsync(simpleProgress);
             //parametros.ConcluidoLoteLPPM = true;                      
