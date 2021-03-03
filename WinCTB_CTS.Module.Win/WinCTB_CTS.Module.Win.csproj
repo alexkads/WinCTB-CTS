@@ -209,6 +209,7 @@
     <Compile Include="Controllers\Estrutura\ImportComponentEJuntaExcelController.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="Controllers\Experimental\CustomizeWinActionContainerViewItemController.cs" />
     <Compile Include="Controllers\Tubualcao\ClearDBController.cs">
       <SubType>Component</SubType>
     </Compile>

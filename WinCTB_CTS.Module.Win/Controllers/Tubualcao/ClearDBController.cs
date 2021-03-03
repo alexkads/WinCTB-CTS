@@ -44,8 +44,7 @@ namespace WinCTB_CTS.Module.Win.Controllers.Tubulacao
             BarButtonItem barItem = e.Control as BarButtonItem;
             if (barItem != null)
             {
-                barItem.ItemClick += (s, args) => {
-                    
+                barItem.ItemClick += (s, args) => {                    
                     var objectSpace = Application.CreateObjectSpace();
                     UnitOfWork uow = new UnitOfWork(((XPObjectSpace)objectSpace).Session.ObjectLayer);
 

@@ -23,7 +23,7 @@ namespace WinCTB_CTS.Module.Importer.Estrutura
     [ModelDefault("VisibleProperties", "Caption, ToolTip, ImageName, AcceptButtonCaption, CancelButtonCaption, IsSizeable")]
     [NonPersistent, ImageName("Action_SingleChoiceAction")]
     [Serializable]
-    public class ParametrosImportComponentEJunta : ParametrosImportBase, ICustomObjectSerialize
+    public class ParametrosImportComponentEJunta : ParametrosImportBase 
     {
         private string pathFileForImport;
         private bool concluidoLoteUS;
@@ -125,13 +125,5 @@ namespace WinCTB_CTS.Module.Importer.Estrutura
             }
         }
 
-        public void ReadPropertyValues(SettingsStorage storage)
-        {
-            PathFileForImport = storage.LoadOption("", "PathFileForImport");
-        }
-        public void WritePropertyValues(SettingsStorage storage)
-        {
-            storage.SaveOption("", "PathFileForImport", PathFileForImport);
-        }
     }
 }
