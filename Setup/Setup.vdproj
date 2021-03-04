@@ -567,6 +567,12 @@
         }
         "Entry"
         {
+        "MsmKey" = "8:_2A860BACF3FF43E989864E7FF1A8223E"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
         "MsmKey" = "8:_2ADC39B54254C3C293CF7275965DA4F0"
         "OwnerKey" = "8:_9FEF495F08BB6F58157B728F08311BDF"
         "MsmSig" = "8:_UNDEFINED"
@@ -8061,6 +8067,26 @@
             "IsDependency" = "11:TRUE"
             "IsolateTo" = "8:"
             }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_2A860BACF3FF43E989864E7FF1A8223E"
+            {
+            "SourcePath" = "8:..\\openproject_1078.ico"
+            "TargetName" = "8:openproject_1078.ico"
+            "Tag" = "8:"
+            "Folder" = "8:_AEBED8AA8A594EC29FE2979613BE80D9"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
             "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_2ADC39B54254C3C293CF7275965DA4F0"
             {
             "AssemblyRegister" = "3:1"
@@ -8353,7 +8379,7 @@
             {
             "AssemblyRegister" = "3:1"
             "AssemblyIsInGAC" = "11:FALSE"
-            "AssemblyAsmDisplayName" = "8:WinCTB_CTS.Module, Version=1.0.7732.39538, Culture=neutral, processorArchitecture=MSIL"
+            "AssemblyAsmDisplayName" = "8:WinCTB_CTS.Module, Version=1.0.7732.41039, Culture=neutral, processorArchitecture=MSIL"
                 "ScatterAssemblies"
                 {
                     "_31A439F71696213DE373C838453476D1"
@@ -14560,7 +14586,7 @@
             {
             "AssemblyRegister" = "3:1"
             "AssemblyIsInGAC" = "11:FALSE"
-            "AssemblyAsmDisplayName" = "8:WinCTB_CTS.Module.Win, Version=1.0.7732.39539, Culture=neutral, processorArchitecture=MSIL"
+            "AssemblyAsmDisplayName" = "8:WinCTB_CTS.Module.Win, Version=1.0.7732.41041, Culture=neutral, processorArchitecture=MSIL"
                 "ScatterAssemblies"
                 {
                     "_F20B367D78C3E62636F195FA08DFF6BE"
@@ -15124,7 +15150,7 @@
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:Setup"
         "ProductCode" = "8:{5367B7BA-87B9-43C6-9540-8FC24B005BB6}"
-        "PackageCode" = "8:{06A0185D-D78D-4BB6-9127-A06EBAEBA4CF}"
+        "PackageCode" = "8:{B5CC5DD7-7104-4F5A-A9DE-ECE1FF6F92AC}"
         "UpgradeCode" = "8:{EC518FBD-DE2D-4EC0-BFE2-F92D59A265BD}"
         "AspNetVersion" = "8:4.0.30319.0"
         "RestartWWWService" = "11:FALSE"
@@ -15255,7 +15281,7 @@
             "Target" = "8:_1B0EE1CE68134B168188BECEAF6CBD36"
             "Folder" = "8:_82B529F87B1042319DAD870E183D241F"
             "WorkingFolder" = "8:_AEBED8AA8A594EC29FE2979613BE80D9"
-            "Icon" = "8:"
+            "Icon" = "8:_2A860BACF3FF43E989864E7FF1A8223E"
             "Feature" = "8:"
             }
             "{970C0BB2-C7D0-45D7-ABFA-7EC378858BC0}:_B56BAD1C54F049DF895F6401E779960A"
@@ -15269,7 +15295,7 @@
             "Target" = "8:_1B0EE1CE68134B168188BECEAF6CBD36"
             "Folder" = "8:_F38BC24452CA4D7486293C91EDF47673"
             "WorkingFolder" = "8:_AEBED8AA8A594EC29FE2979613BE80D9"
-            "Icon" = "8:"
+            "Icon" = "8:_2A860BACF3FF43E989864E7FF1A8223E"
             "Feature" = "8:"
             }
         }
