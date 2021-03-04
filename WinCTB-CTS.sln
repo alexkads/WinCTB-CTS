@@ -21,6 +21,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WinCTB_CTS.Module.Web", "Wi
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WinCTB_CTS.Web", "WinCTB_CTS.Web\WinCTB_CTS.Web.csproj", "{82A6DBC9-B1B4-44E4-9718-55DF930CD349}"
 EndProject
+Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "Setup", "Setup\Setup.vdproj", "{B416A3DE-A715-4E7A-B467-977A2806BD69}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -47,23 +49,20 @@ Global
 		{D05D93DF-312D-4D4E-B980-726871EC7833}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D05D93DF-312D-4D4E-B980-726871EC7833}.Release|Any CPU.Build.0 = Release|Any CPU
 		{5F7C5FDF-D118-44EE-83C5-B2813444068A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{5F7C5FDF-D118-44EE-83C5-B2813444068A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5F7C5FDF-D118-44EE-83C5-B2813444068A}.EasyTest|Any CPU.ActiveCfg = Debug|Any CPU
 		{5F7C5FDF-D118-44EE-83C5-B2813444068A}.EasyTest|Any CPU.Build.0 = Debug|Any CPU
 		{5F7C5FDF-D118-44EE-83C5-B2813444068A}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{5F7C5FDF-D118-44EE-83C5-B2813444068A}.Release|Any CPU.Build.0 = Release|Any CPU
 		{0C729AAD-7626-4668-A7F1-35F7D240489D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{0C729AAD-7626-4668-A7F1-35F7D240489D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0C729AAD-7626-4668-A7F1-35F7D240489D}.EasyTest|Any CPU.ActiveCfg = EasyTest|Any CPU
 		{0C729AAD-7626-4668-A7F1-35F7D240489D}.EasyTest|Any CPU.Build.0 = EasyTest|Any CPU
 		{0C729AAD-7626-4668-A7F1-35F7D240489D}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{0C729AAD-7626-4668-A7F1-35F7D240489D}.Release|Any CPU.Build.0 = Release|Any CPU
 		{82A6DBC9-B1B4-44E4-9718-55DF930CD349}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{82A6DBC9-B1B4-44E4-9718-55DF930CD349}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{82A6DBC9-B1B4-44E4-9718-55DF930CD349}.EasyTest|Any CPU.ActiveCfg = EasyTest|Any CPU
 		{82A6DBC9-B1B4-44E4-9718-55DF930CD349}.EasyTest|Any CPU.Build.0 = EasyTest|Any CPU
 		{82A6DBC9-B1B4-44E4-9718-55DF930CD349}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{82A6DBC9-B1B4-44E4-9718-55DF930CD349}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B416A3DE-A715-4E7A-B467-977A2806BD69}.Debug|Any CPU.ActiveCfg = Debug
+		{B416A3DE-A715-4E7A-B467-977A2806BD69}.EasyTest|Any CPU.ActiveCfg = Debug
+		{B416A3DE-A715-4E7A-B467-977A2806BD69}.Release|Any CPU.ActiveCfg = Release
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
