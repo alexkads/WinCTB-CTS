@@ -21,6 +21,36 @@ namespace WinCTB_CTS.Module.Importer.Tubulacao
     {
         public ParametrosImportSpoolJuntaExcel(Session session) : base(session) { }
 
+        private bool concluidoSpool { get; set; }
+        private bool concluidoJunta { get; set; }
         public override string NomeDoRecurso { get => "SGSeSGJOriginal.xlsx"; }
+
+        [ModelDefault("AllowEdit", "False")]
+        public bool ConcluidoSpool
+        {
+            get => concluidoSpool;
+            set
+            {
+                if (concluidoSpool != value)
+                {
+                    concluidoSpool = value;
+                    OnPropertyChanged(nameof(ConcluidoSpool));
+                }
+            }
+        }
+
+        [ModelDefault("AllowEdit", "False")]
+        public bool ConcluidoJunta
+        {
+            get => concluidoJunta;
+            set
+            {
+                if (concluidoJunta != value)
+                {
+                    concluidoJunta = value;
+                    OnPropertyChanged(nameof(ConcluidoJunta));
+                }
+            }
+        }
     }
 }

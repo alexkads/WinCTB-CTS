@@ -28,72 +28,10 @@
       <Layout>
         <LayoutGroup Id="Main" RelativeSize="100">
           <LayoutGroup Id="SimpleEditors" RelativeSize="100">
-            <LayoutGroup Id="ParametrosImportComponentEJunta" RelativeSize="56.768558951965062" Direction="Vertical">
-              <LayoutGroup Id="ParametrosImportComponentEJunta_col1" RelativeSize="100">
-                <LayoutItem Id="PadraoDeArquivo" ViewItem="PadraoDeArquivo" Index="0" RelativeSize="14.159292035398231" IsNewNode="True" />
-                <LayoutItem Id="ConcluidoLoteLPPM" Index="1" RelativeSize="6.2176165803108807" Removed="True" />
-                <LayoutItem Id="Progresso" ViewItem="Progresso" Index="1" RelativeSize="10.619469026548673" IsNewNode="True" />
-                <LayoutItem Id="ConcluidoComponente" ViewItem="ConcluidoComponente" Index="2" RelativeSize="6.1696658097686372" Removed="True" />
-                <LayoutItem Id="ConcluidoJuntas" ViewItem="ConcluidoJuntas" Index="2" RelativeSize="6.1696658097686372" Removed="True" />
-                <LayoutGroup Id="Item1" ShowCaption="True" CaptionLocation="Top" Index="2" RelativeSize="75.221238938053091" Caption="Etapas:" IsNewNode="True">
-                  <LayoutItem Id="ConcluidoComponente" ViewItem="ConcluidoComponente" Index="0" RelativeSize="23.529411764705884" IsNewNode="True" />
-                  <LayoutItem Id="ConcluidoJuntas" ViewItem="ConcluidoJuntas" Index="1" RelativeSize="17.647058823529413" IsNewNode="True" />
-                  <LayoutItem Id="ConcluidoLoteLPPM1" ViewItem="ConcluidoLoteLPPM" Index="2" RelativeSize="17.647058823529413" IsNewNode="True" />
-                  <LayoutItem Id="ConcluidoLoteUS" ViewItem="ConcluidoLoteUS" Index="3" RelativeSize="17.647058823529413" IsNewNode="True" />
-                  <LayoutItem Id="ConcluidoLoteRX" ViewItem="ConcluidoLoteRX" Index="4" RelativeSize="23.529411764705884" IsNewNode="True" />
-                </LayoutGroup>
-              </LayoutGroup>
-              <LayoutGroup Id="ParametrosImportComponentEJunta_col2" RelativeSize="32.18181818181818" Caption="ParametrosImportComponentEJunta_col2" Direction="Horizontal" Removed="True">
-                <LayoutItem Id="ConcluidoLoteRX" Index="0" RelativeSize="8.2262210796915163" Removed="True" />
-                <LayoutItem Id="ConcluidoLoteUS" Index="0" RelativeSize="100" Removed="True" />
-                <LayoutItem Id="ConcluidoLoteLPPM" Removed="True" />
-              </LayoutGroup>
-            </LayoutGroup>
+            <LayoutGroup Id="ParametrosImportComponentEJunta" RelativeSize="56.768558951965062" Direction="Vertical" />
             <LayoutGroup Id="ParametrosImportBase" Caption="ParametrosImportBase" RelativeSize="43.231441048034938" Direction="Horizontal">
               <LayoutItem Id="PadraoDeArquivo" RelativeSize="100" Removed="True" />
               <LayoutItem Id="Progresso" Removed="True" />
-            </LayoutGroup>
-          </LayoutGroup>
-        </LayoutGroup>
-      </Layout>
-    </DetailView>
-    <DetailView Id="ProgressoGerarLotes_DetailView">
-      <Layout>
-        <LayoutGroup Id="Main" RelativeSize="100">
-          <LayoutGroup Id="SimpleEditors" RelativeSize="100">
-            <LayoutGroup Id="ProgressoGerarLotes" RelativeSize="100" Direction="Vertical">
-              <LayoutGroup Id="Autoba6972b5-327e-4c95-bbee-bca5b263ce87" ShowCaption="False" Caption="Autoba6972b5-327e-4c95-bbee-bca5b263ce87(4)" Direction="Vertical" Index="0" RelativeSize="6.9343065693430654" IsNewNode="True">
-                <LayoutItem Id="Progresso" ViewItem="Progresso" Index="0" RelativeSize="100" IsNewNode="True" />
-              </LayoutGroup>
-              <LayoutGroup Id="Item1" ShowCaption="True" CaptionLocation="Top" Index="1" RelativeSize="93.065693430656935" Caption="Etapas" IsNewNode="True">
-                <LayoutItem Id="ConcluidoLPPM" ViewItem="ConcluidoLPPM" Index="0" RelativeSize="6.7226890756302522" IsNewNode="True" />
-                <LayoutItem Id="ConcluidoRX" ViewItem="ConcluidoRX" Index="1" RelativeSize="5.0420168067226889" IsNewNode="True" />
-                <LayoutItem Id="ConcluidoUS" ViewItem="ConcluidoUS" Index="2" RelativeSize="5.0420168067226889" IsNewNode="True" />
-                <LayoutItem Id="ConcluidoInspecaoLPPM" ViewItem="ConcluidoInspecaoLPPM" Index="3" RelativeSize="5.0420168067226889" IsNewNode="True" />
-                <LayoutItem Id="ConcluidoInspecaoRX" ViewItem="ConcluidoInspecaoRX" Index="4" RelativeSize="5.0420168067226889" IsNewNode="True" />
-                <LayoutItem Id="ConcluidoInspecaoUS" ViewItem="ConcluidoInspecaoUS" Index="5" RelativeSize="5.0420168067226889" IsNewNode="True" />
-                <LayoutItem Id="ConcluidoAlinhamentoDeLotes" ViewItem="ConcluidoAlinhamentoDeLotes" Index="6" RelativeSize="5.0420168067226889" IsNewNode="True" />
-                <LayoutItem Id="ConcluidoBalanceamentoDeLotes" ViewItem="ConcluidoBalanceamentoDeLotes" Index="7" RelativeSize="63.025210084033617" IsNewNode="True" />
-              </LayoutGroup>
-              <LayoutGroup Id="ProgressoGerarLotes_col1" RelativeSize="50" Removed="True">
-                <LayoutItem Id="ConcluidoRX" RelativeSize="4.4198895027624312" Index="1" Removed="True" />
-                <LayoutGroup Id="Item1" ShowCaption="True" CaptionLocation="Top" Index="1" RelativeSize="94.10681399631676" Caption="Item1" IsNewNode="True">
-                  <LayoutItem Id="ConcluidoLPPM" ViewItem="ConcluidoLPPM" Index="0" RelativeSize="6.7085953878406706" IsNewNode="True" />
-                  <LayoutItem Id="ConcluidoRX" ViewItem="ConcluidoRX" Index="1" RelativeSize="5.0314465408805029" IsNewNode="True" />
-                  <LayoutItem Id="ConcluidoUS" ViewItem="ConcluidoUS" Index="2" RelativeSize="5.0314465408805029" IsNewNode="True" />
-                  <LayoutItem Id="ConcluidoInspecaoLPPM" ViewItem="ConcluidoInspecaoLPPM" Index="3" RelativeSize="5.0314465408805029" IsNewNode="True" />
-                  <LayoutItem Id="ConcluidoInspecaoRX" ViewItem="ConcluidoInspecaoRX" Index="4" RelativeSize="5.0314465408805029" IsNewNode="True" />
-                  <LayoutItem Id="ConcluidoInspecaoUS" ViewItem="ConcluidoInspecaoUS" Index="5" RelativeSize="73.165618448637318" IsNewNode="True" />
-                </LayoutGroup>
-                <LayoutItem Id="ConcluidoLPPM" RelativeSize="4.4198895027624312" Removed="True" />
-                <LayoutItem Id="ConcluidoUS" Removed="True" />
-                <LayoutItem Id="Progresso" RelativeSize="5.8931860036832413" />
-              </LayoutGroup>
-              <LayoutGroup Id="ProgressoGerarLotes_col2" RelativeSize="50" Caption="ProgressoGerarLotes_col2" Direction="Horizontal" Removed="True">
-                <LayoutItem Id="ConcluidoInspecaoRX" RelativeSize="5.8931860036832413" Index="0" Removed="True" />
-                <LayoutItem Id="ConcluidoInspecaoUS" RelativeSize="100" Index="0" Removed="True" />
-                <LayoutItem Id="ConcluidoInspecaoLPPM" RelativeSize="5.8931860036832413" Removed="True" />
-              </LayoutGroup>
             </LayoutGroup>
           </LayoutGroup>
         </LayoutGroup>

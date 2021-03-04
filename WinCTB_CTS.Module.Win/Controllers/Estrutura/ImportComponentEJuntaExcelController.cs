@@ -118,20 +118,11 @@ namespace WinCTB_CTS.Module.Win.Controllers
             var compo = new ImportComponente(cts, "Piece", parametros);
             var junta = new ImportJuntaComponente(cts, "Joints", parametros);
 
-
-            //if (String.IsNullOrWhiteSpace(parametrosImportComponentEJunta.PathFileForImport))
-            //    dialogControllerImportarPlanilha.AcceptAction.ConfirmationMessage = "Deseja realmente importar a planilha de modelo?";
-
-
             await compo.Start();
             parametros.ConcluidoComponente = true;
 
             await junta.Start();
             parametros.ConcluidoJuntas = true;
-
-            //var gerador = new Calculator.ProcessoLoteLPPM.GerarLoteLPPM(objectSpaceProvider);
-            //await gerador.GerarLoteLPPMAsync(simpleProgress);
-            //parametros.ConcluidoLoteLPPM = true;                      
 
             objectSpace.CommitChanges();
 

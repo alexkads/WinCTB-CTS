@@ -164,6 +164,7 @@
     <Compile Include="Calculator\ProcessoLote\GerarLote.cs" />
     <Compile Include="Calculator\ProcessoLote\LotesDeEstruturaAlinhamento.cs" />
     <Compile Include="Calculator\ProcessoLote\LotesDeEstruturaInspecao.cs" />
+    <Compile Include="Calculator\ProcessoLote\EtapasLotes.cs" />
     <Compile Include="Calculator\ProcessoLote\ProgressoGerarLotes.cs" />
     <Compile Include="Comum\CachedDataStoreProvider.cs" />
     <Compile Include="Comum\CustomIXpoDataStoreProvider.cs" />
@@ -319,14 +320,6 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Dashboards\MedicaoSpool.xml" />
-    <None Include="UnusableNodes.xml">
-      <DependentUpon>Model.DesignedDiffs.xafml</DependentUpon>
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="UnusableNodes1.xml">
-      <DependentUpon>Model.DesignedDiffs.xafml</DependentUpon>
-      <SubType>Designer</SubType>
-    </None>
     <Content Include="Welcome.html" />
   </ItemGroup>
   <ItemGroup>
