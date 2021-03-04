@@ -12,17 +12,16 @@
       </Items>
       <Layout>
         <LayoutGroup Id="Main">
-          <LayoutGroup Id="SimpleEditors" RelativeSize="89.964788732394368">
-            <LayoutGroup Id="ParametrosImportComponentEJunta" RelativeSize="53.424657534246577">
+          <LayoutGroup Id="SimpleEditors" RelativeSize="90.06849315068493">
+            <LayoutGroup Id="ParametrosImportComponentEJunta" RelativeSize="54.182509505703422">
               <LayoutGroup Id="ParametrosImportComponentEJunta_col1" Direction="Vertical" Caption="ParametrosImportComponentEJunta_col1">
-                <LayoutItem Id="PadraoDeArquivo" ViewItem="PadraoDeArquivo" Index="0" RelativeSize="13.389121338912133" IsNewNode="True" Removed="True" />
-                <LayoutGroup Id="Auto52e08de1-ee8b-4b90-91df-30cb07bb67aa" ShowCaption="False" Caption="" Direction="Horizontal" Index="1" RelativeSize="11.715481171548117" IsNewNode="True">
-                  <LayoutItem Id="PathFileForImport" ViewItem="PathFileForImport" Index="0" RelativeSize="37.151248164464022" IsNewNode="True" />
-                  <LayoutItem Id="DetailViewActionsContainerImportEstrutura" ViewItem="DetailViewActionsContainerImportEstrutura" Index="1" RelativeSize="62.848751835535978" IsNewNode="True" />
+                <LayoutItem Id="PadraoDeArquivo" ViewItem="PadraoDeArquivo" Index="0" RelativeSize="12.749003984063744" IsNewNode="True" Removed="True" />
+                <LayoutGroup Id="Auto52e08de1-ee8b-4b90-91df-30cb07bb67aa" ShowCaption="False" Caption="Auto52e08de1-ee8b-4b90-91df-30cb07bb67aa(6)" Direction="Horizontal" Index="1" RelativeSize="15.936254980079681" IsNewNode="True">
+                  <LayoutItem Id="PathFileForImport" ViewItem="PathFileForImport" Index="0" RelativeSize="68.75" IsNewNode="True" />
+                  <LayoutItem Id="DetailViewActionsContainerImportEstrutura" TextAlignMode="CustomSize" ViewItem="DetailViewActionsContainerImportEstrutura" SizeConstraintsType="Custom" MinSize="240, 40" Index="1" RelativeSize="31.25" IsNewNode="True" />
                 </LayoutGroup>
-                <LayoutItem Id="PathFileForImport" ViewItem="PathFileForImport" Index="1" RelativeSize="10.212765957446809" Removed="True" />
-                <LayoutItem Id="Progresso" ViewItem="Progresso" Index="2" RelativeSize="10.0418410041841" IsNewNode="True" Removed="True" />
-                <LayoutGroup Id="Item1" ShowCaption="True" Caption="Etapas:" CaptionLocation="Top" TextAlignMode="AlignWithChildren" Index="3" RelativeSize="64.853556485355654" IsNewNode="True" Removed="True">
+                <LayoutItem Id="Progresso" ViewItem="Progresso" Index="2" RelativeSize="9.56175298804781" IsNewNode="True" Removed="True" />
+                <LayoutGroup Id="Item1" ShowCaption="True" Caption="Etapas:" CaptionLocation="Top" TextAlignMode="AlignWithChildren" Index="3" RelativeSize="61.752988047808763" IsNewNode="True" Removed="True">
                   <LayoutItem Id="ConcluidoComponente" ViewItem="ConcluidoComponente" Index="0" RelativeSize="23.966942148760332" IsNewNode="True" />
                   <LayoutItem Id="ConcluidoJuntas" ViewItem="ConcluidoJuntas" Index="1" RelativeSize="17.355371900826448" IsNewNode="True" />
                   <LayoutItem Id="ConcluidoLoteLPPM" ViewItem="ConcluidoLoteLPPM" Index="2" RelativeSize="17.355371900826448" IsNewNode="True" />
@@ -31,9 +30,11 @@
                 </LayoutGroup>
               </LayoutGroup>
             </LayoutGroup>
-            <LayoutGroup Id="ParametrosImportBase" RelativeSize="46.575342465753423" TextAlignMode="UseParentOptions" Direction="Horizontal" />
+            <LayoutGroup Id="ParametrosImportBase" RelativeSize="45.817490494296578" TextAlignMode="UseParentOptions" Direction="Horizontal">
+              <LayoutItem Id="PathFileForImport" Index="0" RelativeSize="100" Removed="True" />
+            </LayoutGroup>
           </LayoutGroup>
-          <LayoutItem Id="DatailViewActionContainerImportEstrutura" ShowCaption="" Index="1" RelativeSize="10.035211267605634" IsNewNode="True" />
+          <LayoutItem Id="DatailViewActionContainerImportEstrutura" ShowCaption="" Index="1" RelativeSize="9.9315068493150687" SizeConstraintsType="Default" HorizontalAlign="Center" MaxSize="0, 0" IsNewNode="True" />
         </LayoutGroup>
       </Layout>
     </DetailView>
