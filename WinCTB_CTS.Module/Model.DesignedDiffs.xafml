@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Application Title="WinCTB-CTS">
+<Application Title="WinCTB-CTS" Company="AlexSSFonseca">
   <NavigationItems>
     <Items>
       <Item Id="QueriesDynamic" Caption="Consultas" IsNewNode="True">

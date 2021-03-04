@@ -1,5 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Application>
+  <NavigationItems RootGroupsStyle="OutlookAnimated" />
+  <Options FormStyle="Ribbon" Skin="Blue" />
   <SchemaModules>
     <SchemaModule Name="CloneObjectModule" Version="18.2.14.0" IsNewNode="True" />
     <SchemaModule Name="SystemModule" Version="18.2.14.0" IsNewNode="True" />

@@ -36,6 +36,7 @@
             this.pcApplicationName = new DevExpress.XtraEditors.PanelControl();
             this.labelSubtitle = new DevExpress.XtraEditors.LabelControl();
             this.labelApplicationName = new DevExpress.XtraEditors.LabelControl();
+            this.labelControl1 = new DevExpress.XtraEditors.LabelControl();
             ((System.ComponentModel.ISupportInitialize)(this.progressBarControl.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.peImage.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.peLogo.Properties)).BeginInit();
@@ -72,9 +73,9 @@
             // 
             this.labelStatus.Location = new System.Drawing.Point(75, 253);
             this.labelStatus.Name = "labelStatus";
-            this.labelStatus.Size = new System.Drawing.Size(50, 13);
+            this.labelStatus.Size = new System.Drawing.Size(70, 13);
             this.labelStatus.TabIndex = 7;
-            this.labelStatus.Text = "Starting...";
+            this.labelStatus.Text = "Inicializando...";
             // 
             // peImage
             // 
@@ -93,14 +94,14 @@
             // peLogo
             // 
             this.peLogo.EditValue = ((object)(resources.GetObject("peLogo.EditValue")));
-            this.peLogo.Location = new System.Drawing.Point(400, 328);
+            this.peLogo.Location = new System.Drawing.Point(411, 293);
             this.peLogo.Name = "peLogo";
             this.peLogo.Properties.AllowFocused = false;
             this.peLogo.Properties.Appearance.BackColor = System.Drawing.Color.Transparent;
             this.peLogo.Properties.Appearance.Options.UseBackColor = true;
             this.peLogo.Properties.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.NoBorder;
             this.peLogo.Properties.ShowMenu = false;
-            this.peLogo.Size = new System.Drawing.Size(70, 20);
+            this.peLogo.Size = new System.Drawing.Size(84, 73);
             this.peLogo.TabIndex = 8;
             // 
             // pcApplicationName
@@ -108,6 +109,7 @@
             this.pcApplicationName.Appearance.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(114)))), ((int)(((byte)(0)))));
             this.pcApplicationName.Appearance.Options.UseBackColor = true;
             this.pcApplicationName.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.NoBorder;
+            this.pcApplicationName.Controls.Add(this.labelControl1);
             this.pcApplicationName.Controls.Add(this.labelSubtitle);
             this.pcApplicationName.Controls.Add(this.labelApplicationName);
             this.pcApplicationName.Location = new System.Drawing.Point(1, 1);
@@ -122,11 +124,11 @@
             this.labelSubtitle.Appearance.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(216)))), ((int)(((byte)(188)))));
             this.labelSubtitle.Appearance.Options.UseFont = true;
             this.labelSubtitle.Appearance.Options.UseForeColor = true;
-            this.labelSubtitle.Location = new System.Drawing.Point(222, 131);
+            this.labelSubtitle.Location = new System.Drawing.Point(173, 127);
             this.labelSubtitle.Name = "labelSubtitle";
-            this.labelSubtitle.Size = new System.Drawing.Size(64, 25);
+            this.labelSubtitle.Size = new System.Drawing.Size(169, 25);
             this.labelSubtitle.TabIndex = 1;
-            this.labelSubtitle.Text = "Subtitle";
+            this.labelSubtitle.Text = "Sistema de Medição";
             // 
             // labelApplicationName
             // 
@@ -134,11 +136,23 @@
             this.labelApplicationName.Appearance.ForeColor = System.Drawing.SystemColors.Window;
             this.labelApplicationName.Appearance.Options.UseFont = true;
             this.labelApplicationName.Appearance.Options.UseForeColor = true;
-            this.labelApplicationName.Location = new System.Drawing.Point(123, 84);
+            this.labelApplicationName.Location = new System.Drawing.Point(158, 78);
             this.labelApplicationName.Name = "labelApplicationName";
-            this.labelApplicationName.Size = new System.Drawing.Size(278, 47);
+            this.labelApplicationName.Size = new System.Drawing.Size(194, 47);
             this.labelApplicationName.TabIndex = 0;
-            this.labelApplicationName.Text = "Application Name";
+            this.labelApplicationName.Text = "WinCTB-CTS";
+            // 
+            // labelControl1
+            // 
+            this.labelControl1.Appearance.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelControl1.Appearance.ForeColor = System.Drawing.Color.WhiteSmoke;
+            this.labelControl1.Appearance.Options.UseFont = true;
+            this.labelControl1.Appearance.Options.UseForeColor = true;
+            this.labelControl1.Location = new System.Drawing.Point(89, 197);
+            this.labelControl1.Name = "labelControl1";
+            this.labelControl1.Size = new System.Drawing.Size(310, 17);
+            this.labelControl1.TabIndex = 2;
+            this.labelControl1.Text = "Desenvolvido por Daniel Carvalho e Alex S S Fonseca";
             // 
             // XafSplashScreen
             // 
@@ -176,5 +190,6 @@
         private DevExpress.XtraEditors.PanelControl pcApplicationName;
         private DevExpress.XtraEditors.LabelControl labelSubtitle;
         private DevExpress.XtraEditors.LabelControl labelApplicationName;
+        private DevExpress.XtraEditors.LabelControl labelControl1;
     }
 }
