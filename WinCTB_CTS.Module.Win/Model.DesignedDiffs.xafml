@@ -14,13 +14,13 @@
       </Items>
       <Layout>
         <LayoutGroup Id="Main">
-          <LayoutGroup Id="SimpleEditors" RelativeSize="90.06849315068493">
-            <LayoutGroup Id="ParametrosImportComponentEJunta" RelativeSize="54.182509505703422">
+          <LayoutGroup Id="SimpleEditors" RelativeSize="100">
+            <LayoutGroup Id="ParametrosImportComponentEJunta" RelativeSize="87.423312883435585">
               <LayoutGroup Id="ParametrosImportComponentEJunta_col1" Direction="Vertical" Caption="ParametrosImportComponentEJunta_col1">
                 <LayoutItem Id="PadraoDeArquivo" ViewItem="PadraoDeArquivo" Index="0" RelativeSize="12.749003984063744" IsNewNode="True" Removed="True" />
-                <LayoutGroup Id="Auto52e08de1-ee8b-4b90-91df-30cb07bb67aa" ShowCaption="False" Caption="Auto52e08de1-ee8b-4b90-91df-30cb07bb67aa(6)" Direction="Horizontal" Index="1" RelativeSize="15.936254980079681" IsNewNode="True">
-                  <LayoutItem Id="PathFileForImport" ViewItem="PathFileForImport" Index="0" RelativeSize="68.75" IsNewNode="True" />
-                  <LayoutItem Id="DetailViewActionsContainerImportEstrutura" TextAlignMode="CustomSize" ViewItem="DetailViewActionsContainerImportEstrutura" SizeConstraintsType="Custom" MinSize="240, 40" Index="1" RelativeSize="31.25" IsNewNode="True" />
+                <LayoutGroup Id="Auto52e08de1-ee8b-4b90-91df-30cb07bb67aa" ShowCaption="False" Caption="Auto52e08de1-ee8b-4b90-91df-30cb07bb67aa(6)" Direction="Horizontal" Index="1" RelativeSize="15.936254980079681" GroupStyle="Card" IsNewNode="True">
+                  <LayoutItem Id="PathFileForImport" ViewItem="PathFileForImport" Index="0" RelativeSize="51.3184584178499" IsNewNode="True" />
+                  <LayoutItem Id="DetailViewActionsContainerImportEstrutura" TextAlignMode="CustomSize" ViewItem="DetailViewActionsContainerImportEstrutura" Index="1" RelativeSize="48.6815415821501" IsNewNode="True" />
                 </LayoutGroup>
                 <LayoutItem Id="Progresso" ViewItem="Progresso" Index="2" RelativeSize="9.56175298804781" IsNewNode="True" Removed="True" />
                 <LayoutGroup Id="Item1" ShowCaption="True" Caption="Etapas:" CaptionLocation="Top" TextAlignMode="AlignWithChildren" Index="3" RelativeSize="61.752988047808763" IsNewNode="True" Removed="True">
@@ -32,11 +32,31 @@
                 </LayoutGroup>
               </LayoutGroup>
             </LayoutGroup>
-            <LayoutGroup Id="ParametrosImportBase" RelativeSize="45.817490494296578" TextAlignMode="UseParentOptions" Direction="Horizontal">
+            <LayoutItem Id="DatailViewActionContainerImportEstrutura" ShowCaption="" Index="1" RelativeSize="11.656441717791411" SizeConstraintsType="Default" HorizontalAlign="Left" MaxSize="0, 0" IsNewNode="True" />
+            <LayoutGroup Id="ParametrosImportBase" RelativeSize="0.92024539877300615" TextAlignMode="UseParentOptions" Direction="Horizontal" Index="2">
               <LayoutItem Id="PathFileForImport" Index="0" RelativeSize="100" Removed="True" />
             </LayoutGroup>
           </LayoutGroup>
-          <LayoutItem Id="DatailViewActionContainerImportEstrutura" ShowCaption="" Index="1" RelativeSize="9.9315068493150687" SizeConstraintsType="Default" HorizontalAlign="Center" MaxSize="0, 0" IsNewNode="True" />
+        </LayoutGroup>
+      </Layout>
+    </DetailView>
+    <DetailView Id="ParametrosImportSpoolJuntaExcel_DetailView">
+      <Items>
+        <ActionContainerViewItem Id="GetPathTubulacaoDatailViewAction" ActionContainer="DetailViewActions" Caption="GetPathTubulacaoDatailViewAction" IsNewNode="True" />
+      </Items>
+      <Layout>
+        <LayoutGroup Id="Main" RelativeSize="100">
+          <LayoutGroup Id="SimpleEditors" TextAlignMode="UseParentOptions" RelativeSize="100" Direction="Vertical">
+            <LayoutGroup Id="ParametrosImportBase" Index="0" RelativeSize="100">
+              <LayoutItem Id="PadraoDeArquivo" RelativeSize="10.355987055016181" />
+              <LayoutGroup Id="GrupoPathTubulacao" ShowCaption="False" Caption="GrupoPathTubulacao" Direction="Horizontal" Index="1" RelativeSize="12.944983818770227" IsNewNode="True">
+                <LayoutItem Id="PathFileForImport" ViewItem="PathFileForImport" Index="0" RelativeSize="39.53125" SizeConstraintsType="Custom" MinSize="253, 36" IsNewNode="True" />
+                <LayoutItem Id="GetPathTubulacaoDatailViewAction" ViewItem="GetPathTubulacaoDatailViewAction" Index="1" RelativeSize="60.46875" SizeConstraintsType="Custom" TextAlignMode="AutoSize" IsNewNode="True" />
+              </LayoutGroup>
+              <LayoutItem Id="Progresso" RelativeSize="76.699029126213588" Index="2" />
+              <LayoutItem Id="PathFileForImport" RelativeSize="7.766990291262136" Removed="True" />
+            </LayoutGroup>
+          </LayoutGroup>
         </LayoutGroup>
       </Layout>
     </DetailView>

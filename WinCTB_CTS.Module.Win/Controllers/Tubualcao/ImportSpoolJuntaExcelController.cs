@@ -34,6 +34,7 @@ using WinCTB_CTS.Module.Importer;
 using WinCTB_CTS.Module.Importer.Tubulacao;
 using WinCTB_CTS.Module.Win.Actions;
 using WinCTB_CTS.Module.Win.Editors;
+using WinCTB_CTS.Module.Win.Services;
 
 namespace WinCTB_CTS.Module.Win.Controllers
 {
@@ -42,6 +43,7 @@ namespace WinCTB_CTS.Module.Win.Controllers
     {
         IObjectSpace objectSpace = null;
         ParametrosImportSpoolJuntaExcel parametrosImportSpoolJuntaExcel;
+        MessageOptions messageOptions = new MessageOptions();
         public ImportSpoolJuntaExcelController()
         {
             TargetWindowType = WindowType.Main;
@@ -55,10 +57,27 @@ namespace WinCTB_CTS.Module.Win.Controllers
             simpleActionImport.Execute += SimpleActionImport_Execute;
         }
 
+        private void InitMessageOptions()
+        {
+            messageOptions.Duration = 2000;
+            messageOptions.Type = InformationType.Warning;
+            messageOptions.Web.Position = InformationPosition.Left;
+            messageOptions.Win.Caption = "Informação Importante";
+            messageOptions.Win.Type = WinMessageType.Flyout;
+            messageOptions.Message = "Deseja realmente importar a planilha de modelo?";
+            messageOptions.CancelDelegate = () =>
+            {
+                throw new Exception("Processo encerrado pelo usuário!");
+            };
+        }
+
         private void SimpleActionImport_Execute(object sender, SimpleActionExecuteEventArgs e)
         {
+            InitMessageOptions();
             objectSpace = Application.CreateObjectSpace(typeof(ParametrosImportSpoolJuntaExcel));
             parametrosImportSpoolJuntaExcel = objectSpace.CreateObject<ParametrosImportSpoolJuntaExcel>();
+            parametrosImportSpoolJuntaExcel.PathFileForImport = RegisterWindowsManipulation.GetRegister("PathFileForImportTubulacao");
+
             DetailView view = Application.CreateDetailView(objectSpace, parametrosImportSpoolJuntaExcel);
 
             view.ViewEditMode = ViewEditMode.Edit;
@@ -84,6 +103,11 @@ namespace WinCTB_CTS.Module.Win.Controllers
             //Necessário para não fechar a janela após a conclusão do processamento
             e.Cancel = true;
             e.AcceptActionArgs.Action.Caption = "Procesando";
+
+            if (String.IsNullOrWhiteSpace(parametrosImportSpoolJuntaExcel.PathFileForImport))
+            {
+                Application.ShowViewStrategy.ShowMessage(messageOptions);
+            }
 
             var cts = new CancellationTokenSource();
             var parametros = (ParametrosImportSpoolJuntaExcel)e.AcceptActionArgs.SelectedObjects[0];

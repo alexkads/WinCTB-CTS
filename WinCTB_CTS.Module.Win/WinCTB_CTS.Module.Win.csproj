@@ -219,6 +219,9 @@
     <Compile Include="Controllers\Tubualcao\FechamentoMedicaoTubulacaoController.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="Controllers\Tubualcao\GetPathToImportTubulacao.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Controllers\Tubualcao\ImportSpoolJuntaExcelController.cs">
       <SubType>Component</SubType>
     </Compile>
