@@ -15009,7 +15009,7 @@
             }
             "{3C67513D-01DD-4637-8A68-80971EB9504F}:_AEBED8AA8A594EC29FE2979613BE80D9"
             {
-            "DefaultLocation" = "8:[WindowsVolume][Manufacturer]\\[ProductName]"
+            "DefaultLocation" = "8:[WindowsVolume][Manufacturer]\\"
             "Name" = "8:#1925"
             "AlwaysCreate" = "11:FALSE"
             "Condition" = "8:"
@@ -15124,7 +15124,7 @@
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:Setup"
         "ProductCode" = "8:{5367B7BA-87B9-43C6-9540-8FC24B005BB6}"
-        "PackageCode" = "8:{79560569-2858-407F-B9A1-67B2CE57B572}"
+        "PackageCode" = "8:{06A0185D-D78D-4BB6-9127-A06EBAEBA4CF}"
         "UpgradeCode" = "8:{EC518FBD-DE2D-4EC0-BFE2-F92D59A265BD}"
         "AspNetVersion" = "8:4.0.30319.0"
         "RestartWWWService" = "11:FALSE"
@@ -15132,7 +15132,7 @@
         "DetectNewerInstalledVersion" = "11:TRUE"
         "InstallAllUsers" = "11:FALSE"
         "ProductVersion" = "8:1.0.0"
-        "Manufacturer" = "8:AlexSSFonseca"
+        "Manufacturer" = "8:WinCTBCTS"
         "ARPHELPTELEPHONE" = "8:"
         "ARPHELPLINK" = "8:"
         "Title" = "8:Setup"
