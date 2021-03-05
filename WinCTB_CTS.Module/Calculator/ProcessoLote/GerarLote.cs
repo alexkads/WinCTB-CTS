@@ -59,6 +59,7 @@ namespace WinCTB_CTS.Module.Calculator.ProcessoLote
             if (ensaio == ENDS.US)
                 lote.PercentualNivelDeInspecao = juntaComponente.PercUt;
 
+            lote.TipoJunta = juntaComponente.TipoJunta;
             lote.Ensaio = ensaio;
             lote.QuantidadeNecessaria = QuantidadeDeJunta(lote.PercentualNivelDeInspecao);
             return lote;
@@ -93,11 +94,11 @@ namespace WinCTB_CTS.Module.Calculator.ProcessoLote
                     CriteriaOperator CriterioFormacao = string.Empty;
 
                     if (ensaio == ENDS.LPPM)
-                        CriterioFormacao = CriteriaOperator.Parse($"Ensaio = ? And PercentualNivelDeInspecao = ? And JuntasNoLote < QuantidadeNecessaria", ensaio, juntaComponente.PercLpPm);
+                        CriterioFormacao = CriteriaOperator.Parse($"Ensaio = ? And TipoJunta = ? And PercentualNivelDeInspecao = ? And JuntasNoLote < QuantidadeNecessaria", ensaio, juntaComponente.TipoJunta, juntaComponente.PercLpPm);
                     if (ensaio == ENDS.RX)
-                        CriterioFormacao = CriteriaOperator.Parse($"Ensaio = ? And PercentualNivelDeInspecao = ? And JuntasNoLote < QuantidadeNecessaria", ensaio, juntaComponente.PercRt);
+                        CriterioFormacao = CriteriaOperator.Parse($"Ensaio = ? And TipoJunta = ? And PercentualNivelDeInspecao = ? And JuntasNoLote < QuantidadeNecessaria", ensaio, juntaComponente.TipoJunta, juntaComponente.PercRt);
                     if (ensaio == ENDS.US)
-                        CriterioFormacao = CriteriaOperator.Parse($"Ensaio = ? And PercentualNivelDeInspecao = ? And JuntasNoLote < QuantidadeNecessaria", ensaio, juntaComponente.PercUt);
+                        CriterioFormacao = CriteriaOperator.Parse($"Ensaio = ? And TipoJunta = ? And PercentualNivelDeInspecao = ? And JuntasNoLote < QuantidadeNecessaria", ensaio, juntaComponente.TipoJunta, juntaComponente.PercUt);
 
                     var loteEstrutura = uow.FindObject<LoteEstrutura>(CriterioFormacao);
 
@@ -167,6 +168,7 @@ namespace WinCTB_CTS.Module.Calculator.ProcessoLote
 
             juntasSemLote.Criteria = criteria;
             juntasSemLote.Sorting.Add(new SortProperty(field, SortingDirection.Ascending));
+            juntasSemLote.Sorting.Add(new SortProperty("TipoJunta", SortingDirection.Ascending));
             juntasSemLote.Sorting.Add(new SortProperty("DataVisual", SortingDirection.Ascending));
 
             return juntasSemLote;
