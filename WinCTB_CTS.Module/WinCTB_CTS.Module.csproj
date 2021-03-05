@@ -209,23 +209,23 @@
     <Compile Include="RelatorioParametros\JuntaSpoolParameters.cs" />
     <Compile Include="RelatorioParametros\MedicaoTubulacaoDetalheParameters.cs" />
     <Compile Include="RelatorioParametros\SpoolParameters.cs" />
-    <Compile Include="RelatorioPreDefinido\ComponentesMedicao.cs">
+    <Compile Include="RelatorioPreDefinido\RelatorioComponentesMedicao.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="RelatorioPreDefinido\ComponentesMedicao.Designer.cs">
-      <DependentUpon>ComponentesMedicao.cs</DependentUpon>
+    <Compile Include="RelatorioPreDefinido\RelatorioComponentesMedicao.Designer.cs">
+      <DependentUpon>RelatorioComponentesMedicao.cs</DependentUpon>
     </Compile>
-    <Compile Include="RelatorioPreDefinido\JuntaComponentes.cs">
+    <Compile Include="RelatorioPreDefinido\RelatorioJuntaComponentes.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="RelatorioPreDefinido\JuntaComponentes.Designer.cs">
-      <DependentUpon>JuntaComponentes.cs</DependentUpon>
+    <Compile Include="RelatorioPreDefinido\RelatorioJuntaComponentes.Designer.cs">
+      <DependentUpon>RelatorioJuntaComponentes.cs</DependentUpon>
     </Compile>
-    <Compile Include="RelatorioPreDefinido\JuntaMedicao.cs">
+    <Compile Include="RelatorioPreDefinido\RelatorioJuntaMedicao.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="RelatorioPreDefinido\JuntaMedicao.Designer.cs">
-      <DependentUpon>JuntaMedicao.cs</DependentUpon>
+    <Compile Include="RelatorioPreDefinido\RelatorioJuntaMedicao.Designer.cs">
+      <DependentUpon>RelatorioJuntaMedicao.cs</DependentUpon>
     </Compile>
     <Compile Include="RelatorioPreDefinido\RelatorioMedicaoAnaliticoSpool.cs">
       <SubType>Component</SubType>
@@ -239,17 +239,17 @@
     <Compile Include="RelatorioPreDefinido\RelatorioMedicaoSinteticoSpool.Designer.cs">
       <DependentUpon>RelatorioMedicaoSinteticoSpool.cs</DependentUpon>
     </Compile>
-    <Compile Include="RelatorioPreDefinido\ResumoDeJuntas.cs">
+    <Compile Include="RelatorioPreDefinido\RelatorioResumoDeJuntas.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="RelatorioPreDefinido\ResumoDeJuntas.Designer.cs">
-      <DependentUpon>ResumoDeJuntas.cs</DependentUpon>
+    <Compile Include="RelatorioPreDefinido\RelatorioResumoDeJuntas.Designer.cs">
+      <DependentUpon>RelatorioResumoDeJuntas.cs</DependentUpon>
     </Compile>
-    <Compile Include="RelatorioPreDefinido\SpoolMedicao.cs">
+    <Compile Include="RelatorioPreDefinido\RelatorioSpoolMedicao.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="RelatorioPreDefinido\SpoolMedicao.Designer.cs">
-      <DependentUpon>SpoolMedicao.cs</DependentUpon>
+    <Compile Include="RelatorioPreDefinido\RelatorioSpoolMedicao.Designer.cs">
+      <DependentUpon>RelatorioSpoolMedicao.cs</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
@@ -262,14 +262,14 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="DatabaseUpdate\ReadMe.txt" />
-    <EmbeddedResource Include="RelatorioPreDefinido\ComponentesMedicao.resx">
-      <DependentUpon>ComponentesMedicao.cs</DependentUpon>
+    <EmbeddedResource Include="RelatorioPreDefinido\RelatorioComponentesMedicao.resx">
+      <DependentUpon>RelatorioComponentesMedicao.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="RelatorioPreDefinido\JuntaComponentes.resx">
-      <DependentUpon>JuntaComponentes.cs</DependentUpon>
+    <EmbeddedResource Include="RelatorioPreDefinido\RelatorioJuntaComponentes.resx">
+      <DependentUpon>RelatorioJuntaComponentes.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="RelatorioPreDefinido\JuntaMedicao.resx">
-      <DependentUpon>JuntaMedicao.cs</DependentUpon>
+    <EmbeddedResource Include="RelatorioPreDefinido\RelatorioJuntaMedicao.resx">
+      <DependentUpon>RelatorioJuntaMedicao.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="RelatorioPreDefinido\RelatorioMedicaoAnaliticoSpool.resx">
       <DependentUpon>RelatorioMedicaoAnaliticoSpool.cs</DependentUpon>
@@ -277,11 +277,11 @@
     <EmbeddedResource Include="RelatorioPreDefinido\RelatorioMedicaoSinteticoSpool.resx">
       <DependentUpon>RelatorioMedicaoSinteticoSpool.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="RelatorioPreDefinido\ResumoDeJuntas.resx">
-      <DependentUpon>ResumoDeJuntas.cs</DependentUpon>
+    <EmbeddedResource Include="RelatorioPreDefinido\RelatorioResumoDeJuntas.resx">
+      <DependentUpon>RelatorioResumoDeJuntas.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="RelatorioPreDefinido\SpoolMedicao.resx">
-      <DependentUpon>SpoolMedicao.cs</DependentUpon>
+    <EmbeddedResource Include="RelatorioPreDefinido\RelatorioSpoolMedicao.resx">
+      <DependentUpon>RelatorioSpoolMedicao.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Resources\TabelasAuxiliares.xlsx">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>

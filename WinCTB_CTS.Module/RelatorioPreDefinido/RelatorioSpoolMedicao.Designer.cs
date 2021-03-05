@@ -1,7 +1,7 @@
 ﻿
 namespace WinCTB_CTS.Module.RelatorioPreDefinido
 {
-    partial class SpoolMedicao
+    partial class RelatorioSpoolMedicao
     {
         /// <summary>
         /// Required designer variable.

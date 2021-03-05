@@ -23,6 +23,7 @@ using DevExpress.Data.Filtering;
 using WinCTB_CTS.Module.BusinessObjects.Tubulacao.Medicao;
 using WinCTB_CTS.Module.Interfaces;
 using WinCTB_CTS.Module.Comum.ViewCloner;
+using WinCTB_CTS.Module.BusinessObjects.Estrutura;
 //using WinCTB_CTS.Module.Action;
 
 namespace WinCTB_CTS.Module
@@ -70,13 +71,13 @@ namespace WinCTB_CTS.Module
 
             PredefinedReportsUpdater predefinedReportsUpdater = new PredefinedReportsUpdater(Application, objectSpace, versionFromDB);
 
-            predefinedReportsUpdater.AddPredefinedReport<RelatorioMedicaoAnaliticoSpool>("Relatório de Medição por Spool (Analítico)", typeof(Spool), typeof(SpoolParameters), isInplaceReport: true);
-            predefinedReportsUpdater.AddPredefinedReport<RelatorioMedicaoSinteticoSpool>("Relatório de Medição por Spool (Sintético)", typeof(Spool), typeof(SpoolParameters), isInplaceReport: true);
-            predefinedReportsUpdater.AddPredefinedReport<ResumoDeJuntas>("Resumo de Juntas", typeof(JuntaSpool), typeof(JuntaSpoolParameters), isInplaceReport: true);
-            predefinedReportsUpdater.AddPredefinedReport<JuntaMedicao>("Juntas - Medição", typeof(JuntaSpool), typeof(JuntaSpoolParameters), isInplaceReport: true);
-            predefinedReportsUpdater.AddPredefinedReport<SpoolMedicao>("Spool - Medição", typeof(MedicaoTubulacaoDetalhe), typeof(MedicaoTubulacaoDetalheParameters), isInplaceReport: true);
-            predefinedReportsUpdater.AddPredefinedReport<ComponentesMedicao>("STR - Componentes - (MONTAGEM)", typeof(ComponentesMedicao), isInplaceReport: true);
-            predefinedReportsUpdater.AddPredefinedReport<JuntaComponentes>("STR - Mapa de Juntas (MONTAGEM)", typeof(JuntaComponentes), isInplaceReport: true);
+            //predefinedReportsUpdater.AddPredefinedReport<RelatorioMedicaoAnaliticoSpool>("Relatório de Medição por Spool (Analítico)", typeof(Spool), typeof(SpoolParameters), isInplaceReport: true);
+            predefinedReportsUpdater.AddPredefinedReport<RelatorioMedicaoSinteticoSpool>("Relatório de Medição por Spool (Sintético)", typeof(MedicaoTubulacaoDetalhe), typeof(MedicaoTubulacaoDetalheParameters), isInplaceReport: true);
+            predefinedReportsUpdater.AddPredefinedReport<RelatorioResumoDeJuntas>("Resumo de Juntas", typeof(JuntaSpool), typeof(JuntaSpoolParameters), isInplaceReport: true);
+            predefinedReportsUpdater.AddPredefinedReport<RelatorioJuntaMedicao>("Juntas - Medição", typeof(JuntaSpool), typeof(JuntaSpoolParameters), isInplaceReport: true);
+            predefinedReportsUpdater.AddPredefinedReport<RelatorioSpoolMedicao>("Spool - Medição", typeof(MedicaoTubulacaoDetalhe), typeof(MedicaoTubulacaoDetalheParameters), isInplaceReport: true);
+            predefinedReportsUpdater.AddPredefinedReport<RelatorioComponentesMedicao>("STR - Componentes - (MONTAGEM)", typeof(Componente),null, isInplaceReport: true);
+            predefinedReportsUpdater.AddPredefinedReport<RelatorioJuntaComponentes>("STR - Mapa de Juntas (MONTAGEM)", typeof(JuntaComponente),null, isInplaceReport: true);
 
 
             return new ModuleUpdater[]

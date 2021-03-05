@@ -1,7 +1,7 @@
 ﻿
 namespace WinCTB_CTS.Module.RelatorioPreDefinido
 {
-    partial class ResumoDeJuntas
+    partial class RelatorioResumoDeJuntas
     {
         /// <summary>
         /// Required designer variable.

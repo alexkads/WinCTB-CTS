@@ -71,7 +71,6 @@ namespace WinCTB_CTS.Win
             //winApplication.CreateCustomObjectSpaceProvider += WinApplication_CreateCustomObjectSpaceProvider;
             //winApplication.DatabaseVersionMismatch += WinApplication_DatabaseVersionMismatch;
 
-
             winApplication.ConnectionString = connectionStringSettings();
 
             try
