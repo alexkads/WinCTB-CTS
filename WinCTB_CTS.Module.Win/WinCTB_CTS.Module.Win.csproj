@@ -238,6 +238,18 @@
     <Compile Include="Custom\CustomGridController.cs" />
     <Compile Include="Editors\WinProgressPropertyEditor.cs" />
     <Compile Include="Services\RegisterWindowsManipulation.cs" />
+    <Compile Include="Templates\DetailRibbonFormTemplate.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Templates\DetailRibbonFormTemplate.Designer.cs">
+      <DependentUpon>DetailRibbonFormTemplate.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Templates\MainRibbonFormTemplate.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Templates\MainRibbonFormTemplate.Designer.cs">
+      <DependentUpon>MainRibbonFormTemplate.cs</DependentUpon>
+    </Compile>
     <Compile Include="WinModule.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -252,6 +264,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Model.DesignedDiffs.xafml" />
     <EmbeddedResource Include="Properties\licenses.licx" />
+    <EmbeddedResource Include="Templates\DetailRibbonFormTemplate.resx">
+      <DependentUpon>DetailRibbonFormTemplate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Templates\MainRibbonFormTemplate.resx">
+      <DependentUpon>MainRibbonFormTemplate.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="WinModule.resx">
       <DependentUpon>WinModule.cs</DependentUpon>
       <SubType>Designer</SubType>

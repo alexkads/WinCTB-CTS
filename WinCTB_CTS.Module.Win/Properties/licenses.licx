@@ -1,6 +1,7 @@
+DevExpress.ExpressApp.SystemModule.SystemModule, DevExpress.ExpressApp.v18.2, Version=18.2.14.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a
 DevExpress.ExpressApp.ModuleBase, DevExpress.ExpressApp.v18.2, Version=18.2.14.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a
 DevExpress.ExpressApp.ViewController, DevExpress.ExpressApp.v18.2, Version=18.2.14.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a
-DevExpress.ExpressApp.WindowController, DevExpress.ExpressApp.v18.2, Version=18.2.14.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a
+DevExpress.XtraBars.Docking2010.DocumentManager, DevExpress.XtraBars.v18.2, Version=18.2.14.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a
 DevExpress.XtraEditors.ProgressBarControl, DevExpress.XtraEditors.v18.2, Version=18.2.14.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a
-
-DevExpress.ExpressApp.SystemModule.SystemModule, DevExpress.ExpressApp.v18.2, Version=18.2.14.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a
+DevExpress.ExpressApp.WindowController, DevExpress.ExpressApp.v18.2, Version=18.2.14.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a
+DevExpress.XtraBars.Docking.DockManager, DevExpress.XtraBars.v18.2, Version=18.2.14.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a

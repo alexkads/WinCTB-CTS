@@ -54,7 +54,7 @@ namespace WinCTB_CTS.Module.Win.Services
 
             try
             {
-                return Registry.GetValue($@"{userRoot}\SOFTWARE\{GetNameExecutingAssembly}", key, "NULL")?.ToString();
+                return Registry.GetValue($@"{userRoot}\SOFTWARE\{GetNameExecutingAssembly}", key, String.Empty)?.ToString();
             }
             catch (Exception)
             {
