@@ -18,6 +18,7 @@ using System.Text;
 using System.Threading.Tasks;
 //using WinCTB_CTS.Module.Action;
 using WinCTB_CTS.Module.BusinessObjects.Padrao;
+using WinCTB_CTS.Module.Interfaces;
 
 namespace WinCTB_CTS.Module.Importer.Estrutura
 {
@@ -26,7 +27,7 @@ namespace WinCTB_CTS.Module.Importer.Estrutura
     [ModelDefault("Caption", "Importação DE Componentes e Juntas")]
     [ModelDefault("VisibleProperties", "Caption, ToolTip, ImageName, AcceptButtonCaption, CancelButtonCaption, IsSizeable")]
     [NonPersistent, ImageName("Action_SingleChoiceAction")]
-    public class ParametrosImportComponentEJunta : ParametrosImportBase 
+    public class ParametrosImportComponentEJunta : ParametrosImportBase, IEtapasImportEstrutura, IEtapasFormacaoLotes
     {
         private bool concluidoJuntas;
         private bool concluidoComponente;
@@ -64,6 +65,14 @@ namespace WinCTB_CTS.Module.Importer.Estrutura
                 }
             }
         }
-
+        
+        public bool ConcluidoLPPM { get; set; }
+        public bool ConcluidoRX { get; set; }
+        public bool ConcluidoUS { get; set; }
+        public bool ConcluidoInspecaoLPPM { get; set; }
+        public bool ConcluidoInspecaoRX { get; set; }
+        public bool ConcluidoInspecaoUS { get; set; }
+        public bool ConcluidoAlinhamentoDeLotes { get; set; }
+        public bool ConcluidoBalanceamentoDeLotes { get; set; }
     }
 }

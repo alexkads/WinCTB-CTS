@@ -1,0 +1,14 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Application>
+  <Views Id="Views">
+    <DetailView Id="ParametrosImportComponentEJunta_DetailView">
+      <Layout Id="Layout">
+        <LayoutGroup Id="Main">
+          <LayoutGroup Id="SimpleEditors">
+            <LayoutGroup Id="ParametrosImportComponentEJunta" ShowCaption="False" Index="0" TextAlignMode="AlignWithChildren" RelativeSize="64.417177914110425" Caption="ParametrosImportComponentEJunta" Direction="Horizontal" Removed="True" />
+          </LayoutGroup>
+        </LayoutGroup>
+      </Layout>
+    </DetailView>
+  </Views>
+</Application>

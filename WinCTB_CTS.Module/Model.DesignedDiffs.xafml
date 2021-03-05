@@ -28,10 +28,51 @@
       <Layout>
         <LayoutGroup Id="Main" RelativeSize="100">
           <LayoutGroup Id="SimpleEditors" RelativeSize="100">
-            <LayoutGroup Id="ParametrosImportComponentEJunta" RelativeSize="56.768558951965062" Direction="Vertical" />
-            <LayoutGroup Id="ParametrosImportBase" Caption="ParametrosImportBase" RelativeSize="43.231441048034938" Direction="Horizontal">
-              <LayoutItem Id="PadraoDeArquivo" RelativeSize="100" Removed="True" />
-              <LayoutItem Id="Progresso" Removed="True" />
+            <LayoutGroup Id="ParametrosImportBase" Index="0" RelativeSize="100">
+              <LayoutItem Id="PadraoDeArquivo" RelativeSize="6.5439672801635993" />
+              <LayoutItem Id="PathFileForImport" RelativeSize="4.9079754601226995" />
+              <LayoutItem Id="Progresso" RelativeSize="4.9079754601226995" />
+              <LayoutGroup Id="ParametrosImportComponentEJunta" ShowCaption="True" Caption="Etapas" Direction="Horizontal" Index="3" RelativeSize="83.640081799591" IsNewNode="True">
+                <LayoutGroup Id="ParametrosImportComponentEJunta_col1" ShowCaption="False" Index="0" RelativeSize="50" IsNewNode="True">
+                  <LayoutItem Id="ConcluidoComponente" ViewItem="ConcluidoComponente" Index="0" RelativeSize="8.5333333333333332" IsNewNode="True" />
+                  <LayoutItem Id="ConcluidoJuntas" ViewItem="ConcluidoJuntas" Index="1" RelativeSize="6.4" IsNewNode="True" />
+                  <LayoutItem Id="ConcluidoLPPM" ViewItem="ConcluidoLPPM" Index="2" RelativeSize="6.4" IsNewNode="True" />
+                  <LayoutItem Id="ConcluidoRX" ViewItem="ConcluidoRX" Index="3" RelativeSize="6.4" IsNewNode="True" />
+                  <LayoutItem Id="ConcluidoUS" ViewItem="ConcluidoUS" Index="4" RelativeSize="72.266666666666666" IsNewNode="True" />
+                </LayoutGroup>
+                <LayoutGroup Id="ParametrosImportComponentEJunta_col2" ShowCaption="False" Index="1" RelativeSize="50" IsNewNode="True">
+                  <LayoutItem Id="ConcluidoInspecaoLPPM" ViewItem="ConcluidoInspecaoLPPM" Index="0" RelativeSize="8.5333333333333332" IsNewNode="True" />
+                  <LayoutItem Id="ConcluidoInspecaoRX" ViewItem="ConcluidoInspecaoRX" Index="1" RelativeSize="6.4" IsNewNode="True" />
+                  <LayoutItem Id="ConcluidoInspecaoUS" ViewItem="ConcluidoInspecaoUS" Index="2" RelativeSize="6.4" IsNewNode="True" />
+                  <LayoutItem Id="ConcluidoAlinhamentoDeLotes" ViewItem="ConcluidoAlinhamentoDeLotes" Index="3" RelativeSize="6.4" IsNewNode="True" />
+                  <LayoutItem Id="ConcluidoBalanceamentoDeLotes" ViewItem="ConcluidoBalanceamentoDeLotes" Index="4" RelativeSize="72.266666666666666" IsNewNode="True" />
+                </LayoutGroup>
+              </LayoutGroup>
+            </LayoutGroup>
+            <LayoutGroup Id="ParametrosImportComponentEJunta" Removed="True" />
+          </LayoutGroup>
+        </LayoutGroup>
+      </Layout>
+    </DetailView>
+    <DetailView Id="ProgressoGerarLotes_DetailView">
+      <Layout>
+        <LayoutGroup Id="Main" RelativeSize="100">
+          <LayoutGroup Id="SimpleEditors" RelativeSize="100">
+            <LayoutItem Id="Progresso" ViewItem="Progresso" Index="0" RelativeSize="6.5439672801635993" IsNewNode="True" />
+            <LayoutGroup Id="ProgressoGerarLotes" Index="1" RelativeSize="93.4560327198364" Caption="Etapas">
+              <LayoutGroup Id="ProgressoGerarLotes_col1" RelativeSize="50">
+                <LayoutItem Id="ConcluidoLPPM" Index="0" RelativeSize="7.5650118203309695" />
+                <LayoutItem Id="ConcluidoRX" Index="1" RelativeSize="5.6737588652482271" />
+                <LayoutItem Id="ConcluidoUS" Index="2" RelativeSize="5.6737588652482271" />
+                <LayoutItem Id="ConcluidoInspecaoLPPM" Index="3" RelativeSize="81.087470449172571" />
+                <LayoutItem Id="Progresso" Removed="True" />
+              </LayoutGroup>
+              <LayoutGroup Id="ProgressoGerarLotes_col2" RelativeSize="50">
+                <LayoutItem Id="ConcluidoInspecaoRX" RelativeSize="7.5650118203309695" />
+                <LayoutItem Id="ConcluidoInspecaoUS" RelativeSize="5.6737588652482271" />
+                <LayoutItem Id="ConcluidoAlinhamentoDeLotes" RelativeSize="5.6737588652482271" />
+                <LayoutItem Id="ConcluidoBalanceamentoDeLotes" RelativeSize="81.087470449172571" />
+              </LayoutGroup>
             </LayoutGroup>
           </LayoutGroup>
         </LayoutGroup>

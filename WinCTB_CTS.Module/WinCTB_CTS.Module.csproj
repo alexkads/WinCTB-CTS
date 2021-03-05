@@ -162,6 +162,9 @@
     <Compile Include="Calculator\CalculoSpool.cs" />
     <Compile Include="Calculator\ProcessoLote\BalanceamentoDeLotesEstrutura.cs" />
     <Compile Include="Calculator\ProcessoLote\GerarLote.cs" />
+    <Compile Include="Interfaces\IProgresso.cs" />
+    <Compile Include="Interfaces\IEtapasImportTubulacao.cs" />
+    <Compile Include="Interfaces\IEtapasFormacaoLotes.cs" />
     <Compile Include="Calculator\ProcessoLote\LotesDeEstruturaAlinhamento.cs" />
     <Compile Include="Calculator\ProcessoLote\LotesDeEstruturaInspecao.cs" />
     <Compile Include="Calculator\ProcessoLote\EtapasLotes.cs" />
@@ -178,6 +181,7 @@
     <Compile Include="Helpers\ExcelDataReaderHelper.cs" />
     <Compile Include="Helpers\OpenXMLHelpers.cs" />
     <Compile Include="Helpers\ProviderDataLayer.cs" />
+    <Compile Include="Interfaces\IEtapasImportEstrutura.cs" />
     <Compile Include="Importer\Estrutura\ImportJuntaComponente.cs" />
     <Compile Include="Importer\Estrutura\ImportComponente.cs" />
     <Compile Include="Importer\Estrutura\ImportComponentEJunta.cs" />

@@ -14,27 +14,31 @@
       </Items>
       <Layout>
         <LayoutGroup Id="Main">
-          <LayoutGroup Id="SimpleEditors" RelativeSize="100">
-            <LayoutGroup Id="ParametrosImportComponentEJunta" RelativeSize="87.423312883435585">
-              <LayoutGroup Id="ParametrosImportComponentEJunta_col1" Direction="Vertical" Caption="ParametrosImportComponentEJunta_col1">
-                <LayoutItem Id="PadraoDeArquivo" ViewItem="PadraoDeArquivo" Index="0" RelativeSize="12.749003984063744" IsNewNode="True" Removed="True" />
-                <LayoutGroup Id="Auto52e08de1-ee8b-4b90-91df-30cb07bb67aa" ShowCaption="False" Caption="Auto52e08de1-ee8b-4b90-91df-30cb07bb67aa(6)" Direction="Horizontal" Index="1" RelativeSize="15.936254980079681" GroupStyle="Card" IsNewNode="True">
-                  <LayoutItem Id="PathFileForImport" ViewItem="PathFileForImport" Index="0" RelativeSize="51.3184584178499" IsNewNode="True" />
-                  <LayoutItem Id="DetailViewActionsContainerImportEstrutura" TextAlignMode="CustomSize" ViewItem="DetailViewActionsContainerImportEstrutura" Index="1" RelativeSize="48.6815415821501" IsNewNode="True" />
+          <LayoutGroup Id="SimpleEditors">
+            <LayoutGroup Id="ParametrosImportBase">
+              <LayoutItem Id="PadraoDeArquivo" RelativeSize="6.3241106719367588" />
+              <LayoutGroup Id="Autoa43c2244-08bd-4a35-95ec-95be9b5f65d5" ShowCaption="False" Caption="" Direction="Horizontal" Index="1" RelativeSize="5.5335968379446641" IsNewNode="True">
+                <LayoutItem Id="PathFileForImport" ViewItem="PathFileForImport" Index="0" RelativeSize="37.151248164464022" TextAlignMode="UseParentOptions" SizeConstraintsType="Custom" IsNewNode="True" />
+                <LayoutItem Id="DetailViewActionsContainerImportEstrutura" ViewItem="DetailViewActionsContainerImportEstrutura" Index="1" RelativeSize="10" HorizontalAlign="Left" TextAlignMode="AutoSize" IsNewNode="True" />
+              </LayoutGroup>
+              <LayoutItem Id="Progresso" Index="2" RelativeSize="4.7430830039525693" />
+              <LayoutGroup Id="ParametrosImportComponentEJunta" Index="3" RelativeSize="83.399209486166015">
+                <LayoutGroup Id="ParametrosImportComponentEJunta_col1" TextAlignMode="AlignWithChildren" RelativeSize="38.051750380517504">
+                  <LayoutItem Id="ConcluidoComponente" RelativeSize="7.4742268041237114" />
+                  <LayoutItem Id="ConcluidoJuntas" RelativeSize="5.4123711340206189" />
+                  <LayoutItem Id="ConcluidoLPPM" RelativeSize="5.4123711340206189" />
+                  <LayoutItem Id="ConcluidoRX" RelativeSize="5.4123711340206189" />
+                  <LayoutItem Id="ConcluidoUS" RelativeSize="76.288659793814432" />
                 </LayoutGroup>
-                <LayoutItem Id="Progresso" ViewItem="Progresso" Index="2" RelativeSize="9.56175298804781" IsNewNode="True" Removed="True" />
-                <LayoutGroup Id="Item1" ShowCaption="True" Caption="Etapas:" CaptionLocation="Top" TextAlignMode="AlignWithChildren" Index="3" RelativeSize="61.752988047808763" IsNewNode="True" Removed="True">
-                  <LayoutItem Id="ConcluidoComponente" ViewItem="ConcluidoComponente" Index="0" RelativeSize="23.966942148760332" IsNewNode="True" />
-                  <LayoutItem Id="ConcluidoJuntas" ViewItem="ConcluidoJuntas" Index="1" RelativeSize="17.355371900826448" IsNewNode="True" />
-                  <LayoutItem Id="ConcluidoLoteLPPM" ViewItem="ConcluidoLoteLPPM" Index="2" RelativeSize="17.355371900826448" IsNewNode="True" />
-                  <LayoutItem Id="ConcluidoLoteUS" ViewItem="ConcluidoLoteUS" Index="3" RelativeSize="17.355371900826448" IsNewNode="True" />
-                  <LayoutItem Id="ConcluidoLoteRX" ViewItem="ConcluidoLoteRX" Index="4" RelativeSize="23.966942148760332" IsNewNode="True" />
+                <LayoutGroup Id="ParametrosImportComponentEJunta_col2" TextAlignMode="AlignWithChildren" RelativeSize="61.948249619482496">
+                  <LayoutItem Id="ConcluidoInspecaoLPPM" RelativeSize="7.4742268041237114" />
+                  <LayoutItem Id="ConcluidoInspecaoRX" RelativeSize="5.4123711340206189" />
+                  <LayoutItem Id="ConcluidoInspecaoUS" RelativeSize="5.4123711340206189" />
+                  <LayoutItem Id="ConcluidoAlinhamentoDeLotes" RelativeSize="5.4123711340206189" />
+                  <LayoutItem Id="ConcluidoBalanceamentoDeLotes" RelativeSize="76.288659793814432" />
                 </LayoutGroup>
               </LayoutGroup>
-            </LayoutGroup>
-            <LayoutItem Id="DatailViewActionContainerImportEstrutura" ShowCaption="" Index="1" RelativeSize="11.656441717791411" SizeConstraintsType="Default" HorizontalAlign="Left" MaxSize="0, 0" IsNewNode="True" />
-            <LayoutGroup Id="ParametrosImportBase" RelativeSize="0.92024539877300615" TextAlignMode="UseParentOptions" Direction="Horizontal" Index="2">
-              <LayoutItem Id="PathFileForImport" Index="0" RelativeSize="100" Removed="True" />
+              <LayoutItem Id="PathFileForImport" RelativeSize="4.7430830039525693" Removed="True" />
             </LayoutGroup>
           </LayoutGroup>
         </LayoutGroup>

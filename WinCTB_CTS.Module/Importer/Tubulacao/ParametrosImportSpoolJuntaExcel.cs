@@ -11,13 +11,14 @@ using DevExpress.ExpressApp.Xpo;
 using WinCTB_CTS.Module.BusinessObjects.Padrao;
 //using WinCTB_CTS.Module.Action;
 using WinCTB_CTS.Module.Importer.Estrutura;
+using WinCTB_CTS.Module.Interfaces;
 
 namespace WinCTB_CTS.Module.Importer.Tubulacao
 {
     [ModelDefault("Caption", "Importação de Spool e Juntas")]
     [ModelDefault("VisibleProperties", "Caption, ToolTip, ImageName, AcceptButtonCaption, CancelButtonCaption, IsSizeable")]
     [NonPersistent, ImageName("Action_SingleChoiceAction")]
-    public class ParametrosImportSpoolJuntaExcel : ParametrosImportBase
+    public class ParametrosImportSpoolJuntaExcel : ParametrosImportBase, IEtapasImportTubulacao
     {
         public ParametrosImportSpoolJuntaExcel(Session session) : base(session) { }
 
