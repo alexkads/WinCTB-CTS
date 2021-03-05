@@ -1,5 +1,13 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Application>
+  <ActionDesign>
+    <Actions>
+      <Action Id="FechamentoMedicaoEstruturaSimpleActionController" Index="100" />
+      <Action Id="FechamentoMedicaoTubulacaoSimpleActionController" Index="101" />
+      <Action Id="PopupWindowShowActionImportSpoolJuntaExcelController" Index="103" />
+      <Action Id="PopupWindowShowActionImportComponentEJuntaExcelController" Index="104" />
+    </Actions>
+  </ActionDesign>
   <NavigationItems RootGroupsStyle="OutlookAnimated" />
   <Options FormStyle="Ribbon" Skin="Blue" />
   <SchemaModules>

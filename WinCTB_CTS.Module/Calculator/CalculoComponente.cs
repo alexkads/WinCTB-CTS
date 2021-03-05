@@ -14,10 +14,13 @@ using DevExpress.Xpo;
 using DevExpress.XtraEditors;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
+using System.Reactive.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using WinCTB_CTS.Module.BusinessObjects.Estrutura;
+using WinCTB_CTS.Module.BusinessObjects.Estrutura.Medicao;
 using WinCTB_CTS.Module.BusinessObjects.Tubulacao;
 using WinCTB_CTS.Module.BusinessObjects.Tubulacao.Auxiliar;
 using WinCTB_CTS.Module.BusinessObjects.Tubulacao.Medicao;
@@ -29,12 +32,16 @@ namespace WinCTB_CTS.Module.Calculator
     public class CalculoComponente
     {
         private IObjectSpace _objectSpace = null;
-
+        
         public CalculoComponente(IObjectSpace objectSpace)
         {
             this._objectSpace = objectSpace;
         }
 
+        public delegate void MedicaoDetalheHandler(Session session, MedicaoEstrutura medicao, Componente componente);
+        
+        private MedicaoDetalheHandler medicaoDetalhe = new MedicaoDetalheHandler(OnMedicaoDetalhe);
+        
         public void ExecutarCalculo(IProgress<ImportProgressReport> progress)
         {
             var session = ((XPObjectSpace)_objectSpace).Session;
@@ -53,35 +60,19 @@ namespace WinCTB_CTS.Module.Calculator
             var SaveTemp = new List<dynamic>();
 
             uow.BeginTransaction();
-            #region Temp
-            //var medicaoAnterior = uow.FindObject<MedicaoTubulacao>(CriteriaOperator.Parse("DataFechamentoMedicao = [<MedicaoTubulacao>].Max(DataFechamentoMedicao)"));
-            //var medicao = new MedicaoTubulacao(uow);
-            //medicao.DataFechamentoMedicao = DateTime.Now;
-            //medicao.Save();
-            #endregion
 
-            for (int i = 0; i < QuantidadeDeComponentes; i++)
+            var medicaoAnterior = uow.FindObject<MedicaoEstrutura>(CriteriaOperator.Parse("DataFechamentoMedicao = [<MedicaoEstrutura>].Max(DataFechamentoMedicao)"));
+            var medicao = new MedicaoEstrutura(uow);
+            medicao.DataFechamentoMedicao = DateTime.Now;
+            medicao.Save();
+            
+            Observable.Range(0, QuantidadeDeComponentes).Subscribe(i =>
             {
-                var componente = componentes[i];                                               
-                
-                #region Temp
-                //var detalheMedicaoAnterior = medicaoAnterior is null ? null : uow.FindObject<MedicaoTubulacaoDetalhe>(CriteriaOperator.Parse("Spool.Oid = ? And MedicaoTubulacao.Oid = ?", spool.Oid, medicaoAnterior.Oid));
-                //var eap = session.FindObject<TabEAPPipe>(new BinaryOperator("Contrato.Oid", spool.Contrato.Oid));
-                //var detalhe = new MedicaoTubulacaoDetalhe(uow);
+                var componente = componentes[i];
+                var detalheMedicaoAnterior = medicaoAnterior is null ? null : uow.FindObject<MedicaoEstruturaDetalhe>(CriteriaOperator.Parse("Componente.Oid = ? And MedicaoEstrutura.Oid = ?", componente.Oid, medicaoAnterior.Oid));
+                //var eap = session.FindObject<TabEAPPipe>(new BinaryOperator("Contrato.Oid", componente.Contrato.Oid));
 
-                //var testeLogica = spool.DataCorte;
-                #endregion
-
-                #region Teste de Cálculo
-                var SomaComprimento = componente.JuntaComponentes.Sum(x => x.Comprimento);
-                var QuantidadeJunta = componente.JuntaComponentes.Count();
-                #endregion
-
-                //var PosicionamentoDF1 = 
-
-                var QtdJuntaPipe = Utils.ConvertINT(componente.Evaluate(CriteriaOperator.Parse("Juntas[CampoOuPipe == 'PIPE'].Count()")));
-                var QtdJuntaMont = Utils.ConvertINT(componente.Evaluate(CriteriaOperator.Parse("Juntas[CampoOuPipe == 'CAMPO'].Count()")));
-
+                medicaoDetalhe?.Invoke(uow, medicao, componente);
 
                 if (i % 1000 == 0)
                 {
@@ -100,9 +91,10 @@ namespace WinCTB_CTS.Module.Calculator
                 {
                     TotalRows = QuantidadeDeComponentes,
                     CurrentRow = i,
-                    MessageImport = $"Fechando Spools: {i}/{QuantidadeDeComponentes}"
+                    MessageImport = $"Fechando Componentes: {i}/{QuantidadeDeComponentes}"
                 });
-            }
+
+            });
 
             progress.Report(new ImportProgressReport
             {
@@ -115,6 +107,21 @@ namespace WinCTB_CTS.Module.Calculator
             uow.PurgeDeletedObjects();
             uow.CommitChanges();
             uow.Dispose();
+        }
+
+        private static void OnMedicaoDetalhe(Session session, MedicaoEstrutura medicao, Componente componente)
+        {
+            var detalhe = new MedicaoEstruturaDetalhe(session);
+            medicao.MedicaoEstruturaDetalhes.Add(detalhe);
+            detalhe.Componente = componente;
+            detalhe.PesoTotal = componente.PesoTotal;
+
+            var testeLogica = componente.DataPosicionamento;
+            var SomaComprimento = componente.JuntaComponentes.Sum(x => x.Comprimento);
+            var QuantidadeJunta = componente.JuntaComponentes.Count();
+
+            //var QtdJuntaPipe = Utils.ConvertINT(componente.Evaluate(CriteriaOperator.Parse("Juntas[CampoOuPipe == 'PIPE'].Count()")));
+            //var QtdJuntaMont = Utils.ConvertINT(componente.Evaluate(CriteriaOperator.Parse("Juntas[CampoOuPipe == 'CAMPO'].Count()")));
         }
     }
 }

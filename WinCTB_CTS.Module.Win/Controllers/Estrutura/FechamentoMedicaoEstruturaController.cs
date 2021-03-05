@@ -1,23 +1,40 @@
-﻿using DevExpress.ExpressApp;
+﻿using DevExpress.Data.Filtering;
+using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Actions;
+using DevExpress.ExpressApp.Editors;
+using DevExpress.ExpressApp.Layout;
+using DevExpress.ExpressApp.Model.NodeGenerators;
+using DevExpress.ExpressApp.SystemModule;
+using DevExpress.ExpressApp.Templates;
+using DevExpress.ExpressApp.Utils;
+using DevExpress.ExpressApp.Xpo;
 using DevExpress.Persistent.Base;
+using DevExpress.Persistent.Validation;
+using DevExpress.Xpo;
 using DevExpress.XtraEditors;
 using System;
+using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
+using WinCTB_CTS.Module.BusinessObjects.Tubulacao;
+using WinCTB_CTS.Module.BusinessObjects.Tubulacao.Auxiliar;
+using WinCTB_CTS.Module.BusinessObjects.Tubulacao.Medicao;
+using WinCTB_CTS.Module.Comum;
 using WinCTB_CTS.Module.Importer;
 
-namespace WinCTB_CTS.Module.Win.Controllers
-{    
-    public partial class FechamentoMedicaoTubulacaoController : WindowController
+namespace WinCTB_CTS.Module.Win.Controllers.Estrutura
+{
+    // For more typical usage scenarios, be sure to check out https://documentation.devexpress.com/eXpressAppFramework/clsDevExpressExpressAppViewControllertopic.aspx.
+    public partial class FechamentoMedicaoEstruturaController : WindowController
     {
         IObjectSpace objectSpace = null;
-        public FechamentoMedicaoTubulacaoController()
+        public FechamentoMedicaoEstruturaController()
         {
             TargetWindowType = WindowType.Main;
-            SimpleAction ExecutarMedicao = new SimpleAction(this, "FechamentoMedicaoTubulacaoSimpleActionController", PredefinedCategory.RecordEdit)
+            SimpleAction ExecutarMedicao = new SimpleAction(this, "FechamentoMedicaoEstruturaSimpleActionController", PredefinedCategory.RecordEdit)
             {
-                Caption = "Fechar Medição de Tubulação",
+                Caption = "Fechar Medição de Estrutura",
                 ImageName = "WeightedPies"
             };
 
@@ -26,8 +43,8 @@ namespace WinCTB_CTS.Module.Win.Controllers
 
         private XtraForm FormProgressImport;
         private ProgressBarControl progressBarControl;
-        protected SimpleButton cancelProgress;
         private LabelControl statusProgess;
+        protected SimpleButton cancelProgress;
 
         private void InitializeInteface()
         {
@@ -62,7 +79,7 @@ namespace WinCTB_CTS.Module.Win.Controllers
                 statusProgess.Update();
             });
 
-            var calculator = new Calculator.CalculoSpool(objectSpace);
+            var calculator = new Calculator.CalculoComponente(objectSpace);
 
             await Task.Run(() =>
                 calculator.ExecutarCalculo(progress));

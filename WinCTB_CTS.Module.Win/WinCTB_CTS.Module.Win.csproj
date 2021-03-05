@@ -203,6 +203,9 @@
     <Compile Include="Controllers\Estrutura\ClearLotesController.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="Controllers\Estrutura\FechamentoMedicaoEstruturaController.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Controllers\Estrutura\GerarLotesController.cs">
       <SubType>Component</SubType>
     </Compile>

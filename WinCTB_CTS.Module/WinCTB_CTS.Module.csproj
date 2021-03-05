@@ -149,6 +149,8 @@
     <Compile Include="BusinessObjects\Estrutura\JuntaComponente.cs" />
     <Compile Include="BusinessObjects\Editor\EditorsProviders.cs" />
     <Compile Include="BusinessObjects\Estrutura\LoteEstrutura.cs" />
+    <Compile Include="BusinessObjects\Estrutura\Medicao\MedicaoEstrutura.cs" />
+    <Compile Include="BusinessObjects\Estrutura\Medicao\MedicaoEstruturaDetalhe.cs" />
     <Compile Include="BusinessObjects\Tubulacao\Auxiliar\TabDiametro.cs" />
     <Compile Include="BusinessObjects\Tubulacao\Auxiliar\TabEAPPipe.cs" />
     <Compile Include="BusinessObjects\Tubulacao\Auxiliar\TabPercInspecao.cs" />
