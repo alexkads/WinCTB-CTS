@@ -10,7 +10,7 @@
     <RootNamespace>WinCTB_CTS.Win</RootNamespace>
     <AssemblyName>WinCTB_CTS.Win</AssemblyName>
     <ApplicationIcon>openproject_1078.ico</ApplicationIcon>
-    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileUpgradeFlags>
     </FileUpgradeFlags>
     <UpgradeBackupLocation>
