@@ -11,6 +11,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using System.Text;
+using WinCTB_CTS.Module.BusinessObjects.Estrutura.Medicao;
 
 namespace WinCTB_CTS.Module.BusinessObjects.Estrutura
 {
@@ -26,8 +27,6 @@ namespace WinCTB_CTS.Module.BusinessObjects.Estrutura
         {
             base.AfterConstruction();
         }
-
-
 
         private string statusPeca;
         private DateTime? dataPintura;
@@ -249,6 +248,15 @@ namespace WinCTB_CTS.Module.BusinessObjects.Estrutura
             get
             {
                 return GetCollection<JuntaComponente>(nameof(JuntaComponentes));
+            }
+        }
+
+        [Association("Componente-MedicaoEstruturaDetalhes")]
+        public XPCollection<MedicaoEstruturaDetalhe> MedicaoEstruturaDetalhes
+        {
+            get
+            {
+                return GetCollection<MedicaoEstruturaDetalhe>(nameof(MedicaoEstruturaDetalhes));
             }
         }
     }

@@ -18,6 +18,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using WinCTB_CTS.Module.BusinessObjects.Estrutura;
+using WinCTB_CTS.Module.BusinessObjects.Estrutura.Medicao;
 using WinCTB_CTS.Module.BusinessObjects.Tubulacao;
 using WinCTB_CTS.Module.BusinessObjects.Tubulacao.Auxiliar;
 using WinCTB_CTS.Module.BusinessObjects.Tubulacao.Medicao;
@@ -54,33 +55,29 @@ namespace WinCTB_CTS.Module.Calculator
 
             uow.BeginTransaction();
             #region Temp
-            //var medicaoAnterior = uow.FindObject<MedicaoTubulacao>(CriteriaOperator.Parse("DataFechamentoMedicao = [<MedicaoTubulacao>].Max(DataFechamentoMedicao)"));
-            //var medicao = new MedicaoTubulacao(uow);
-            //medicao.DataFechamentoMedicao = DateTime.Now;
-            //medicao.Save();
+            var medicaoAnterior = uow.FindObject<MedicaoEstrutura>(CriteriaOperator.Parse("DataFechamentoMedicao = [<MedicaoEstrutura>].Max(DataFechamentoMedicao)"));
+            var medicao = new MedicaoEstrutura(uow);
+            medicao.DataFechamentoMedicao = DateTime.Now;
+            medicao.Save();
             #endregion
 
             for (int i = 0; i < QuantidadeDeComponentes; i++)
             {
-                var componente = componentes[i];                                               
-                
-                #region Temp
-                //var detalheMedicaoAnterior = medicaoAnterior is null ? null : uow.FindObject<MedicaoTubulacaoDetalhe>(CriteriaOperator.Parse("Spool.Oid = ? And MedicaoTubulacao.Oid = ?", spool.Oid, medicaoAnterior.Oid));
-                //var eap = session.FindObject<TabEAPPipe>(new BinaryOperator("Contrato.Oid", spool.Contrato.Oid));
-                //var detalhe = new MedicaoTubulacaoDetalhe(uow);
+                var componente = componentes[i];
 
-                //var testeLogica = spool.DataCorte;
-                #endregion
+                var detalheMedicaoAnterior = medicaoAnterior is null ? null : uow.FindObject<MedicaoEstruturaDetalhe>(CriteriaOperator.Parse("Componente.Oid = ? And MedicaoEstrutura.Oid = ?", componente.Oid, medicaoAnterior.Oid));
+                //var eap = session.FindObject<TabEAPPipe>(new BinaryOperator("Contrato.Oid", componente.Contrato.Oid));
+                var detalhe = new MedicaoEstruturaDetalhe(uow);
+                medicao.MedicaoEstruturaDetalhes.Add(detalhe);
+                detalhe.Componente = componente;
+                detalhe.PesoTotal = componente.PesoTotal;
 
-                #region Teste de Cálculo
+                var testeLogica = componente.DataPosicionamento;                                                
                 var SomaComprimento = componente.JuntaComponentes.Sum(x => x.Comprimento);
-                var QuantidadeJunta = componente.JuntaComponentes.Count();
-                #endregion
+                var QuantidadeJunta = componente.JuntaComponentes.Count();                
 
-                //var PosicionamentoDF1 = 
-
-                var QtdJuntaPipe = Utils.ConvertINT(componente.Evaluate(CriteriaOperator.Parse("Juntas[CampoOuPipe == 'PIPE'].Count()")));
-                var QtdJuntaMont = Utils.ConvertINT(componente.Evaluate(CriteriaOperator.Parse("Juntas[CampoOuPipe == 'CAMPO'].Count()")));
+                //var QtdJuntaPipe = Utils.ConvertINT(componente.Evaluate(CriteriaOperator.Parse("Juntas[CampoOuPipe == 'PIPE'].Count()")));
+                //var QtdJuntaMont = Utils.ConvertINT(componente.Evaluate(CriteriaOperator.Parse("Juntas[CampoOuPipe == 'CAMPO'].Count()")));
 
 
                 if (i % 1000 == 0)
@@ -100,7 +97,7 @@ namespace WinCTB_CTS.Module.Calculator
                 {
                     TotalRows = QuantidadeDeComponentes,
                     CurrentRow = i,
-                    MessageImport = $"Fechando Spools: {i}/{QuantidadeDeComponentes}"
+                    MessageImport = $"Fechando Componentes: {i}/{QuantidadeDeComponentes}"
                 });
             }
 
