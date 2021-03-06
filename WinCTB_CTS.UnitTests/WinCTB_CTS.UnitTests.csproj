@@ -54,6 +54,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Aplication.cs" />
+    <Compile Include="NewProcess.cs" />
     <Compile Include="UnitTestWinCTBCTS.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

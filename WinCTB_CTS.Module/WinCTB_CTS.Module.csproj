@@ -253,6 +253,13 @@
     <Compile Include="RelatorioPreDefinido\RelatorioSpoolMedicao.Designer.cs">
       <DependentUpon>RelatorioSpoolMedicao.cs</DependentUpon>
     </Compile>
+    <Compile Include="ServiceProcess\Base\CalculatorProcessBase.cs" />
+    <Compile Include="ServiceProcess\Base\ImporterEventArgs.cs" />
+    <Compile Include="ServiceProcess\Calculator\Estrutura\ProcessoLote\BalanceamentoDeLotesEstrutura.cs" />
+    <Compile Include="ServiceProcess\Calculator\Estrutura\ProcessoLote\GerarLote.cs" />
+    <Compile Include="ServiceProcess\Calculator\Estrutura\ProcessoLote\LotesDeEstruturaAlinhamento.cs" />
+    <Compile Include="ServiceProcess\Calculator\Estrutura\ProcessoLote\LotesDeEstruturaInspecao.cs" />
+    <Compile Include="ServiceProcess\Calculator\Estrutura\ProcessoLote\ProgressoGerarLotes.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Model.DesignedDiffs.xafml" />
@@ -324,6 +331,9 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Calculator\Patterns\" />
+    <Folder Include="ServiceProcess\Calculator\Tubulacao\Medicao\" />
+    <Folder Include="ServiceProcess\Importer\Estrutura\" />
+    <Folder Include="ServiceProcess\Importer\Strcuture\" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="DocumentFormat.OpenXml">
