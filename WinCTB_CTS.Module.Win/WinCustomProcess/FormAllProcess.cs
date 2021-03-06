@@ -13,6 +13,8 @@ using System.Windows.Forms;
 using WinCTB_CTS.Module.ServiceProcess.Base;
 using WinCTB_CTS.Module.ServiceProcess.Calculator.Estrutura.ProcessoLote;
 using WinCTB_CTS.Module.ServiceProcess.Calculator.Tubulacao.ProcessoLote;
+using WinCTB_CTS.Module.ServiceProcess.Importer.Estrutura;
+using WinCTB_CTS.Module.ServiceProcess.Importer.Tubulacao;
 
 namespace WinCTB_CTS.Module.Win.WinCustomProcess
 {
@@ -82,8 +84,21 @@ namespace WinCTB_CTS.Module.Win.WinCustomProcess
             var cts = new CancellationTokenSource();
             progressLocal = new Progress<ImportProgressReport>(LogTrace);
 
-            //Importação Estrutura
+            //Importação Tabela Aulixiares Tubulação
+            await ImportarContrato(cts.Token, progressLocal);
+            await ImportarDiametro(cts.Token, progressLocal);
+            await ImportarSchedule(cts.Token, progressLocal);
+            await ImportarPercInspecao(cts.Token, progressLocal);
+            await ImportarProcessoDeSoldagem(cts.Token, progressLocal);
+            await ImportarEAP(cts.Token, progressLocal);
 
+            //Importação Tubulçao
+            await ImportarSpool(cts.Token, progressLocal);
+            await ImportarJuntaSpool(cts.Token, progressLocal);
+
+            //Importação Estrutura
+            await ImportarComponente(cts.Token, progressLocal);
+            await ImportarJuntaComponente(cts.Token, progressLocal);
 
             //Lotes
             await GerarLotes(cts.Token, progressLocal);
@@ -94,13 +109,113 @@ namespace WinCTB_CTS.Module.Win.WinCustomProcess
             BtStartProcess.Enabled = true;
         }
 
+        #region Importação Tabela Auxiliares
+        private async Task ImportarContrato(CancellationToken cancellationToken, IProgress<ImportProgressReport> progress)
+        {
+            CheckEditEmAndamento(checkEditContrato);
+            var processo = new ImportContrato(cancellationToken, progressLocal);
+            await processo.ProcessarTarefaWithStream("Contrato", "TabelasAuxiliares.xlsx", "");
+            processo.Dispose();
+            CheckEditProcessado(checkEditContrato);
+        }
+
+        private async Task ImportarDiametro(CancellationToken cancellationToken, IProgress<ImportProgressReport> progress)
+        {
+            CheckEditEmAndamento(checkEditDiametro);
+            var processo = new ImportDiametro(cancellationToken, progressLocal);
+            await processo.ProcessarTarefaWithStream("TabDiametro", "TabelasAuxiliares.xlsx", "");
+            processo.Dispose();
+            CheckEditProcessado(checkEditDiametro);
+        }
+
+        private async Task ImportarSchedule(CancellationToken cancellationToken, IProgress<ImportProgressReport> progress)
+        {
+            CheckEditEmAndamento(checkEditSchedule);
+            var processo = new ImportSchedule(cancellationToken, progressLocal);
+            await processo.ProcessarTarefaWithStream("Schedule", "TabelasAuxiliares.xlsx", "");
+            processo.Dispose();
+            CheckEditProcessado(checkEditSchedule);
+        }
+
+        private async Task ImportarPercInspecao(CancellationToken cancellationToken, IProgress<ImportProgressReport> progress)
+        {
+            CheckEditEmAndamento(checkEditPercInspecao);
+            var processo = new ImportPercInspecao(cancellationToken, progressLocal);
+            await processo.ProcessarTarefaWithStream("PercInspecao", "TabelasAuxiliares.xlsx", "");
+            processo.Dispose();
+            CheckEditProcessado(checkEditPercInspecao);
+        }
+
+        private async Task ImportarProcessoDeSoldagem(CancellationToken cancellationToken, IProgress<ImportProgressReport> progress)
+        {
+            CheckEditEmAndamento(checkEditProcessoSoldagem);
+            var processo = new ImportProcessoSoldagem(cancellationToken, progressLocal);
+            await processo.ProcessarTarefaWithStream("ProcessoSoldagem", "TabelasAuxiliares.xlsx", "");
+            processo.Dispose();
+            CheckEditProcessado(checkEditProcessoSoldagem);
+        }
+
+        private async Task ImportarEAP(CancellationToken cancellationToken, IProgress<ImportProgressReport> progress)
+        {
+            CheckEditEmAndamento(checkEditEAP);
+            var processo = new ImportEAP(cancellationToken, progressLocal);
+            await processo.ProcessarTarefaWithStream("EAPPipe", "TabelasAuxiliares.xlsx", "");
+            processo.Dispose();
+            CheckEditProcessado(checkEditEAP);
+        }
+        #endregion
+
+
+        #region Importação de Tubulação
+        private async Task ImportarSpool(CancellationToken cancellationToken, IProgress<ImportProgressReport> progress)
+        {
+            CheckEditEmAndamento(checkEditSpool);
+            var processo = new ImportSpool(cancellationToken, progressLocal);
+            await processo.ProcessarTarefaWithStream("SGS", "SGSeSGJOriginal.xlsx", "");
+            processo.Dispose();
+            CheckEditProcessado(checkEditSpool);
+        }
+
+        private async Task ImportarJuntaSpool(CancellationToken cancellationToken, IProgress<ImportProgressReport> progress)
+        {
+            CheckEditEmAndamento(checkEditJuntaSpool);
+            var processo = new ImportJuntaSpool(cancellationToken, progressLocal);
+            await processo.ProcessarTarefaWithStream("SGJ", "SGSeSGJOriginal.xlsx", "");
+            processo.Dispose();
+            CheckEditProcessado(checkEditJuntaSpool);
+        }
+        #endregion
+
+
+        #region Importação de Estrutura
+        private async Task ImportarComponente(CancellationToken cancellationToken, IProgress<ImportProgressReport> progress)
+        {
+            CheckEditEmAndamento(checkEditComponentes);
+            var processo = new ImportComponente(cancellationToken, progressLocal);
+            await processo.ProcessarTarefaWithStream("Piece", "MapaMontagemEBR.xlsx", "");
+            processo.Dispose();
+            CheckEditProcessado(checkEditComponentes);
+        }
+
+        private async Task ImportarJuntaComponente(CancellationToken cancellationToken, IProgress<ImportProgressReport> progress)
+        {
+            CheckEditEmAndamento(checkEditJuntaComponente);
+            var processo = new ImportJuntaComponente(cancellationToken, progressLocal);
+            await processo.ProcessarTarefaWithStream("Joints", "MapaMontagemEBR.xlsx", "");
+            processo.Dispose();
+            CheckEditProcessado(checkEditJuntaComponente);
+        }
+        #endregion
+
+
+        #region Lotes de Estrutura
         private async Task GerarLotes(CancellationToken cancellationToken, IProgress<ImportProgressReport> progress)
         {
-            CheckEditEmAndamento(checkEdirMontagemDeLotes);
+            CheckEditEmAndamento(checkEditMontagemDeLotes);
             var processo = new GerarLote(cancellationToken, progressLocal);
             await processo.ProcessarTarefaSimples();
             processo.Dispose();
-            CheckEditProcessado(checkEdirMontagemDeLotes);
+            CheckEditProcessado(checkEditMontagemDeLotes);
         }
 
         private async Task InserirInspecao(CancellationToken cancellationToken, IProgress<ImportProgressReport> progress)
@@ -129,5 +244,6 @@ namespace WinCTB_CTS.Module.Win.WinCustomProcess
             processo.Dispose();
             CheckEditProcessado(checkEditBalanceamento);
         }
+        #endregion
     }
 }
