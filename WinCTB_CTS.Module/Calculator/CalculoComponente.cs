@@ -32,16 +32,16 @@ namespace WinCTB_CTS.Module.Calculator
     public class CalculoComponente
     {
         private IObjectSpace _objectSpace = null;
-        
+
         public CalculoComponente(IObjectSpace objectSpace)
         {
             this._objectSpace = objectSpace;
         }
 
         public delegate void MedicaoDetalheHandler(Session session, MedicaoEstrutura medicao, Componente componente);
-        
+
         private MedicaoDetalheHandler medicaoDetalhe = new MedicaoDetalheHandler(OnMedicaoDetalhe);
-        
+
         public void ExecutarCalculo(IProgress<ImportProgressReport> progress)
         {
             var session = ((XPObjectSpace)_objectSpace).Session;
@@ -65,7 +65,7 @@ namespace WinCTB_CTS.Module.Calculator
             var medicao = new MedicaoEstrutura(uow);
             medicao.DataFechamentoMedicao = DateTime.Now;
             medicao.Save();
-            
+
             Observable.Range(0, QuantidadeDeComponentes).Subscribe(i =>
             {
                 var componente = componentes[i];
@@ -116,12 +116,30 @@ namespace WinCTB_CTS.Module.Calculator
             detalhe.Componente = componente;
             detalhe.PesoTotal = componente.PesoTotal;
 
-            var testeLogica = componente.DataPosicionamento;
-            var SomaComprimento = componente.JuntaComponentes.Sum(x => x.Comprimento);
-            var QuantidadeJunta = componente.JuntaComponentes.Count();
+            //Carregar somente as juntas com medJoints igual ao componente
+            var medJoints = componente.JuntaComponentes.Where(x => x.MedJoint.Oid == x.Componente.Oid).ToList();
+            var comprimentoTotal = CalculaComprimento(medJoints);
 
             //var QtdJuntaPipe = Utils.ConvertINT(componente.Evaluate(CriteriaOperator.Parse("Juntas[CampoOuPipe == 'PIPE'].Count()")));
             //var QtdJuntaMont = Utils.ConvertINT(componente.Evaluate(CriteriaOperator.Parse("Juntas[CampoOuPipe == 'CAMPO'].Count()")));
+        }
+
+        private static double CalculaComprimento(IList<JuntaComponente> medJoints)
+        {
+            double comprimentoTotal = 0D;
+
+            foreach (var item in medJoints)
+            {
+                //dshfkhfkhdskfhsdakfhkdshfkhfskdhfsfkhj
+                if (item.TipoDf1 == "Primary" && (item.TipoJunta == "JAPP" || item.TipoJunta == "JAPP" || item.TipoJunta == "JASA"))
+                    comprimentoTotal += 0;
+                
+                //skdfjklsdjflkjksdklsjdgjsldfjglkjsdkflgjlds
+                if (item.PosicaoDf1 == "column")
+                    comprimentoTotal += item.Comprimento;
+            }
+
+            return comprimentoTotal;
         }
     }
 }

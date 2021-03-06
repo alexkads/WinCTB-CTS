@@ -42,7 +42,7 @@ namespace WinCTB_CTS.Module.BusinessObjects.Estrutura.Medicao
             get => componente;
             set => SetPropertyValue(nameof(Componente), ref componente, value);
         }
-                
+               
         public double PesoTotal
         {
             get => pesoTotal;
