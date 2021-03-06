@@ -130,13 +130,20 @@ namespace WinCTB_CTS.Module.Calculator
 
             foreach (var item in medJoints)
             {
-                //dshfkhfkhdskfhsdakfhkdshfkhfskdhfsfkhj
-                if (item.TipoDf1 == "Primary" && (item.TipoJunta == "JAPP" || item.TipoJunta == "JAPP" || item.TipoJunta == "JASA"))
+                // DF1 == DF2
+                if (item.Df1 == item.Df2)
+                    comprimentoTotal += 0;
+
+                //Tipo de estrutura e progfitup - Falta comparação entre ProgfitupDf1 e ProgfitupDf2
+                if (item.PosicaoDf1 == "column" || item.PosicaoDf1 == "coluna" || item.PosicaoDf1 == "contaventamento")
+                    comprimentoTotal += item.Comprimento;
+
+
+                //Categoria da estrutura e tipo de junta
+                if (item.TipoDf1 == "Primary" && (item.TipoJunta == "JASA" || item.TipoJunta == "JTPP" || item.TipoJunta == "JAPP"))
                     comprimentoTotal += 0;
                 
-                //skdfjklsdjflkjksdklsjdgjsldfjglkjsdkflgjlds
-                if (item.PosicaoDf1 == "column")
-                    comprimentoTotal += item.Comprimento;
+               
             }
 
             return comprimentoTotal;
