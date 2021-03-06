@@ -10,7 +10,7 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using WinCTB_CTS.Module.Importer;
+using WinCTB_CTS.Module.ServiceProcess.Base;
 using WinCTB_CTS.Module.ServiceProcess.Calculator.Estrutura.ProcessoLote;
 using WinCTB_CTS.Module.ServiceProcess.Calculator.Tubulacao.ProcessoLote;
 
@@ -82,6 +82,10 @@ namespace WinCTB_CTS.Module.Win.WinCustomProcess
             var cts = new CancellationTokenSource();
             progressLocal = new Progress<ImportProgressReport>(LogTrace);
 
+            //Importação Estrutura
+
+
+            //Lotes
             await GerarLotes(cts.Token, progressLocal);
             await InserirInspecao(cts.Token, progressLocal);
             await Alinhamento(cts.Token, progressLocal);
@@ -94,7 +98,7 @@ namespace WinCTB_CTS.Module.Win.WinCustomProcess
         {
             CheckEditEmAndamento(checkEdirMontagemDeLotes);
             var processo = new GerarLote(cancellationToken, progressLocal);
-            await processo.ProcessarTarefa();
+            await processo.ProcessarTarefaSimples();
             processo.Dispose();
             CheckEditProcessado(checkEdirMontagemDeLotes);
         }
@@ -103,7 +107,7 @@ namespace WinCTB_CTS.Module.Win.WinCustomProcess
         {
             CheckEditEmAndamento(checkEditInspecaoEmLotes);
             var processo = new LotesDeEstruturaInspecao(cancellationToken, progressLocal);
-            await processo.ProcessarTarefa();
+            await processo.ProcessarTarefaSimples();
             processo.Dispose();
             CheckEditProcessado(checkEditInspecaoEmLotes);
         }
@@ -112,7 +116,7 @@ namespace WinCTB_CTS.Module.Win.WinCustomProcess
         {
             CheckEditEmAndamento(checkEditAlinhamentoDeLotes);
             var processo = new LotesDeEstruturaAlinhamento(cancellationToken, progressLocal);
-            await processo.ProcessarTarefa();
+            await processo.ProcessarTarefaSimples();
             processo.Dispose();
             CheckEditProcessado(checkEditAlinhamentoDeLotes);
         }
@@ -121,7 +125,7 @@ namespace WinCTB_CTS.Module.Win.WinCustomProcess
         {
             CheckEditEmAndamento(checkEditBalanceamento);
             var processo = new BalanceamentoDeLotesEstrutura(cancellationToken, progressLocal);
-            await processo.ProcessarTarefa();
+            await processo.ProcessarTarefaSimples();
             processo.Dispose();
             CheckEditProcessado(checkEditBalanceamento);
         }

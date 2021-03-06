@@ -1,6 +1,4 @@
 ﻿using DevExpress.Data.Filtering;
-using DevExpress.ExpressApp;
-using DevExpress.ExpressApp.Xpo;
 using DevExpress.Xpo;
 using DevExpress.Xpo.DB;
 using System;
@@ -10,8 +8,6 @@ using System.Threading;
 using System.Threading.Tasks;
 using WinCTB_CTS.Module.BusinessObjects.Estrutura;
 using WinCTB_CTS.Module.Helpers;
-using WinCTB_CTS.Module.Importer;
-using WinCTB_CTS.Module.Interfaces;
 using WinCTB_CTS.Module.ServiceProcess.Base;
 
 namespace WinCTB_CTS.Module.ServiceProcess.Calculator.Estrutura.ProcessoLote

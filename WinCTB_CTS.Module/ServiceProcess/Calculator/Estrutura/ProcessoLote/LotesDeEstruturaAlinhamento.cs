@@ -13,7 +13,6 @@ using System.Threading.Tasks;
 using WinCTB_CTS.Module.BusinessObjects.Comum;
 using WinCTB_CTS.Module.BusinessObjects.Estrutura.Lotes;
 using WinCTB_CTS.Module.Helpers;
-using WinCTB_CTS.Module.Importer;
 using WinCTB_CTS.Module.Interfaces;
 using WinCTB_CTS.Module.ServiceProcess.Base;
 

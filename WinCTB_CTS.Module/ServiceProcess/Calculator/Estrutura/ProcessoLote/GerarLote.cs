@@ -1,21 +1,13 @@
 ﻿using DevExpress.Data.Filtering;
-using DevExpress.ExpressApp;
-using DevExpress.ExpressApp.Xpo;
 using DevExpress.Xpo;
 using DevExpress.Xpo.DB;
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Reactive.Concurrency;
 using System.Reactive.Linq;
-using System.Text;
 using System.Threading;
-using System.Threading.Tasks;
 using WinCTB_CTS.Module.BusinessObjects.Estrutura;
 using WinCTB_CTS.Module.BusinessObjects.Estrutura.Lotes;
-using WinCTB_CTS.Module.Comum;
 using WinCTB_CTS.Module.Helpers;
-using WinCTB_CTS.Module.Importer;
 using WinCTB_CTS.Module.Interfaces;
 using WinCTB_CTS.Module.ServiceProcess.Base;
 

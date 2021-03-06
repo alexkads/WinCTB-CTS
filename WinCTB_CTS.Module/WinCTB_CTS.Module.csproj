@@ -255,11 +255,23 @@
     </Compile>
     <Compile Include="ServiceProcess\Base\CalculatorProcessBase.cs" />
     <Compile Include="ServiceProcess\Base\ImporterEventArgs.cs" />
+    <Compile Include="ServiceProcess\Base\ImportProgressReport.cs" />
+    <Compile Include="ServiceProcess\Base\MapImporterEventArgs.cs" />
     <Compile Include="ServiceProcess\Calculator\Estrutura\ProcessoLote\BalanceamentoDeLotesEstrutura.cs" />
     <Compile Include="ServiceProcess\Calculator\Estrutura\ProcessoLote\GerarLote.cs" />
     <Compile Include="ServiceProcess\Calculator\Estrutura\ProcessoLote\LotesDeEstruturaAlinhamento.cs" />
     <Compile Include="ServiceProcess\Calculator\Estrutura\ProcessoLote\LotesDeEstruturaInspecao.cs" />
     <Compile Include="ServiceProcess\Calculator\Estrutura\ProcessoLote\ProgressoGerarLotes.cs" />
+    <Compile Include="ServiceProcess\Importer\Estrutura\ImportComponente.cs" />
+    <Compile Include="ServiceProcess\Importer\Estrutura\ImportJuntaComponente.cs" />
+    <Compile Include="ServiceProcess\Importer\Tubulacao\ImportContrato.cs" />
+    <Compile Include="ServiceProcess\Importer\Tubulacao\ImportDiametro.cs" />
+    <Compile Include="ServiceProcess\Importer\Tubulacao\ImportEAP.cs" />
+    <Compile Include="ServiceProcess\Importer\Tubulacao\ImportJuntaSpool.cs" />
+    <Compile Include="ServiceProcess\Importer\Tubulacao\ImportPercInspecao.cs" />
+    <Compile Include="ServiceProcess\Importer\Tubulacao\ImportProcessoSoldagem.cs" />
+    <Compile Include="ServiceProcess\Importer\Tubulacao\ImportSchedule.cs" />
+    <Compile Include="ServiceProcess\Importer\Tubulacao\ImportSpool.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Model.DesignedDiffs.xafml" />
@@ -332,8 +344,6 @@
   <ItemGroup>
     <Folder Include="Calculator\Patterns\" />
     <Folder Include="ServiceProcess\Calculator\Tubulacao\Medicao\" />
-    <Folder Include="ServiceProcess\Importer\Estrutura\" />
-    <Folder Include="ServiceProcess\Importer\Strcuture\" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="DocumentFormat.OpenXml">
