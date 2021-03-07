@@ -49,6 +49,18 @@ namespace WinCTB_CTS.Module.Win.WinCustomProcess
             labelControlAndamentoDoProcesso.Update();
         }
 
+        private void LigarToggles()
+        {
+            foreach (var control in this.Controls)
+            {
+                if (control is ToggleSwitch toggleSwitch )
+                {
+                    toggleSwitch.IsOn = true;
+                }
+            }
+        }
+
+
         private void resetCheckEdit()
         {
             foreach (var control in this.Controls)
@@ -85,26 +97,38 @@ namespace WinCTB_CTS.Module.Win.WinCustomProcess
             progressLocal = new Progress<ImportProgressReport>(LogTrace);
 
             //Importação Tabela Aulixiares Tubulação
-            await ImportarContrato(cts.Token, progressLocal);
-            await ImportarDiametro(cts.Token, progressLocal);
-            await ImportarSchedule(cts.Token, progressLocal);
-            await ImportarPercInspecao(cts.Token, progressLocal);
-            await ImportarProcessoDeSoldagem(cts.Token, progressLocal);
-            await ImportarEAP(cts.Token, progressLocal);
+            if (toggleSwitchImportarTabelasAuxiliaresTubulacao.IsOn)
+            {
+                await ImportarContrato(cts.Token, progressLocal);
+                await ImportarDiametro(cts.Token, progressLocal);
+                await ImportarSchedule(cts.Token, progressLocal);
+                await ImportarPercInspecao(cts.Token, progressLocal);
+                await ImportarProcessoDeSoldagem(cts.Token, progressLocal);
+                await ImportarEAP(cts.Token, progressLocal);
+            }
 
             //Importação Tubulçao
-            await ImportarSpool(cts.Token, progressLocal);
-            await ImportarJuntaSpool(cts.Token, progressLocal);
+            if (toggleSwitchImportarTubulacao.IsOn)
+            {
+                await ImportarSpool(cts.Token, progressLocal);
+                await ImportarJuntaSpool(cts.Token, progressLocal);
+            }
 
             //Importação Estrutura
-            await ImportarComponente(cts.Token, progressLocal);
-            await ImportarJuntaComponente(cts.Token, progressLocal);
+            if (toggleSwitchImportarEstrutura.IsOn)
+            {
+                await ImportarComponente(cts.Token, progressLocal);
+                await ImportarJuntaComponente(cts.Token, progressLocal);
+            }
 
             //Lotes
-            await GerarLotes(cts.Token, progressLocal);
-            await InserirInspecao(cts.Token, progressLocal);
-            await Alinhamento(cts.Token, progressLocal);
-            await Balancealmento(cts.Token, progressLocal);
+            if (toggleSwitchImportarLotesEstrutura.IsOn)
+            {
+                await GerarLotes(cts.Token, progressLocal);
+                await InserirInspecao(cts.Token, progressLocal);
+                await Alinhamento(cts.Token, progressLocal);
+                await Balancealmento(cts.Token, progressLocal);
+            }
 
             BtStartProcess.Enabled = true;
         }
