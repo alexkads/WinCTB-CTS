@@ -23,7 +23,7 @@ namespace WinCTB_CTS.Module.Win.WinCustomProcess
         private IProgress<ImportProgressReport> progressLocal;
         private readonly Font FontStandard = new Font("Tahoma", 8.25F, FontStyle.Regular);
         private readonly Font FontStrikeout = new Font("Tahoma", 8.25F, FontStyle.Strikeout);
-        private readonly Font FontBold = new Font("Tahoma", 8.25F, FontStyle.Bold);
+        private readonly Font FontBold = new Font("Tahoma", 10.00F, FontStyle.Bold);
 
         public FormAllProcess()
         {
@@ -77,8 +77,8 @@ namespace WinCTB_CTS.Module.Win.WinCustomProcess
 
         private void CheckEditEmAndamento(CheckEdit checkEdit)
         {
-            checkEdit.Checked = true;
-            checkEdit.Font = FontStandard;
+            checkEdit.Checked = false;
+            checkEdit.Font = FontBold;
             checkEdit.ForeColor = System.Drawing.Color.Blue;
 
         }
