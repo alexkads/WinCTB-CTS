@@ -108,7 +108,7 @@ namespace WinCTB_CTS.Module.ServiceProcess.Base
                         {
                             TotalRows = TotalRowsForImporter,
                             CurrentRow = i + 1,
-                            MessageImport = $"Importando linha {i}/{TotalRowsForImporter}"
+                            MessageImport = $"Importando {TabName} {i}/{TotalRowsForImporter}"
                         });
                     }
                 });

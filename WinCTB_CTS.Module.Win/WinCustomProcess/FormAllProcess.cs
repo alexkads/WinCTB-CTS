@@ -35,6 +35,7 @@ namespace WinCTB_CTS.Module.Win.WinCustomProcess
             base.OnActivated(e);
             labelControlAndamentoDoProcesso.Text = string.Empty;
             resetCheckEdit();
+            LigarToggles();
         }
 
         public void LogTrace(ImportProgressReport value)
