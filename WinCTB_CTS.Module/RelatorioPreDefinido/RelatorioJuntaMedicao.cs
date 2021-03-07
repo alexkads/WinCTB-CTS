@@ -6,9 +6,9 @@ using System.Drawing;
 
 namespace WinCTB_CTS.Module.RelatorioPreDefinido
 {
-    public partial class JuntaMedicao : DevExpress.XtraReports.UI.XtraReport
+    public partial class RelatorioJuntaMedicao : DevExpress.XtraReports.UI.XtraReport
     {
-        public JuntaMedicao()
+        public RelatorioJuntaMedicao()
         {
             InitializeComponent();
         }

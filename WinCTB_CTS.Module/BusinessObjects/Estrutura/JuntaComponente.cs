@@ -528,6 +528,32 @@ namespace WinCTB_CTS.Module.BusinessObjects.Estrutura
             set => SetPropertyValue(nameof(PosDf2), ref posDf2, value);
         }
 
+        [NonPersistent]
+        public Componente MedJoint
+        {
+            get
+            {
+                var criterio1 = CriteriaOperator.Parse("Peca = ?", this.Df1);
+                var criterio2 = CriteriaOperator.Parse("Peca = ?", this.Df2);
+                
+                var df1 = Session.FindObject<Componente>(criterio1);
+                var df2 = Session.FindObject<Componente>(criterio2);
+
+                int.TryParse(df1.ProgFitup, out var progdf1);
+                int.TryParse(df2.ProgFitup, out var progdf2);
+
+                if (progdf1 == 0)
+                    return df1;
+                if (progdf2 == 0)
+                    return df2;
+                if (progdf1 >= progdf2)
+                    return df1;
+                else
+                    return df2;
+            }
+        }
+
+
         [ModelDefault("AllowEdit", "False")]
         [VisibleInDetailView(false)]
         [Association("JuntaComponente-LoteJuntaEstruturas")]

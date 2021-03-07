@@ -2,6 +2,30 @@
 <Application Title="WinCTB-CTS" Company="AlexSSFonseca">
   <NavigationItems>
     <Items>
+      <Item Id="Estrutura" Index="1">
+        <Items>
+          <Item Id="Lote" IsNewNode="True">
+            <Items IsNewNode="True">
+              <Item Id="LoteEstrutura_ListView" ViewId="LoteEstrutura_ListView" ObjectKey="" IsNewNode="True" />
+            </Items>
+          </Item>
+        </Items>
+      </Item>
+      <Item Id="Tubulação" Index="1">
+        <Items>
+          <Item Id="Tabela Auxiliar" IsNewNode="True">
+            <Items IsNewNode="True">
+              <Item Id="Contrato_ListView" ViewId="Contrato_ListView" ObjectKey="" IsNewNode="True" />
+              <Item Id="TabDiametro_ListView" ViewId="TabDiametro_ListView" ObjectKey="" IsNewNode="True" />
+              <Item Id="TabEAPPipe_ListView" ViewId="TabEAPPipe_ListView" ObjectKey="" IsNewNode="True" />
+              <Item Id="TabPercInspecao_ListView" ViewId="TabPercInspecao_ListView" ObjectKey="" IsNewNode="True" />
+              <Item Id="TabProcessoSoldagem_ListView" ViewId="TabProcessoSoldagem_ListView" ObjectKey="" IsNewNode="True" />
+              <Item Id="TabSchedule_ListView" ViewId="TabSchedule_ListView" ObjectKey="" IsNewNode="True" />
+            </Items>
+          </Item>
+        </Items>
+      </Item>
+      <Item Id="Lote" Removed="True" />
       <Item Id="QueriesDynamic" Caption="Consultas" IsNewNode="True">
         <Items IsNewNode="True">
           <Item Id="ConsultaJuntaDeLotesDeEstrutura" Caption="Consulta Juntas de Lotes" ImageName="BO_Note" ViewId="LoteJuntaEstrutura_ListView_consulta" IsNewNode="True" />
@@ -9,6 +33,7 @@
           <Item Id="QueriesJuntaSpool" Caption="Consulta Junta Spool" ViewId="JuntaSpool_ListView_consulta" ImageName="BO_Note" IsNewNode="True" />
         </Items>
       </Item>
+      <Item Id="Tabela Auxiliar" Removed="True" />
     </Items>
   </NavigationItems>
   <Options DataAccessMode="Client" />
@@ -24,6 +49,7 @@
     <ListView Id="JuntaSpool_ListView" AllowDelete="False" AllowLink="False" AllowNew="False" DataAccessMode="InstantFeedback" />
     <ListView Id="JuntaSpool_ListView_consulta" AllowDelete="False" AllowLink="False" AllowNew="False" DataAccessMode="InstantFeedback" />
     <ListView Id="LoteJuntaEstrutura_ListView_consulta" AllowDelete="False" AllowLink="False" AllowNew="False" DataAccessMode="InstantFeedback" />
+    <ListView Id="MedicaoTubulacao_MedicaoTubulacaoDetalhes_ListView" AllowDelete="False" AllowLink="False" AllowNew="False" DataAccessMode="InstantFeedback" />
     <DetailView Id="ParametrosImportComponentEJunta_DetailView">
       <Layout>
         <LayoutGroup Id="Main" RelativeSize="100">

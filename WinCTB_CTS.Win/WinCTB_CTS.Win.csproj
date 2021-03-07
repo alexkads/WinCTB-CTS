@@ -10,7 +10,7 @@
     <RootNamespace>WinCTB_CTS.Win</RootNamespace>
     <AssemblyName>WinCTB_CTS.Win</AssemblyName>
     <ApplicationIcon>openproject_1078.ico</ApplicationIcon>
-    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileUpgradeFlags>
     </FileUpgradeFlags>
     <UpgradeBackupLocation>
@@ -255,7 +255,6 @@
       <DependentUpon>XafSplashScreen.cs</DependentUpon>
     </Compile>
     <Content Include="openproject_1078.ico" />
-    <EmbeddedResource Include="Properties\licenses.licx" />
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>

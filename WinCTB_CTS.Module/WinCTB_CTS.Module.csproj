@@ -9,7 +9,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>WinCTB_CTS.Module</RootNamespace>
     <AssemblyName>WinCTB_CTS.Module</AssemblyName>
-    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileUpgradeFlags>
     </FileUpgradeFlags>
     <UpgradeBackupLocation>
@@ -149,6 +149,8 @@
     <Compile Include="BusinessObjects\Estrutura\JuntaComponente.cs" />
     <Compile Include="BusinessObjects\Editor\EditorsProviders.cs" />
     <Compile Include="BusinessObjects\Estrutura\LoteEstrutura.cs" />
+    <Compile Include="BusinessObjects\Estrutura\Medicao\MedicaoEstrutura.cs" />
+    <Compile Include="BusinessObjects\Estrutura\Medicao\MedicaoEstruturaDetalhe.cs" />
     <Compile Include="BusinessObjects\Tubulacao\Auxiliar\TabDiametro.cs" />
     <Compile Include="BusinessObjects\Tubulacao\Auxiliar\TabEAPPipe.cs" />
     <Compile Include="BusinessObjects\Tubulacao\Auxiliar\TabPercInspecao.cs" />
@@ -214,23 +216,23 @@
     <Compile Include="RelatorioParametros\JuntaSpoolParameters.cs" />
     <Compile Include="RelatorioParametros\MedicaoTubulacaoDetalheParameters.cs" />
     <Compile Include="RelatorioParametros\SpoolParameters.cs" />
-    <Compile Include="RelatorioPreDefinido\ComponentesMedicao.cs">
+    <Compile Include="RelatorioPreDefinido\RelatorioComponentesMedicao.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="RelatorioPreDefinido\ComponentesMedicao.Designer.cs">
-      <DependentUpon>ComponentesMedicao.cs</DependentUpon>
+    <Compile Include="RelatorioPreDefinido\RelatorioComponentesMedicao.Designer.cs">
+      <DependentUpon>RelatorioComponentesMedicao.cs</DependentUpon>
     </Compile>
-    <Compile Include="RelatorioPreDefinido\JuntaComponentes.cs">
+    <Compile Include="RelatorioPreDefinido\RelatorioJuntaComponentes.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="RelatorioPreDefinido\JuntaComponentes.Designer.cs">
-      <DependentUpon>JuntaComponentes.cs</DependentUpon>
+    <Compile Include="RelatorioPreDefinido\RelatorioJuntaComponentes.Designer.cs">
+      <DependentUpon>RelatorioJuntaComponentes.cs</DependentUpon>
     </Compile>
-    <Compile Include="RelatorioPreDefinido\JuntaMedicao.cs">
+    <Compile Include="RelatorioPreDefinido\RelatorioJuntaMedicao.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="RelatorioPreDefinido\JuntaMedicao.Designer.cs">
-      <DependentUpon>JuntaMedicao.cs</DependentUpon>
+    <Compile Include="RelatorioPreDefinido\RelatorioJuntaMedicao.Designer.cs">
+      <DependentUpon>RelatorioJuntaMedicao.cs</DependentUpon>
     </Compile>
     <Compile Include="RelatorioPreDefinido\RelatorioMedicaoAnaliticoSpool.cs">
       <SubType>Component</SubType>
@@ -244,18 +246,37 @@
     <Compile Include="RelatorioPreDefinido\RelatorioMedicaoSinteticoSpool.Designer.cs">
       <DependentUpon>RelatorioMedicaoSinteticoSpool.cs</DependentUpon>
     </Compile>
-    <Compile Include="RelatorioPreDefinido\ResumoDeJuntas.cs">
+    <Compile Include="RelatorioPreDefinido\RelatorioResumoDeJuntas.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="RelatorioPreDefinido\ResumoDeJuntas.Designer.cs">
-      <DependentUpon>ResumoDeJuntas.cs</DependentUpon>
+    <Compile Include="RelatorioPreDefinido\RelatorioResumoDeJuntas.Designer.cs">
+      <DependentUpon>RelatorioResumoDeJuntas.cs</DependentUpon>
     </Compile>
-    <Compile Include="RelatorioPreDefinido\SpoolMedicao.cs">
+    <Compile Include="RelatorioPreDefinido\RelatorioSpoolMedicao.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="RelatorioPreDefinido\SpoolMedicao.Designer.cs">
-      <DependentUpon>SpoolMedicao.cs</DependentUpon>
+    <Compile Include="RelatorioPreDefinido\RelatorioSpoolMedicao.Designer.cs">
+      <DependentUpon>RelatorioSpoolMedicao.cs</DependentUpon>
     </Compile>
+    <Compile Include="ServiceProcess\Base\CalculatorProcessBase.cs" />
+    <Compile Include="ServiceProcess\Base\ImporterEventArgs.cs" />
+    <Compile Include="ServiceProcess\Base\ImportProgressReport.cs" />
+    <Compile Include="ServiceProcess\Base\MapImporterEventArgs.cs" />
+    <Compile Include="ServiceProcess\Calculator\Estrutura\ProcessoLote\BalanceamentoDeLotesEstrutura.cs" />
+    <Compile Include="ServiceProcess\Calculator\Estrutura\ProcessoLote\GerarLote.cs" />
+    <Compile Include="ServiceProcess\Calculator\Estrutura\ProcessoLote\LotesDeEstruturaAlinhamento.cs" />
+    <Compile Include="ServiceProcess\Calculator\Estrutura\ProcessoLote\LotesDeEstruturaInspecao.cs" />
+    <Compile Include="ServiceProcess\Calculator\Estrutura\ProcessoLote\ProgressoGerarLotes.cs" />
+    <Compile Include="ServiceProcess\Importer\Estrutura\ImportComponente.cs" />
+    <Compile Include="ServiceProcess\Importer\Estrutura\ImportJuntaComponente.cs" />
+    <Compile Include="ServiceProcess\Importer\Tubulacao\ImportContrato.cs" />
+    <Compile Include="ServiceProcess\Importer\Tubulacao\ImportDiametro.cs" />
+    <Compile Include="ServiceProcess\Importer\Tubulacao\ImportEAP.cs" />
+    <Compile Include="ServiceProcess\Importer\Tubulacao\ImportJuntaSpool.cs" />
+    <Compile Include="ServiceProcess\Importer\Tubulacao\ImportPercInspecao.cs" />
+    <Compile Include="ServiceProcess\Importer\Tubulacao\ImportProcessoSoldagem.cs" />
+    <Compile Include="ServiceProcess\Importer\Tubulacao\ImportSchedule.cs" />
+    <Compile Include="ServiceProcess\Importer\Tubulacao\ImportSpool.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Model.DesignedDiffs.xafml" />
@@ -263,18 +284,17 @@
       <SubType>Designer</SubType>
       <DependentUpon>Module.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Properties\licenses.licx" />
   </ItemGroup>
   <ItemGroup>
     <None Include="DatabaseUpdate\ReadMe.txt" />
-    <EmbeddedResource Include="RelatorioPreDefinido\ComponentesMedicao.resx">
-      <DependentUpon>ComponentesMedicao.cs</DependentUpon>
+    <EmbeddedResource Include="RelatorioPreDefinido\RelatorioComponentesMedicao.resx">
+      <DependentUpon>RelatorioComponentesMedicao.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="RelatorioPreDefinido\JuntaComponentes.resx">
-      <DependentUpon>JuntaComponentes.cs</DependentUpon>
+    <EmbeddedResource Include="RelatorioPreDefinido\RelatorioJuntaComponentes.resx">
+      <DependentUpon>RelatorioJuntaComponentes.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="RelatorioPreDefinido\JuntaMedicao.resx">
-      <DependentUpon>JuntaMedicao.cs</DependentUpon>
+    <EmbeddedResource Include="RelatorioPreDefinido\RelatorioJuntaMedicao.resx">
+      <DependentUpon>RelatorioJuntaMedicao.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="RelatorioPreDefinido\RelatorioMedicaoAnaliticoSpool.resx">
       <DependentUpon>RelatorioMedicaoAnaliticoSpool.cs</DependentUpon>
@@ -282,11 +302,11 @@
     <EmbeddedResource Include="RelatorioPreDefinido\RelatorioMedicaoSinteticoSpool.resx">
       <DependentUpon>RelatorioMedicaoSinteticoSpool.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="RelatorioPreDefinido\ResumoDeJuntas.resx">
-      <DependentUpon>ResumoDeJuntas.cs</DependentUpon>
+    <EmbeddedResource Include="RelatorioPreDefinido\RelatorioResumoDeJuntas.resx">
+      <DependentUpon>RelatorioResumoDeJuntas.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="RelatorioPreDefinido\SpoolMedicao.resx">
-      <DependentUpon>SpoolMedicao.cs</DependentUpon>
+    <EmbeddedResource Include="RelatorioPreDefinido\RelatorioSpoolMedicao.resx">
+      <DependentUpon>RelatorioSpoolMedicao.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Resources\TabelasAuxiliares.xlsx">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
@@ -328,6 +348,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Calculator\Patterns\" />
+    <Folder Include="ServiceProcess\Calculator\Tubulacao\Medicao\" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="DocumentFormat.OpenXml">

@@ -67,8 +67,10 @@ namespace WinCTB_CTS.Win
             winApplication.EnableModelCache = true;
             winApplication.OptimizedControllersCreation = true;
             winApplication.CustomizeFormattingCulture += WinApplication_CustomizeFormattingCulture;
+            winApplication.CreateCustomTemplate += WinApplication_CreateCustomTemplate;
             //winApplication.CreateCustomObjectSpaceProvider += WinApplication_CreateCustomObjectSpaceProvider;
             //winApplication.DatabaseVersionMismatch += WinApplication_DatabaseVersionMismatch;
+
             winApplication.ConnectionString = connectionStringSettings();
 
             try
@@ -82,7 +84,17 @@ namespace WinCTB_CTS.Win
                 winApplication.HandleException(e);
             }
         }
-           
+
+        private static void WinApplication_CreateCustomTemplate(object sender, CreateCustomTemplateEventArgs e)
+        {
+            if (e.Context.Name == TemplateContext.ApplicationWindow)
+                e.Template = new Module.Win.Templates.MainRibbonFormTemplate();
+            else if (e.Context.Name == TemplateContext.View)
+                e.Template = new Module.Win.Templates.DetailRibbonFormTemplate();
+        }
+
+
+
         //private static void WinApplication_CreateCustomObjectSpaceProvider(object sender, CreateCustomObjectSpaceProviderEventArgs e)
         //{
         //    //e.ObjectSpaceProvider = new XPObjectSpaceProvider(e.ConnectionString, e.Connection, true);
