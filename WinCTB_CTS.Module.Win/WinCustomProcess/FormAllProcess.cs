@@ -262,7 +262,7 @@ namespace WinCTB_CTS.Module.Win.WinCustomProcess
         {
             CheckEditEmAndamento(checkEditComponentes);
             var processo = new ImportComponente(cancellationToken, progressLocal);
-            await processo.ProcessarTarefaWithStream("Piece", "MapaMontagemEBR.xlsx", BtnPathImportEstrutura.Text);
+            await processo.ProcessarTarefaWithStream("Piece", "MapaMontagemEBR_MV32.xlsx", BtnPathImportEstrutura.Text);
             processo.Dispose();
             CheckEditProcessado(checkEditComponentes);
         }
@@ -271,7 +271,7 @@ namespace WinCTB_CTS.Module.Win.WinCustomProcess
         {
             CheckEditEmAndamento(checkEditJuntaComponente);
             var processo = new ImportJuntaComponente(cancellationToken, progressLocal);
-            await processo.ProcessarTarefaWithStream("Joints", "MapaMontagemEBR.xlsx", BtnPathImportEstrutura.Text);
+            await processo.ProcessarTarefaWithStream("Joints", "MapaMontagemEBR_MV32.xlsx", BtnPathImportEstrutura.Text);
             processo.Dispose();
             CheckEditProcessado(checkEditJuntaComponente);
         }

@@ -36,7 +36,7 @@ namespace WinCTB_CTS.Module.Importer.Estrutura
             
         }              
 
-        public override string NomeDoRecurso { get => "MapaMontagemEBR.xlsx"; }
+        public override string NomeDoRecurso { get => "MapaMontagemEBR_MV32.xlsx"; }
 
         [ModelDefault("AllowEdit", "False")]
         public bool ConcluidoComponente

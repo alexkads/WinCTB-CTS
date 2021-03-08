@@ -315,7 +315,7 @@
     <EmbeddedResource Include="Resources\SGSeSGJOriginal.xlsx">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </EmbeddedResource>
-    <EmbeddedResource Include="Resources\MapaMontagemEBR.xlsx">
+    <EmbeddedResource Include="Resources\MapaMontagemEBR_MV32.xlsx">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </EmbeddedResource>
     <None Include="Resources\TabelaAuxiliarEstrutura.xlsx" />
