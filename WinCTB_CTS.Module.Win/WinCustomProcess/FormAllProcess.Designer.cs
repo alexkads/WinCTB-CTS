@@ -437,14 +437,14 @@ namespace WinCTB_CTS.Module.Win.WinCustomProcess
             this.buttonEdit1.Size = new System.Drawing.Size(485, 20);
             this.buttonEdit1.TabIndex = 16;
             // 
-            // BtnPathImportTabelaAuxiliarEstrutura
+            // BtnPathImportTabAuxiliarEstrutura
             // 
             this.BtnPathImportTabAuxiliarEstrutura.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.behaviorManager1.SetBehaviors(this.BtnPathImportTabAuxiliarEstrutura, new DevExpress.Utils.Behaviors.Behavior[] {
             ((DevExpress.Utils.Behaviors.Behavior)(DevExpress.Utils.Behaviors.Common.OpenFileBehavior.Create(typeof(DevExpress.XtraEditors.Behaviors.OpenFileBehaviorSourceForButtonEdit), true, DevExpress.Utils.Behaviors.Common.FileIconSize.Small, null, null, DevExpress.Utils.Behaviors.Common.CompletionMode.FilesAndDirectories, "*.xlsx", null, DevExpress.Utils.CommonDialogs.FileBrowserStyle.Default)))});
             this.BtnPathImportTabAuxiliarEstrutura.Location = new System.Drawing.Point(118, 450);
-            this.BtnPathImportTabAuxiliarEstrutura.Name = "BtnPathImportTabelaAuxiliarEstrutura";
+            this.BtnPathImportTabAuxiliarEstrutura.Name = "BtnPathImportTabAuxiliarEstrutura";
             this.BtnPathImportTabAuxiliarEstrutura.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
             new DevExpress.XtraEditors.Controls.EditorButton()});
             this.BtnPathImportTabAuxiliarEstrutura.Size = new System.Drawing.Size(485, 20);
@@ -582,9 +582,15 @@ namespace WinCTB_CTS.Module.Win.WinCustomProcess
             this.Controls.Add(this.labelControlAndamentoDoProcesso);
             this.Controls.Add(this.BtStartProcess);
             this.Controls.Add(this.progressBarControlGeral);
+            this.FormBorderEffect = DevExpress.XtraEditors.FormBorderEffect.Shadow;
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
+            this.MaximizeBox = false;
+            this.MinimizeBox = false;
             this.Name = "FormAllProcess";
+            this.ShowIcon = false;
+            this.StartPosition = System.Windows.Forms.FormStartPosition.Manual;
             this.Text = "Importação de dados";
+            this.TopMost = true;
             ((System.ComponentModel.ISupportInitialize)(this.progressBarControlGeral.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.checkEditMontagemDeLotes.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.separatorControl1)).EndInit();
