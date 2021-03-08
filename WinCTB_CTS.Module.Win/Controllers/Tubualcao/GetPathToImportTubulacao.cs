@@ -36,19 +36,19 @@ namespace WinCTB_CTS.Module.Win.Controllers
 
         private void GetPathToImportEstruturaActionn_Execute(object sender, SimpleActionExecuteEventArgs e)
         {
-            using (OpenFileDialog dialog = new OpenFileDialog())
-            {
-                dialog.CheckFileExists = true;
-                dialog.CheckPathExists = true;
-                dialog.DereferenceLinks = true;
-                dialog.Multiselect = false;
-                //dialog.Filter = "ver como é o filtro";
-                if (dialog.ShowDialog(Form.ActiveForm) == DialogResult.OK)
-                {
-                    currentObject.PathFileForImport = dialog.FileName;
-                    RegisterWindowsManipulation.SetRegister("PathFileForImportTubulacao", dialog.FileName);
-                }
-            }
+            //using (OpenFileDialog dialog = new OpenFileDialog())
+            //{
+            //    dialog.CheckFileExists = true;
+            //    dialog.CheckPathExists = true;
+            //    dialog.DereferenceLinks = true;
+            //    dialog.Multiselect = false;
+            //    //dialog.Filter = "ver como é o filtro";
+            //    if (dialog.ShowDialog(Form.ActiveForm) == DialogResult.OK)
+            //    {
+            //        currentObject.PathFileForImport = dialog.FileName;
+            //        RegisterWindowsManipulation.SetRegister("PathFileForImportTubulacao", dialog.FileName);
+            //    }
+            //}
            
         }
 

@@ -15,6 +15,7 @@ using WinCTB_CTS.Module.ServiceProcess.Calculator.Estrutura.ProcessoLote;
 using WinCTB_CTS.Module.ServiceProcess.Calculator.Tubulacao.ProcessoLote;
 using WinCTB_CTS.Module.ServiceProcess.Importer.Estrutura;
 using WinCTB_CTS.Module.ServiceProcess.Importer.Tubulacao;
+using WinCTB_CTS.Module.Win.Services;
 
 namespace WinCTB_CTS.Module.Win.WinCustomProcess
 {
@@ -24,6 +25,9 @@ namespace WinCTB_CTS.Module.Win.WinCustomProcess
         private readonly Font FontStandard = new Font("Tahoma", 8.25F, FontStyle.Regular);
         private readonly Font FontStrikeout = new Font("Tahoma", 8.25F, FontStyle.Strikeout);
         private readonly Font FontBold = new Font("Tahoma", 10.00F, FontStyle.Bold);
+        private const string PathFileForImportTabelaAuxiliarTubulacao = "PathFileForImportTabelaAuxiliarTubulacao";
+        private const string PathFileForImportTubulacao = "PathFileForImportTubulacao";
+        private const string PathFileForImportEstrutura = "PathFileForImportEstrutura";
 
         public FormAllProcess()
         {
@@ -36,6 +40,50 @@ namespace WinCTB_CTS.Module.Win.WinCustomProcess
             labelControlAndamentoDoProcesso.Text = string.Empty;
             resetCheckEdit();
             LigarToggles();
+
+            BtnPathImportTubulacao.EditValue = RegisterWindowsManipulation.GetRegister(PathFileForImportTubulacao);
+            BtnPathImportEstrutura.EditValue = RegisterWindowsManipulation.GetRegister(PathFileForImportEstrutura);
+            BtnPathImportTabAuxiliarTubulacao.EditValue = RegisterWindowsManipulation.GetRegister(PathFileForImportTabelaAuxiliarTubulacao); ;
+
+            BtnPathImportTubulacao.EditValueChanged += BtnPathImportTubulacao_EditValueChanged;
+            BtnPathImportEstrutura.EditValueChanged += BtnPathImportEstrutura_EditValueChanged;
+            BtnPathImportTabAuxiliarTubulacao.EditValueChanged += BtnPathImportTabAuxiliarTubulacao_EditValueChanged;
+
+        }
+
+        private void BtnPathImportTabAuxiliarTubulacao_EditValueChanged(object sender, EventArgs e)
+        {
+            RegisterWindowsManipulation.SetRegister(PathFileForImportTabelaAuxiliarTubulacao, BtnPathImportTabAuxiliarTubulacao.Text);
+        }
+
+        private void BtnPathImportEstrutura_EditValueChanged(object sender, EventArgs e)
+        {
+            RegisterWindowsManipulation.SetRegister(PathFileForImportEstrutura, BtnPathImportEstrutura.Text);
+        }
+
+        private void BtnPathImportTubulacao_EditValueChanged(object sender, EventArgs e)
+        {
+            RegisterWindowsManipulation.SetRegister(PathFileForImportTubulacao, BtnPathImportTubulacao.Text);
+        }
+
+        private string GetFileAndSetRegister(string key)
+        {
+            string result = string.Empty;
+            using (OpenFileDialog dialog = new OpenFileDialog())
+            {
+                dialog.CheckFileExists = true;
+                dialog.CheckPathExists = true;
+                dialog.DereferenceLinks = true;
+                dialog.Multiselect = false;
+                //dialog.Filter = "ver como é o filtro";
+                if (dialog.ShowDialog(Form.ActiveForm) == DialogResult.OK)
+                {
+                    result = dialog.FileName;
+                    //exemplo 'PathFileForImportTubulacao'
+                    RegisterWindowsManipulation.SetRegister(key, dialog.FileName);
+                }
+            }
+            return result;
         }
 
         public void LogTrace(ImportProgressReport value)
@@ -54,7 +102,7 @@ namespace WinCTB_CTS.Module.Win.WinCustomProcess
         {
             foreach (var control in this.Controls)
             {
-                if (control is ToggleSwitch toggleSwitch )
+                if (control is ToggleSwitch toggleSwitch)
                 {
                     toggleSwitch.IsOn = true;
                 }
@@ -139,7 +187,7 @@ namespace WinCTB_CTS.Module.Win.WinCustomProcess
         {
             CheckEditEmAndamento(checkEditContrato);
             var processo = new ImportContrato(cancellationToken, progressLocal);
-            await processo.ProcessarTarefaWithStream("Contrato", "TabelasAuxiliares.xlsx", "");
+            await processo.ProcessarTarefaWithStream("Contrato", "TabelasAuxiliares.xlsx", BtnPathImportTabAuxiliarTubulacao.Text);
             processo.Dispose();
             CheckEditProcessado(checkEditContrato);
         }
@@ -148,7 +196,7 @@ namespace WinCTB_CTS.Module.Win.WinCustomProcess
         {
             CheckEditEmAndamento(checkEditDiametro);
             var processo = new ImportDiametro(cancellationToken, progressLocal);
-            await processo.ProcessarTarefaWithStream("TabDiametro", "TabelasAuxiliares.xlsx", "");
+            await processo.ProcessarTarefaWithStream("TabDiametro", "TabelasAuxiliares.xlsx", BtnPathImportTabAuxiliarTubulacao.Text);
             processo.Dispose();
             CheckEditProcessado(checkEditDiametro);
         }
@@ -157,7 +205,7 @@ namespace WinCTB_CTS.Module.Win.WinCustomProcess
         {
             CheckEditEmAndamento(checkEditSchedule);
             var processo = new ImportSchedule(cancellationToken, progressLocal);
-            await processo.ProcessarTarefaWithStream("Schedule", "TabelasAuxiliares.xlsx", "");
+            await processo.ProcessarTarefaWithStream("Schedule", "TabelasAuxiliares.xlsx", BtnPathImportTabAuxiliarTubulacao.Text);
             processo.Dispose();
             CheckEditProcessado(checkEditSchedule);
         }
@@ -166,7 +214,7 @@ namespace WinCTB_CTS.Module.Win.WinCustomProcess
         {
             CheckEditEmAndamento(checkEditPercInspecao);
             var processo = new ImportPercInspecao(cancellationToken, progressLocal);
-            await processo.ProcessarTarefaWithStream("PercInspecao", "TabelasAuxiliares.xlsx", "");
+            await processo.ProcessarTarefaWithStream("PercInspecao", "TabelasAuxiliares.xlsx", BtnPathImportTabAuxiliarTubulacao.Text);
             processo.Dispose();
             CheckEditProcessado(checkEditPercInspecao);
         }
@@ -175,7 +223,7 @@ namespace WinCTB_CTS.Module.Win.WinCustomProcess
         {
             CheckEditEmAndamento(checkEditProcessoSoldagem);
             var processo = new ImportProcessoSoldagem(cancellationToken, progressLocal);
-            await processo.ProcessarTarefaWithStream("ProcessoSoldagem", "TabelasAuxiliares.xlsx", "");
+            await processo.ProcessarTarefaWithStream("ProcessoSoldagem", "TabelasAuxiliares.xlsx", BtnPathImportTabAuxiliarTubulacao.Text);
             processo.Dispose();
             CheckEditProcessado(checkEditProcessoSoldagem);
         }
@@ -184,7 +232,7 @@ namespace WinCTB_CTS.Module.Win.WinCustomProcess
         {
             CheckEditEmAndamento(checkEditEAP);
             var processo = new ImportEAP(cancellationToken, progressLocal);
-            await processo.ProcessarTarefaWithStream("EAPPipe", "TabelasAuxiliares.xlsx", "");
+            await processo.ProcessarTarefaWithStream("EAPPipe", "TabelasAuxiliares.xlsx", BtnPathImportTabAuxiliarTubulacao.Text);
             processo.Dispose();
             CheckEditProcessado(checkEditEAP);
         }
@@ -196,7 +244,7 @@ namespace WinCTB_CTS.Module.Win.WinCustomProcess
         {
             CheckEditEmAndamento(checkEditSpool);
             var processo = new ImportSpool(cancellationToken, progressLocal);
-            await processo.ProcessarTarefaWithStream("SGS", "SGSeSGJOriginal.xlsx", "");
+            await processo.ProcessarTarefaWithStream("SGS", "SGSeSGJOriginal.xlsx", BtnPathImportTubulacao.Text);
             processo.Dispose();
             CheckEditProcessado(checkEditSpool);
         }
@@ -205,7 +253,7 @@ namespace WinCTB_CTS.Module.Win.WinCustomProcess
         {
             CheckEditEmAndamento(checkEditJuntaSpool);
             var processo = new ImportJuntaSpool(cancellationToken, progressLocal);
-            await processo.ProcessarTarefaWithStream("SGJ", "SGSeSGJOriginal.xlsx", "");
+            await processo.ProcessarTarefaWithStream("SGJ", "SGSeSGJOriginal.xlsx", BtnPathImportTubulacao.Text);
             processo.Dispose();
             CheckEditProcessado(checkEditJuntaSpool);
         }
@@ -217,7 +265,7 @@ namespace WinCTB_CTS.Module.Win.WinCustomProcess
         {
             CheckEditEmAndamento(checkEditComponentes);
             var processo = new ImportComponente(cancellationToken, progressLocal);
-            await processo.ProcessarTarefaWithStream("Piece", "MapaMontagemEBR.xlsx", "");
+            await processo.ProcessarTarefaWithStream("Piece", "MapaMontagemEBR.xlsx", BtnPathImportEstrutura.Text);
             processo.Dispose();
             CheckEditProcessado(checkEditComponentes);
         }
@@ -226,7 +274,7 @@ namespace WinCTB_CTS.Module.Win.WinCustomProcess
         {
             CheckEditEmAndamento(checkEditJuntaComponente);
             var processo = new ImportJuntaComponente(cancellationToken, progressLocal);
-            await processo.ProcessarTarefaWithStream("Joints", "MapaMontagemEBR.xlsx", "");
+            await processo.ProcessarTarefaWithStream("Joints", "MapaMontagemEBR.xlsx", BtnPathImportEstrutura.Text);
             processo.Dispose();
             CheckEditProcessado(checkEditJuntaComponente);
         }
