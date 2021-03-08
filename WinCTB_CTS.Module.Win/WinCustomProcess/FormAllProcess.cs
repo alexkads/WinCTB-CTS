@@ -225,7 +225,7 @@ namespace WinCTB_CTS.Module.Win.WinCustomProcess
         {
             CheckEditEmAndamento(checkEditContrato);
             var processo = new ImportContratoTubulacao(cancellationToken, progressLocal);
-            await processo.ProcessarTarefaWithStream("Contrato", "TabelailiarTubulacao.xlsx", BtnPathImportTabAuxiliarTubulacao.Text);
+            await processo.ProcessarTarefaWithStream("Contrato", "TabelaAuxiliarTubulacao.xlsx", BtnPathImportTabAuxiliarTubulacao.Text);
             processo.Dispose();
             CheckEditProcessado(checkEditContrato);
         }
@@ -252,7 +252,7 @@ namespace WinCTB_CTS.Module.Win.WinCustomProcess
         {
             CheckEditEmAndamento(checkEditPercInspecao);
             var processo = new ImportPercInspecao(cancellationToken, progressLocal);
-            await processo.ProcessarTarefaWithStream("PercInspecao", "TabelsAuxiliarTubulacao.xlsx", BtnPathImportTabAuxiliarTubulacao.Text);
+            await processo.ProcessarTarefaWithStream("PercInspecao", "TabelaAuxiliarTubulacao.xlsx", BtnPathImportTabAuxiliarTubulacao.Text);
             processo.Dispose();
             CheckEditProcessado(checkEditPercInspecao);
         }
@@ -270,7 +270,7 @@ namespace WinCTB_CTS.Module.Win.WinCustomProcess
         {
             CheckEditEmAndamento(checkEditEAPTubulacao);
             var processo = new ImportEAPTubulacao(cancellationToken, progressLocal);
-            await processo.ProcessarTarefaWithStream("EAPPipe", "TabelasAuxiliares.xlsx", BtnPathImportTabAuxiliarTubulacao.Text);
+            await processo.ProcessarTarefaWithStream("EAPPipe", "TabelaAuxiliarTubulacao.xlsx", BtnPathImportTabAuxiliarTubulacao.Text);
             processo.Dispose();
             CheckEditProcessado(checkEditEAPTubulacao);
         }
