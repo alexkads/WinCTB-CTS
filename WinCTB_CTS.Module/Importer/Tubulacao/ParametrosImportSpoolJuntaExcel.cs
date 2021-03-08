@@ -24,7 +24,7 @@ namespace WinCTB_CTS.Module.Importer.Tubulacao
 
         private bool concluidoSpool { get; set; }
         private bool concluidoJunta { get; set; }
-        public override string NomeDoRecurso { get => "SGSeSGJOriginal.xlsx"; }
+        public override string NomeDoRecurso { get => "SGSeSGJ.xlsx"; }
 
         [ModelDefault("AllowEdit", "False")]
         public bool ConcluidoSpool

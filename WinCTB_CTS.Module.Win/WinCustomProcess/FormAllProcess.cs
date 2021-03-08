@@ -241,7 +241,7 @@ namespace WinCTB_CTS.Module.Win.WinCustomProcess
         {
             CheckEditEmAndamento(checkEditSpool);
             var processo = new ImportSpool(cancellationToken, progressLocal);
-            await processo.ProcessarTarefaWithStream("SGS", "SGSeSGJOriginal.xlsx", BtnPathImportTubulacao.Text);
+            await processo.ProcessarTarefaWithStream("SGS", "SGSeSGJ.xlsx", BtnPathImportTubulacao.Text);
             processo.Dispose();
             CheckEditProcessado(checkEditSpool);
         }
@@ -250,7 +250,7 @@ namespace WinCTB_CTS.Module.Win.WinCustomProcess
         {
             CheckEditEmAndamento(checkEditJuntaSpool);
             var processo = new ImportJuntaSpool(cancellationToken, progressLocal);
-            await processo.ProcessarTarefaWithStream("SGJ", "SGSeSGJOriginal.xlsx", BtnPathImportTubulacao.Text);
+            await processo.ProcessarTarefaWithStream("SGJ", "SGSeSGJ.xlsx", BtnPathImportTubulacao.Text);
             processo.Dispose();
             CheckEditProcessado(checkEditJuntaSpool);
         }

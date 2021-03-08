@@ -312,7 +312,7 @@
     <EmbeddedResource Include="Resources\TabelaAuxiliarTubulacao.xlsx">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </EmbeddedResource>
-    <EmbeddedResource Include="Resources\SGSeSGJOriginal.xlsx">
+    <EmbeddedResource Include="Resources\SGSeSGJ.xlsx">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </EmbeddedResource>
     <EmbeddedResource Include="Resources\MapaMontagemEBR_MV32.xlsx">
