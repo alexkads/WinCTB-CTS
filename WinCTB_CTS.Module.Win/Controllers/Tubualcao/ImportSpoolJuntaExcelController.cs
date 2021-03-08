@@ -116,7 +116,10 @@ namespace WinCTB_CTS.Module.Win.Controllers
             var sgj = new ImportJuntaSpool(cts, "SGJ", parametros);
 
             await sgs.Start();
+            parametros.ConcluidoSpool = true;
+
             await sgj.Start();
+            parametros.ConcluidoJunta = true;
 
             objectSpace.CommitChanges();
 

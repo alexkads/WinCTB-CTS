@@ -11,12 +11,13 @@ using System;
 using System.ComponentModel;
 using System.IO;
 using WinCTB_CTS.Module.BusinessObjects.Padrao;
+using WinCTB_CTS.Module.Interfaces;
 
 namespace WinCTB_CTS.Module.Importer
 {
     [DomainComponent]
     [FileAttachment("PadraoDeArquivo"), ImageName("Action_SingleChoiceAction"), ModelDefault("VisibleProperties", "Caption, ToolTip, ImageName, AcceptButtonCaption, CancelButtonCaption, IsSizeable"), NonPersistent]
-    public abstract class ParametrosImportBase : IXafEntityObject, IObjectSpaceLink, INotifyPropertyChanged
+    public abstract class ParametrosImportBase : IXafEntityObject, IObjectSpaceLink, INotifyPropertyChanged, IProgresso
     {
         private FileData padraoDeArquivo;
         private string pathFileForImport;
@@ -26,7 +27,7 @@ namespace WinCTB_CTS.Module.Importer
         [NonPersistent, Browsable(false)]
         public virtual string NomeDoRecurso { get; }
 
-        public ParametrosImportBase(Session session){  }
+        public ParametrosImportBase(Session session) { }
 
         private static Stream GetManifestResource(string ResourceName)
         {

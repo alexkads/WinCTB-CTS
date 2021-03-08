@@ -40,6 +40,7 @@ namespace WinCTB_CTS.Module.BusinessObjects.Estrutura.Lotes
         private string _NumeroDoDesenho;
         private string _NumeroDoLote;
         private double _percentualNivelDeInspecao;
+        private string tipoJunta;
 
         // Fields...
         private int _QuantidadeInspecionada;
@@ -156,6 +157,13 @@ namespace WinCTB_CTS.Module.BusinessObjects.Estrutura.Lotes
         {
             get => _NumeroDoDesenho;
             set => SetPropertyValue(nameof(NumeroDoDesenho), ref _NumeroDoDesenho, value);
+        }
+
+        [Size(100), XafDisplayName("Tipo de Junta")]
+        public string TipoJunta
+        {
+            get => tipoJunta;
+            set => SetPropertyValue(nameof(TipoJunta), ref tipoJunta, value);
         }
 
         [Key(false)]
