@@ -45,10 +45,17 @@ namespace WinCTB_CTS.Module.Win.WinCustomProcess
             BtnPathImportTubulacao.EditValue = RegisterWindowsManipulation.GetRegister(PathFileForImportTubulacao);
             BtnPathImportEstrutura.EditValue = RegisterWindowsManipulation.GetRegister(PathFileForImportEstrutura);
             BtnPathImportTabAuxiliarTubulacao.EditValue = RegisterWindowsManipulation.GetRegister(PathFileForImportTabelaAuxiliarTubulacao); ;
+            BtnPathImportTabAuxiliarEstrutura.EditValue = RegisterWindowsManipulation.GetRegister(PathFileForImportTabelaAuxiliarEstrutura); ;
 
             BtnPathImportTubulacao.EditValueChanged += BtnPathImportTubulacao_EditValueChanged;
             BtnPathImportEstrutura.EditValueChanged += BtnPathImportEstrutura_EditValueChanged;
             BtnPathImportTabAuxiliarTubulacao.EditValueChanged += BtnPathImportTabAuxiliarTubulacao_EditValueChanged;
+            BtnPathImportTabAuxiliarEstrutura.EditValueChanged += BtnPathImportTabAuxiliarEstrutura_EditValueChanged;
+        }
+
+        private void BtnPathImportTabAuxiliarEstrutura_EditValueChanged(object sender, EventArgs e)
+        {
+            RegisterWindowsManipulation.SetRegister(PathFileForImportTabelaAuxiliarEstrutura, BtnPathImportTabAuxiliarEstrutura.Text);
         }
 
         private void BtnPathImportTabAuxiliarTubulacao_EditValueChanged(object sender, EventArgs e)
@@ -105,6 +112,7 @@ namespace WinCTB_CTS.Module.Win.WinCustomProcess
             toggleSwitchImportarLotesEstrutura.IsOn = true;
             toggleSwitchImportarTubulacao.IsOn = true;
             toggleSwitchImportarTabelasAuxiliaresTubulacao.IsOn = true;
+            toggleSwitchImportarTabelasAuxiliaresEstrutura.IsOn = true;
         }
 
 
@@ -198,7 +206,7 @@ namespace WinCTB_CTS.Module.Win.WinCustomProcess
         {
             CheckEditEmAndamento(checkEditContratoEstrutura);
             var processo = new ImportContratoEstrutura(cancellationToken, progressLocal);
-            await processo.ProcessarTarefaWithStream("Contrato", "TabelaAuxiliarEstrutura.xlsx", BtnPathImportTabelaAuxiliarEstrutura.Text);
+            await processo.ProcessarTarefaWithStream("Contrato", "TabelaAuxiliarEstrutura.xlsx", BtnPathImportTabAuxiliarEstrutura.Text);
             processo.Dispose();
             CheckEditProcessado(checkEditContratoEstrutura);
         }
@@ -207,7 +215,7 @@ namespace WinCTB_CTS.Module.Win.WinCustomProcess
         {
             CheckEditEmAndamento(checkEditEAPEstrutura);
             var processo = new ImportEAPEstrutura(cancellationToken, progressLocal);
-            await processo.ProcessarTarefaWithStream("EAPEst", "TabelaAuxiliarEstrutura.xlsx", BtnPathImportTabelaAuxiliarEstrutura.Text);
+            await processo.ProcessarTarefaWithStream("EAPEst", "TabelaAuxiliarEstrutura.xlsx", BtnPathImportTabAuxiliarEstrutura.Text);
             processo.Dispose();
             CheckEditProcessado(checkEditEAPEstrutura);
         }
