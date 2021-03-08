@@ -32,11 +32,11 @@ namespace WinCTB_CTS.Module.Win.WinCustomProcess
         public FormAllProcess()
         {
             InitializeComponent();
+            init();
         }
 
-        protected override void OnActivated(EventArgs e)
+        private void init()
         {
-            base.OnActivated(e);
             labelControlAndamentoDoProcesso.Text = string.Empty;
             resetCheckEdit();
             LigarToggles();
@@ -48,7 +48,6 @@ namespace WinCTB_CTS.Module.Win.WinCustomProcess
             BtnPathImportTubulacao.EditValueChanged += BtnPathImportTubulacao_EditValueChanged;
             BtnPathImportEstrutura.EditValueChanged += BtnPathImportEstrutura_EditValueChanged;
             BtnPathImportTabAuxiliarTubulacao.EditValueChanged += BtnPathImportTabAuxiliarTubulacao_EditValueChanged;
-
         }
 
         private void BtnPathImportTabAuxiliarTubulacao_EditValueChanged(object sender, EventArgs e)
