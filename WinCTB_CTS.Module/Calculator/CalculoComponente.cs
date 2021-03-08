@@ -111,9 +111,12 @@ namespace WinCTB_CTS.Module.Calculator {
             var eap = session.QueryInTransaction<TabEAPEst>().Single(x => x.Contrato.Oid == componente.Contrato.Oid && x.Modulo == componente.Modulo);
 
             //Comprimento total com medjoints
-            var MedJointMM = medJoints.Sum(x => x.Comprimento);
+            var MedJointMM = medJoints.Sum(x => x.Comprimento);            
             var FitUpExecutadoMM = medJoints.Where(x => x.StatusFitup == "AP").Sum(s => s.Comprimento);
             var SoldaExecutadoMM = medJoints.Where(x => x.StatusSolda == "AP").Sum(s => s.Comprimento);
+
+            //End
+            var VisualPrevistoMM = MedJointMM;
             var VisualExecutadoMM = medJoints.Where(x => x.StatusVisualSolda == "AP").Sum(s => s.Comprimento);
             var LPPMPrevistoMM = medJoints.Where(x => x.StatusFitup != "NA").Sum(s => s.Comprimento);
             var LPPMExecutadoMM = medJoints.Where(x => x.StatusLp == "AP" || x.StatusPm == "AP" || x.StatusLp == "AL" || x.StatusPm == "AL" || x.LoteJuntaEstruturas.Any(a => a.LoteEstrutura.Ensaio == Interfaces.ENDS.LPPM && a.LoteEstrutura.SituacaoInspecao == Interfaces.SituacoesInspecao.Aprovado)).Sum(s => s.Comprimento);
@@ -121,9 +124,11 @@ namespace WinCTB_CTS.Module.Calculator {
             var USExecutadoMM = medJoints.Where(x => x.StatusUs == "AP" || x.StatusUs == "AL" || x.LoteJuntaEstruturas.Any(a => a.LoteEstrutura.Ensaio == Interfaces.ENDS.US && a.LoteEstrutura.SituacaoInspecao == Interfaces.SituacoesInspecao.Aprovado)).Sum(s => s.Comprimento);
             var RXPrevistoMM = medJoints.Where(x => x.StatusRx != "NA").Sum(s => s.Comprimento);
             var RXExecutadoMM = medJoints.Where(x => x.StatusRx == "AP" || x.StatusRx == "AL" || x.LoteJuntaEstruturas.Any(a => a.LoteEstrutura.Ensaio == Interfaces.ENDS.RX && a.LoteEstrutura.SituacaoInspecao == Interfaces.SituacoesInspecao.Aprovado)).Sum(s => s.Comprimento);
-            var ENDPrevistoMM = (LPPMPrevistoMM + USPrevistoMM + RXPrevistoMM) / 3;
-            var ENDExecutaMM = (LPPMExecutadoMM + USExecutadoMM + RXExecutadoMM) / 3;
+            var ENDPrevistoMM = (VisualPrevistoMM + LPPMPrevistoMM + USPrevistoMM + RXPrevistoMM);
+            var ENDExecutaMM = (VisualExecutadoMM + LPPMExecutadoMM + USExecutadoMM + RXExecutadoMM);
 
+            //Avanço
+            var PercPosicionamento = componente.DataPosicionamento != null ? 1 : 0;
             var PercAvancoFitUp = FitUpExecutadoMM / MedJointMM;
             var PercAvancoSolda = SoldaExecutadoMM / MedJointMM;
             var PercAvancoVisual = VisualExecutadoMM / MedJointMM;
@@ -131,6 +136,22 @@ namespace WinCTB_CTS.Module.Calculator {
             var PercAvancoUS = USExecutadoMM / USPrevistoMM;
             var PercAvancoRX = RXExecutadoMM / RXPrevistoMM;
             var PercAvancoEND = ENDExecutaMM / ENDPrevistoMM;
+
+            //Peso
+            var PesoPosicionamento = componente.PesoTotal * PercPosicionamento;
+            var PesoFitUp = componente.PesoTotal * PercAvancoFitUp;
+            var PesoSolda = componente.PesoTotal * PercAvancoSolda;
+            var PesoVisual = componente.PesoTotal * PercAvancoVisual;
+            var PesoLPPM = componente.PesoTotal * PercAvancoLPPM;
+            var PesoUS = componente.PesoTotal * PercAvancoUS;
+            var PesoRX = componente.PesoTotal * PercAvancoRX;
+            var PesoEND = componente.PesoTotal * PercAvancoEND;
+
+            //Avanço Peso EAP
+            var EAPPesoPosicionamento = PesoPosicionamento * eap.Posicionamento;
+            var EAPPesoFitUP = PesoFitUp * eap.Acoplamento;
+            var EAPPesoSolda = PesoSolda * eap.Solda;
+
 
             //var QtdJuntaPipe = Utils.ConvertINT(componente.Evaluate(CriteriaOperator.Parse("Juntas[CampoOuPipe == 'PIPE'].Count()")));
             //var QtdJuntaMont = Utils.ConvertINT(componente.Evaluate(CriteriaOperator.Parse("Juntas[CampoOuPipe == 'CAMPO'].Count()")));
