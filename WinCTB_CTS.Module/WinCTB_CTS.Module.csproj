@@ -323,7 +323,9 @@
     <EmbeddedResource Include="Resources\TabelaAuxiliarEstrutura.xlsx">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </EmbeddedResource>
-    <None Include="Resources\Mapa_MontagemEBR_SEPETIBA.xlsx" />
+    <EmbeddedResource Include="Resources\MapaMontagemEBR_SEPETIBA.xlsx">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
     <None Include="BusinessObjects\ReadMe.txt" />

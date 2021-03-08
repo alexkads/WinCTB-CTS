@@ -20,6 +20,7 @@ using System.Reactive.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using WinCTB_CTS.Module.BusinessObjects.Estrutura;
+using WinCTB_CTS.Module.BusinessObjects.Estrutura.Auxiliar;
 using WinCTB_CTS.Module.BusinessObjects.Estrutura.Medicao;
 using WinCTB_CTS.Module.BusinessObjects.Tubulacao;
 using WinCTB_CTS.Module.BusinessObjects.Tubulacao.Auxiliar;
@@ -27,14 +28,11 @@ using WinCTB_CTS.Module.BusinessObjects.Tubulacao.Medicao;
 using WinCTB_CTS.Module.Comum;
 using WinCTB_CTS.Module.ServiceProcess.Base;
 
-namespace WinCTB_CTS.Module.Calculator
-{
-    public class CalculoComponente
-    {
+namespace WinCTB_CTS.Module.Calculator {
+    public class CalculoComponente {
         private IObjectSpace _objectSpace = null;
 
-        public CalculoComponente(IObjectSpace objectSpace)
-        {
+        public CalculoComponente(IObjectSpace objectSpace) {
             this._objectSpace = objectSpace;
         }
 
@@ -42,16 +40,14 @@ namespace WinCTB_CTS.Module.Calculator
 
         private MedicaoDetalheHandler medicaoDetalhe = new MedicaoDetalheHandler(OnMedicaoDetalhe);
 
-        public void ExecutarCalculo(IProgress<ImportProgressReport> progress)
-        {
+        public void ExecutarCalculo(IProgress<ImportProgressReport> progress) {
             var session = ((XPObjectSpace)_objectSpace).Session;
             UnitOfWork uow = new UnitOfWork(session.ObjectLayer);
 
             var componentes = new XPCollection<Componente>(PersistentCriteriaEvaluationBehavior.InTransaction, uow, null);
             var QuantidadeDeComponentes = componentes.Count;
 
-            progress.Report(new ImportProgressReport
-            {
+            progress.Report(new ImportProgressReport {
                 TotalRows = QuantidadeDeComponentes,
                 CurrentRow = 0,
                 MessageImport = "Inicializando Fechamento"
@@ -66,29 +62,23 @@ namespace WinCTB_CTS.Module.Calculator
             medicao.DataFechamentoMedicao = DateTime.Now;
             medicao.Save();
 
-            Observable.Range(0, QuantidadeDeComponentes).Subscribe(i =>
-            {
+            Observable.Range(0, QuantidadeDeComponentes).Subscribe(i => {
                 var componente = componentes[i];
                 var detalheMedicaoAnterior = medicaoAnterior is null ? null : uow.FindObject<MedicaoEstruturaDetalhe>(CriteriaOperator.Parse("Componente.Oid = ? And MedicaoEstrutura.Oid = ?", componente.Oid, medicaoAnterior.Oid));
                 //var eap = session.FindObject<TabEAPPipe>(new BinaryOperator("Contrato.Oid", componente.Contrato.Oid));
 
                 medicaoDetalhe?.Invoke(uow, medicao, componente);
 
-                if (i % 1000 == 0)
-                {
-                    try
-                    {
+                if (i % 1000 == 0) {
+                    try {
                         uow.CommitTransaction();
-                    }
-                    catch
-                    {
+                    } catch {
                         uow.RollbackTransaction();
                         throw new Exception("Process aborted by system");
                     }
                 }
 
-                progress.Report(new ImportProgressReport
-                {
+                progress.Report(new ImportProgressReport {
                     TotalRows = QuantidadeDeComponentes,
                     CurrentRow = i,
                     MessageImport = $"Fechando Componentes: {i}/{QuantidadeDeComponentes}"
@@ -96,8 +86,7 @@ namespace WinCTB_CTS.Module.Calculator
 
             });
 
-            progress.Report(new ImportProgressReport
-            {
+            progress.Report(new ImportProgressReport {
                 TotalRows = QuantidadeDeComponentes,
                 CurrentRow = QuantidadeDeComponentes,
                 MessageImport = $"Gravando Alterações no Banco"
@@ -109,8 +98,7 @@ namespace WinCTB_CTS.Module.Calculator
             uow.Dispose();
         }
 
-        private static void OnMedicaoDetalhe(Session session, MedicaoEstrutura medicao, Componente componente)
-        {
+        private static void OnMedicaoDetalhe(Session session, MedicaoEstrutura medicao, Componente componente) {
             var detalhe = new MedicaoEstruturaDetalhe(session);
             medicao.MedicaoEstruturaDetalhes.Add(detalhe);
             detalhe.Componente = componente;
@@ -118,35 +106,56 @@ namespace WinCTB_CTS.Module.Calculator
 
             //Carregar somente as juntas com medJoints igual ao componente
             var medJoints = componente.JuntaComponentes.Where(x => x.MedJoint.Oid == x.Componente.Oid).ToList();
-            var comprimentoTotal = CalculaComprimento(medJoints);
 
-            //var QtdJuntaPipe = Utils.ConvertINT(componente.Evaluate(CriteriaOperator.Parse("Juntas[CampoOuPipe == 'PIPE'].Count()")));
-            //var QtdJuntaMont = Utils.ConvertINT(componente.Evaluate(CriteriaOperator.Parse("Juntas[CampoOuPipe == 'CAMPO'].Count()")));
-        }
+            //Cagarda da EAP
+            var eap = session.QueryInTransaction<TabEAPEst>().Single(x => x.Contrato.Oid == componente.Contrato.Oid && x.Modulo == componente.Modulo);
 
-        private static double CalculaComprimento(IList<JuntaComponente> medJoints)
-        {
-            double comprimentoTotal = 0D;
+            //Comprimento total com medjoints
+            var MedJointMM = medJoints.Sum(x => x.Comprimento);            
+            var FitUpExecutadoMM = medJoints.Where(x => x.StatusFitup == "AP").Sum(s => s.Comprimento);
+            var SoldaExecutadoMM = medJoints.Where(x => x.StatusSolda == "AP").Sum(s => s.Comprimento);
 
-            foreach (var item in medJoints)
-            {
-                // DF1 == DF2
-                if (item.Df1 == item.Df2)
-                    comprimentoTotal += 0;
+            //End
+            var VisualPrevistoMM = MedJointMM;
+            var VisualExecutadoMM = medJoints.Where(x => x.StatusVisualSolda == "AP").Sum(s => s.Comprimento);
+            var LPPMPrevistoMM = medJoints.Where(x => x.StatusFitup != "NA").Sum(s => s.Comprimento);
+            var LPPMExecutadoMM = medJoints.Where(x => x.StatusLp == "AP" || x.StatusPm == "AP" || x.StatusLp == "AL" || x.StatusPm == "AL" || x.LoteJuntaEstruturas.Any(a => a.LoteEstrutura.Ensaio == Interfaces.ENDS.LPPM && a.LoteEstrutura.SituacaoInspecao == Interfaces.SituacoesInspecao.Aprovado)).Sum(s => s.Comprimento);
+            var USPrevistoMM = medJoints.Where(x => x.StatusUs != "NA").Sum(s => s.Comprimento);
+            var USExecutadoMM = medJoints.Where(x => x.StatusUs == "AP" || x.StatusUs == "AL" || x.LoteJuntaEstruturas.Any(a => a.LoteEstrutura.Ensaio == Interfaces.ENDS.US && a.LoteEstrutura.SituacaoInspecao == Interfaces.SituacoesInspecao.Aprovado)).Sum(s => s.Comprimento);
+            var RXPrevistoMM = medJoints.Where(x => x.StatusRx != "NA").Sum(s => s.Comprimento);
+            var RXExecutadoMM = medJoints.Where(x => x.StatusRx == "AP" || x.StatusRx == "AL" || x.LoteJuntaEstruturas.Any(a => a.LoteEstrutura.Ensaio == Interfaces.ENDS.RX && a.LoteEstrutura.SituacaoInspecao == Interfaces.SituacoesInspecao.Aprovado)).Sum(s => s.Comprimento);
+            var ENDPrevistoMM = (VisualPrevistoMM + LPPMPrevistoMM + USPrevistoMM + RXPrevistoMM);
+            var ENDExecutaMM = (VisualExecutadoMM + LPPMExecutadoMM + USExecutadoMM + RXExecutadoMM);
 
-                //Tipo de estrutura e progfitup - Falta comparação entre ProgfitupDf1 e ProgfitupDf2
-                if (item.PosicaoDf1 == "column" || item.PosicaoDf1 == "coluna" || item.PosicaoDf1 == "contaventamento")
-                    comprimentoTotal += item.Comprimento;
+            //Avanço
+            var PercPosicionamento = componente.DataPosicionamento != null ? 1 : 0;
+            var PercAvancoFitUp = FitUpExecutadoMM / MedJointMM;
+            var PercAvancoSolda = SoldaExecutadoMM / MedJointMM;
+            var PercAvancoVisual = VisualExecutadoMM / MedJointMM;
+            var PercAvancoLPPM = LPPMExecutadoMM / LPPMPrevistoMM;
+            var PercAvancoUS = USExecutadoMM / USPrevistoMM;
+            var PercAvancoRX = RXExecutadoMM / RXPrevistoMM;
+            var PercAvancoEND = ENDExecutaMM / ENDPrevistoMM;
 
+            //Peso
+            var PesoPosicionamento = componente.PesoTotal * PercPosicionamento;
+            var PesoFitUp = componente.PesoTotal * PercAvancoFitUp;
+            var PesoSolda = componente.PesoTotal * PercAvancoSolda;
+            var PesoVisual = componente.PesoTotal * PercAvancoVisual;
+            var PesoLPPM = componente.PesoTotal * PercAvancoLPPM;
+            var PesoUS = componente.PesoTotal * PercAvancoUS;
+            var PesoRX = componente.PesoTotal * PercAvancoRX;
+            var PesoEND = componente.PesoTotal * PercAvancoEND;
 
-                //Categoria da estrutura e tipo de junta
-                if (item.TipoDf1 == "Primary" && (item.TipoJunta == "JASA" || item.TipoJunta == "JTPP" || item.TipoJunta == "JAPP"))
-                    comprimentoTotal += 0;
-                
-               
-            }
+            //Avanço Peso EAP
+            var EAPPesoPosicionamento = PesoPosicionamento * eap.Posicionamento;
+            var EAPPesoFitUP = PesoFitUp * eap.Acoplamento;
+            var EAPPesoSolda = PesoSolda * eap.Solda;
+            var EAPPesoEND = PesoEND * eap.End;
+            var PesoAvancoTotalPoderado = EAPPesoPosicionamento + EAPPesoFitUP + EAPPesoSolda + EAPPesoEND;
 
-            return comprimentoTotal;
+            //Percentual de Avanco Total
+            var PercAvancoTotalPoderado = PesoAvancoTotalPoderado / componente.PesoTotal;
         }
     }
 }

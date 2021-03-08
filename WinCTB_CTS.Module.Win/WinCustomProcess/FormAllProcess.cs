@@ -27,7 +27,8 @@ namespace WinCTB_CTS.Module.Win.WinCustomProcess {
         private const string PathFileForImportTabelaAuxiliarTubulacao = "PathFileForImportTabelaAuxiliarTubulacao";
         private const string PathFileForImportTabelaAuxiliarEstrutura = "PathFileForImportTabelaAuxiliarEstrutura";
         private const string PathFileForImportTubulacao = "PathFileForImportTubulacao";
-        private const string PathFileForImportEstrutura = "PathFileForImportEstrutura";
+        private const string PathFileForImportEstruturaMV32 = "PathFileForImportEstruturaMV32";
+        private const string PathFileForImportEstruturaSEPETIBA = "PathFileForImportEstruturaSEPETIBA";
 
         public FormAllProcess() {
             InitializeComponent();
@@ -41,12 +42,14 @@ namespace WinCTB_CTS.Module.Win.WinCustomProcess {
             LigarToggles();
 
             BtnPathImportTubulacao.EditValue = RegisterWindowsManipulation.GetRegister(PathFileForImportTubulacao);
-            BtnPathImportEstrutura.EditValue = RegisterWindowsManipulation.GetRegister(PathFileForImportEstrutura);
+            BtnPathImportEstruturaMV32.EditValue = RegisterWindowsManipulation.GetRegister(PathFileForImportEstruturaMV32);
+            BtnPathImportEstruturaSEPETIBA.EditValue = RegisterWindowsManipulation.GetRegister(PathFileForImportEstruturaMV32);
             BtnPathImportTabAuxiliarTubulacao.EditValue = RegisterWindowsManipulation.GetRegister(PathFileForImportTabelaAuxiliarTubulacao); ;
             BtnPathImportTabAuxiliarEstrutura.EditValue = RegisterWindowsManipulation.GetRegister(PathFileForImportTabelaAuxiliarEstrutura); ;
 
             BtnPathImportTubulacao.EditValueChanged += BtnPathImportTubulacao_EditValueChanged;
-            BtnPathImportEstrutura.EditValueChanged += BtnPathImportEstrutura_EditValueChanged;
+            BtnPathImportEstruturaMV32.EditValueChanged += BtnPathImportEstruturaMV32_EditValueChanged;
+            BtnPathImportEstruturaSEPETIBA.EditValueChanged += BtnPathImportEstruturaSEPETIBA_EditValueChanged; ;
             BtnPathImportTabAuxiliarTubulacao.EditValueChanged += BtnPathImportTabAuxiliarTubulacao_EditValueChanged;
             BtnPathImportTabAuxiliarEstrutura.EditValueChanged += BtnPathImportTabAuxiliarEstrutura_EditValueChanged;
         }
@@ -58,9 +61,13 @@ namespace WinCTB_CTS.Module.Win.WinCustomProcess {
         private void BtnPathImportTabAuxiliarTubulacao_EditValueChanged(object sender, EventArgs e) {
             RegisterWindowsManipulation.SetRegister(PathFileForImportTabelaAuxiliarTubulacao, BtnPathImportTabAuxiliarTubulacao.Text);
         }
+                      
+        private void BtnPathImportEstruturaMV32_EditValueChanged(object sender, EventArgs e) {
+            RegisterWindowsManipulation.SetRegister(PathFileForImportEstruturaMV32, BtnPathImportEstruturaMV32.Text);
+        }
 
-        private void BtnPathImportEstrutura_EditValueChanged(object sender, EventArgs e) {
-            RegisterWindowsManipulation.SetRegister(PathFileForImportEstrutura, BtnPathImportEstrutura.Text);
+        private void BtnPathImportEstruturaSEPETIBA_EditValueChanged(object sender, EventArgs e) {
+            RegisterWindowsManipulation.SetRegister(PathFileForImportEstruturaSEPETIBA, BtnPathImportEstruturaSEPETIBA.Text);
         }
 
         private void BtnPathImportTubulacao_EditValueChanged(object sender, EventArgs e) {
@@ -96,14 +103,13 @@ namespace WinCTB_CTS.Module.Win.WinCustomProcess {
         }
 
         private void LigarToggles() {
-            toggleSwitchImportarEstrutura1.IsOn = true;
-            toggleSwitchImportarEstrutura2.IsOn = true;
+            toggleSwitchImportarEstruturaMV32.IsOn = true;
+            toggleSwitchImportarEstruturaSepetiba.IsOn = true;
             toggleSwitchImportarLotesEstrutura.IsOn = true;
             toggleSwitchImportarTubulacao.IsOn = true;
             toggleSwitchImportarTabelasAuxiliaresTubulacao.IsOn = true;
             toggleSwitchImportarTabelasAuxiliaresEstrutura.IsOn = true;
         }
-
 
         private void resetCheckEdit() {
             foreach (var control in this.Controls) {
@@ -162,13 +168,20 @@ namespace WinCTB_CTS.Module.Win.WinCustomProcess {
             }
 
             //Importação Estrutura
-            if (toggleSwitchImportarEstrutura1.IsOn) {
-                await ImportarComponente(cancellationToken, progressLocal);
-                await ImportarJuntaComponente(cancellationToken, progressLocal);
+            if (toggleSwitchImportarEstruturaMV32.IsOn) {
+                await ImportarComponenteMV32(cancellationToken, progressLocal);
+                await ImportarJuntaComponenteMV32(cancellationToken, progressLocal);
             }
 
             //Importação Estrutura
-            if (toggleSwitchImportarEstrutura2.IsOn) {
+            if (toggleSwitchImportarEstruturaSepetiba.IsOn) {
+                await ImportarComponenteSepetiba(cancellationToken, progressLocal);
+                await ImportarJuntaComponenteSepetiba(cancellationToken, progressLocal);
+            }
+
+
+            //Importação Estrutura
+            if (toggleSwitchImportarEstruturaSepetiba.IsOn) {
                 //await ImportarComponente(cts.Token, progressLocal);
                 //await ImportarJuntaComponente(cts.Token, progressLocal);
             }
@@ -271,20 +284,36 @@ namespace WinCTB_CTS.Module.Win.WinCustomProcess {
 
 
         #region Importação de Estrutura
-        private async Task ImportarComponente(CancellationToken cancellationToken, IProgress<ImportProgressReport> progress) {
-            CheckEditEmAndamento(checkEditComponentes);
+        private async Task ImportarComponenteMV32(CancellationToken cancellationToken, IProgress<ImportProgressReport> progress) {
+            CheckEditEmAndamento(checkEditComponentesMV32);
             var processo = new ImportComponente(cancellationToken, progressLocal);
-            await processo.ProcessarTarefaWithStream("Piece", "MapaMontagemEBR_MV32.xlsx", BtnPathImportEstrutura.Text);
+            await processo.ProcessarTarefaWithStream("Piece", "MapaMontagemEBR_MV32.xlsx", BtnPathImportEstruturaMV32.Text);
             processo.Dispose();
-            CheckEditProcessado(checkEditComponentes);
+            CheckEditProcessado(checkEditComponentesMV32);
         }
 
-        private async Task ImportarJuntaComponente(CancellationToken cancellationToken, IProgress<ImportProgressReport> progress) {
-            CheckEditEmAndamento(checkEditJuntaComponente);
+        private async Task ImportarJuntaComponenteMV32(CancellationToken cancellationToken, IProgress<ImportProgressReport> progress) {
+            CheckEditEmAndamento(checkEditJuntaComponenteMV32);
             var processo = new ImportJuntaComponente(cancellationToken, progressLocal);
-            await processo.ProcessarTarefaWithStream("Joints", "MapaMontagemEBR_MV32.xlsx", BtnPathImportEstrutura.Text);
+            await processo.ProcessarTarefaWithStream("Joints", "MapaMontagemEBR_MV32.xlsx", BtnPathImportEstruturaMV32.Text);
             processo.Dispose();
-            CheckEditProcessado(checkEditJuntaComponente);
+            CheckEditProcessado(checkEditJuntaComponenteMV32);
+        }
+
+        private async Task ImportarComponenteSepetiba(CancellationToken cancellationToken, IProgress<ImportProgressReport> progress) {
+            CheckEditEmAndamento(checkEditComponentesSepetiba);
+            var processo = new ImportComponente(cancellationToken, progressLocal);
+            await processo.ProcessarTarefaWithStream("Piece", "MapaMontagemEBR_SEPETIBA.xlsx", BtnPathImportEstruturaMV32.Text);
+            processo.Dispose();
+            CheckEditProcessado(checkEditComponentesSepetiba);
+        }
+
+        private async Task ImportarJuntaComponenteSepetiba(CancellationToken cancellationToken, IProgress<ImportProgressReport> progress) {
+            CheckEditEmAndamento(checkEditJuntaComponenteSepetiba);
+            var processo = new ImportJuntaComponente(cancellationToken, progressLocal);
+            await processo.ProcessarTarefaWithStream("Joints", "MapaMontagemEBR_SEPETIBA.xlsx", BtnPathImportEstruturaMV32.Text);
+            processo.Dispose();
+            CheckEditProcessado(checkEditJuntaComponenteSepetiba);
         }
         #endregion
 

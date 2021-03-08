@@ -11,6 +11,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using System.Text;
+using WinCTB_CTS.Module.BusinessObjects.Estrutura;
 using WinCTB_CTS.Module.BusinessObjects.Estrutura.Auxiliar;
 using WinCTB_CTS.Module.BusinessObjects.Tubulacao;
 using WinCTB_CTS.Module.BusinessObjects.Tubulacao.Auxiliar;
@@ -46,6 +47,13 @@ namespace WinCTB_CTS.Module.BusinessObjects.Comum
             get
             {
                 return GetCollection<Spool>(nameof(Spools));
+            }
+        }
+
+        [Association("Contrato-Componentes")]
+        public XPCollection<Componente> Componentes {
+            get {
+                return GetCollection<Componente>(nameof(Componentes));
             }
         }
 

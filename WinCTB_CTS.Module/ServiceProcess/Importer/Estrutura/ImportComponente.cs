@@ -7,31 +7,32 @@ using WinCTB_CTS.Module.Comum;
 using WinCTB_CTS.Module.BusinessObjects.Estrutura;
 using WinCTB_CTS.Module.ServiceProcess.Base;
 using WinCTB_CTS.Module.Helpers;
+using WinCTB_CTS.Module.BusinessObjects.Comum;
+using DevExpress.ExpressApp.Utils;
+using WinCTB_CTS.Module.BusinessObjects.Estrutura.Auxiliar;
 
-namespace WinCTB_CTS.Module.ServiceProcess.Importer.Estrutura
-{
-    public class ImportComponente : CalculatorProcessBase
-    {
+namespace WinCTB_CTS.Module.ServiceProcess.Importer.Estrutura {
+    public class ImportComponente : CalculatorProcessBase {
         public ImportComponente(CancellationToken cancellationToken, IProgress<ImportProgressReport> progress)
-        : base(cancellationToken, progress)
-        {
+        : base(cancellationToken, progress) {
         }
 
-        protected override void OnMapImporter(UnitOfWork uow, DataTable dataTable, DataRow rowForMap, int expectedTotal, int currentIndex)
-        {
+        protected override void OnMapImporter(UnitOfWork uow, DataTable dataTable, DataRow rowForMap, int expectedTotal, int currentIndex) {
             base.OnMapImporter(uow, dataTable, rowForMap, expectedTotal, currentIndex);
 
-            if (currentIndex >= 3)
-            {
+            var linha = rowForMap;
+            var peca = linha[4].ToString();
+
+            if (currentIndex >= 3 && !string.IsNullOrWhiteSpace(peca)) {
                 cancellationToken.ThrowIfCancellationRequested();
-                var linha = rowForMap;
                 var documentoReferencia = linha[1].ToString();
                 var desenhoMontagem = linha[2].ToString();
-                var transmital = linha[3].ToString();
-                var peca = linha[4].ToString();
+                var transmital = linha[3].ToString();               
 
-                var criteriaOperator = CriteriaOperator.Parse("DesenhoMontagem = ? And Peca = ?",
-                    desenhoMontagem, peca);
+                var eap = uow.FindObject<TabEAPEst>(new BinaryOperator("Modulo", linha[0].ToString()));
+
+                var criteriaOperator = CriteriaOperator.Parse("Contrato.oid = ? And DesenhoMontagem = ? And Peca = ?",
+                    eap.Contrato.Oid, desenhoMontagem, peca);
 
                 var componente = uow.FindObject<Componente>(criteriaOperator);
 
@@ -43,6 +44,7 @@ namespace WinCTB_CTS.Module.ServiceProcess.Importer.Estrutura
                 //Mapear campos aqui
                 //componente.Contrato = contrato;
 
+                componente.Contrato = eap.Contrato;
                 componente.Modulo = linha[0].ToString();
                 componente.DocumentoReferencia = documentoReferencia;
                 componente.DesenhoMontagem = desenhoMontagem;
