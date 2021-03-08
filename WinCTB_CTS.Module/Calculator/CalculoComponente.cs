@@ -20,6 +20,7 @@ using System.Reactive.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using WinCTB_CTS.Module.BusinessObjects.Estrutura;
+using WinCTB_CTS.Module.BusinessObjects.Estrutura.Auxiliar;
 using WinCTB_CTS.Module.BusinessObjects.Estrutura.Medicao;
 using WinCTB_CTS.Module.BusinessObjects.Tubulacao;
 using WinCTB_CTS.Module.BusinessObjects.Tubulacao.Auxiliar;
@@ -118,35 +119,21 @@ namespace WinCTB_CTS.Module.Calculator
 
             //Carregar somente as juntas com medJoints igual ao componente
             var medJoints = componente.JuntaComponentes.Where(x => x.MedJoint.Oid == x.Componente.Oid).ToList();
-            var comprimentoTotal = CalculaComprimento(medJoints);
+
+            //Cagarda da EAP
+
+            //var eap = session.QueryInTransaction<TabEAPEst>().Single(x=> x.Contrato.Oid == );
+
+            //Comprimento total com medjoints
+            var comprimentoTotal = medJoints.Sum(x => x.Comprimento);
+
+
+
+
+
 
             //var QtdJuntaPipe = Utils.ConvertINT(componente.Evaluate(CriteriaOperator.Parse("Juntas[CampoOuPipe == 'PIPE'].Count()")));
             //var QtdJuntaMont = Utils.ConvertINT(componente.Evaluate(CriteriaOperator.Parse("Juntas[CampoOuPipe == 'CAMPO'].Count()")));
-        }
-
-        private static double CalculaComprimento(IList<JuntaComponente> medJoints)
-        {
-            double comprimentoTotal = 0D;
-
-            foreach (var item in medJoints)
-            {
-                // DF1 == DF2
-                if (item.Df1 == item.Df2)
-                    comprimentoTotal += 0;
-
-                //Tipo de estrutura e progfitup - Falta comparação entre ProgfitupDf1 e ProgfitupDf2
-                if (item.PosicaoDf1 == "column" || item.PosicaoDf1 == "coluna" || item.PosicaoDf1 == "contaventamento")
-                    comprimentoTotal += item.Comprimento;
-
-
-                //Categoria da estrutura e tipo de junta
-                if (item.TipoDf1 == "Primary" && (item.TipoJunta == "JASA" || item.TipoJunta == "JTPP" || item.TipoJunta == "JAPP"))
-                    comprimentoTotal += 0;
-                
-               
-            }
-
-            return comprimentoTotal;
         }
     }
 }

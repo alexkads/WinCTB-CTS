@@ -16,7 +16,7 @@ using WinCTB_CTS.Module.Comum.ViewCloner;
 
 namespace WinCTB_CTS.Module.BusinessObjects.Estrutura
 {
-    [DefaultClassOptions, DefaultProperty("ConcatPecaDf1Junta"), ImageName("BO_Contract"), NavigationItem("Estrutura")]
+    [DefaultClassOptions, DefaultProperty("ConcatPecaJunta"), ImageName("BO_Contract"), NavigationItem("Estrutura")]
     [Indices("Componente;Junta")]
     [CloneView(CloneViewType.ListView, "JuntaComponente_ListView_consulta")]
     public class JuntaComponente : BaseObject
@@ -105,10 +105,9 @@ namespace WinCTB_CTS.Module.BusinessObjects.Estrutura
             set => SetPropertyValue(nameof(Junta), ref junta, value);
         }
 
-        [XafDisplayName("Peca-DF1-Junta")]
-        [PersistentAlias("Concat(Componente.Peca,'-',Df1,'-',Junta)")]
-        public string ConcatPecaDf1Junta => (string)EvaluateAlias("ConcatPecaDf1Junta");
-
+        [XafDisplayName("Peça-Junta")]
+        [PersistentAlias("Concat(Componente.Peca,'-',Junta)")]
+        public string ConcatPecaJunta => (string)EvaluateAlias("ConcatPecaJunta");
 
         [Size(100), XafDisplayName("Tipo de Junta")]
         public string TipoJunta

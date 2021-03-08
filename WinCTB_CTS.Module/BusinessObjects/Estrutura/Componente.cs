@@ -11,6 +11,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using System.Text;
+using WinCTB_CTS.Module.BusinessObjects.Comum;
 using WinCTB_CTS.Module.BusinessObjects.Estrutura.Medicao;
 
 namespace WinCTB_CTS.Module.BusinessObjects.Estrutura
@@ -28,6 +29,7 @@ namespace WinCTB_CTS.Module.BusinessObjects.Estrutura
             base.AfterConstruction();
         }
 
+        Contrato contrato;
         private string statusPeca;
         private DateTime? dataPintura;
         private string inspPintura;
@@ -54,13 +56,19 @@ namespace WinCTB_CTS.Module.BusinessObjects.Estrutura
         private string documentoReferencia;
         private string modulo;
 
+        
+        [Association("Contrato-Componentes")]
+        public Contrato Contrato {
+            get => contrato;
+            set => SetPropertyValue(nameof(Contrato), ref contrato, value);
+        }
+
         [Size(100), XafDisplayName("Módulo")]
         public string Modulo
         {
             get => modulo;
             set => SetPropertyValue(nameof(Modulo), ref modulo, value);
         }
-
 
         [Size(100), XafDisplayName("Documento de Referência")]
         public string DocumentoReferencia
