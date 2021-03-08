@@ -24,6 +24,6 @@ namespace WinCTB_CTS.Module.Importer.Tubulacao
     {
         public ParametrosAtualizacaoTabelasAuxiliares(Session session) : base(session){}
 
-        public override string NomeDoRecurso { get => "TabelasAuxiliares.xlsx"; }
+        public override string NomeDoRecurso { get => "TabelasAuxiliarTubulacao.xlsx"; }
     }
 }

@@ -309,7 +309,7 @@
     <EmbeddedResource Include="RelatorioPreDefinido\RelatorioSpoolMedicao.resx">
       <DependentUpon>RelatorioSpoolMedicao.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Resources\TabelasAuxiliares.xlsx">
+    <EmbeddedResource Include="Resources\TabelasAuxiliarTubulacao.xlsx">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </EmbeddedResource>
     <EmbeddedResource Include="Resources\SGSeSGJOriginal.xlsx">
@@ -333,9 +333,6 @@
     <None Include="FunctionalTests\sample.ets" />
     <None Include="FunctionalTests\WebSample.ets" />
     <None Include="Images\ReadMe.txt" />
-    <EmbeddedResource Include="Resources\CSGeCSJ.xlsx">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </EmbeddedResource>
     <None Include="ReadMe.txt" />
   </ItemGroup>
   <ItemGroup>

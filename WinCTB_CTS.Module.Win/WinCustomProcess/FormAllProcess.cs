@@ -184,7 +184,7 @@ namespace WinCTB_CTS.Module.Win.WinCustomProcess
         {
             CheckEditEmAndamento(checkEditContrato);
             var processo = new ImportContrato(cancellationToken, progressLocal);
-            await processo.ProcessarTarefaWithStream("Contrato", "TabelasAuxiliares.xlsx", BtnPathImportTabAuxiliarTubulacao.Text);
+            await processo.ProcessarTarefaWithStream("Contrato", "TabelasAuxiliarTubulacao.xlsx", BtnPathImportTabAuxiliarTubulacao.Text);
             processo.Dispose();
             CheckEditProcessado(checkEditContrato);
         }
@@ -193,7 +193,7 @@ namespace WinCTB_CTS.Module.Win.WinCustomProcess
         {
             CheckEditEmAndamento(checkEditDiametro);
             var processo = new ImportDiametro(cancellationToken, progressLocal);
-            await processo.ProcessarTarefaWithStream("TabDiametro", "TabelasAuxiliares.xlsx", BtnPathImportTabAuxiliarTubulacao.Text);
+            await processo.ProcessarTarefaWithStream("TabDiametro", "TabelasAuxiliarTubulacao.xlsx", BtnPathImportTabAuxiliarTubulacao.Text);
             processo.Dispose();
             CheckEditProcessado(checkEditDiametro);
         }
@@ -202,7 +202,7 @@ namespace WinCTB_CTS.Module.Win.WinCustomProcess
         {
             CheckEditEmAndamento(checkEditSchedule);
             var processo = new ImportSchedule(cancellationToken, progressLocal);
-            await processo.ProcessarTarefaWithStream("Schedule", "TabelasAuxiliares.xlsx", BtnPathImportTabAuxiliarTubulacao.Text);
+            await processo.ProcessarTarefaWithStream("Schedule", "TabelasAuxiliarTubulacao.xlsx", BtnPathImportTabAuxiliarTubulacao.Text);
             processo.Dispose();
             CheckEditProcessado(checkEditSchedule);
         }
@@ -211,7 +211,7 @@ namespace WinCTB_CTS.Module.Win.WinCustomProcess
         {
             CheckEditEmAndamento(checkEditPercInspecao);
             var processo = new ImportPercInspecao(cancellationToken, progressLocal);
-            await processo.ProcessarTarefaWithStream("PercInspecao", "TabelasAuxiliares.xlsx", BtnPathImportTabAuxiliarTubulacao.Text);
+            await processo.ProcessarTarefaWithStream("PercInspecao", "TabelasAuxiliarTubulacao.xlsx", BtnPathImportTabAuxiliarTubulacao.Text);
             processo.Dispose();
             CheckEditProcessado(checkEditPercInspecao);
         }
@@ -220,7 +220,7 @@ namespace WinCTB_CTS.Module.Win.WinCustomProcess
         {
             CheckEditEmAndamento(checkEditProcessoSoldagem);
             var processo = new ImportProcessoSoldagem(cancellationToken, progressLocal);
-            await processo.ProcessarTarefaWithStream("ProcessoSoldagem", "TabelasAuxiliares.xlsx", BtnPathImportTabAuxiliarTubulacao.Text);
+            await processo.ProcessarTarefaWithStream("ProcessoSoldagem", "TabelasAuxiliarTubulacao.xlsx", BtnPathImportTabAuxiliarTubulacao.Text);
             processo.Dispose();
             CheckEditProcessado(checkEditProcessoSoldagem);
         }
