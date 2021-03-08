@@ -583,12 +583,12 @@ namespace WinCTB_CTS.Module.Win.WinCustomProcess
             this.Controls.Add(this.BtStartProcess);
             this.Controls.Add(this.progressBarControlGeral);
             this.FormBorderEffect = DevExpress.XtraEditors.FormBorderEffect.Shadow;
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "FormAllProcess";
             this.ShowIcon = false;
-            this.StartPosition = System.Windows.Forms.FormStartPosition.Manual;
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Importação de dados";
             this.TopMost = true;
             ((System.ComponentModel.ISupportInitialize)(this.progressBarControlGeral.Properties)).EndInit();

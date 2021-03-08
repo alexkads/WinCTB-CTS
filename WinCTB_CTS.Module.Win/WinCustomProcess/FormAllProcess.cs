@@ -33,7 +33,7 @@ namespace WinCTB_CTS.Module.Win.WinCustomProcess
         public FormAllProcess()
         {
             InitializeComponent();
-            this.Location = Screen.AllScreens[1].WorkingArea.Location;
+            //this.Location = Screen.AllScreens[1].WorkingArea.Location;
             init();
         }
 
