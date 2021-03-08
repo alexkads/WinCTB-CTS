@@ -21,7 +21,7 @@ using WinCTB_CTS.Module.BusinessObjects.Tubulacao;
 using WinCTB_CTS.Module.BusinessObjects.Tubulacao.Auxiliar;
 using WinCTB_CTS.Module.BusinessObjects.Tubulacao.Medicao;
 using WinCTB_CTS.Module.Comum;
-using WinCTB_CTS.Module.Importer;
+using WinCTB_CTS.Module.ServiceProcess.Base;
 
 namespace WinCTB_CTS.Module.Win.Controllers.Estrutura
 {

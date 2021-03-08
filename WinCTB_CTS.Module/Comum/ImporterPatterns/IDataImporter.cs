@@ -9,8 +9,7 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using WinCTB_CTS.Module.Helpers;
-using WinCTB_CTS.Module.Importer;
-using WinCTB_CTS.Module.Importer.Estrutura;
+using WinCTB_CTS.Module.ServiceProcess.Base;
 
 namespace WinCTB_CTS.Module.Comum.ImporterPatterns
 {
@@ -18,7 +17,6 @@ namespace WinCTB_CTS.Module.Comum.ImporterPatterns
     {
         CancellationTokenSource SetCancellationTokenSource { get; set; }
         IProgress<ImportProgressReport> SetProgress { get; set; }
-        ParametrosImportBase SetParametros { get; set; }
         string SetTabName { get; set; }
         ProviderDataLayer providerDataLayer { get; set; }
 

@@ -1,133 +1,133 @@
-﻿using DevExpress.Data.Filtering;
-using DevExpress.ExpressApp;
-using DevExpress.ExpressApp.Xpo;
-using DevExpress.Xpo;
-using DevExpress.Xpo.DB;
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
-using System.Reactive.Linq;
-using System.Threading.Tasks;
-using WinCTB_CTS.Module.BusinessObjects.Comum;
-using WinCTB_CTS.Module.BusinessObjects.Estrutura.Lotes;
-using WinCTB_CTS.Module.Helpers;
-using WinCTB_CTS.Module.Importer;
-using WinCTB_CTS.Module.Interfaces;
+﻿//using DevExpress.Data.Filtering;
+//using DevExpress.ExpressApp;
+//using DevExpress.ExpressApp.Xpo;
+//using DevExpress.Xpo;
+//using DevExpress.Xpo.DB;
+//using System;
+//using System.Collections;
+//using System.Collections.Generic;
+//using System.Linq;
+//using System.Reactive.Linq;
+//using System.Threading.Tasks;
+//using WinCTB_CTS.Module.BusinessObjects.Comum;
+//using WinCTB_CTS.Module.BusinessObjects.Estrutura.Lotes;
+//using WinCTB_CTS.Module.Helpers;
+//using WinCTB_CTS.Module.Importer;
+//using WinCTB_CTS.Module.Interfaces;
 
-namespace WinCTB_CTS.Module.Calculator.ProcessoLote
-{
-    public class LotesDeEstruturaAlinhamento
-    {
-        public ProviderDataLayer providerDataLayer { get; set; }
+//namespace WinCTB_CTS.Module.Calculator.ProcessoLote
+//{
+//    public class LotesDeEstruturaAlinhamento
+//    {
+//        public ProviderDataLayer providerDataLayer { get; set; }
 
-        public LotesDeEstruturaAlinhamento()
-        {
-            this.providerDataLayer = new ProviderDataLayer();
-        }
+//        public LotesDeEstruturaAlinhamento()
+//        {
+//            this.providerDataLayer = new ProviderDataLayer();
+//        }
 
-        public async Task AlinhaLotes(IProgress<ImportProgressReport> progress)
-        {
-            await Task.Factory.StartNew(() =>
-            {
-                UnitOfWork uow = new UnitOfWork(providerDataLayer.GetSimpleDataLayer());
-                var lotes = new XPCollection<LoteEstrutura>(uow);
-                lotes.Sorting.Add(new SortProperty("NumeroDoLote", SortingDirection.Ascending));
+//        public async Task AlinhaLotes(IProgress<ImportProgressReport> progress)
+//        {
+//            await Task.Factory.StartNew(() =>
+//            {
+//                UnitOfWork uow = new UnitOfWork(providerDataLayer.GetSimpleDataLayer());
+//                var lotes = new XPCollection<LoteEstrutura>(uow);
+//                lotes.Sorting.Add(new SortProperty("NumeroDoLote", SortingDirection.Ascending));
 
-                int totalDatastore = lotes.EvaluateDatastoreCount();
-                int currentProcess = 0;
+//                int totalDatastore = lotes.EvaluateDatastoreCount();
+//                int currentProcess = 0;
 
-                uow.BeginTransaction();
+//                uow.BeginTransaction();
 
-                Observable.ForEachAsync<LoteEstrutura>(lotes.ToObservable(), lote =>
-                {
-                    AtualizarStatusLote(lote);
-                    currentProcess++;
+//                Observable.ForEachAsync<LoteEstrutura>(lotes.ToObservable(), lote =>
+//                {
+//                    AtualizarStatusLote(lote);
+//                    currentProcess++;
 
-                    if (currentProcess % 100 == 0)
-                    {
-                        uow.CommitTransaction();
-                        progress.Report(new ImportProgressReport
-                        {
-                            TotalRows = totalDatastore,
-                            CurrentRow = currentProcess,
-                            MessageImport = $"Importando linha {currentProcess}/{totalDatastore}"
-                        });
-                    }
-                });
+//                    if (currentProcess % 100 == 0)
+//                    {
+//                        uow.CommitTransaction();
+//                        progress.Report(new ImportProgressReport
+//                        {
+//                            TotalRows = totalDatastore,
+//                            CurrentRow = currentProcess,
+//                            MessageImport = $"Importando linha {currentProcess}/{totalDatastore}"
+//                        });
+//                    }
+//                });
 
-                progress.Report(new ImportProgressReport
-                {
-                    TotalRows = totalDatastore,
-                    CurrentRow = totalDatastore,
-                    MessageImport = $"Finalizado {totalDatastore}/{totalDatastore}"
-                });
+//                progress.Report(new ImportProgressReport
+//                {
+//                    TotalRows = totalDatastore,
+//                    CurrentRow = totalDatastore,
+//                    MessageImport = $"Finalizado {totalDatastore}/{totalDatastore}"
+//                });
 
-                uow.CommitTransaction();
-                uow.CommitChanges();
-                uow.Dispose();
-            });
-        }
+//                uow.CommitTransaction();
+//                uow.CommitChanges();
+//                uow.Dispose();
+//            });
+//        }
 
-        public static void AtualizarStatusLote(LoteEstrutura lote)
-        {
-            int Necessidade = (int)Math.Ceiling(lote.JuntasNoLote * lote.PercentualNivelDeInspecao);
-            if (Necessidade == 0)
-                Necessidade = 1;
-            int Reprovacao = 0;
-            int NecessidadeDeInspecaoFinal = 0;
-            DateTime DataDaJuntaQueAprovouLote = DateTime.MinValue;
-            lote.ComJuntaReprovada = lote.LotejuntaEstruturas.Any(x => x.Laudo == InspecaoLaudo.R);
-            lote.JuntasNoLote = lote.LotejuntaEstruturas.EvaluateDatastoreCount();
+//        public static void AtualizarStatusLote(LoteEstrutura lote)
+//        {
+//            int Necessidade = (int)Math.Ceiling(lote.JuntasNoLote * lote.PercentualNivelDeInspecao);
+//            if (Necessidade == 0)
+//                Necessidade = 1;
+//            int Reprovacao = 0;
+//            int NecessidadeDeInspecaoFinal = 0;
+//            DateTime DataDaJuntaQueAprovouLote = DateTime.MinValue;
+//            lote.ComJuntaReprovada = lote.LotejuntaEstruturas.Any(x => x.Laudo == InspecaoLaudo.R);
+//            lote.JuntasNoLote = lote.LotejuntaEstruturas.EvaluateDatastoreCount();
 
-            if (lote.LotejuntaEstruturas.Count < lote.QuantidadeNecessaria)
-                lote.SituacaoQuantidade = SituacoesQuantidade.Incompleto;
-            else if (lote.LotejuntaEstruturas.Count == lote.QuantidadeNecessaria)
-                lote.SituacaoQuantidade = SituacoesQuantidade.Completo;
-            lote.JuntasNoLote = lote.LotejuntaEstruturas.Count;
+//            if (lote.LotejuntaEstruturas.Count < lote.QuantidadeNecessaria)
+//                lote.SituacaoQuantidade = SituacoesQuantidade.Incompleto;
+//            else if (lote.LotejuntaEstruturas.Count == lote.QuantidadeNecessaria)
+//                lote.SituacaoQuantidade = SituacoesQuantidade.Completo;
+//            lote.JuntasNoLote = lote.LotejuntaEstruturas.Count;
 
-            using (var LoteJuntas = new XPCollection<LoteJuntaEstrutura>(PersistentCriteriaEvaluationBehavior.BeforeTransaction, lote.Session, new BinaryOperator(nameof(LoteEstrutura), lote.NumeroDoLote)))
-            {
-                foreach (var LoteJunta in LoteJuntas.OrderBy(o => o.DataInspecao).ToArray())
-                {
-                    if (LoteJunta.Laudo == InspecaoLaudo.A)
-                        Necessidade -= 1;
+//            using (var LoteJuntas = new XPCollection<LoteJuntaEstrutura>(PersistentCriteriaEvaluationBehavior.BeforeTransaction, lote.Session, new BinaryOperator(nameof(LoteEstrutura), lote.NumeroDoLote)))
+//            {
+//                foreach (var LoteJunta in LoteJuntas.OrderBy(o => o.DataInspecao).ToArray())
+//                {
+//                    if (LoteJunta.Laudo == InspecaoLaudo.A)
+//                        Necessidade -= 1;
 
-                    if (Necessidade == 0 && LoteJunta.Laudo == InspecaoLaudo.A)
-                        LoteJunta.AprovouLote = true;
-                    else
-                        LoteJunta.AprovouLote = false;
+//                    if (Necessidade == 0 && LoteJunta.Laudo == InspecaoLaudo.A)
+//                        LoteJunta.AprovouLote = true;
+//                    else
+//                        LoteJunta.AprovouLote = false;
 
-                    if (LoteJunta.AprovouLote)
-                        DataDaJuntaQueAprovouLote = LoteJunta.DataInspecao;
+//                    if (LoteJunta.AprovouLote)
+//                        DataDaJuntaQueAprovouLote = LoteJunta.DataInspecao;
 
-                    if (Necessidade < 0 && LoteJunta.Laudo == InspecaoLaudo.A)
-                        LoteJunta.InspecaoExcesso = true;
-                    else
-                        LoteJunta.InspecaoExcesso = false;
-                }
+//                    if (Necessidade < 0 && LoteJunta.Laudo == InspecaoLaudo.A)
+//                        LoteJunta.InspecaoExcesso = true;
+//                    else
+//                        LoteJunta.InspecaoExcesso = false;
+//                }
 
-                lote.ComJuntaReprovada = LoteJuntas.Any(x => x.Laudo == InspecaoLaudo.R);
-                var NaoInspecionado = lote.LotejuntaEstruturas.Where(x => string.IsNullOrEmpty(x.NumeroDoRelatorio)).Count();
-                NecessidadeDeInspecaoFinal = Reprovacao > 3 ? NaoInspecionado : Necessidade;
-                lote.NecessidadeDeInspecao = NecessidadeDeInspecaoFinal > 0 ? NecessidadeDeInspecaoFinal : 0;
-                lote.QuantidadeInspecionada = lote.LotejuntaEstruturas.Count(x => !string.IsNullOrEmpty(x.NumeroDoRelatorio));
-                lote.ExcessoDeInspecao = LoteJuntas.Count(x => x.InspecaoExcesso);
+//                lote.ComJuntaReprovada = LoteJuntas.Any(x => x.Laudo == InspecaoLaudo.R);
+//                var NaoInspecionado = lote.LotejuntaEstruturas.Where(x => string.IsNullOrEmpty(x.NumeroDoRelatorio)).Count();
+//                NecessidadeDeInspecaoFinal = Reprovacao > 3 ? NaoInspecionado : Necessidade;
+//                lote.NecessidadeDeInspecao = NecessidadeDeInspecaoFinal > 0 ? NecessidadeDeInspecaoFinal : 0;
+//                lote.QuantidadeInspecionada = lote.LotejuntaEstruturas.Count(x => !string.IsNullOrEmpty(x.NumeroDoRelatorio));
+//                lote.ExcessoDeInspecao = LoteJuntas.Count(x => x.InspecaoExcesso);
 
-                if (Necessidade <= 0)
-                {
-                    lote.SituacaoInspecao = SituacoesInspecao.Aprovado;
-                }
-                else if (Necessidade > 0)
-                {
-                    lote.SituacaoInspecao = SituacoesInspecao.Pendente;
-                }
+//                if (Necessidade <= 0)
+//                {
+//                    lote.SituacaoInspecao = SituacoesInspecao.Aprovado;
+//                }
+//                else if (Necessidade > 0)
+//                {
+//                    lote.SituacaoInspecao = SituacoesInspecao.Pendente;
+//                }
 
-#if Test
-                if(LoteJuntas.Count(x => x.AprovouLote) > 1)
-                    throw new InvalidOperationException("Não é permitido existirem mais de uma junta aprovando um lote");
-#endif
-            }
-        }
-    }
-}
+//#if Test
+//                if(LoteJuntas.Count(x => x.AprovouLote) > 1)
+//                    throw new InvalidOperationException("Não é permitido existirem mais de uma junta aprovando um lote");
+//#endif
+//            }
+//        }
+//    }
+//}

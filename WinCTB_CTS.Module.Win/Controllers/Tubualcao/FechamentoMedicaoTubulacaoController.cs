@@ -5,10 +5,10 @@ using DevExpress.XtraEditors;
 using System;
 using System.Linq;
 using System.Threading.Tasks;
-using WinCTB_CTS.Module.Importer;
+using WinCTB_CTS.Module.ServiceProcess.Base;
 
 namespace WinCTB_CTS.Module.Win.Controllers
-{    
+{
     public partial class FechamentoMedicaoTubulacaoController : WindowController
     {
         IObjectSpace objectSpace = null;
