@@ -152,10 +152,10 @@ namespace WinCTB_CTS.Module.Calculator {
             var EAPPesoFitUP = PesoFitUp * eap.Acoplamento;
             var EAPPesoSolda = PesoSolda * eap.Solda;
             var EAPPesoEND = PesoEND * eap.End;
-            var AvancoTotalPoderado = EAPPesoPosicionamento + EAPPesoFitUP + EAPPesoSolda + EAPPesoEND;
+            var PesoAvancoTotalPoderado = EAPPesoPosicionamento + EAPPesoFitUP + EAPPesoSolda + EAPPesoEND;
 
-            //var QtdJuntaPipe = Utils.ConvertINT(componente.Evaluate(CriteriaOperator.Parse("Juntas[CampoOuPipe == 'PIPE'].Count()")));
-            //var QtdJuntaMont = Utils.ConvertINT(componente.Evaluate(CriteriaOperator.Parse("Juntas[CampoOuPipe == 'CAMPO'].Count()")));
+            //Percentual de Avanco Total
+            var PercAvancoTotalPoderado = PesoAvancoTotalPoderado / componente.PesoTotal;
         }
     }
 }
