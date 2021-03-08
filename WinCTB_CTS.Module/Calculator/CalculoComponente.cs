@@ -99,10 +99,7 @@ namespace WinCTB_CTS.Module.Calculator {
         }
 
         private static void OnMedicaoDetalhe(Session session, MedicaoEstrutura medicao, Componente componente) {
-            var detalhe = new MedicaoEstruturaDetalhe(session);
-            medicao.MedicaoEstruturaDetalhes.Add(detalhe);
-            detalhe.Componente = componente;
-            detalhe.PesoTotal = componente.PesoTotal;
+            var detalhe = new MedicaoEstruturaDetalhe(session);            
 
             //Carregar somente as juntas com medJoints igual ao componente
             var medJoints = componente.JuntaComponentes.Where(x => x.MedJoint.Oid == x.Componente.Oid).ToList();
@@ -156,6 +153,46 @@ namespace WinCTB_CTS.Module.Calculator {
 
             //Percentual de Avanco Total
             var PercAvancoTotalPoderado = PesoAvancoTotalPoderado / componente.PesoTotal;
+
+            //Gravar Medição
+            detalhe.Componente = componente;
+            detalhe.PesoTotal = componente.PesoTotal;
+            detalhe.MedJointMM = MedJointMM;
+            detalhe.FitUpExecutadoMM = FitUpExecutadoMM;
+            detalhe.SoldaExecutadoMM = SoldaExecutadoMM;
+            detalhe.VisualPrevistoMM = VisualPrevistoMM;
+            detalhe.VisualExecutadoMM = VisualExecutadoMM;
+            detalhe.LPPMPrevistoMM = LPPMPrevistoMM;
+            detalhe.LPPMExecutadoMM = LPPMExecutadoMM;
+            detalhe.USPrevistoMM = USPrevistoMM;
+            detalhe.USExecutadoMM = USExecutadoMM;
+            detalhe.RXPrevistoMM = RXPrevistoMM;
+            detalhe.RXExecutadoMM = RXExecutadoMM;
+            detalhe.ENDPrevistoMM = ENDPrevistoMM;
+            detalhe.ENDExecutaMM = ENDExecutaMM;
+            detalhe.PercPosicionamento = PercPosicionamento;
+            detalhe.PercAvancoFitUp = PercAvancoFitUp;
+            detalhe.PercAvancoSolda = PercAvancoSolda;
+            detalhe.PercAvancoVisual = PercAvancoVisual;
+            detalhe.PercAvancoLPPM = PercAvancoLPPM;
+            detalhe.PercAvancoUS = PercAvancoUS;
+            detalhe.PercAvancoRX = PercAvancoRX;
+            detalhe.PercAvancoEND = PercAvancoEND;
+            detalhe.PesoPosicionamento = PesoPosicionamento;
+            detalhe.PesoFitUp = PesoFitUp;
+            detalhe.PesoSolda = PesoSolda;
+            detalhe.PesoVisual = PesoVisual;
+            detalhe.PesoLPPM = PesoLPPM;
+            detalhe.PesoUS = PesoUS;
+            detalhe.PesoRX = PesoRX;
+            detalhe.PesoEND = PesoEND;
+            detalhe.EAPPesoPosicionamento = EAPPesoPosicionamento;
+            detalhe.EAPPesoFitUP = EAPPesoFitUP;
+            detalhe.EAPPesoSolda = EAPPesoSolda;
+            detalhe.EAPPesoEND = EAPPesoEND;
+            detalhe.PesoAvancoTotalPoderado = PesoAvancoTotalPoderado;
+            detalhe.PercAvancoTotalPoderado = PercAvancoTotalPoderado;
+            medicao.MedicaoEstruturaDetalhes.Add(detalhe);
         }
     }
 }
