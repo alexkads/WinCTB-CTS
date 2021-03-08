@@ -30,6 +30,7 @@ namespace WinCTB_CTS.Module.ServiceProcess.Base
             this._cancellationToken = cancellationToken;
             this._progress = progress;
         }
+        
         public async Task ProcessarTarefaSimples()
         {
             await Task.Factory.StartNew(() =>
@@ -76,10 +77,8 @@ namespace WinCTB_CTS.Module.ServiceProcess.Base
                 {
                     TotalRows = TotalRowsForImporter,
                     CurrentRow = 0,
-                    MessageImport = "Inicializando importação"
+                    MessageImport = $"Inicializando importação da tabela {TabName}"
                 });
-
-                Debug.WriteLine($"Inicializando importação da Tabela {TabName}");
 
                 uow.BeginTransaction();
 
@@ -107,7 +106,7 @@ namespace WinCTB_CTS.Module.ServiceProcess.Base
                         {
                             TotalRows = TotalRowsForImporter,
                             CurrentRow = i + 1,
-                            MessageImport = $"Importando {TabName} {i}/{TotalRowsForImporter}"
+                            MessageImport = $"Importando tabela {TabName} {i}/{TotalRowsForImporter}"
                         });
                     }
                 });
@@ -117,7 +116,7 @@ namespace WinCTB_CTS.Module.ServiceProcess.Base
                 {
                     TotalRows = TotalRowsForImporter,
                     CurrentRow = TotalRowsForImporter,
-                    MessageImport = $"Gravando Alterações no Banco"
+                    MessageImport = $"Gravando alterações da {TabName}..."
                 });
 
                 uow.CommitTransaction();
@@ -128,7 +127,7 @@ namespace WinCTB_CTS.Module.ServiceProcess.Base
                 {
                     TotalRows = TotalRowsForImporter,
                     CurrentRow = TotalRowsForImporter,
-                    MessageImport = $"Processo Finalizado"
+                    MessageImport = $"Finalizado {TabName}!"
                 });
             });
         }
@@ -161,6 +160,7 @@ namespace WinCTB_CTS.Module.ServiceProcess.Base
             string name = $"{moduleType.Namespace}.Resources.{ResourceName}";
             return moduleType.Assembly.GetManifestResourceStream(name);
         }
+
         public void Dispose()
         {
             _providerDataLayer?.Dispose();
