@@ -309,7 +309,7 @@
     <EmbeddedResource Include="RelatorioPreDefinido\RelatorioSpoolMedicao.resx">
       <DependentUpon>RelatorioSpoolMedicao.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Resources\TabelasAuxiliarTubulacao.xlsx">
+    <EmbeddedResource Include="Resources\TabelaAuxiliarTubulacao.xlsx">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </EmbeddedResource>
     <EmbeddedResource Include="Resources\SGSeSGJOriginal.xlsx">
