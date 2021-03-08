@@ -24,6 +24,7 @@ namespace WinCTB_CTS.Module.ServiceProcess.Importer.Tubulacao
 
             if (currentIndex > 0)
             {
+                cancellationToken.ThrowIfCancellationRequested();
                 var row = rowForMap;
 
                 Func<string, int, object> lheader = (header, indexRow) =>

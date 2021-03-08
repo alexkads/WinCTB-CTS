@@ -24,6 +24,7 @@ namespace WinCTB_CTS.Module.ServiceProcess.Importer.Tubulacao
 
             if (currentIndex > 0)
             {
+                cancellationToken.ThrowIfCancellationRequested();
                 var criteriaOperator = CriteriaOperator.Parse("PipingClass = ? And Material = ? And TabDiametro.Wdi = ? And ScheduleTag = ?",
                      schedules[currentIndex].pipingClass, schedules[currentIndex].material, schedules[currentIndex].wdi, schedules[currentIndex].scheduleTag);
 

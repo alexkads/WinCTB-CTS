@@ -21,6 +21,7 @@ namespace WinCTB_CTS.Module.Win.WinCustomProcess
 {
     public partial class FormAllProcess : DevExpress.XtraEditors.XtraForm
     {
+        private CancellationTokenSource _cancellationTokenSource;
         private IProgress<ImportProgressReport> progressLocal;
         private readonly Font FontStandard = new Font("Tahoma", 8.25F, FontStyle.Regular);
         private readonly Font FontStrikeout = new Font("Tahoma", 8.25F, FontStyle.Strikeout);
@@ -145,43 +146,49 @@ namespace WinCTB_CTS.Module.Win.WinCustomProcess
             checkEdit.ForeColor = System.Drawing.Color.Red;
         }
 
+        private void BtCancelar_Click(object sender, EventArgs e)
+        {
+            _cancellationTokenSource?.Cancel();
+        }
+
         private async void BtStartProcess_Click(object sender, EventArgs e)
         {
             resetCheckEdit();
             BtStartProcess.Enabled = false;
-            var cts = new CancellationTokenSource();
+            _cancellationTokenSource = new CancellationTokenSource();
+            var cancellationToken = _cancellationTokenSource.Token;
             progressLocal = new Progress<ImportProgressReport>(LogTrace);
 
             //Importação Tabela Aulixiares Tubulação
             if (toggleSwitchImportarTabelasAuxiliaresTubulacao.IsOn)
             {
-                await ImportarContratoTubulacao(cts.Token, progressLocal);
-                await ImportarDiametro(cts.Token, progressLocal);
-                await ImportarSchedule(cts.Token, progressLocal);
-                await ImportarPercInspecao(cts.Token, progressLocal);
-                await ImportarProcessoDeSoldagem(cts.Token, progressLocal);
-                await ImportarEAPTubulacao(cts.Token, progressLocal);
+                await ImportarContratoTubulacao(cancellationToken, progressLocal);
+                await ImportarDiametro(cancellationToken, progressLocal);
+                await ImportarSchedule(cancellationToken, progressLocal);
+                await ImportarPercInspecao(cancellationToken, progressLocal);
+                await ImportarProcessoDeSoldagem(cancellationToken, progressLocal);
+                await ImportarEAPTubulacao(cancellationToken, progressLocal);
             }
 
             //Importação Tubulçao
             if (toggleSwitchImportarTubulacao.IsOn)
             {
-                await ImportarSpool(cts.Token, progressLocal);
-                await ImportarJuntaSpool(cts.Token, progressLocal);
+                await ImportarSpool(cancellationToken, progressLocal);
+                await ImportarJuntaSpool(cancellationToken, progressLocal);
             }
 
             //Tabela Auxiliar Estrutura
             if (toggleSwitchImportarTabelasAuxiliaresEstrutura.IsOn)
             {
-                await ImportarContratoEstrutura(cts.Token, progressLocal);
-                await ImportarEAPEstrutura(cts.Token, progressLocal);
+                await ImportarContratoEstrutura(cancellationToken, progressLocal);
+                await ImportarEAPEstrutura(cancellationToken, progressLocal);
             }
 
             //Importação Estrutura
             if (toggleSwitchImportarEstrutura1.IsOn)
             {
-                await ImportarComponente(cts.Token, progressLocal);
-                await ImportarJuntaComponente(cts.Token, progressLocal);
+                await ImportarComponente(cancellationToken, progressLocal);
+                await ImportarJuntaComponente(cancellationToken, progressLocal);
             }
 
             //Importação Estrutura
@@ -194,10 +201,10 @@ namespace WinCTB_CTS.Module.Win.WinCustomProcess
             //Lotes
             if (toggleSwitchImportarLotesEstrutura.IsOn)
             {
-                await GerarLotes(cts.Token, progressLocal);
-                await InserirInspecao(cts.Token, progressLocal);
-                await Alinhamento(cts.Token, progressLocal);
-                await Balancealmento(cts.Token, progressLocal);
+                await GerarLotes(cancellationToken, progressLocal);
+                await InserirInspecao(cancellationToken, progressLocal);
+                await Alinhamento(cancellationToken, progressLocal);
+                await Balancealmento(cancellationToken, progressLocal);
             }
 
             BtStartProcess.Enabled = true;
@@ -357,5 +364,7 @@ namespace WinCTB_CTS.Module.Win.WinCustomProcess
             CheckEditProcessado(checkEditBalanceamento);
         }
         #endregion
+
+
     }
 }

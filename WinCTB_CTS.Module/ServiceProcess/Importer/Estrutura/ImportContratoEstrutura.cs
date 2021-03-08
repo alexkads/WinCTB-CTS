@@ -21,6 +21,7 @@ namespace WinCTB_CTS.Module.ServiceProcess.Importer.Estrutura
 
             if (currentIndex > 0)
             {
+                cancellationToken.ThrowIfCancellationRequested();
                 var row = rowForMap;
                 var siteNome = row[0].ToString();
 

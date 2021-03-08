@@ -17,7 +17,7 @@ namespace WinCTB_CTS.Module.ServiceProcess.Base
     public abstract class CalculatorProcessBase : IDisposable
     {
         private readonly ProviderDataLayer _providerDataLayer;
-        private CancellationToken _cancellationToken;
+        public CancellationToken cancellationToken;
         private IProgress<ImportProgressReport> _progress { get; set; }
 
         [Description("Ocorre na importação de dados"), Category("Events")]
@@ -27,7 +27,7 @@ namespace WinCTB_CTS.Module.ServiceProcess.Base
         public CalculatorProcessBase(CancellationToken cancellationToken, IProgress<ImportProgressReport> progress)
         {
             this._providerDataLayer = new ProviderDataLayer();
-            this._cancellationToken = cancellationToken;
+            this.cancellationToken = cancellationToken;
             this._progress = progress;
         }
         
@@ -35,7 +35,7 @@ namespace WinCTB_CTS.Module.ServiceProcess.Base
         {
             await Task.Factory.StartNew(() =>
             {
-                OnCalculator(_providerDataLayer, _cancellationToken, _progress);
+                OnCalculator(_providerDataLayer, cancellationToken, _progress);
             });
         }
 
@@ -85,6 +85,7 @@ namespace WinCTB_CTS.Module.ServiceProcess.Base
                 Observable.Range(0, TotalRowsForImporter)
                 .Subscribe(i =>
                 {
+                    cancellationToken.ThrowIfCancellationRequested();
                     var linha = DataTableImport.Rows[i];
 
                     //Mapear importação

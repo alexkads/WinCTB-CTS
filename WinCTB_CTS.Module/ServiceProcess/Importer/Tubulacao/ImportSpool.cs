@@ -23,6 +23,7 @@ namespace WinCTB_CTS.Module.ServiceProcess.Importer.Tubulacao
 
             if (currentIndex >= 7)
             {
+                cancellationToken.ThrowIfCancellationRequested();
                 var linha = rowForMap;
                 var contrato = uow.FindObject<Contrato>(new BinaryOperator("NomeDoContrato", linha[0].ToString()));
                 var documento = linha[2].ToString();

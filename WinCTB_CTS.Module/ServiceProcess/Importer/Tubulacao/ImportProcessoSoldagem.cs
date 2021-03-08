@@ -21,6 +21,7 @@ namespace WinCTB_CTS.Module.ServiceProcess.Importer.Tubulacao
 
             if (currentIndex > 0)
             {
+                cancellationToken.ThrowIfCancellationRequested();
                 var row = rowForMap;
                 var eps = row[0].ToString();
                 var raiz = row[1].ToString();

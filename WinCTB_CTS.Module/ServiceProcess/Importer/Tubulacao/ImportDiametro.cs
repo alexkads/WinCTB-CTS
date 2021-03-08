@@ -22,6 +22,7 @@ namespace WinCTB_CTS.Module.ServiceProcess.Importer.Tubulacao
 
             if (currentIndex > 0)
             {
+                cancellationToken.ThrowIfCancellationRequested();
                 var row = rowForMap;
                 var polegada = row[0].ToString();
                 var wdi = Utils.ConvertDouble(row[1]);

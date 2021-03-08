@@ -24,6 +24,7 @@ namespace WinCTB_CTS.Module.ServiceProcess.Importer.Tubulacao
 
             if (currentIndex >= 9)
             {
+                cancellationToken.ThrowIfCancellationRequested();
                 var linha = rowForMap;
                 var PesquisarSpool = linha[8].ToString();
                 var FiltroPesquisa = CriteriaOperator.Parse("TagSpool = ?", PesquisarSpool);

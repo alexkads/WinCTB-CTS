@@ -29,8 +29,16 @@ namespace WinCTB_CTS.Module.Win.WinCustomProcess
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormAllProcess));
+            DevExpress.Utils.SuperToolTip superToolTip1 = new DevExpress.Utils.SuperToolTip();
+            DevExpress.Utils.ToolTipTitleItem toolTipTitleItem1 = new DevExpress.Utils.ToolTipTitleItem();
+            DevExpress.Utils.ToolTipItem toolTipItem1 = new DevExpress.Utils.ToolTipItem();
+            DevExpress.Utils.SuperToolTip superToolTip2 = new DevExpress.Utils.SuperToolTip();
+            DevExpress.Utils.ToolTipTitleItem toolTipTitleItem2 = new DevExpress.Utils.ToolTipTitleItem();
+            DevExpress.Utils.ToolTipItem toolTipItem2 = new DevExpress.Utils.ToolTipItem();
+            DevExpress.Utils.SuperToolTip superToolTip3 = new DevExpress.Utils.SuperToolTip();
+            DevExpress.Utils.ToolTipTitleItem toolTipTitleItem3 = new DevExpress.Utils.ToolTipTitleItem();
+            DevExpress.Utils.ToolTipItem toolTipItem3 = new DevExpress.Utils.ToolTipItem();
             this.progressBarControlGeral = new DevExpress.XtraEditors.ProgressBarControl();
             this.BtStartProcess = new DevExpress.XtraEditors.SimpleButton();
             this.labelControlAndamentoDoProcesso = new DevExpress.XtraEditors.LabelControl();
@@ -60,7 +68,7 @@ namespace WinCTB_CTS.Module.Win.WinCustomProcess
             this.BtnPathImportEstrutura = new DevExpress.XtraEditors.ButtonEdit();
             this.BtnPathImportTubulacao = new DevExpress.XtraEditors.ButtonEdit();
             this.BtnPathImportTabAuxiliarTubulacao = new DevExpress.XtraEditors.ButtonEdit();
-            this.behaviorManager1 = new DevExpress.Utils.Behaviors.BehaviorManager(this.components);
+            this.behaviorManager1 = new DevExpress.Utils.Behaviors.BehaviorManager();
             this.buttonEdit1 = new DevExpress.XtraEditors.ButtonEdit();
             this.BtnPathImportTabAuxiliarEstrutura = new DevExpress.XtraEditors.ButtonEdit();
             this.groupControl6 = new DevExpress.XtraEditors.GroupControl();
@@ -74,6 +82,8 @@ namespace WinCTB_CTS.Module.Win.WinCustomProcess
             this.groupControl9 = new DevExpress.XtraEditors.GroupControl();
             this.checkEditEAPEstrutura = new DevExpress.XtraEditors.CheckEdit();
             this.checkEditContratoEstrutura = new DevExpress.XtraEditors.CheckEdit();
+            this.toolTipController1 = new DevExpress.Utils.ToolTipController();
+            this.BtCancelar = new DevExpress.XtraEditors.SimpleButton();
             ((System.ComponentModel.ISupportInitialize)(this.progressBarControlGeral.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.checkEditMontagemDeLotes.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.separatorControl1)).BeginInit();
@@ -147,6 +157,12 @@ namespace WinCTB_CTS.Module.Win.WinCustomProcess
             this.BtStartProcess.Location = new System.Drawing.Point(1071, 627);
             this.BtStartProcess.Name = "BtStartProcess";
             this.BtStartProcess.Size = new System.Drawing.Size(131, 40);
+            toolTipTitleItem1.Text = "Informações";
+            toolTipItem1.LeftIndent = 6;
+            toolTipItem1.Text = "Inicializa Processo";
+            superToolTip1.Items.Add(toolTipTitleItem1);
+            superToolTip1.Items.Add(toolTipItem1);
+            this.BtStartProcess.SuperTip = superToolTip1;
             this.BtStartProcess.TabIndex = 1;
             this.BtStartProcess.Text = "Inicializar";
             this.BtStartProcess.Click += new System.EventHandler(this.BtStartProcess_Click);
@@ -172,9 +188,11 @@ namespace WinCTB_CTS.Module.Win.WinCustomProcess
             // 
             // separatorControl1
             // 
+            this.separatorControl1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.separatorControl1.Location = new System.Drawing.Point(12, 62);
             this.separatorControl1.Name = "separatorControl1";
-            this.separatorControl1.Size = new System.Drawing.Size(1135, 23);
+            this.separatorControl1.Size = new System.Drawing.Size(1190, 23);
             this.separatorControl1.TabIndex = 4;
             // 
             // checkEditInspecaoEmLotes
@@ -212,9 +230,9 @@ namespace WinCTB_CTS.Module.Win.WinCustomProcess
             this.groupControl1.Controls.Add(this.checkEditAlinhamentoDeLotes);
             this.groupControl1.Controls.Add(this.checkEditMontagemDeLotes);
             this.groupControl1.Controls.Add(this.checkEditBalanceamento);
-            this.groupControl1.Location = new System.Drawing.Point(618, 478);
+            this.groupControl1.Location = new System.Drawing.Point(609, 478);
             this.groupControl1.Name = "groupControl1";
-            this.groupControl1.Size = new System.Drawing.Size(584, 137);
+            this.groupControl1.Size = new System.Drawing.Size(593, 137);
             this.groupControl1.TabIndex = 8;
             this.groupControl1.Text = "Lotes de Estrutura";
             // 
@@ -231,7 +249,7 @@ namespace WinCTB_CTS.Module.Win.WinCustomProcess
             this.groupControl2.Controls.Add(this.checkEditPercInspecao);
             this.groupControl2.Location = new System.Drawing.Point(8, 64);
             this.groupControl2.Name = "groupControl2";
-            this.groupControl2.Size = new System.Drawing.Size(571, 123);
+            this.groupControl2.Size = new System.Drawing.Size(580, 123);
             this.groupControl2.TabIndex = 9;
             this.groupControl2.Text = "Tabelas Auxiliares de Tubulação";
             // 
@@ -298,7 +316,7 @@ namespace WinCTB_CTS.Module.Win.WinCustomProcess
             this.groupControl3.Controls.Add(this.checkEditSpool);
             this.groupControl3.Location = new System.Drawing.Point(5, 232);
             this.groupControl3.Name = "groupControl3";
-            this.groupControl3.Size = new System.Drawing.Size(571, 122);
+            this.groupControl3.Size = new System.Drawing.Size(580, 122);
             this.groupControl3.TabIndex = 10;
             this.groupControl3.Text = "Importação Tubulação";
             // 
@@ -329,7 +347,7 @@ namespace WinCTB_CTS.Module.Win.WinCustomProcess
             this.groupControl4.Controls.Add(this.checkEditComponentes);
             this.groupControl4.Location = new System.Drawing.Point(5, 66);
             this.groupControl4.Name = "groupControl4";
-            this.groupControl4.Size = new System.Drawing.Size(586, 96);
+            this.groupControl4.Size = new System.Drawing.Size(577, 96);
             this.groupControl4.TabIndex = 11;
             this.groupControl4.Text = "Importação de Estrutura";
             // 
@@ -371,7 +389,7 @@ namespace WinCTB_CTS.Module.Win.WinCustomProcess
             // 
             // toggleSwitchImportarLotesEstrutura
             // 
-            this.toggleSwitchImportarLotesEstrutura.Location = new System.Drawing.Point(618, 448);
+            this.toggleSwitchImportarLotesEstrutura.Location = new System.Drawing.Point(609, 448);
             this.toggleSwitchImportarLotesEstrutura.Name = "toggleSwitchImportarLotesEstrutura";
             this.toggleSwitchImportarLotesEstrutura.Properties.OffText = "Off";
             this.toggleSwitchImportarLotesEstrutura.Properties.OnText = "On";
@@ -397,7 +415,7 @@ namespace WinCTB_CTS.Module.Win.WinCustomProcess
             this.BtnPathImportEstrutura.Name = "BtnPathImportEstrutura";
             this.BtnPathImportEstrutura.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
             new DevExpress.XtraEditors.Controls.EditorButton()});
-            this.BtnPathImportEstrutura.Size = new System.Drawing.Size(485, 20);
+            this.BtnPathImportEstrutura.Size = new System.Drawing.Size(476, 20);
             this.BtnPathImportEstrutura.TabIndex = 16;
             // 
             // BtnPathImportTubulacao
@@ -405,7 +423,7 @@ namespace WinCTB_CTS.Module.Win.WinCustomProcess
             this.BtnPathImportTubulacao.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.behaviorManager1.SetBehaviors(this.BtnPathImportTubulacao, new DevExpress.Utils.Behaviors.Behavior[] {
             ((DevExpress.Utils.Behaviors.Behavior)(DevExpress.Utils.Behaviors.Common.OpenFileBehavior.Create(typeof(DevExpress.XtraEditors.Behaviors.OpenFileBehaviorSourceForButtonEdit), true, DevExpress.Utils.Behaviors.Common.FileIconSize.Small, null, null, DevExpress.Utils.Behaviors.Common.CompletionMode.FilesAndDirectories, "\"Excel Files|*.xls;*.xlsx\"", null, DevExpress.Utils.CommonDialogs.FileBrowserStyle.Default)))});
-            this.BtnPathImportTubulacao.Location = new System.Drawing.Point(106, 197);
+            this.BtnPathImportTubulacao.Location = new System.Drawing.Point(115, 197);
             this.BtnPathImportTubulacao.Name = "BtnPathImportTubulacao";
             this.BtnPathImportTubulacao.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
             new DevExpress.XtraEditors.Controls.EditorButton()});
@@ -417,7 +435,7 @@ namespace WinCTB_CTS.Module.Win.WinCustomProcess
             this.BtnPathImportTabAuxiliarTubulacao.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.behaviorManager1.SetBehaviors(this.BtnPathImportTabAuxiliarTubulacao, new DevExpress.Utils.Behaviors.Behavior[] {
             ((DevExpress.Utils.Behaviors.Behavior)(DevExpress.Utils.Behaviors.Common.OpenFileBehavior.Create(typeof(DevExpress.XtraEditors.Behaviors.OpenFileBehaviorSourceForButtonEdit), true, DevExpress.Utils.Behaviors.Common.FileIconSize.Small, null, null, DevExpress.Utils.Behaviors.Common.CompletionMode.FilesAndDirectories, null, null, DevExpress.Utils.CommonDialogs.FileBrowserStyle.Default)))});
-            this.BtnPathImportTabAuxiliarTubulacao.Location = new System.Drawing.Point(109, 37);
+            this.BtnPathImportTabAuxiliarTubulacao.Location = new System.Drawing.Point(118, 37);
             this.BtnPathImportTabAuxiliarTubulacao.Name = "BtnPathImportTabAuxiliarTubulacao";
             this.BtnPathImportTabAuxiliarTubulacao.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
             new DevExpress.XtraEditors.Controls.EditorButton()});
@@ -434,7 +452,7 @@ namespace WinCTB_CTS.Module.Win.WinCustomProcess
             this.buttonEdit1.Name = "buttonEdit1";
             this.buttonEdit1.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
             new DevExpress.XtraEditors.Controls.EditorButton()});
-            this.buttonEdit1.Size = new System.Drawing.Size(485, 20);
+            this.buttonEdit1.Size = new System.Drawing.Size(476, 20);
             this.buttonEdit1.TabIndex = 16;
             // 
             // BtnPathImportTabAuxiliarEstrutura
@@ -457,7 +475,7 @@ namespace WinCTB_CTS.Module.Win.WinCustomProcess
             this.groupControl6.Controls.Add(this.BtnPathImportEstrutura);
             this.groupControl6.Location = new System.Drawing.Point(12, 81);
             this.groupControl6.Name = "groupControl6";
-            this.groupControl6.Size = new System.Drawing.Size(600, 173);
+            this.groupControl6.Size = new System.Drawing.Size(591, 173);
             this.groupControl6.TabIndex = 22;
             this.groupControl6.Text = "Projeto [ MV32 ]";
             // 
@@ -468,7 +486,7 @@ namespace WinCTB_CTS.Module.Win.WinCustomProcess
             this.groupControl5.Controls.Add(this.buttonEdit1);
             this.groupControl5.Location = new System.Drawing.Point(12, 273);
             this.groupControl5.Name = "groupControl5";
-            this.groupControl5.Size = new System.Drawing.Size(600, 169);
+            this.groupControl5.Size = new System.Drawing.Size(591, 169);
             this.groupControl5.TabIndex = 23;
             this.groupControl5.Text = "Projeto [ SEPETIVA ]";
             // 
@@ -490,7 +508,7 @@ namespace WinCTB_CTS.Module.Win.WinCustomProcess
             this.groupControl7.Controls.Add(this.checkEdit2);
             this.groupControl7.Location = new System.Drawing.Point(5, 66);
             this.groupControl7.Name = "groupControl7";
-            this.groupControl7.Size = new System.Drawing.Size(586, 96);
+            this.groupControl7.Size = new System.Drawing.Size(577, 96);
             this.groupControl7.TabIndex = 11;
             this.groupControl7.Text = "Importação de Estrutura";
             // 
@@ -520,9 +538,9 @@ namespace WinCTB_CTS.Module.Win.WinCustomProcess
             this.groupControl8.Controls.Add(this.BtnPathImportTubulacao);
             this.groupControl8.Controls.Add(this.toggleSwitchImportarTabelasAuxiliaresTubulacao);
             this.groupControl8.Controls.Add(this.toggleSwitchImportarTubulacao);
-            this.groupControl8.Location = new System.Drawing.Point(618, 81);
+            this.groupControl8.Location = new System.Drawing.Point(609, 81);
             this.groupControl8.Name = "groupControl8";
-            this.groupControl8.Size = new System.Drawing.Size(584, 361);
+            this.groupControl8.Size = new System.Drawing.Size(593, 361);
             this.groupControl8.TabIndex = 24;
             this.groupControl8.Text = "Tubulação [Todos os Projetos]";
             // 
@@ -533,6 +551,12 @@ namespace WinCTB_CTS.Module.Win.WinCustomProcess
             this.toggleSwitchImportarTabelasAuxiliaresEstrutura.Properties.OffText = "Off";
             this.toggleSwitchImportarTabelasAuxiliaresEstrutura.Properties.OnText = "On";
             this.toggleSwitchImportarTabelasAuxiliaresEstrutura.Size = new System.Drawing.Size(95, 24);
+            toolTipTitleItem2.Text = "Informação";
+            toolTipItem2.LeftIndent = 6;
+            toolTipItem2.Text = "Ativa ou Desativa importação de tabelas auxiliares de Estrutura";
+            superToolTip2.Items.Add(toolTipTitleItem2);
+            superToolTip2.Items.Add(toolTipItem2);
+            this.toggleSwitchImportarTabelasAuxiliaresEstrutura.SuperTip = superToolTip2;
             this.toggleSwitchImportarTabelasAuxiliaresEstrutura.TabIndex = 16;
             // 
             // groupControl9
@@ -565,11 +589,38 @@ namespace WinCTB_CTS.Module.Win.WinCustomProcess
             this.checkEditContratoEstrutura.Size = new System.Drawing.Size(147, 19);
             this.checkEditContratoEstrutura.TabIndex = 3;
             // 
+            // toolTipController1
+            // 
+            this.toolTipController1.IconSize = DevExpress.Utils.ToolTipIconSize.Large;
+            this.toolTipController1.ToolTipAnchor = DevExpress.Utils.ToolTipAnchor.Cursor;
+            this.toolTipController1.ToolTipStyle = DevExpress.Utils.ToolTipStyle.WindowsXP;
+            this.toolTipController1.ToolTipType = DevExpress.Utils.ToolTipType.SuperTip;
+            // 
+            // BtCancelar
+            // 
+            this.BtCancelar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.BtCancelar.Appearance.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.BtCancelar.Appearance.Options.UseFont = true;
+            this.BtCancelar.ImageOptions.Image = ((System.Drawing.Image)(resources.GetObject("simpleButton1.ImageOptions.Image")));
+            this.BtCancelar.Location = new System.Drawing.Point(17, 627);
+            this.BtCancelar.Name = "BtCancelar";
+            this.BtCancelar.Size = new System.Drawing.Size(131, 40);
+            toolTipTitleItem3.Text = "Informações";
+            toolTipItem3.LeftIndent = 6;
+            toolTipItem3.Text = "Inicializa Processo";
+            superToolTip3.Items.Add(toolTipTitleItem3);
+            superToolTip3.Items.Add(toolTipItem3);
+            this.BtCancelar.SuperTip = superToolTip3;
+            this.BtCancelar.TabIndex = 25;
+            this.BtCancelar.Text = "Fechar";
+            this.BtCancelar.Click += new System.EventHandler(this.BtCancelar_Click);
+            // 
             // FormAllProcess
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1214, 679);
+            this.Controls.Add(this.BtCancelar);
             this.Controls.Add(this.BtnPathImportTabAuxiliarEstrutura);
             this.Controls.Add(this.toggleSwitchImportarTabelasAuxiliaresEstrutura);
             this.Controls.Add(this.groupControl8);
@@ -694,5 +745,7 @@ namespace WinCTB_CTS.Module.Win.WinCustomProcess
         private DevExpress.XtraEditors.CheckEdit checkEditEAPEstrutura;
         private DevExpress.XtraEditors.CheckEdit checkEditContratoEstrutura;
         private DevExpress.XtraEditors.ButtonEdit BtnPathImportTabAuxiliarEstrutura;
+        private DevExpress.Utils.ToolTipController toolTipController1;
+        private DevExpress.XtraEditors.SimpleButton BtCancelar;
     }
 }

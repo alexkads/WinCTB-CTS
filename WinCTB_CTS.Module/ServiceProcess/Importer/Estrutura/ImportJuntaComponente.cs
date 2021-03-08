@@ -22,6 +22,7 @@ namespace WinCTB_CTS.Module.ServiceProcess.Importer.Estrutura
 
             if (currentIndex >= 2)
             {
+                cancellationToken.ThrowIfCancellationRequested();
                 var linha = rowForMap;
                 var desenhoMontagem = linha[2].ToString();
                 var peca = linha[3].ToString();

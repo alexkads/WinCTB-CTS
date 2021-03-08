@@ -23,6 +23,7 @@ namespace WinCTB_CTS.Module.ServiceProcess.Importer.Estrutura
 
             if (currentIndex >= 3)
             {
+                cancellationToken.ThrowIfCancellationRequested();
                 var linha = rowForMap;
                 var documentoReferencia = linha[1].ToString();
                 var desenhoMontagem = linha[2].ToString();
