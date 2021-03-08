@@ -53,7 +53,7 @@ namespace WinCTB_CTS.Module.Win.WinCustomProcess
             this.groupControl4 = new DevExpress.XtraEditors.GroupControl();
             this.checkEditJuntaComponente = new DevExpress.XtraEditors.CheckEdit();
             this.checkEditComponentes = new DevExpress.XtraEditors.CheckEdit();
-            this.toggleSwitchImportarEstrutura = new DevExpress.XtraEditors.ToggleSwitch();
+            this.toggleSwitchImportarEstrutura1 = new DevExpress.XtraEditors.ToggleSwitch();
             this.toggleSwitchImportarTabelasAuxiliaresTubulacao = new DevExpress.XtraEditors.ToggleSwitch();
             this.toggleSwitchImportarLotesEstrutura = new DevExpress.XtraEditors.ToggleSwitch();
             this.toggleSwitchImportarTubulacao = new DevExpress.XtraEditors.ToggleSwitch();
@@ -61,6 +61,14 @@ namespace WinCTB_CTS.Module.Win.WinCustomProcess
             this.BtnPathImportTubulacao = new DevExpress.XtraEditors.ButtonEdit();
             this.BtnPathImportTabAuxiliarTubulacao = new DevExpress.XtraEditors.ButtonEdit();
             this.behaviorManager1 = new DevExpress.Utils.Behaviors.BehaviorManager(this.components);
+            this.buttonEdit1 = new DevExpress.XtraEditors.ButtonEdit();
+            this.groupControl6 = new DevExpress.XtraEditors.GroupControl();
+            this.groupControl5 = new DevExpress.XtraEditors.GroupControl();
+            this.toggleSwitchImportarEstrutura2 = new DevExpress.XtraEditors.ToggleSwitch();
+            this.groupControl7 = new DevExpress.XtraEditors.GroupControl();
+            this.checkEdit1 = new DevExpress.XtraEditors.CheckEdit();
+            this.checkEdit2 = new DevExpress.XtraEditors.CheckEdit();
+            this.groupControl8 = new DevExpress.XtraEditors.GroupControl();
             ((System.ComponentModel.ISupportInitialize)(this.progressBarControlGeral.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.checkEditMontagemDeLotes.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.separatorControl1)).BeginInit();
@@ -85,7 +93,7 @@ namespace WinCTB_CTS.Module.Win.WinCustomProcess
             this.groupControl4.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.checkEditJuntaComponente.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.checkEditComponentes.Properties)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.toggleSwitchImportarEstrutura.Properties)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.toggleSwitchImportarEstrutura1.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.toggleSwitchImportarTabelasAuxiliaresTubulacao.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.toggleSwitchImportarLotesEstrutura.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.toggleSwitchImportarTubulacao.Properties)).BeginInit();
@@ -93,6 +101,18 @@ namespace WinCTB_CTS.Module.Win.WinCustomProcess
             ((System.ComponentModel.ISupportInitialize)(this.BtnPathImportTubulacao.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.BtnPathImportTabAuxiliarTubulacao.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.behaviorManager1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.buttonEdit1.Properties)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.groupControl6)).BeginInit();
+            this.groupControl6.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.groupControl5)).BeginInit();
+            this.groupControl5.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.toggleSwitchImportarEstrutura2.Properties)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.groupControl7)).BeginInit();
+            this.groupControl7.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.checkEdit1.Properties)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.checkEdit2.Properties)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.groupControl8)).BeginInit();
+            this.groupControl8.SuspendLayout();
             this.SuspendLayout();
             // 
             // progressBarControlGeral
@@ -104,7 +124,7 @@ namespace WinCTB_CTS.Module.Win.WinCustomProcess
             this.progressBarControlGeral.Properties.FlowAnimationEnabled = true;
             this.progressBarControlGeral.Properties.ShowTitle = true;
             this.progressBarControlGeral.Properties.Step = 1;
-            this.progressBarControlGeral.Size = new System.Drawing.Size(1135, 24);
+            this.progressBarControlGeral.Size = new System.Drawing.Size(1190, 24);
             this.progressBarControlGeral.TabIndex = 0;
             // 
             // BtStartProcess
@@ -113,7 +133,7 @@ namespace WinCTB_CTS.Module.Win.WinCustomProcess
             this.BtStartProcess.Appearance.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.BtStartProcess.Appearance.Options.UseFont = true;
             this.BtStartProcess.ImageOptions.Image = ((System.Drawing.Image)(resources.GetObject("BtStartProcess.ImageOptions.Image")));
-            this.BtStartProcess.Location = new System.Drawing.Point(1016, 521);
+            this.BtStartProcess.Location = new System.Drawing.Point(1071, 627);
             this.BtStartProcess.Name = "BtStartProcess";
             this.BtStartProcess.Size = new System.Drawing.Size(131, 40);
             this.BtStartProcess.TabIndex = 1;
@@ -181,25 +201,26 @@ namespace WinCTB_CTS.Module.Win.WinCustomProcess
             this.groupControl1.Controls.Add(this.checkEditAlinhamentoDeLotes);
             this.groupControl1.Controls.Add(this.checkEditMontagemDeLotes);
             this.groupControl1.Controls.Add(this.checkEditBalanceamento);
-            this.groupControl1.Location = new System.Drawing.Point(12, 339);
+            this.groupControl1.Location = new System.Drawing.Point(12, 478);
             this.groupControl1.Name = "groupControl1";
-            this.groupControl1.Size = new System.Drawing.Size(569, 172);
+            this.groupControl1.Size = new System.Drawing.Size(600, 137);
             this.groupControl1.TabIndex = 8;
             this.groupControl1.Text = "Lotes de Estrutura";
             // 
             // groupControl2
             // 
-            this.groupControl2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            this.groupControl2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupControl2.AutoSize = true;
             this.groupControl2.Controls.Add(this.checkEditEAP);
             this.groupControl2.Controls.Add(this.checkEditProcessoSoldagem);
             this.groupControl2.Controls.Add(this.checkEditDiametro);
             this.groupControl2.Controls.Add(this.checkEditSchedule);
             this.groupControl2.Controls.Add(this.checkEditContrato);
             this.groupControl2.Controls.Add(this.checkEditPercInspecao);
-            this.groupControl2.Location = new System.Drawing.Point(587, 121);
+            this.groupControl2.Location = new System.Drawing.Point(8, 64);
             this.groupControl2.Name = "groupControl2";
-            this.groupControl2.Size = new System.Drawing.Size(560, 182);
+            this.groupControl2.Size = new System.Drawing.Size(571, 196);
             this.groupControl2.TabIndex = 9;
             this.groupControl2.Text = "Tabela Auxiliares de Tubulação";
             // 
@@ -259,12 +280,14 @@ namespace WinCTB_CTS.Module.Win.WinCustomProcess
             // 
             // groupControl3
             // 
-            this.groupControl3.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.groupControl3.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupControl3.AutoSize = true;
             this.groupControl3.Controls.Add(this.checkEditJuntaSpool);
             this.groupControl3.Controls.Add(this.checkEditSpool);
-            this.groupControl3.Location = new System.Drawing.Point(587, 339);
+            this.groupControl3.Location = new System.Drawing.Point(8, 296);
             this.groupControl3.Name = "groupControl3";
-            this.groupControl3.Size = new System.Drawing.Size(560, 172);
+            this.groupControl3.Size = new System.Drawing.Size(571, 96);
             this.groupControl3.TabIndex = 10;
             this.groupControl3.Text = "Importação Tubulação";
             // 
@@ -288,13 +311,14 @@ namespace WinCTB_CTS.Module.Win.WinCustomProcess
             // 
             // groupControl4
             // 
-            this.groupControl4.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left)));
+            this.groupControl4.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupControl4.AutoSize = true;
             this.groupControl4.Controls.Add(this.checkEditJuntaComponente);
             this.groupControl4.Controls.Add(this.checkEditComponentes);
-            this.groupControl4.Location = new System.Drawing.Point(12, 121);
+            this.groupControl4.Location = new System.Drawing.Point(5, 66);
             this.groupControl4.Name = "groupControl4";
-            this.groupControl4.Size = new System.Drawing.Size(569, 182);
+            this.groupControl4.Size = new System.Drawing.Size(586, 96);
             this.groupControl4.TabIndex = 11;
             this.groupControl4.Text = "Importação de Estrutura";
             // 
@@ -316,18 +340,18 @@ namespace WinCTB_CTS.Module.Win.WinCustomProcess
             this.checkEditComponentes.Size = new System.Drawing.Size(147, 19);
             this.checkEditComponentes.TabIndex = 3;
             // 
-            // toggleSwitchImportarEstrutura
+            // toggleSwitchImportarEstrutura1
             // 
-            this.toggleSwitchImportarEstrutura.Location = new System.Drawing.Point(12, 91);
-            this.toggleSwitchImportarEstrutura.Name = "toggleSwitchImportarEstrutura";
-            this.toggleSwitchImportarEstrutura.Properties.OffText = "Off";
-            this.toggleSwitchImportarEstrutura.Properties.OnText = "On";
-            this.toggleSwitchImportarEstrutura.Size = new System.Drawing.Size(95, 24);
-            this.toggleSwitchImportarEstrutura.TabIndex = 12;
+            this.toggleSwitchImportarEstrutura1.Location = new System.Drawing.Point(5, 35);
+            this.toggleSwitchImportarEstrutura1.Name = "toggleSwitchImportarEstrutura1";
+            this.toggleSwitchImportarEstrutura1.Properties.OffText = "Off";
+            this.toggleSwitchImportarEstrutura1.Properties.OnText = "On";
+            this.toggleSwitchImportarEstrutura1.Size = new System.Drawing.Size(95, 24);
+            this.toggleSwitchImportarEstrutura1.TabIndex = 12;
             // 
             // toggleSwitchImportarTabelasAuxiliaresTubulacao
             // 
-            this.toggleSwitchImportarTabelasAuxiliaresTubulacao.Location = new System.Drawing.Point(587, 91);
+            this.toggleSwitchImportarTabelasAuxiliaresTubulacao.Location = new System.Drawing.Point(8, 35);
             this.toggleSwitchImportarTabelasAuxiliaresTubulacao.Name = "toggleSwitchImportarTabelasAuxiliaresTubulacao";
             this.toggleSwitchImportarTabelasAuxiliaresTubulacao.Properties.OffText = "Off";
             this.toggleSwitchImportarTabelasAuxiliaresTubulacao.Properties.OnText = "On";
@@ -336,7 +360,7 @@ namespace WinCTB_CTS.Module.Win.WinCustomProcess
             // 
             // toggleSwitchImportarLotesEstrutura
             // 
-            this.toggleSwitchImportarLotesEstrutura.Location = new System.Drawing.Point(12, 309);
+            this.toggleSwitchImportarLotesEstrutura.Location = new System.Drawing.Point(12, 448);
             this.toggleSwitchImportarLotesEstrutura.Name = "toggleSwitchImportarLotesEstrutura";
             this.toggleSwitchImportarLotesEstrutura.Properties.OffText = "Off";
             this.toggleSwitchImportarLotesEstrutura.Properties.OnText = "On";
@@ -345,61 +369,148 @@ namespace WinCTB_CTS.Module.Win.WinCustomProcess
             // 
             // toggleSwitchImportarTubulacao
             // 
-            this.toggleSwitchImportarTubulacao.Location = new System.Drawing.Point(587, 309);
+            this.toggleSwitchImportarTubulacao.Location = new System.Drawing.Point(8, 266);
             this.toggleSwitchImportarTubulacao.Name = "toggleSwitchImportarTubulacao";
             this.toggleSwitchImportarTubulacao.Properties.OffText = "Off";
             this.toggleSwitchImportarTubulacao.Properties.OnText = "On";
             this.toggleSwitchImportarTubulacao.Size = new System.Drawing.Size(95, 24);
             this.toggleSwitchImportarTubulacao.TabIndex = 15;
             // 
-            // PathImportEstrutura
+            // BtnPathImportEstrutura
             // 
+            this.BtnPathImportEstrutura.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.behaviorManager1.SetBehaviors(this.BtnPathImportEstrutura, new DevExpress.Utils.Behaviors.Behavior[] {
             ((DevExpress.Utils.Behaviors.Behavior)(DevExpress.Utils.Behaviors.Common.OpenFileBehavior.Create(typeof(DevExpress.XtraEditors.Behaviors.OpenFileBehaviorSourceForButtonEdit), true, DevExpress.Utils.Behaviors.Common.FileIconSize.Small, null, null, DevExpress.Utils.Behaviors.Common.CompletionMode.FilesAndDirectories, "*.xlsx", null, DevExpress.Utils.CommonDialogs.FileBrowserStyle.Default)))});
-            this.BtnPathImportEstrutura.Location = new System.Drawing.Point(113, 93);
-            this.BtnPathImportEstrutura.Name = "PathImportEstrutura";
+            this.BtnPathImportEstrutura.Location = new System.Drawing.Point(106, 37);
+            this.BtnPathImportEstrutura.Name = "BtnPathImportEstrutura";
             this.BtnPathImportEstrutura.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
             new DevExpress.XtraEditors.Controls.EditorButton()});
-            this.BtnPathImportEstrutura.Size = new System.Drawing.Size(468, 20);
+            this.BtnPathImportEstrutura.Size = new System.Drawing.Size(485, 20);
             this.BtnPathImportEstrutura.TabIndex = 16;
             // 
-            // PathImportTubulacao
+            // BtnPathImportTubulacao
             // 
+            this.BtnPathImportTubulacao.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.behaviorManager1.SetBehaviors(this.BtnPathImportTubulacao, new DevExpress.Utils.Behaviors.Behavior[] {
             ((DevExpress.Utils.Behaviors.Behavior)(DevExpress.Utils.Behaviors.Common.OpenFileBehavior.Create(typeof(DevExpress.XtraEditors.Behaviors.OpenFileBehaviorSourceForButtonEdit), true, DevExpress.Utils.Behaviors.Common.FileIconSize.Small, null, null, DevExpress.Utils.Behaviors.Common.CompletionMode.FilesAndDirectories, "\"Excel Files|*.xls;*.xlsx\"", null, DevExpress.Utils.CommonDialogs.FileBrowserStyle.Default)))});
-            this.BtnPathImportTubulacao.Location = new System.Drawing.Point(688, 313);
-            this.BtnPathImportTubulacao.Name = "PathImportTubulacao";
+            this.BtnPathImportTubulacao.Location = new System.Drawing.Point(109, 268);
+            this.BtnPathImportTubulacao.Name = "BtnPathImportTubulacao";
             this.BtnPathImportTubulacao.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
             new DevExpress.XtraEditors.Controls.EditorButton()});
-            this.BtnPathImportTubulacao.Size = new System.Drawing.Size(459, 20);
+            this.BtnPathImportTubulacao.Size = new System.Drawing.Size(470, 20);
             this.BtnPathImportTubulacao.TabIndex = 19;
             // 
-            // PathImportTabAuxiliarTubulacao
+            // BtnPathImportTabAuxiliarTubulacao
             // 
+            this.BtnPathImportTabAuxiliarTubulacao.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.behaviorManager1.SetBehaviors(this.BtnPathImportTabAuxiliarTubulacao, new DevExpress.Utils.Behaviors.Behavior[] {
             ((DevExpress.Utils.Behaviors.Behavior)(DevExpress.Utils.Behaviors.Common.OpenFileBehavior.Create(typeof(DevExpress.XtraEditors.Behaviors.OpenFileBehaviorSourceForButtonEdit), true, DevExpress.Utils.Behaviors.Common.FileIconSize.Small, null, null, DevExpress.Utils.Behaviors.Common.CompletionMode.FilesAndDirectories, null, null, DevExpress.Utils.CommonDialogs.FileBrowserStyle.Default)))});
-            this.BtnPathImportTabAuxiliarTubulacao.Location = new System.Drawing.Point(688, 93);
-            this.BtnPathImportTabAuxiliarTubulacao.Name = "PathImportTabAuxiliarTubulacao";
+            this.BtnPathImportTabAuxiliarTubulacao.Location = new System.Drawing.Point(109, 37);
+            this.BtnPathImportTabAuxiliarTubulacao.Name = "BtnPathImportTabAuxiliarTubulacao";
             this.BtnPathImportTabAuxiliarTubulacao.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
             new DevExpress.XtraEditors.Controls.EditorButton()});
-            this.BtnPathImportTabAuxiliarTubulacao.Size = new System.Drawing.Size(459, 20);
+            this.BtnPathImportTabAuxiliarTubulacao.Size = new System.Drawing.Size(470, 20);
             this.BtnPathImportTabAuxiliarTubulacao.TabIndex = 17;
+            // 
+            // buttonEdit1
+            // 
+            this.buttonEdit1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.behaviorManager1.SetBehaviors(this.buttonEdit1, new DevExpress.Utils.Behaviors.Behavior[] {
+            ((DevExpress.Utils.Behaviors.Behavior)(DevExpress.Utils.Behaviors.Common.OpenFileBehavior.Create(typeof(DevExpress.XtraEditors.Behaviors.OpenFileBehaviorSourceForButtonEdit), true, DevExpress.Utils.Behaviors.Common.FileIconSize.Small, null, null, DevExpress.Utils.Behaviors.Common.CompletionMode.FilesAndDirectories, "*.xlsx", null, DevExpress.Utils.CommonDialogs.FileBrowserStyle.Default)))});
+            this.buttonEdit1.Location = new System.Drawing.Point(106, 37);
+            this.buttonEdit1.Name = "buttonEdit1";
+            this.buttonEdit1.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
+            new DevExpress.XtraEditors.Controls.EditorButton()});
+            this.buttonEdit1.Size = new System.Drawing.Size(485, 20);
+            this.buttonEdit1.TabIndex = 16;
+            // 
+            // groupControl6
+            // 
+            this.groupControl6.Controls.Add(this.toggleSwitchImportarEstrutura1);
+            this.groupControl6.Controls.Add(this.groupControl4);
+            this.groupControl6.Controls.Add(this.BtnPathImportEstrutura);
+            this.groupControl6.Location = new System.Drawing.Point(12, 81);
+            this.groupControl6.Name = "groupControl6";
+            this.groupControl6.Size = new System.Drawing.Size(600, 173);
+            this.groupControl6.TabIndex = 22;
+            this.groupControl6.Text = "Projeto [ MV32 ]";
+            // 
+            // groupControl5
+            // 
+            this.groupControl5.Controls.Add(this.toggleSwitchImportarEstrutura2);
+            this.groupControl5.Controls.Add(this.groupControl7);
+            this.groupControl5.Controls.Add(this.buttonEdit1);
+            this.groupControl5.Location = new System.Drawing.Point(12, 273);
+            this.groupControl5.Name = "groupControl5";
+            this.groupControl5.Size = new System.Drawing.Size(600, 169);
+            this.groupControl5.TabIndex = 23;
+            this.groupControl5.Text = "Projeto [ SEPETIVA ]";
+            // 
+            // toggleSwitchImportarEstrutura2
+            // 
+            this.toggleSwitchImportarEstrutura2.Location = new System.Drawing.Point(5, 35);
+            this.toggleSwitchImportarEstrutura2.Name = "toggleSwitchImportarEstrutura2";
+            this.toggleSwitchImportarEstrutura2.Properties.OffText = "Off";
+            this.toggleSwitchImportarEstrutura2.Properties.OnText = "On";
+            this.toggleSwitchImportarEstrutura2.Size = new System.Drawing.Size(95, 24);
+            this.toggleSwitchImportarEstrutura2.TabIndex = 12;
+            // 
+            // groupControl7
+            // 
+            this.groupControl7.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupControl7.AutoSize = true;
+            this.groupControl7.Controls.Add(this.checkEdit1);
+            this.groupControl7.Controls.Add(this.checkEdit2);
+            this.groupControl7.Location = new System.Drawing.Point(5, 66);
+            this.groupControl7.Name = "groupControl7";
+            this.groupControl7.Size = new System.Drawing.Size(586, 96);
+            this.groupControl7.TabIndex = 11;
+            this.groupControl7.Text = "Importação de Estrutura";
+            // 
+            // checkEdit1
+            // 
+            this.checkEdit1.Location = new System.Drawing.Point(5, 52);
+            this.checkEdit1.Name = "checkEdit1";
+            this.checkEdit1.Properties.Caption = "Juntas";
+            this.checkEdit1.Properties.ReadOnly = true;
+            this.checkEdit1.Size = new System.Drawing.Size(147, 19);
+            this.checkEdit1.TabIndex = 5;
+            // 
+            // checkEdit2
+            // 
+            this.checkEdit2.Location = new System.Drawing.Point(5, 27);
+            this.checkEdit2.Name = "checkEdit2";
+            this.checkEdit2.Properties.Caption = "Componentes / Peça";
+            this.checkEdit2.Properties.ReadOnly = true;
+            this.checkEdit2.Size = new System.Drawing.Size(147, 19);
+            this.checkEdit2.TabIndex = 3;
+            // 
+            // groupControl8
+            // 
+            this.groupControl8.Controls.Add(this.BtnPathImportTabAuxiliarTubulacao);
+            this.groupControl8.Controls.Add(this.groupControl2);
+            this.groupControl8.Controls.Add(this.groupControl3);
+            this.groupControl8.Controls.Add(this.BtnPathImportTubulacao);
+            this.groupControl8.Controls.Add(this.toggleSwitchImportarTabelasAuxiliaresTubulacao);
+            this.groupControl8.Controls.Add(this.toggleSwitchImportarTubulacao);
+            this.groupControl8.Location = new System.Drawing.Point(618, 81);
+            this.groupControl8.Name = "groupControl8";
+            this.groupControl8.Size = new System.Drawing.Size(584, 534);
+            this.groupControl8.TabIndex = 24;
+            this.groupControl8.Text = "Tubulação [Todos os Projetos]";
             // 
             // FormAllProcess
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1159, 573);
-            this.Controls.Add(this.BtnPathImportTubulacao);
-            this.Controls.Add(this.BtnPathImportTabAuxiliarTubulacao);
-            this.Controls.Add(this.BtnPathImportEstrutura);
-            this.Controls.Add(this.toggleSwitchImportarTubulacao);
+            this.ClientSize = new System.Drawing.Size(1214, 679);
+            this.Controls.Add(this.groupControl8);
+            this.Controls.Add(this.groupControl5);
+            this.Controls.Add(this.groupControl6);
             this.Controls.Add(this.toggleSwitchImportarLotesEstrutura);
-            this.Controls.Add(this.toggleSwitchImportarTabelasAuxiliaresTubulacao);
-            this.Controls.Add(this.toggleSwitchImportarEstrutura);
-            this.Controls.Add(this.groupControl4);
-            this.Controls.Add(this.groupControl3);
-            this.Controls.Add(this.groupControl2);
             this.Controls.Add(this.groupControl1);
             this.Controls.Add(this.separatorControl1);
             this.Controls.Add(this.labelControlAndamentoDoProcesso);
@@ -432,7 +543,7 @@ namespace WinCTB_CTS.Module.Win.WinCustomProcess
             this.groupControl4.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.checkEditJuntaComponente.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.checkEditComponentes.Properties)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.toggleSwitchImportarEstrutura.Properties)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.toggleSwitchImportarEstrutura1.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.toggleSwitchImportarTabelasAuxiliaresTubulacao.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.toggleSwitchImportarLotesEstrutura.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.toggleSwitchImportarTubulacao.Properties)).EndInit();
@@ -440,6 +551,21 @@ namespace WinCTB_CTS.Module.Win.WinCustomProcess
             ((System.ComponentModel.ISupportInitialize)(this.BtnPathImportTubulacao.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.BtnPathImportTabAuxiliarTubulacao.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.behaviorManager1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.buttonEdit1.Properties)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.groupControl6)).EndInit();
+            this.groupControl6.ResumeLayout(false);
+            this.groupControl6.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.groupControl5)).EndInit();
+            this.groupControl5.ResumeLayout(false);
+            this.groupControl5.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.toggleSwitchImportarEstrutura2.Properties)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.groupControl7)).EndInit();
+            this.groupControl7.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.checkEdit1.Properties)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.checkEdit2.Properties)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.groupControl8)).EndInit();
+            this.groupControl8.ResumeLayout(false);
+            this.groupControl8.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -469,7 +595,7 @@ namespace WinCTB_CTS.Module.Win.WinCustomProcess
         private DevExpress.XtraEditors.CheckEdit checkEditComponentes;
         private DevExpress.XtraEditors.CheckEdit checkEditProcessoSoldagem;
         private DevExpress.XtraEditors.CheckEdit checkEditEAP;
-        private DevExpress.XtraEditors.ToggleSwitch toggleSwitchImportarEstrutura;
+        private DevExpress.XtraEditors.ToggleSwitch toggleSwitchImportarEstrutura1;
         private DevExpress.XtraEditors.ToggleSwitch toggleSwitchImportarTabelasAuxiliaresTubulacao;
         private DevExpress.XtraEditors.ToggleSwitch toggleSwitchImportarLotesEstrutura;
         private DevExpress.XtraEditors.ToggleSwitch toggleSwitchImportarTubulacao;
@@ -477,5 +603,13 @@ namespace WinCTB_CTS.Module.Win.WinCustomProcess
         private DevExpress.XtraEditors.ButtonEdit BtnPathImportTubulacao;
         private DevExpress.XtraEditors.ButtonEdit BtnPathImportTabAuxiliarTubulacao;
         private DevExpress.Utils.Behaviors.BehaviorManager behaviorManager1;
+        private DevExpress.XtraEditors.GroupControl groupControl6;
+        private DevExpress.XtraEditors.GroupControl groupControl5;
+        private DevExpress.XtraEditors.ToggleSwitch toggleSwitchImportarEstrutura2;
+        private DevExpress.XtraEditors.GroupControl groupControl7;
+        private DevExpress.XtraEditors.CheckEdit checkEdit1;
+        private DevExpress.XtraEditors.CheckEdit checkEdit2;
+        private DevExpress.XtraEditors.ButtonEdit buttonEdit1;
+        private DevExpress.XtraEditors.GroupControl groupControl8;
     }
 }

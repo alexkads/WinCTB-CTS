@@ -99,13 +99,11 @@ namespace WinCTB_CTS.Module.Win.WinCustomProcess
 
         private void LigarToggles()
         {
-            foreach (var control in this.Controls)
-            {
-                if (control is ToggleSwitch toggleSwitch)
-                {
-                    toggleSwitch.IsOn = true;
-                }
-            }
+            toggleSwitchImportarEstrutura1.IsOn = true;
+            toggleSwitchImportarEstrutura2.IsOn = true;
+            toggleSwitchImportarLotesEstrutura.IsOn = true;
+            toggleSwitchImportarTubulacao.IsOn = true;
+            toggleSwitchImportarTabelasAuxiliaresTubulacao.IsOn = true;
         }
 
 
@@ -163,7 +161,7 @@ namespace WinCTB_CTS.Module.Win.WinCustomProcess
             }
 
             //Importação Estrutura
-            if (toggleSwitchImportarEstrutura.IsOn)
+            if (toggleSwitchImportarEstrutura1.IsOn)
             {
                 await ImportarComponente(cts.Token, progressLocal);
                 await ImportarJuntaComponente(cts.Token, progressLocal);
