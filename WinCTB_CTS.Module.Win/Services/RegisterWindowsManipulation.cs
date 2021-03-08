@@ -32,10 +32,7 @@ namespace WinCTB_CTS.Module.Win.Services
         public static void SetRegister(string key, string value)
         {
             if (String.IsNullOrEmpty(key))            
-                throw new ArgumentNullException("É necessário informar a chave");
-            
-            if (String.IsNullOrEmpty(value))
-                throw new ArgumentNullException("É necessário informar o valor");
+                throw new ArgumentNullException("É necessário informar a chave");          
 
             try
             {
