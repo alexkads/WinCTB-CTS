@@ -11,6 +11,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using System.Text;
+using WinCTB_CTS.Module.BusinessObjects.Estrutura.Auxiliar;
 using WinCTB_CTS.Module.BusinessObjects.Tubulacao;
 using WinCTB_CTS.Module.BusinessObjects.Tubulacao.Auxiliar;
 
@@ -54,6 +55,15 @@ namespace WinCTB_CTS.Module.BusinessObjects.Comum
             get
             {
                 return GetCollection<TabEAPPipe>(nameof(TabEAPPipes));
+            }
+        }
+
+        [Association("Contrato-TabEAPEsts")]
+        public XPCollection<TabEAPEst> TabEAPEsts
+        {
+            get
+            {
+                return GetCollection<TabEAPEst>(nameof(TabEAPEsts));
             }
         }
     }

@@ -11,9 +11,9 @@ using WinCTB_CTS.Module.ServiceProcess.Base;
 
 namespace WinCTB_CTS.Module.ServiceProcess.Importer.Tubulacao
 {
-    public class ImportEAP : CalculatorProcessBase
+    public class ImportEAPTubulacao : CalculatorProcessBase
     {
-        public ImportEAP(CancellationToken cancellationToken, IProgress<ImportProgressReport> progress)
+        public ImportEAPTubulacao(CancellationToken cancellationToken, IProgress<ImportProgressReport> progress)
         : base(cancellationToken, progress)
         {
         }

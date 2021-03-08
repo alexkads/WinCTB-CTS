@@ -269,10 +269,12 @@
     <Compile Include="ServiceProcess\Calculator\Estrutura\ProcessoLote\LotesDeEstruturaInspecao.cs" />
     <Compile Include="ServiceProcess\Calculator\Estrutura\ProcessoLote\ProgressoGerarLotes.cs" />
     <Compile Include="ServiceProcess\Importer\Estrutura\ImportComponente.cs" />
+    <Compile Include="ServiceProcess\Importer\Estrutura\ImportContratoEstrutura.cs" />
+    <Compile Include="ServiceProcess\Importer\Estrutura\ImportEAPEstrutua.cs" />
     <Compile Include="ServiceProcess\Importer\Estrutura\ImportJuntaComponente.cs" />
-    <Compile Include="ServiceProcess\Importer\Tubulacao\ImportContrato.cs" />
+    <Compile Include="ServiceProcess\Importer\Tubulacao\ImportContratoTubulacao.cs" />
     <Compile Include="ServiceProcess\Importer\Tubulacao\ImportDiametro.cs" />
-    <Compile Include="ServiceProcess\Importer\Tubulacao\ImportEAP.cs" />
+    <Compile Include="ServiceProcess\Importer\Tubulacao\ImportEAPTubulacao.cs" />
     <Compile Include="ServiceProcess\Importer\Tubulacao\ImportJuntaSpool.cs" />
     <Compile Include="ServiceProcess\Importer\Tubulacao\ImportPercInspecao.cs" />
     <Compile Include="ServiceProcess\Importer\Tubulacao\ImportProcessoSoldagem.cs" />
@@ -288,6 +290,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="DatabaseUpdate\ReadMe.txt" />
+    <EmbeddedResource Include="Properties\licenses.licx" />
     <EmbeddedResource Include="RelatorioPreDefinido\RelatorioComponentesMedicao.resx">
       <DependentUpon>RelatorioComponentesMedicao.cs</DependentUpon>
     </EmbeddedResource>
@@ -345,6 +348,10 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Dashboards\MedicaoSpool.xml" />
+    <None Include="UnusableNodes.xml">
+      <DependentUpon>Model.DesignedDiffs.xafml</DependentUpon>
+      <SubType>Designer</SubType>
+    </None>
     <Content Include="Welcome.html" />
   </ItemGroup>
   <ItemGroup>

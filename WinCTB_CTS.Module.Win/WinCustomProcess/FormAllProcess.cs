@@ -26,6 +26,7 @@ namespace WinCTB_CTS.Module.Win.WinCustomProcess
         private readonly Font FontStrikeout = new Font("Tahoma", 8.25F, FontStyle.Strikeout);
         private readonly Font FontBold = new Font("Tahoma", 10.00F, FontStyle.Bold);
         private const string PathFileForImportTabelaAuxiliarTubulacao = "PathFileForImportTabelaAuxiliarTubulacao";
+        private const string PathFileForImportTabelaAuxiliarEstrutura = "PathFileForImportTabelaAuxiliarEstrutura";
         private const string PathFileForImportTubulacao = "PathFileForImportTubulacao";
         private const string PathFileForImportEstrutura = "PathFileForImportEstrutura";
 
@@ -145,12 +146,12 @@ namespace WinCTB_CTS.Module.Win.WinCustomProcess
             //Importação Tabela Aulixiares Tubulação
             if (toggleSwitchImportarTabelasAuxiliaresTubulacao.IsOn)
             {
-                await ImportarContrato(cts.Token, progressLocal);
+                await ImportarContratoTubulacao(cts.Token, progressLocal);
                 await ImportarDiametro(cts.Token, progressLocal);
                 await ImportarSchedule(cts.Token, progressLocal);
                 await ImportarPercInspecao(cts.Token, progressLocal);
                 await ImportarProcessoDeSoldagem(cts.Token, progressLocal);
-                await ImportarEAP(cts.Token, progressLocal);
+                await ImportarEAPTubulacao(cts.Token, progressLocal);
             }
 
             //Importação Tubulçao
@@ -160,11 +161,25 @@ namespace WinCTB_CTS.Module.Win.WinCustomProcess
                 await ImportarJuntaSpool(cts.Token, progressLocal);
             }
 
+            //Tabela Auxiliar Estrutura
+            if (toggleSwitchImportarTabelasAuxiliaresEstrutura.IsOn)
+            {
+                await ImportarContratoEstrutura(cts.Token, progressLocal);
+                await ImportarEAPEstrutura(cts.Token, progressLocal);
+            }
+
             //Importação Estrutura
             if (toggleSwitchImportarEstrutura1.IsOn)
             {
                 await ImportarComponente(cts.Token, progressLocal);
                 await ImportarJuntaComponente(cts.Token, progressLocal);
+            }
+
+            //Importação Estrutura
+            if (toggleSwitchImportarEstrutura2.IsOn)
+            {
+                //await ImportarComponente(cts.Token, progressLocal);
+                //await ImportarJuntaComponente(cts.Token, progressLocal);
             }
 
             //Lotes
@@ -179,11 +194,29 @@ namespace WinCTB_CTS.Module.Win.WinCustomProcess
             BtStartProcess.Enabled = true;
         }
 
+        private async Task ImportarContratoEstrutura(CancellationToken cancellationToken, IProgress<ImportProgressReport> progress)
+        {
+            CheckEditEmAndamento(checkEditContratoEstrutura);
+            var processo = new ImportContratoEstrutura(cancellationToken, progressLocal);
+            await processo.ProcessarTarefaWithStream("Contrato", "TabelaAuxiliarEstrutura.xlsx", BtnPathImportTabelaAuxiliarEstrutura.Text);
+            processo.Dispose();
+            CheckEditProcessado(checkEditContratoEstrutura);
+        }
+
+        private async Task ImportarEAPEstrutura(CancellationToken cancellationToken, IProgress<ImportProgressReport> progress)
+        {
+            CheckEditEmAndamento(checkEditEAPEstrutura);
+            var processo = new ImportEAPEstrutura(cancellationToken, progressLocal);
+            await processo.ProcessarTarefaWithStream("EAPEst", "TabelaAuxiliarEstrutura.xlsx", BtnPathImportTabelaAuxiliarEstrutura.Text);
+            processo.Dispose();
+            CheckEditProcessado(checkEditEAPEstrutura);
+        }
+
         #region Importação Tabela Auxiliares
-        private async Task ImportarContrato(CancellationToken cancellationToken, IProgress<ImportProgressReport> progress)
+        private async Task ImportarContratoTubulacao(CancellationToken cancellationToken, IProgress<ImportProgressReport> progress)
         {
             CheckEditEmAndamento(checkEditContrato);
-            var processo = new ImportContrato(cancellationToken, progressLocal);
+            var processo = new ImportContratoTubulacao(cancellationToken, progressLocal);
             await processo.ProcessarTarefaWithStream("Contrato", "TabelailiarTubulacao.xlsx", BtnPathImportTabAuxiliarTubulacao.Text);
             processo.Dispose();
             CheckEditProcessado(checkEditContrato);
@@ -225,13 +258,13 @@ namespace WinCTB_CTS.Module.Win.WinCustomProcess
             CheckEditProcessado(checkEditProcessoSoldagem);
         }
 
-        private async Task ImportarEAP(CancellationToken cancellationToken, IProgress<ImportProgressReport> progress)
+        private async Task ImportarEAPTubulacao(CancellationToken cancellationToken, IProgress<ImportProgressReport> progress)
         {
-            CheckEditEmAndamento(checkEditEAP);
-            var processo = new ImportEAP(cancellationToken, progressLocal);
+            CheckEditEmAndamento(checkEditEAPTubulacao);
+            var processo = new ImportEAPTubulacao(cancellationToken, progressLocal);
             await processo.ProcessarTarefaWithStream("EAPPipe", "TabelasAuxiliares.xlsx", BtnPathImportTabAuxiliarTubulacao.Text);
             processo.Dispose();
-            CheckEditProcessado(checkEditEAP);
+            CheckEditProcessado(checkEditEAPTubulacao);
         }
         #endregion
 

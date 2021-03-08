@@ -8,9 +8,9 @@ using WinCTB_CTS.Module.ServiceProcess.Base;
 
 namespace WinCTB_CTS.Module.ServiceProcess.Importer.Tubulacao
 {
-    public class ImportContrato : CalculatorProcessBase
+    public class ImportContratoTubulacao : CalculatorProcessBase
     {
-        public ImportContrato(CancellationToken cancellationToken, IProgress<ImportProgressReport> progress)
+        public ImportContratoTubulacao(CancellationToken cancellationToken, IProgress<ImportProgressReport> progress)
         : base(cancellationToken, progress)
         {
         }
