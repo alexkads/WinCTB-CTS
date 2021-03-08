@@ -145,6 +145,7 @@
     <Compile Include="Action\CustomLayoutGenarator.cs" />
     <Compile Include="BusinessObjects\Comum\Contrato.cs" />
     <Compile Include="BusinessObjects\Comum\InspecaoLaudo.cs" />
+    <Compile Include="BusinessObjects\Estrutura\Auxiliar\TabEAPEst.cs" />
     <Compile Include="BusinessObjects\Estrutura\Componente.cs" />
     <Compile Include="BusinessObjects\Estrutura\JuntaComponente.cs" />
     <Compile Include="BusinessObjects\Editor\EditorsProviders.cs" />
