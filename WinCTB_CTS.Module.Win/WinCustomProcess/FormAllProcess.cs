@@ -17,10 +17,8 @@ using WinCTB_CTS.Module.ServiceProcess.Importer.Estrutura;
 using WinCTB_CTS.Module.ServiceProcess.Importer.Tubulacao;
 using WinCTB_CTS.Module.Win.Services;
 
-namespace WinCTB_CTS.Module.Win.WinCustomProcess
-{
-    public partial class FormAllProcess : DevExpress.XtraEditors.XtraForm
-    {
+namespace WinCTB_CTS.Module.Win.WinCustomProcess {
+    public partial class FormAllProcess : DevExpress.XtraEditors.XtraForm {
         private CancellationTokenSource _cancellationTokenSource;
         private IProgress<ImportProgressReport> progressLocal;
         private readonly Font FontStandard = new Font("Tahoma", 8.25F, FontStyle.Regular);
@@ -31,15 +29,13 @@ namespace WinCTB_CTS.Module.Win.WinCustomProcess
         private const string PathFileForImportTubulacao = "PathFileForImportTubulacao";
         private const string PathFileForImportEstrutura = "PathFileForImportEstrutura";
 
-        public FormAllProcess()
-        {
+        public FormAllProcess() {
             InitializeComponent();
             //this.Location = Screen.AllScreens[1].WorkingArea.Location;
             init();
         }
 
-        private void init()
-        {
+        private void init() {
             labelControlAndamentoDoProcesso.Text = string.Empty;
             resetCheckEdit();
             LigarToggles();
@@ -55,38 +51,31 @@ namespace WinCTB_CTS.Module.Win.WinCustomProcess
             BtnPathImportTabAuxiliarEstrutura.EditValueChanged += BtnPathImportTabAuxiliarEstrutura_EditValueChanged;
         }
 
-        private void BtnPathImportTabAuxiliarEstrutura_EditValueChanged(object sender, EventArgs e)
-        {
+        private void BtnPathImportTabAuxiliarEstrutura_EditValueChanged(object sender, EventArgs e) {
             RegisterWindowsManipulation.SetRegister(PathFileForImportTabelaAuxiliarEstrutura, BtnPathImportTabAuxiliarEstrutura.Text);
         }
 
-        private void BtnPathImportTabAuxiliarTubulacao_EditValueChanged(object sender, EventArgs e)
-        {
+        private void BtnPathImportTabAuxiliarTubulacao_EditValueChanged(object sender, EventArgs e) {
             RegisterWindowsManipulation.SetRegister(PathFileForImportTabelaAuxiliarTubulacao, BtnPathImportTabAuxiliarTubulacao.Text);
         }
 
-        private void BtnPathImportEstrutura_EditValueChanged(object sender, EventArgs e)
-        {
+        private void BtnPathImportEstrutura_EditValueChanged(object sender, EventArgs e) {
             RegisterWindowsManipulation.SetRegister(PathFileForImportEstrutura, BtnPathImportEstrutura.Text);
         }
 
-        private void BtnPathImportTubulacao_EditValueChanged(object sender, EventArgs e)
-        {
+        private void BtnPathImportTubulacao_EditValueChanged(object sender, EventArgs e) {
             RegisterWindowsManipulation.SetRegister(PathFileForImportTubulacao, BtnPathImportTubulacao.Text);
         }
 
-        private string GetFileAndSetRegister(string key)
-        {
+        private string GetFileAndSetRegister(string key) {
             string result = string.Empty;
-            using (OpenFileDialog dialog = new OpenFileDialog())
-            {
+            using (OpenFileDialog dialog = new OpenFileDialog()) {
                 dialog.CheckFileExists = true;
                 dialog.CheckPathExists = true;
                 dialog.DereferenceLinks = true;
                 dialog.Multiselect = false;
                 //dialog.Filter = "ver como é o filtro";
-                if (dialog.ShowDialog(Form.ActiveForm) == DialogResult.OK)
-                {
+                if (dialog.ShowDialog(Form.ActiveForm) == DialogResult.OK) {
                     result = dialog.FileName;
                     //exemplo 'PathFileForImportTubulacao'
                     RegisterWindowsManipulation.SetRegister(key, dialog.FileName);
@@ -95,8 +84,7 @@ namespace WinCTB_CTS.Module.Win.WinCustomProcess
             return result;
         }
 
-        public void LogTrace(ImportProgressReport value)
-        {
+        public void LogTrace(ImportProgressReport value) {
             progressBarControlGeral.Properties.Maximum = value.TotalRows;
             labelControlAndamentoDoProcesso.Text = value.MessageImport;
 
@@ -107,8 +95,7 @@ namespace WinCTB_CTS.Module.Win.WinCustomProcess
             labelControlAndamentoDoProcesso.Update();
         }
 
-        private void LigarToggles()
-        {
+        private void LigarToggles() {
             toggleSwitchImportarEstrutura1.IsOn = true;
             toggleSwitchImportarEstrutura2.IsOn = true;
             toggleSwitchImportarLotesEstrutura.IsOn = true;
@@ -118,12 +105,9 @@ namespace WinCTB_CTS.Module.Win.WinCustomProcess
         }
 
 
-        private void resetCheckEdit()
-        {
-            foreach (var control in this.Controls)
-            {
-                if (control is CheckEdit checkEdit)
-                {
+        private void resetCheckEdit() {
+            foreach (var control in this.Controls) {
+                if (control is CheckEdit checkEdit) {
                     checkEdit.Checked = false;
                     checkEdit.Font = FontStandard;
                     checkEdit.ForeColor = System.Drawing.Color.Black;
@@ -131,28 +115,24 @@ namespace WinCTB_CTS.Module.Win.WinCustomProcess
             }
         }
 
-        private void CheckEditEmAndamento(CheckEdit checkEdit)
-        {
+        private void CheckEditEmAndamento(CheckEdit checkEdit) {
             checkEdit.Checked = false;
             checkEdit.Font = FontBold;
             checkEdit.ForeColor = System.Drawing.Color.Blue;
 
         }
 
-        private void CheckEditProcessado(CheckEdit checkEdit)
-        {
+        private void CheckEditProcessado(CheckEdit checkEdit) {
             checkEdit.Checked = true;
             checkEdit.Font = FontStrikeout;
             checkEdit.ForeColor = System.Drawing.Color.Red;
         }
 
-        private void BtCancelar_Click(object sender, EventArgs e)
-        {
+        private void BtCancelar_Click(object sender, EventArgs e) {
             _cancellationTokenSource?.Cancel();
         }
 
-        private async void BtStartProcess_Click(object sender, EventArgs e)
-        {
+        private async void BtStartProcess_Click(object sender, EventArgs e) {
             resetCheckEdit();
             BtStartProcess.Enabled = false;
             _cancellationTokenSource = new CancellationTokenSource();
@@ -160,8 +140,7 @@ namespace WinCTB_CTS.Module.Win.WinCustomProcess
             progressLocal = new Progress<ImportProgressReport>(LogTrace);
 
             //Importação Tabela Aulixiares Tubulação
-            if (toggleSwitchImportarTabelasAuxiliaresTubulacao.IsOn)
-            {
+            if (toggleSwitchImportarTabelasAuxiliaresTubulacao.IsOn) {
                 await ImportarContratoTubulacao(cancellationToken, progressLocal);
                 await ImportarDiametro(cancellationToken, progressLocal);
                 await ImportarSchedule(cancellationToken, progressLocal);
@@ -171,36 +150,31 @@ namespace WinCTB_CTS.Module.Win.WinCustomProcess
             }
 
             //Importação Tubulçao
-            if (toggleSwitchImportarTubulacao.IsOn)
-            {
+            if (toggleSwitchImportarTubulacao.IsOn) {
                 await ImportarSpool(cancellationToken, progressLocal);
                 await ImportarJuntaSpool(cancellationToken, progressLocal);
             }
 
             //Tabela Auxiliar Estrutura
-            if (toggleSwitchImportarTabelasAuxiliaresEstrutura.IsOn)
-            {
+            if (toggleSwitchImportarTabelasAuxiliaresEstrutura.IsOn) {
                 await ImportarContratoEstrutura(cancellationToken, progressLocal);
                 await ImportarEAPEstrutura(cancellationToken, progressLocal);
             }
 
             //Importação Estrutura
-            if (toggleSwitchImportarEstrutura1.IsOn)
-            {
+            if (toggleSwitchImportarEstrutura1.IsOn) {
                 await ImportarComponente(cancellationToken, progressLocal);
                 await ImportarJuntaComponente(cancellationToken, progressLocal);
             }
 
             //Importação Estrutura
-            if (toggleSwitchImportarEstrutura2.IsOn)
-            {
+            if (toggleSwitchImportarEstrutura2.IsOn) {
                 //await ImportarComponente(cts.Token, progressLocal);
                 //await ImportarJuntaComponente(cts.Token, progressLocal);
             }
 
             //Lotes
-            if (toggleSwitchImportarLotesEstrutura.IsOn)
-            {
+            if (toggleSwitchImportarLotesEstrutura.IsOn) {
                 await GerarLotes(cancellationToken, progressLocal);
                 await InserirInspecao(cancellationToken, progressLocal);
                 await Alinhamento(cancellationToken, progressLocal);
@@ -210,8 +184,7 @@ namespace WinCTB_CTS.Module.Win.WinCustomProcess
             BtStartProcess.Enabled = true;
         }
 
-        private async Task ImportarContratoEstrutura(CancellationToken cancellationToken, IProgress<ImportProgressReport> progress)
-        {
+        private async Task ImportarContratoEstrutura(CancellationToken cancellationToken, IProgress<ImportProgressReport> progress) {
             CheckEditEmAndamento(checkEditContratoEstrutura);
             var processo = new ImportContratoEstrutura(cancellationToken, progressLocal);
             await processo.ProcessarTarefaWithStream("Contrato", "TabelaAuxiliarEstrutura.xlsx", BtnPathImportTabAuxiliarEstrutura.Text);
@@ -219,8 +192,7 @@ namespace WinCTB_CTS.Module.Win.WinCustomProcess
             CheckEditProcessado(checkEditContratoEstrutura);
         }
 
-        private async Task ImportarEAPEstrutura(CancellationToken cancellationToken, IProgress<ImportProgressReport> progress)
-        {
+        private async Task ImportarEAPEstrutura(CancellationToken cancellationToken, IProgress<ImportProgressReport> progress) {
             CheckEditEmAndamento(checkEditEAPEstrutura);
             var processo = new ImportEAPEstrutura(cancellationToken, progressLocal);
             await processo.ProcessarTarefaWithStream("EAPEst", "TabelaAuxiliarEstrutura.xlsx", BtnPathImportTabAuxiliarEstrutura.Text);
@@ -229,8 +201,7 @@ namespace WinCTB_CTS.Module.Win.WinCustomProcess
         }
 
         #region Importação Tabela Auxiliares
-        private async Task ImportarContratoTubulacao(CancellationToken cancellationToken, IProgress<ImportProgressReport> progress)
-        {
+        private async Task ImportarContratoTubulacao(CancellationToken cancellationToken, IProgress<ImportProgressReport> progress) {
             CheckEditEmAndamento(checkEditContrato);
             var processo = new ImportContratoTubulacao(cancellationToken, progressLocal);
             await processo.ProcessarTarefaWithStream("Contrato", "TabelaAuxiliarTubulacao.xlsx", BtnPathImportTabAuxiliarTubulacao.Text);
@@ -238,8 +209,7 @@ namespace WinCTB_CTS.Module.Win.WinCustomProcess
             CheckEditProcessado(checkEditContrato);
         }
 
-        private async Task ImportarDiametro(CancellationToken cancellationToken, IProgress<ImportProgressReport> progress)
-        {
+        private async Task ImportarDiametro(CancellationToken cancellationToken, IProgress<ImportProgressReport> progress) {
             CheckEditEmAndamento(checkEditDiametro);
             var processo = new ImportDiametro(cancellationToken, progressLocal);
             await processo.ProcessarTarefaWithStream("TabDiametro", "TabelaAuxiliarTubulacao.xlsx", BtnPathImportTabAuxiliarTubulacao.Text);
@@ -247,8 +217,7 @@ namespace WinCTB_CTS.Module.Win.WinCustomProcess
             CheckEditProcessado(checkEditDiametro);
         }
 
-        private async Task ImportarSchedule(CancellationToken cancellationToken, IProgress<ImportProgressReport> progress)
-        {
+        private async Task ImportarSchedule(CancellationToken cancellationToken, IProgress<ImportProgressReport> progress) {
             CheckEditEmAndamento(checkEditSchedule);
             var processo = new ImportSchedule(cancellationToken, progressLocal);
             await processo.ProcessarTarefaWithStream("Schedule", "TabelaAuxiliarTubulacao.xlsx", BtnPathImportTabAuxiliarTubulacao.Text);
@@ -256,8 +225,7 @@ namespace WinCTB_CTS.Module.Win.WinCustomProcess
             CheckEditProcessado(checkEditSchedule);
         }
 
-        private async Task ImportarPercInspecao(CancellationToken cancellationToken, IProgress<ImportProgressReport> progress)
-        {
+        private async Task ImportarPercInspecao(CancellationToken cancellationToken, IProgress<ImportProgressReport> progress) {
             CheckEditEmAndamento(checkEditPercInspecao);
             var processo = new ImportPercInspecao(cancellationToken, progressLocal);
             await processo.ProcessarTarefaWithStream("PercInspecao", "TabelaAuxiliarTubulacao.xlsx", BtnPathImportTabAuxiliarTubulacao.Text);
@@ -265,8 +233,7 @@ namespace WinCTB_CTS.Module.Win.WinCustomProcess
             CheckEditProcessado(checkEditPercInspecao);
         }
 
-        private async Task ImportarProcessoDeSoldagem(CancellationToken cancellationToken, IProgress<ImportProgressReport> progress)
-        {
+        private async Task ImportarProcessoDeSoldagem(CancellationToken cancellationToken, IProgress<ImportProgressReport> progress) {
             CheckEditEmAndamento(checkEditProcessoSoldagem);
             var processo = new ImportProcessoSoldagem(cancellationToken, progressLocal);
             await processo.ProcessarTarefaWithStream("ProcessoSoldagem", "TabelaAuxiliarTubulacao.xlsx", BtnPathImportTabAuxiliarTubulacao.Text);
@@ -274,8 +241,7 @@ namespace WinCTB_CTS.Module.Win.WinCustomProcess
             CheckEditProcessado(checkEditProcessoSoldagem);
         }
 
-        private async Task ImportarEAPTubulacao(CancellationToken cancellationToken, IProgress<ImportProgressReport> progress)
-        {
+        private async Task ImportarEAPTubulacao(CancellationToken cancellationToken, IProgress<ImportProgressReport> progress) {
             CheckEditEmAndamento(checkEditEAPTubulacao);
             var processo = new ImportEAPTubulacao(cancellationToken, progressLocal);
             await processo.ProcessarTarefaWithStream("EAPPipe", "TabelaAuxiliarTubulacao.xlsx", BtnPathImportTabAuxiliarTubulacao.Text);
@@ -286,8 +252,7 @@ namespace WinCTB_CTS.Module.Win.WinCustomProcess
 
 
         #region Importação de Tubulação
-        private async Task ImportarSpool(CancellationToken cancellationToken, IProgress<ImportProgressReport> progress)
-        {
+        private async Task ImportarSpool(CancellationToken cancellationToken, IProgress<ImportProgressReport> progress) {
             CheckEditEmAndamento(checkEditSpool);
             var processo = new ImportSpool(cancellationToken, progressLocal);
             await processo.ProcessarTarefaWithStream("SGS", "SGSeSGJ.xlsx", BtnPathImportTubulacao.Text);
@@ -295,8 +260,7 @@ namespace WinCTB_CTS.Module.Win.WinCustomProcess
             CheckEditProcessado(checkEditSpool);
         }
 
-        private async Task ImportarJuntaSpool(CancellationToken cancellationToken, IProgress<ImportProgressReport> progress)
-        {
+        private async Task ImportarJuntaSpool(CancellationToken cancellationToken, IProgress<ImportProgressReport> progress) {
             CheckEditEmAndamento(checkEditJuntaSpool);
             var processo = new ImportJuntaSpool(cancellationToken, progressLocal);
             await processo.ProcessarTarefaWithStream("SGJ", "SGSeSGJ.xlsx", BtnPathImportTubulacao.Text);
@@ -307,8 +271,7 @@ namespace WinCTB_CTS.Module.Win.WinCustomProcess
 
 
         #region Importação de Estrutura
-        private async Task ImportarComponente(CancellationToken cancellationToken, IProgress<ImportProgressReport> progress)
-        {
+        private async Task ImportarComponente(CancellationToken cancellationToken, IProgress<ImportProgressReport> progress) {
             CheckEditEmAndamento(checkEditComponentes);
             var processo = new ImportComponente(cancellationToken, progressLocal);
             await processo.ProcessarTarefaWithStream("Piece", "MapaMontagemEBR_MV32.xlsx", BtnPathImportEstrutura.Text);
@@ -316,8 +279,7 @@ namespace WinCTB_CTS.Module.Win.WinCustomProcess
             CheckEditProcessado(checkEditComponentes);
         }
 
-        private async Task ImportarJuntaComponente(CancellationToken cancellationToken, IProgress<ImportProgressReport> progress)
-        {
+        private async Task ImportarJuntaComponente(CancellationToken cancellationToken, IProgress<ImportProgressReport> progress) {
             CheckEditEmAndamento(checkEditJuntaComponente);
             var processo = new ImportJuntaComponente(cancellationToken, progressLocal);
             await processo.ProcessarTarefaWithStream("Joints", "MapaMontagemEBR_MV32.xlsx", BtnPathImportEstrutura.Text);
@@ -328,8 +290,7 @@ namespace WinCTB_CTS.Module.Win.WinCustomProcess
 
 
         #region Lotes de Estrutura
-        private async Task GerarLotes(CancellationToken cancellationToken, IProgress<ImportProgressReport> progress)
-        {
+        private async Task GerarLotes(CancellationToken cancellationToken, IProgress<ImportProgressReport> progress) {
             CheckEditEmAndamento(checkEditMontagemDeLotes);
             var processo = new GerarLote(cancellationToken, progressLocal);
             await processo.ProcessarTarefaSimples();
@@ -337,8 +298,7 @@ namespace WinCTB_CTS.Module.Win.WinCustomProcess
             CheckEditProcessado(checkEditMontagemDeLotes);
         }
 
-        private async Task InserirInspecao(CancellationToken cancellationToken, IProgress<ImportProgressReport> progress)
-        {
+        private async Task InserirInspecao(CancellationToken cancellationToken, IProgress<ImportProgressReport> progress) {
             CheckEditEmAndamento(checkEditInspecaoEmLotes);
             var processo = new LotesDeEstruturaInspecao(cancellationToken, progressLocal);
             await processo.ProcessarTarefaSimples();
@@ -346,8 +306,7 @@ namespace WinCTB_CTS.Module.Win.WinCustomProcess
             CheckEditProcessado(checkEditInspecaoEmLotes);
         }
 
-        private async Task Alinhamento(CancellationToken cancellationToken, IProgress<ImportProgressReport> progress)
-        {
+        private async Task Alinhamento(CancellationToken cancellationToken, IProgress<ImportProgressReport> progress) {
             CheckEditEmAndamento(checkEditAlinhamentoDeLotes);
             var processo = new LotesDeEstruturaAlinhamento(cancellationToken, progressLocal);
             await processo.ProcessarTarefaSimples();
@@ -355,8 +314,7 @@ namespace WinCTB_CTS.Module.Win.WinCustomProcess
             CheckEditProcessado(checkEditAlinhamentoDeLotes);
         }
 
-        private async Task Balancealmento(CancellationToken cancellationToken, IProgress<ImportProgressReport> progress)
-        {
+        private async Task Balancealmento(CancellationToken cancellationToken, IProgress<ImportProgressReport> progress) {
             CheckEditEmAndamento(checkEditBalanceamento);
             var processo = new BalanceamentoDeLotesEstrutura(cancellationToken, progressLocal);
             await processo.ProcessarTarefaSimples();

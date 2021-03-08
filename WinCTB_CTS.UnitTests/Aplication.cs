@@ -21,24 +21,19 @@ using WinCTB_CTS.Module.BusinessObjects.Comum;
 using WinCTB_CTS.Module.Comum;
 using static WinCTB_CTS.Module.BusinessObjects.Tubulacao.JuntaSpool;
 
-namespace WinCTB_CTS.UnitTests
-{
-    public class Application : IDisposable
-    {
+namespace WinCTB_CTS.UnitTests {
+    public class Application : IDisposable {
         public ServerApplication serverApplication;
 
         private bool cacheDatabase;
 
-        public Application(bool CacheDatabase)
-        {
+        public Application(bool CacheDatabase) {
             this.cacheDatabase = CacheDatabase;
             Provider();
         }
 
-        private void Provider()
-        {
-            if (serverApplication == null)
-            {
+        private void Provider() {
+            if (serverApplication == null) {
                 string connectionString = ConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString;
                 ValueManager.ValueManagerType = typeof(MultiThreadValueManager<>).GetGenericTypeDefinition();
                 var serverApplication = new ServerApplication();
@@ -76,22 +71,19 @@ namespace WinCTB_CTS.UnitTests
             }
         }
 
-        private void ServerApplication_DatabaseVersionMismatch(object sender, DatabaseVersionMismatchEventArgs e)
-        {
+        private void ServerApplication_DatabaseVersionMismatch(object sender, DatabaseVersionMismatchEventArgs e) {
             e.Updater.Update();
             e.Handled = true;
         }
 
-        private void ServerApplication_CreateCustomObjectSpaceProvider(object sender, CreateCustomObjectSpaceProviderEventArgs e)
-        {
+        private void ServerApplication_CreateCustomObjectSpaceProvider(object sender, CreateCustomObjectSpaceProviderEventArgs e) {
             if (cacheDatabase)
                 e.ObjectSpaceProvider = new XPObjectSpaceProvider(new CachedDataStoreProvider(e.ConnectionString), true);
             else
                 e.ObjectSpaceProvider = new XPObjectSpaceProvider(new CustomIXpoDataStoreProvider(e.ConnectionString, e.Connection, true), true);
         }
 
-        public void Dispose()
-        {
+        public void Dispose() {
             serverApplication.Dispose();
         }
     }

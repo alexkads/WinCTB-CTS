@@ -14,23 +14,16 @@ using DevExpress.Xpo;
 using DevExpress.XtraEditors;
 using WinCTB_CTS.Module.Comum;
 
-namespace WinCTB_CTS.Win
-{
-    static class Program
-    {
-        private static string connectionStringSettings()
-        {
+namespace WinCTB_CTS.Win {
+    static class Program {
+        private static string connectionStringSettings() {
             String result = null;
             ConnectionStringSettings connectionStringSettings = ConfigurationManager.ConnectionStrings["ConnectionString"];
-            if (connectionStringSettings != null)
-            {
+            if (connectionStringSettings != null) {
                 result = connectionStringSettings.ConnectionString;
-            }
-            else
-            {
+            } else {
                 connectionStringSettings = ConfigurationManager.ConnectionStrings["SqlExpressConnectionString"];
-                if (connectionStringSettings != null)
-                {
+                if (connectionStringSettings != null) {
                     result = DbEngineDetector.PatchConnectionString(connectionStringSettings.ConnectionString);
                 }
             }
@@ -42,8 +35,7 @@ namespace WinCTB_CTS.Win
         /// The main entry point for the application.
         /// </summary>
         [STAThread]
-        static void Main()
-        {
+        static void Main() {
 #if EASYTEST
             DevExpress.ExpressApp.Win.EasyTest.EasyTestRemotingRegistration.Register();
 #endif
@@ -52,8 +44,7 @@ namespace WinCTB_CTS.Win
             Application.SetCompatibleTextRenderingDefault(false);
             EditModelPermission.AlwaysGranted = System.Diagnostics.Debugger.IsAttached;
 
-            if (Tracing.GetFileLocationFromSettings() == DevExpress.Persistent.Base.FileLocation.CurrentUserApplicationDataFolder)
-            {
+            if (Tracing.GetFileLocationFromSettings() == DevExpress.Persistent.Base.FileLocation.CurrentUserApplicationDataFolder) {
                 Tracing.LocalUserAppDataPath = Application.LocalUserAppDataPath;
             }
 
@@ -73,20 +64,16 @@ namespace WinCTB_CTS.Win
 
             winApplication.ConnectionString = connectionStringSettings();
 
-            try
-            {
+            try {
                 winApplication.Setup();
                 winApplication.CheckCompatibility();
                 winApplication.Start();
-            }
-            catch (Exception e)
-            {
+            } catch (Exception e) {
                 winApplication.HandleException(e);
             }
         }
 
-        private static void WinApplication_CreateCustomTemplate(object sender, CreateCustomTemplateEventArgs e)
-        {
+        private static void WinApplication_CreateCustomTemplate(object sender, CreateCustomTemplateEventArgs e) {
             if (e.Context.Name == TemplateContext.ApplicationWindow)
                 e.Template = new Module.Win.Templates.MainRibbonFormTemplate();
             else if (e.Context.Name == TemplateContext.View)
@@ -102,8 +89,7 @@ namespace WinCTB_CTS.Win
         //    e.ObjectSpaceProvider = new XPObjectSpaceProvider(new CachedDataStoreProvider(e.ConnectionString), true);
         //}
 
-        private static void WinApplication_CustomizeFormattingCulture(object sender, CustomizeFormattingCultureEventArgs e)
-        {
+        private static void WinApplication_CustomizeFormattingCulture(object sender, CustomizeFormattingCultureEventArgs e) {
             e.FormattingCulture.DateTimeFormat = Thread.CurrentThread.CurrentCulture.DateTimeFormat;
             e.FormattingCulture.NumberFormat = Thread.CurrentThread.CurrentCulture.NumberFormat;
         }

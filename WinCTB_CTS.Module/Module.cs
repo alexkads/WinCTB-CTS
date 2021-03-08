@@ -26,36 +26,30 @@ using WinCTB_CTS.Module.Comum.ViewCloner;
 using WinCTB_CTS.Module.BusinessObjects.Estrutura;
 //using WinCTB_CTS.Module.Action;
 
-namespace WinCTB_CTS.Module
-{
+namespace WinCTB_CTS.Module {
     // For more typical usage scenarios, be sure to check out https://documentation.devexpress.com/eXpressAppFramework/clsDevExpressExpressAppModuleBasetopic.aspx.
-    public sealed partial class WinCTB_CTSModule : ModuleBase
-    {
-        public WinCTB_CTSModule()
-        {
+    public sealed partial class WinCTB_CTSModule : ModuleBase {
+        public WinCTB_CTSModule() {
             InitializeComponent();
             BaseObject.OidInitializationMode = OidInitializationMode.AfterConstruction;
             RegisterEnum();
         }
 
-        public static void RegisterEnum()
-        {
+        public static void RegisterEnum() {
             EnumProcessingHelper.RegisterEnum(typeof(WinCTB_CTS.Module.BusinessObjects.Tubulacao.JuntaSpool.CampoPipe), "CampoOuPipe");
             EnumProcessingHelper.RegisterEnum(typeof(WinCTB_CTS.Module.Interfaces.ENDS), nameof(ENDS));
             EnumProcessingHelper.RegisterEnum(typeof(WinCTB_CTS.Module.Interfaces.SituacoesInspecao), nameof(SituacoesInspecao));
             EnumProcessingHelper.RegisterEnum(typeof(WinCTB_CTS.Module.Interfaces.SituacoesQuantidade), nameof(SituacoesQuantidade));
         }
 
-        protected override ModuleTypeList GetRequiredModuleTypesCore()
-        {
+        protected override ModuleTypeList GetRequiredModuleTypesCore() {
             ModuleTypeList moduleTypeList = base.GetRequiredModuleTypesCore();
             moduleTypeList.Add(typeof(DevExpress.ExpressApp.ConditionalAppearance.ConditionalAppearanceModule));
             moduleTypeList.Add(typeof(DevExpress.ExpressApp.SystemModule.SystemModule));
             return moduleTypeList;
         }
 
-        public override void AddGeneratorUpdaters(ModelNodesGeneratorUpdaters updaters)
-        {
+        public override void AddGeneratorUpdaters(ModelNodesGeneratorUpdaters updaters) {
             base.AddGeneratorUpdaters(updaters);
             updaters.Add(new ModelViewClonerUpdater());
             //updaters.Add(new CustomDetailViewItemsGenarator());
@@ -65,8 +59,7 @@ namespace WinCTB_CTS.Module
             //updaters.Add(new CustomDetailViewLayoutGenarator());
         }
 
-        public override IEnumerable<ModuleUpdater> GetModuleUpdaters(IObjectSpace objectSpace, Version versionFromDB)
-        {
+        public override IEnumerable<ModuleUpdater> GetModuleUpdaters(IObjectSpace objectSpace, Version versionFromDB) {
             ModuleUpdater updater = new DatabaseUpdate.Updater(objectSpace, versionFromDB);
 
             PredefinedReportsUpdater predefinedReportsUpdater = new PredefinedReportsUpdater(Application, objectSpace, versionFromDB);
@@ -76,8 +69,8 @@ namespace WinCTB_CTS.Module
             predefinedReportsUpdater.AddPredefinedReport<RelatorioResumoDeJuntas>("Resumo de Juntas", typeof(JuntaSpool), typeof(JuntaSpoolParameters), isInplaceReport: true);
             predefinedReportsUpdater.AddPredefinedReport<RelatorioJuntaMedicao>("Juntas - Medição", typeof(JuntaSpool), typeof(JuntaSpoolParameters), isInplaceReport: true);
             predefinedReportsUpdater.AddPredefinedReport<RelatorioSpoolMedicao>("Spool - Medição", typeof(MedicaoTubulacaoDetalhe), typeof(MedicaoTubulacaoDetalheParameters), isInplaceReport: true);
-            predefinedReportsUpdater.AddPredefinedReport<RelatorioComponentesMedicao>("STR - Componentes - (MONTAGEM)", typeof(Componente),null, isInplaceReport: true);
-            predefinedReportsUpdater.AddPredefinedReport<RelatorioJuntaComponentes>("STR - Mapa de Juntas (MONTAGEM)", typeof(JuntaComponente),null, isInplaceReport: true);
+            predefinedReportsUpdater.AddPredefinedReport<RelatorioComponentesMedicao>("STR - Componentes - (MONTAGEM)", typeof(Componente), null, isInplaceReport: true);
+            predefinedReportsUpdater.AddPredefinedReport<RelatorioJuntaComponentes>("STR - Mapa de Juntas (MONTAGEM)", typeof(JuntaComponente), null, isInplaceReport: true);
 
 
             return new ModuleUpdater[]
@@ -86,15 +79,13 @@ namespace WinCTB_CTS.Module
                 predefinedReportsUpdater
             };
         }
-        public override void Setup(XafApplication application)
-        {
+        public override void Setup(XafApplication application) {
             base.Setup(application);
             application.OptimizedControllersCreation = true;
             // Manage various aspects of the application UI and behavior at the module level.
         }
 
-        public override void ExtendModelInterfaces(ModelInterfaceExtenders extenders)
-        {
+        public override void ExtendModelInterfaces(ModelInterfaceExtenders extenders) {
             base.ExtendModelInterfaces(extenders);
             //extenders.Add<IModelMember, IModelMemberExtender>();
             //extenders.Add<IModelPropertyEditor, IModelPropertyEditorClassMemberExtender>();
@@ -102,8 +93,7 @@ namespace WinCTB_CTS.Module
         }
 
 
-        public override void CustomizeTypesInfo(ITypesInfo typesInfo)
-        {
+        public override void CustomizeTypesInfo(ITypesInfo typesInfo) {
             base.CustomizeTypesInfo(typesInfo);
             CalculatedPersistentAliasHelper.CustomizeTypesInfo(typesInfo);
             //CustomizeAppearanceDemoObject(typesInfo.FindTypeInfo(typeof(FeatureCenter.Module.ConditionalAppearance.ConditionalAppearanceHideShowEditorsObject)));

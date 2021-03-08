@@ -35,7 +35,7 @@ namespace WinCTB_CTS.Web {
 
         #region Default XAF configuration options (https://www.devexpress.com/kb=T501418)
         static WinCTB_CTSAspNetApplication() {
-			EnableMultipleBrowserTabsSupport = true;
+            EnableMultipleBrowserTabsSupport = true;
             DevExpress.ExpressApp.Web.Editors.ASPx.ASPxGridListEditor.AllowFilterControlHierarchy = true;
             DevExpress.ExpressApp.Web.Editors.ASPx.ASPxGridListEditor.MaxFilterControlHierarchyDepth = 3;
             DevExpress.ExpressApp.Web.Editors.ASPx.ASPxCriteriaPropertyEditor.AllowFilterControlHierarchyDefault = true;
@@ -50,7 +50,7 @@ namespace WinCTB_CTS.Web {
         #endregion
         public WinCTB_CTSAspNetApplication() {
             InitializeComponent();
-			InitializeDefaults();
+            InitializeDefaults();
         }
         protected override void CreateDefaultObjectSpaceProvider(CreateCustomObjectSpaceProviderEventArgs args) {
             args.ObjectSpaceProvider = new XPObjectSpaceProvider(GetDataStoreProvider(args.ConnectionString, args.Connection), true);
@@ -59,34 +59,32 @@ namespace WinCTB_CTS.Web {
         private IXpoDataStoreProvider GetDataStoreProvider(string connectionString, System.Data.IDbConnection connection) {
             System.Web.HttpApplicationState application = (System.Web.HttpContext.Current != null) ? System.Web.HttpContext.Current.Application : null;
             IXpoDataStoreProvider dataStoreProvider = null;
-            if(application != null && application["DataStoreProvider"] != null) {
+            if (application != null && application["DataStoreProvider"] != null) {
                 dataStoreProvider = application["DataStoreProvider"] as IXpoDataStoreProvider;
-            }
-            else {
+            } else {
                 dataStoreProvider = XPObjectSpaceProvider.GetDataStoreProvider(connectionString, connection, true);
-                if(application != null) {
+                if (application != null) {
                     application["DataStoreProvider"] = dataStoreProvider;
                 }
             }
-			return dataStoreProvider;
+            return dataStoreProvider;
         }
         private void WinCTB_CTSAspNetApplication_DatabaseVersionMismatch(object sender, DevExpress.ExpressApp.DatabaseVersionMismatchEventArgs e) {
 #if EASYTEST
             e.Updater.Update();
             e.Handled = true;
 #else
-            if(System.Diagnostics.Debugger.IsAttached) {
+            if (System.Diagnostics.Debugger.IsAttached) {
                 e.Updater.Update();
                 e.Handled = true;
-            }
-            else {
-				string message = "The application cannot connect to the specified database, " +
-					"because the database doesn't exist, its version is older " +
-					"than that of the application or its schema does not match " +
-					"the ORM data model structure. To avoid this error, use one " +
-					"of the solutions from the https://www.devexpress.com/kb=T367835 KB Article.";
+            } else {
+                string message = "The application cannot connect to the specified database, " +
+                    "because the database doesn't exist, its version is older " +
+                    "than that of the application or its schema does not match " +
+                    "the ORM data model structure. To avoid this error, use one " +
+                    "of the solutions from the https://www.devexpress.com/kb=T367835 KB Article.";
 
-                if(e.CompatibilityError != null && e.CompatibilityError.Exception != null) {
+                if (e.CompatibilityError != null && e.CompatibilityError.Exception != null) {
                     message += "\r\n\r\nInner exception: " + e.CompatibilityError.Exception.Message;
                 }
                 throw new InvalidOperationException(message);
