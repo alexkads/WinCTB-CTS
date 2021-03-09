@@ -352,10 +352,6 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Dashboards\MedicaoSpool.xml" />
-    <None Include="UnusableNodes.xml">
-      <DependentUpon>Model.DesignedDiffs.xafml</DependentUpon>
-      <SubType>Designer</SubType>
-    </None>
     <Content Include="Welcome.html" />
   </ItemGroup>
   <ItemGroup>
