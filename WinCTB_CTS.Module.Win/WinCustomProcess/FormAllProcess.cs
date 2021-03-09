@@ -45,7 +45,7 @@ namespace WinCTB_CTS.Module.Win.WinCustomProcess {
 
             BtnPathImportTubulacao.EditValue = RegisterWindowsManipulation.GetRegister(PathFileForImportTubulacao);
             BtnPathImportEstruturaMV32.EditValue = RegisterWindowsManipulation.GetRegister(PathFileForImportEstruturaMV32);
-            BtnPathImportEstruturaSEPETIBA.EditValue = RegisterWindowsManipulation.GetRegister(PathFileForImportEstruturaMV32);
+            BtnPathImportEstruturaSEPETIBA.EditValue = RegisterWindowsManipulation.GetRegister(PathFileForImportEstruturaSEPETIBA);
             BtnPathImportTabAuxiliarTubulacao.EditValue = RegisterWindowsManipulation.GetRegister(PathFileForImportTabelaAuxiliarTubulacao); ;
             BtnPathImportTabAuxiliarEstrutura.EditValue = RegisterWindowsManipulation.GetRegister(PathFileForImportTabelaAuxiliarEstrutura); ;
 
