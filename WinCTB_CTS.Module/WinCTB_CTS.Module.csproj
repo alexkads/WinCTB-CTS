@@ -264,11 +264,13 @@
     <Compile Include="ServiceProcess\Base\ImporterEventArgs.cs" />
     <Compile Include="ServiceProcess\Base\ImportProgressReport.cs" />
     <Compile Include="ServiceProcess\Base\MapImporterEventArgs.cs" />
+    <Compile Include="ServiceProcess\Calculator\Estrutura\Medicao\CalculoComponente.cs" />
     <Compile Include="ServiceProcess\Calculator\Estrutura\ProcessoLote\BalanceamentoDeLotesEstrutura.cs" />
     <Compile Include="ServiceProcess\Calculator\Estrutura\ProcessoLote\GerarLote.cs" />
     <Compile Include="ServiceProcess\Calculator\Estrutura\ProcessoLote\LotesDeEstruturaAlinhamento.cs" />
     <Compile Include="ServiceProcess\Calculator\Estrutura\ProcessoLote\LotesDeEstruturaInspecao.cs" />
     <Compile Include="ServiceProcess\Calculator\Estrutura\ProcessoLote\ProgressoGerarLotes.cs" />
+    <Compile Include="ServiceProcess\Calculator\Tubulacao\Medicao\CalculoSpool.cs" />
     <Compile Include="ServiceProcess\Importer\Estrutura\ImportComponente.cs" />
     <Compile Include="ServiceProcess\Importer\Estrutura\ImportContratoEstrutura.cs" />
     <Compile Include="ServiceProcess\Importer\Estrutura\ImportEAPEstrutua.cs" />
@@ -356,7 +358,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Calculator\Patterns\" />
-    <Folder Include="ServiceProcess\Calculator\Tubulacao\Medicao\" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="DocumentFormat.OpenXml">
