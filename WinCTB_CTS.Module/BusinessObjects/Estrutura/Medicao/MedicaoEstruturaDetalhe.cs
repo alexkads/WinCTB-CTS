@@ -72,71 +72,85 @@ namespace WinCTB_CTS.Module.BusinessObjects.Estrutura.Medicao {
             set => SetPropertyValue(nameof(Componente), ref componente, value);
         }
 
+        [ModelDefault("DisplayFormat", "n2"), ModelDefault("EditMask", "n2")]
         public double PesoTotal {
             get => pesoTotal;
             set => SetPropertyValue(nameof(PesoTotal), ref pesoTotal, value);
         }
 
+        [ModelDefault("DisplayFormat", "n2"), ModelDefault("EditMask", "n2")]
         public double MedJointMM {
             get => medJointMM;
             set => SetPropertyValue(nameof(MedJointMM), ref medJointMM, value);
         }
 
+        [ModelDefault("DisplayFormat", "n2"), ModelDefault("EditMask", "n2")]
         public double FitUpExecutadoMM {
             get => fitUpExecutadoMM;
             set => SetPropertyValue(nameof(FitUpExecutadoMM), ref fitUpExecutadoMM, value);
         }
 
+        [ModelDefault("DisplayFormat", "n2"), ModelDefault("EditMask", "n2")]
         public double SoldaExecutadoMM {
             get => soldaExecutadoMM;
             set => SetPropertyValue(nameof(SoldaExecutadoMM), ref soldaExecutadoMM, value);
         }
 
+        [ModelDefault("DisplayFormat", "n2"), ModelDefault("EditMask", "n2")]
         public double VisualPrevistoMM {
             get => visualPrevistoMM;
             set => SetPropertyValue(nameof(VisualPrevistoMM), ref visualPrevistoMM, value);
         }
 
+        [ModelDefault("DisplayFormat", "n2"), ModelDefault("EditMask", "n2")]
         public double VisualExecutadoMM {
             get => visualExecutadoMM;
             set => SetPropertyValue(nameof(VisualExecutadoMM), ref visualExecutadoMM, value);
         }
 
+        [ModelDefault("DisplayFormat", "n2"), ModelDefault("EditMask", "n2")]
         public double LPPMPrevistoMM {
             get => lPPMPrevistoMM;
             set => SetPropertyValue(nameof(LPPMPrevistoMM), ref lPPMPrevistoMM, value);
         }
 
+        [ModelDefault("DisplayFormat", "n2"), ModelDefault("EditMask", "n2")]
         public double LPPMExecutadoMM {
             get => lPPMExecutadoMM;
             set => SetPropertyValue(nameof(LPPMExecutadoMM), ref lPPMExecutadoMM, value);
         }
 
+        [ModelDefault("DisplayFormat", "n2"), ModelDefault("EditMask", "n2")]
         public double USPrevistoMM {
             get => uSPrevistoMM;
             set => SetPropertyValue(nameof(USPrevistoMM), ref uSPrevistoMM, value);
         }
 
+        [ModelDefault("DisplayFormat", "n2"), ModelDefault("EditMask", "n2")]
         public double USExecutadoMM {
             get => uSExecutadoMM;
             set => SetPropertyValue(nameof(USExecutadoMM), ref uSExecutadoMM, value);
         }
 
+        [ModelDefault("DisplayFormat", "n2"), ModelDefault("EditMask", "n2")]
         public double RXPrevistoMM {
             get => rXPrevistoMM;
             set => SetPropertyValue(nameof(RXPrevistoMM), ref rXPrevistoMM, value);
         }
 
+        [ModelDefault("DisplayFormat", "n2"), ModelDefault("EditMask", "n2")]
         public double RXExecutadoMM {
             get => rXExecutadoMM;
             set => SetPropertyValue(nameof(RXExecutadoMM), ref rXExecutadoMM, value);
         }
 
+        [ModelDefault("DisplayFormat", "n2"), ModelDefault("EditMask", "n2")]
         public double ENDPrevistoMM {
             get => eNDPrevistoMM;
             set => SetPropertyValue(nameof(ENDPrevistoMM), ref eNDPrevistoMM, value);
         }
 
+        [ModelDefault("DisplayFormat", "n2"), ModelDefault("EditMask", "n2")]
         public double ENDExecutaMM {
             get => eNDExecutaMM;
             set => SetPropertyValue(nameof(ENDExecutaMM), ref eNDExecutaMM, value);
@@ -190,66 +204,79 @@ namespace WinCTB_CTS.Module.BusinessObjects.Estrutura.Medicao {
             set => SetPropertyValue(nameof(PercAvancoEND), ref percAvancoEND, value);
         }
 
+        [ModelDefault("DisplayFormat", "n2"), ModelDefault("EditMask", "n2")]
         public double PesoPosicionamento {
             get => pesoPosicionamento;
             set => SetPropertyValue(nameof(PesoPosicionamento), ref pesoPosicionamento, value);
         }
 
+        [ModelDefault("DisplayFormat", "n2"), ModelDefault("EditMask", "n2")]
         public double PesoFitUp {
             get => pesoFitUp;
             set => SetPropertyValue(nameof(PesoFitUp), ref pesoFitUp, value);
         }
 
+        [ModelDefault("DisplayFormat", "n2"), ModelDefault("EditMask", "n2")]
         public double PesoSolda {
             get => pesoSolda;
             set => SetPropertyValue(nameof(PesoSolda), ref pesoSolda, value);
         }
 
+        [ModelDefault("DisplayFormat", "n2"), ModelDefault("EditMask", "n2")]
         public double PesoVisual {
             get => pesoVisual;
             set => SetPropertyValue(nameof(PesoVisual), ref pesoVisual, value);
         }
 
+        [ModelDefault("DisplayFormat", "n2"), ModelDefault("EditMask", "n2")]
         public double PesoLPPM {
             get => pesoLPPM;
             set => SetPropertyValue(nameof(PesoLPPM), ref pesoLPPM, value);
         }
 
+        [ModelDefault("DisplayFormat", "n2"), ModelDefault("EditMask", "n2")]
         public double PesoUS {
             get => pesoUS;
             set => SetPropertyValue(nameof(PesoUS), ref pesoUS, value);
         }
 
+        [ModelDefault("DisplayFormat", "n2"), ModelDefault("EditMask", "n2")]
         public double PesoRX {
             get => pesoRX;
             set => SetPropertyValue(nameof(PesoRX), ref pesoRX, value);
         }
 
+        [ModelDefault("DisplayFormat", "n2"), ModelDefault("EditMask", "n2")]
         public double PesoEND {
             get => pesoEND;
             set => SetPropertyValue(nameof(PesoEND), ref pesoEND, value);
         }
 
+        [ModelDefault("DisplayFormat", "n2"), ModelDefault("EditMask", "n2")]
         public double EAPPesoPosicionamento {
             get => eAPPesoPosicionamento;
             set => SetPropertyValue(nameof(EAPPesoPosicionamento), ref eAPPesoPosicionamento, value);
         }
 
+        [ModelDefault("DisplayFormat", "n2"), ModelDefault("EditMask", "n2")]
         public double EAPPesoFitUP {
             get => eAPPesoFitUP;
             set => SetPropertyValue(nameof(EAPPesoFitUP), ref eAPPesoFitUP, value);
         }
 
+        [ModelDefault("DisplayFormat", "n2"), ModelDefault("EditMask", "n2")]
         public double EAPPesoSolda {
             get => eAPPesoSolda;
             set => SetPropertyValue(nameof(EAPPesoSolda), ref eAPPesoSolda, value);
         }
 
+        [ModelDefault("DisplayFormat", "n2"), ModelDefault("EditMask", "n2")]
         public double EAPPesoEND {
             get => eAPPesoEND;
             set => SetPropertyValue(nameof(EAPPesoEND), ref eAPPesoEND, value);
         }
 
+        [ModelDefault("DisplayFormat", "n2"), ModelDefault("EditMask", "n2")]
         public double PesoAvancoTotalPoderado {
             get => pesoAvancoTotalPoderado;
             set => SetPropertyValue(nameof(PesoAvancoTotalPoderado), ref pesoAvancoTotalPoderado, value);

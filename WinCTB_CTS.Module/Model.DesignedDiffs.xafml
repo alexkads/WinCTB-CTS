@@ -55,6 +55,7 @@
     <ListView Id="JuntaSpool_ListView" AllowDelete="False" AllowLink="False" AllowNew="False" DataAccessMode="InstantFeedback" />
     <ListView Id="JuntaSpool_ListView_consulta" AllowDelete="False" AllowLink="False" AllowNew="False" DataAccessMode="InstantFeedback" />
     <ListView Id="LoteJuntaEstrutura_ListView_consulta" AllowDelete="False" AllowLink="False" AllowNew="False" DataAccessMode="InstantFeedback" />
+    <ListView Id="MedicaoEstrutura_MedicaoEstruturaDetalhes_ListView" AllowDelete="False" AllowNew="False" DataAccessMode="InstantFeedback" />
     <ListView Id="MedicaoTubulacao_MedicaoTubulacaoDetalhes_ListView" AllowDelete="False" AllowLink="False" AllowNew="False" DataAccessMode="InstantFeedback" />
     <ListView Id="Spool_Juntas_ListView" AllowDelete="False" AllowLink="False" AllowNew="False" DataAccessMode="InstantFeedback" />
     <ListView Id="Spool_ListView" AllowDelete="False" AllowLink="False" AllowNew="False" DataAccessMode="InstantFeedback" />
