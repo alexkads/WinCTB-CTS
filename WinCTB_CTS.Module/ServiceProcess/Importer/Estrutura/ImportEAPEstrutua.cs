@@ -33,7 +33,7 @@ namespace WinCTB_CTS.Module.ServiceProcess.Importer.Estrutura
                     return (dataTable.Rows[indexRow])[idxcol];
                 };
 
-                var modulo = lheader("Módulo", currentIndex).ToString();
+                var modulo = lheader("Modulo", currentIndex).ToString();
                 var contrato = uow.FindObject<Contrato>(new BinaryOperator("NomeDoContrato", lheader("Contrato", currentIndex).ToString()));                
                 var criteriaOperator = CriteriaOperator.Parse("Contrato.Oid = ? And Modulo = ?", contrato, modulo);
                 var eap = uow.FindObject<TabEAPEst>(criteriaOperator);
