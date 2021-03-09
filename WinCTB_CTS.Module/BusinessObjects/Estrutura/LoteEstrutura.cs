@@ -28,6 +28,7 @@ namespace WinCTB_CTS.Module.BusinessObjects.Estrutura.Lotes
     [FriendlyKeyProperty(nameof(NumeroDoLote))]
     public class LoteEstrutura : XPBaseObject
     {
+        Contrato contrato;
         private ENDS ensaio;
         private string _Area;
         private bool _ComJuntaReprovada;
@@ -50,25 +51,28 @@ namespace WinCTB_CTS.Module.BusinessObjects.Estrutura.Lotes
         private DateTime _TerminoDoCicloDoLote;
 
         public LoteEstrutura(Session session)
-            : base(session)
-        {
+            : base(session) {
         }
 
-        protected override void OnDeleting()
-        {
+        protected override void OnDeleting() {
             base.OnDeleting();
             new HashSet<LoteJuntaEstrutura>(LotejuntaEstruturas)
                 .ToObservable(Scheduler.CurrentThread)
-                .Subscribe(juntasDoLote =>
-                {
+                .Subscribe(juntasDoLote => {
                     Session.Delete(juntasDoLote);
                 }, (ex) => new InvalidOperationException($"Erro na exlusão do registro {ex.Message}"));
         }
 
-        public override void AfterConstruction()
-        {
+        public override void AfterConstruction() {
             base.AfterConstruction();
             NumeroDoLote = "LO" + DistributedIdGeneratorHelper.Generate(this.Session.DataLayer, this.GetType().FullName, string.Empty).ToString().PadLeft(5, '0');
+        }
+
+        
+        [Association("Contrato-LoteEstruturas")]
+        public Contrato Contrato {
+            get => contrato;
+            set => SetPropertyValue(nameof(Contrato), ref contrato, value);
         }
 
         [ModelDefault("AllowEdit", "False")]

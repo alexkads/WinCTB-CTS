@@ -13,6 +13,7 @@ using System.Linq;
 using System.Text;
 using WinCTB_CTS.Module.BusinessObjects.Estrutura;
 using WinCTB_CTS.Module.BusinessObjects.Estrutura.Auxiliar;
+using WinCTB_CTS.Module.BusinessObjects.Estrutura.Lotes;
 using WinCTB_CTS.Module.BusinessObjects.Tubulacao;
 using WinCTB_CTS.Module.BusinessObjects.Tubulacao.Auxiliar;
 
@@ -72,6 +73,13 @@ namespace WinCTB_CTS.Module.BusinessObjects.Comum
             get
             {
                 return GetCollection<TabEAPEst>(nameof(TabEAPEsts));
+            }
+        }
+
+        [Association("Contrato-LoteEstruturas")]
+        public XPCollection<LoteEstrutura> LoteEstruturas {
+            get {
+                return GetCollection<LoteEstrutura>(nameof(LoteEstruturas));
             }
         }
     }

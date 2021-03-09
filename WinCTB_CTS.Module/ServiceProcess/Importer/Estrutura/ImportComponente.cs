@@ -23,16 +23,16 @@ namespace WinCTB_CTS.Module.ServiceProcess.Importer.Estrutura {
             var linha = rowForMap;
             var peca = linha[4].ToString();
 
-            if (currentIndex >= 3 && !string.IsNullOrWhiteSpace(peca)) {
+            if (currentIndex >= 3 && peca != "HOLD" && !string.IsNullOrWhiteSpace(peca)) {
                 cancellationToken.ThrowIfCancellationRequested();
                 var documentoReferencia = linha[1].ToString();
                 var desenhoMontagem = linha[2].ToString();
                 var transmital = linha[3].ToString();               
 
                 var eap = uow.FindObject<TabEAPEst>(new BinaryOperator("Modulo", linha[0].ToString()));
-
+ 
                 var criteriaOperator = CriteriaOperator.Parse("Contrato.oid = ? And DesenhoMontagem = ? And Peca = ?",
-                    eap.Contrato.Oid, desenhoMontagem, peca);
+                eap.Contrato.Oid, desenhoMontagem, peca);
 
                 var componente = uow.FindObject<Componente>(criteriaOperator);
 
