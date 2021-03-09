@@ -24,6 +24,7 @@ using WinCTB_CTS.Module.BusinessObjects.Tubulacao.Medicao;
 using WinCTB_CTS.Module.Interfaces;
 using WinCTB_CTS.Module.Comum.ViewCloner;
 using WinCTB_CTS.Module.BusinessObjects.Estrutura;
+using WinCTB_CTS.Module.BusinessObjects.Estrutura.Medicao;
 //using WinCTB_CTS.Module.Action;
 
 namespace WinCTB_CTS.Module {
@@ -69,7 +70,7 @@ namespace WinCTB_CTS.Module {
             predefinedReportsUpdater.AddPredefinedReport<RelatorioResumoDeJuntas>("Resumo de Juntas", typeof(JuntaSpool), typeof(JuntaSpoolParameters), isInplaceReport: true);
             predefinedReportsUpdater.AddPredefinedReport<RelatorioJuntaMedicao>("Juntas - Medição", typeof(JuntaSpool), typeof(JuntaSpoolParameters), isInplaceReport: true);
             predefinedReportsUpdater.AddPredefinedReport<RelatorioSpoolMedicao>("Spool - Medição", typeof(MedicaoTubulacaoDetalhe), typeof(MedicaoTubulacaoDetalheParameters), isInplaceReport: true);
-            predefinedReportsUpdater.AddPredefinedReport<RelatorioComponentesMedicao>("STR - Componentes - (MONTAGEM)", typeof(Componente), null, isInplaceReport: true);
+            predefinedReportsUpdater.AddPredefinedReport<RelatorioComponentesMedicao>("STR - Componentes - (MONTAGEM)", typeof(MedicaoEstruturaDetalhe), typeof(MedicaoEstruturaDetalheParameters), isInplaceReport: true);
             predefinedReportsUpdater.AddPredefinedReport<RelatorioJuntaComponentes>("STR - Mapa de Juntas (MONTAGEM)", typeof(JuntaComponente), null, isInplaceReport: true);
 
 

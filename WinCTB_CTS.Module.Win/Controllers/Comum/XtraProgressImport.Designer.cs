@@ -77,7 +77,7 @@ namespace WinCTB_CTS.Module.Win.Controllers
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "XtraProgressImport";
-            this.Opacity = 0.8D;
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "XtraProgressImport";
             ((System.ComponentModel.ISupportInitialize)(this.ProgressImport.Properties)).EndInit();
             this.ResumeLayout(false);

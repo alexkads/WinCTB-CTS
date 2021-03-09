@@ -812,7 +812,7 @@ namespace WinCTB_CTS.Module.RelatorioPreDefinido
             // xrTableCell1
             // 
             this.xrTableCell1.ExpressionBindings.AddRange(new DevExpress.XtraReports.UI.ExpressionBinding[] {
-            new DevExpress.XtraReports.UI.ExpressionBinding("BeforePrint", "Text", "[Modulo]")});
+            new DevExpress.XtraReports.UI.ExpressionBinding("BeforePrint", "Text", "[Componente].[Modulo]")});
             this.xrTableCell1.Multiline = true;
             this.xrTableCell1.Name = "xrTableCell1";
             this.xrTableCell1.Text = "xrTableCell1";
@@ -1245,10 +1245,10 @@ namespace WinCTB_CTS.Module.RelatorioPreDefinido
             // collectionDataSource1
             // 
             this.collectionDataSource1.Name = "collectionDataSource1";
-            this.collectionDataSource1.ObjectTypeName = "WinCTB_CTS.Module.BusinessObjects.Estrutura.JuntaComponente";
+            this.collectionDataSource1.ObjectTypeName = "WinCTB_CTS.Module.BusinessObjects.Estrutura.Medicao.MedicaoEstruturaDetalhe";
             this.collectionDataSource1.TopReturnedRecords = 0;
             // 
-            // ComponentesMedicao
+            // RelatorioComponentesMedicao
             // 
             this.Bands.AddRange(new DevExpress.XtraReports.UI.Band[] {
             this.TopMargin,
