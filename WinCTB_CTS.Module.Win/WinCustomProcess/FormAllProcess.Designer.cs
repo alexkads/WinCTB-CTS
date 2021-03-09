@@ -31,15 +31,15 @@ namespace WinCTB_CTS.Module.Win.WinCustomProcess
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormAllProcess));
-            DevExpress.Utils.SuperToolTip superToolTip10 = new DevExpress.Utils.SuperToolTip();
-            DevExpress.Utils.ToolTipTitleItem toolTipTitleItem10 = new DevExpress.Utils.ToolTipTitleItem();
-            DevExpress.Utils.ToolTipItem toolTipItem10 = new DevExpress.Utils.ToolTipItem();
-            DevExpress.Utils.SuperToolTip superToolTip11 = new DevExpress.Utils.SuperToolTip();
-            DevExpress.Utils.ToolTipTitleItem toolTipTitleItem11 = new DevExpress.Utils.ToolTipTitleItem();
-            DevExpress.Utils.ToolTipItem toolTipItem11 = new DevExpress.Utils.ToolTipItem();
-            DevExpress.Utils.SuperToolTip superToolTip9 = new DevExpress.Utils.SuperToolTip();
-            DevExpress.Utils.ToolTipTitleItem toolTipTitleItem9 = new DevExpress.Utils.ToolTipTitleItem();
-            DevExpress.Utils.ToolTipItem toolTipItem9 = new DevExpress.Utils.ToolTipItem();
+            DevExpress.Utils.SuperToolTip superToolTip4 = new DevExpress.Utils.SuperToolTip();
+            DevExpress.Utils.ToolTipTitleItem toolTipTitleItem4 = new DevExpress.Utils.ToolTipTitleItem();
+            DevExpress.Utils.ToolTipItem toolTipItem4 = new DevExpress.Utils.ToolTipItem();
+            DevExpress.Utils.SuperToolTip superToolTip5 = new DevExpress.Utils.SuperToolTip();
+            DevExpress.Utils.ToolTipTitleItem toolTipTitleItem5 = new DevExpress.Utils.ToolTipTitleItem();
+            DevExpress.Utils.ToolTipItem toolTipItem5 = new DevExpress.Utils.ToolTipItem();
+            DevExpress.Utils.SuperToolTip superToolTip2 = new DevExpress.Utils.SuperToolTip();
+            DevExpress.Utils.ToolTipTitleItem toolTipTitleItem2 = new DevExpress.Utils.ToolTipTitleItem();
+            DevExpress.Utils.ToolTipItem toolTipItem2 = new DevExpress.Utils.ToolTipItem();
             this.progressBarControlGeral = new DevExpress.XtraEditors.ProgressBarControl();
             this.BtStartProcess = new DevExpress.XtraEditors.SimpleButton();
             this.labelControlAndamentoDoProcesso = new DevExpress.XtraEditors.LabelControl();
@@ -172,12 +172,12 @@ namespace WinCTB_CTS.Module.Win.WinCustomProcess
             this.BtStartProcess.Location = new System.Drawing.Point(1071, 627);
             this.BtStartProcess.Name = "BtStartProcess";
             this.BtStartProcess.Size = new System.Drawing.Size(131, 40);
-            toolTipTitleItem10.Text = "Informações";
-            toolTipItem10.LeftIndent = 6;
-            toolTipItem10.Text = "Inicializa Processo";
-            superToolTip10.Items.Add(toolTipTitleItem10);
-            superToolTip10.Items.Add(toolTipItem10);
-            this.BtStartProcess.SuperTip = superToolTip10;
+            toolTipTitleItem4.Text = "Informações";
+            toolTipItem4.LeftIndent = 6;
+            toolTipItem4.Text = "Inicializa Processo";
+            superToolTip4.Items.Add(toolTipTitleItem4);
+            superToolTip4.Items.Add(toolTipItem4);
+            this.BtStartProcess.SuperTip = superToolTip4;
             this.BtStartProcess.TabIndex = 1;
             this.BtStartProcess.Text = "Inicializar";
             this.BtStartProcess.Click += new System.EventHandler(this.BtStartProcess_Click);
@@ -392,6 +392,7 @@ namespace WinCTB_CTS.Module.Win.WinCustomProcess
             this.toggleSwitchImportarEstruturaMV32.Properties.OnText = "On";
             this.toggleSwitchImportarEstruturaMV32.Size = new System.Drawing.Size(95, 24);
             this.toggleSwitchImportarEstruturaMV32.TabIndex = 12;
+            this.toggleSwitchImportarEstruturaMV32.Toggled += new System.EventHandler(this.toggleSwitchImportarEstruturaMV32_Toggled);
             // 
             // toggleSwitchImportarTabelasAuxiliaresTubulacao
             // 
@@ -419,6 +420,7 @@ namespace WinCTB_CTS.Module.Win.WinCustomProcess
             this.toggleSwitchImportarTubulacao.Properties.OnText = "On";
             this.toggleSwitchImportarTubulacao.Size = new System.Drawing.Size(95, 24);
             this.toggleSwitchImportarTubulacao.TabIndex = 15;
+            this.toggleSwitchImportarTubulacao.Toggled += new System.EventHandler(this.toggleSwitchImportarTubulacao_Toggled);
             // 
             // BtnPathImportEstruturaMV32
             // 
@@ -513,6 +515,7 @@ namespace WinCTB_CTS.Module.Win.WinCustomProcess
             this.toggleSwitchImportarEstruturaSepetiba.Properties.OnText = "On";
             this.toggleSwitchImportarEstruturaSepetiba.Size = new System.Drawing.Size(95, 24);
             this.toggleSwitchImportarEstruturaSepetiba.TabIndex = 12;
+            this.toggleSwitchImportarEstruturaSepetiba.Toggled += new System.EventHandler(this.toggleSwitchImportarEstruturaSepetiba_Toggled);
             // 
             // groupControl7
             // 
@@ -566,12 +569,12 @@ namespace WinCTB_CTS.Module.Win.WinCustomProcess
             this.toggleSwitchImportarTabelasAuxiliaresEstrutura.Properties.OffText = "Off";
             this.toggleSwitchImportarTabelasAuxiliaresEstrutura.Properties.OnText = "On";
             this.toggleSwitchImportarTabelasAuxiliaresEstrutura.Size = new System.Drawing.Size(95, 24);
-            toolTipTitleItem11.Text = "Informação";
-            toolTipItem11.LeftIndent = 6;
-            toolTipItem11.Text = "Ativa ou Desativa importação de tabelas auxiliares de Estrutura";
-            superToolTip11.Items.Add(toolTipTitleItem11);
-            superToolTip11.Items.Add(toolTipItem11);
-            this.toggleSwitchImportarTabelasAuxiliaresEstrutura.SuperTip = superToolTip11;
+            toolTipTitleItem5.Text = "Informação";
+            toolTipItem5.LeftIndent = 6;
+            toolTipItem5.Text = "Ativa ou Desativa importação de tabelas auxiliares de Estrutura";
+            superToolTip5.Items.Add(toolTipTitleItem5);
+            superToolTip5.Items.Add(toolTipItem5);
+            this.toggleSwitchImportarTabelasAuxiliaresEstrutura.SuperTip = superToolTip5;
             this.toggleSwitchImportarTabelasAuxiliaresEstrutura.TabIndex = 16;
             // 
             // groupControl9
@@ -620,12 +623,12 @@ namespace WinCTB_CTS.Module.Win.WinCustomProcess
             this.BtCancelar.Location = new System.Drawing.Point(17, 627);
             this.BtCancelar.Name = "BtCancelar";
             this.BtCancelar.Size = new System.Drawing.Size(131, 40);
-            toolTipTitleItem9.Text = "Informações";
-            toolTipItem9.LeftIndent = 6;
-            toolTipItem9.Text = "Inicializa Processo";
-            superToolTip9.Items.Add(toolTipTitleItem9);
-            superToolTip9.Items.Add(toolTipItem9);
-            this.BtCancelar.SuperTip = superToolTip9;
+            toolTipTitleItem2.Text = "Informações";
+            toolTipItem2.LeftIndent = 6;
+            toolTipItem2.Text = "Inicializa Processo";
+            superToolTip2.Items.Add(toolTipTitleItem2);
+            superToolTip2.Items.Add(toolTipItem2);
+            this.BtCancelar.SuperTip = superToolTip2;
             this.BtCancelar.TabIndex = 25;
             this.BtCancelar.Text = "Fechar";
             this.BtCancelar.Click += new System.EventHandler(this.BtCancelar_Click);
