@@ -199,6 +199,12 @@ namespace WinCTB_CTS.Module.ServiceProcess.Calculator.Tubulacao.Medicao {
             uow.PurgeDeletedObjects();
             uow.CommitChanges();
             uow.Dispose();
+
+            progress.Report(new ImportProgressReport {
+                TotalRows = QuantidadeDeSpool,
+                CurrentRow = QuantidadeDeSpool,
+                MessageImport = $"Medição de tubulação finalizada!"
+            });
         }
     }
 }

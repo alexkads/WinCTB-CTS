@@ -29,6 +29,7 @@ namespace WinCTB_CTS.Module.Win.WinCustomProcess
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormAllProcess));
             DevExpress.Utils.SuperToolTip superToolTip1 = new DevExpress.Utils.SuperToolTip();
             DevExpress.Utils.ToolTipTitleItem toolTipTitleItem1 = new DevExpress.Utils.ToolTipTitleItem();
@@ -68,7 +69,7 @@ namespace WinCTB_CTS.Module.Win.WinCustomProcess
             this.BtnPathImportEstruturaMV32 = new DevExpress.XtraEditors.ButtonEdit();
             this.BtnPathImportTubulacao = new DevExpress.XtraEditors.ButtonEdit();
             this.BtnPathImportTabAuxiliarTubulacao = new DevExpress.XtraEditors.ButtonEdit();
-            this.behaviorManager1 = new DevExpress.Utils.Behaviors.BehaviorManager();
+            this.behaviorManager1 = new DevExpress.Utils.Behaviors.BehaviorManager(this.components);
             this.BtnPathImportEstruturaSEPETIBA = new DevExpress.XtraEditors.ButtonEdit();
             this.BtnPathImportTabAuxiliarEstrutura = new DevExpress.XtraEditors.ButtonEdit();
             this.groupControl6 = new DevExpress.XtraEditors.GroupControl();
@@ -82,8 +83,14 @@ namespace WinCTB_CTS.Module.Win.WinCustomProcess
             this.groupControl9 = new DevExpress.XtraEditors.GroupControl();
             this.checkEditEAPEstrutura = new DevExpress.XtraEditors.CheckEdit();
             this.checkEditContratoEstrutura = new DevExpress.XtraEditors.CheckEdit();
-            this.toolTipController1 = new DevExpress.Utils.ToolTipController();
+            this.toolTipController1 = new DevExpress.Utils.ToolTipController(this.components);
             this.BtCancelar = new DevExpress.XtraEditors.SimpleButton();
+            this.groupControl10 = new DevExpress.XtraEditors.GroupControl();
+            this.checkEditMedicaoComponentes = new DevExpress.XtraEditors.CheckEdit();
+            this.groupControl11 = new DevExpress.XtraEditors.GroupControl();
+            this.checkEditMedicaoSpool = new DevExpress.XtraEditors.CheckEdit();
+            this.toggleSwitchMedicaoEstrutura = new DevExpress.XtraEditors.ToggleSwitch();
+            this.toggleSwitchMedicaoTubulacao = new DevExpress.XtraEditors.ToggleSwitch();
             ((System.ComponentModel.ISupportInitialize)(this.progressBarControlGeral.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.checkEditMontagemDeLotes.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.separatorControl1)).BeginInit();
@@ -134,6 +141,14 @@ namespace WinCTB_CTS.Module.Win.WinCustomProcess
             this.groupControl9.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.checkEditEAPEstrutura.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.checkEditContratoEstrutura.Properties)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.groupControl10)).BeginInit();
+            this.groupControl10.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.checkEditMedicaoComponentes.Properties)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.groupControl11)).BeginInit();
+            this.groupControl11.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.checkEditMedicaoSpool.Properties)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.toggleSwitchMedicaoEstrutura.Properties)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.toggleSwitchMedicaoTubulacao.Properties)).BeginInit();
             this.SuspendLayout();
             // 
             // progressBarControlGeral
@@ -232,7 +247,7 @@ namespace WinCTB_CTS.Module.Win.WinCustomProcess
             this.groupControl1.Controls.Add(this.checkEditBalanceamento);
             this.groupControl1.Location = new System.Drawing.Point(609, 478);
             this.groupControl1.Name = "groupControl1";
-            this.groupControl1.Size = new System.Drawing.Size(593, 137);
+            this.groupControl1.Size = new System.Drawing.Size(196, 137);
             this.groupControl1.TabIndex = 8;
             this.groupControl1.Text = "Lotes de Estrutura";
             // 
@@ -615,11 +630,73 @@ namespace WinCTB_CTS.Module.Win.WinCustomProcess
             this.BtCancelar.Text = "Fechar";
             this.BtCancelar.Click += new System.EventHandler(this.BtCancelar_Click);
             // 
+            // groupControl10
+            // 
+            this.groupControl10.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left)));
+            this.groupControl10.Controls.Add(this.checkEditMedicaoComponentes);
+            this.groupControl10.Location = new System.Drawing.Point(813, 478);
+            this.groupControl10.Name = "groupControl10";
+            this.groupControl10.Size = new System.Drawing.Size(196, 137);
+            this.groupControl10.TabIndex = 9;
+            this.groupControl10.Text = "Medição Estrutura";
+            // 
+            // checkEditMedicaoComponentes
+            // 
+            this.checkEditMedicaoComponentes.Location = new System.Drawing.Point(5, 27);
+            this.checkEditMedicaoComponentes.Name = "checkEditMedicaoComponentes";
+            this.checkEditMedicaoComponentes.Properties.Caption = "Medicao Componentes";
+            this.checkEditMedicaoComponentes.Properties.ReadOnly = true;
+            this.checkEditMedicaoComponentes.Size = new System.Drawing.Size(147, 19);
+            this.checkEditMedicaoComponentes.TabIndex = 3;
+            // 
+            // groupControl11
+            // 
+            this.groupControl11.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left)));
+            this.groupControl11.Controls.Add(this.checkEditMedicaoSpool);
+            this.groupControl11.Location = new System.Drawing.Point(1015, 478);
+            this.groupControl11.Name = "groupControl11";
+            this.groupControl11.Size = new System.Drawing.Size(187, 137);
+            this.groupControl11.TabIndex = 10;
+            this.groupControl11.Text = "Medição Tubulação";
+            // 
+            // checkEditMedicaoSpool
+            // 
+            this.checkEditMedicaoSpool.Location = new System.Drawing.Point(5, 27);
+            this.checkEditMedicaoSpool.Name = "checkEditMedicaoSpool";
+            this.checkEditMedicaoSpool.Properties.Caption = "Medição Spool";
+            this.checkEditMedicaoSpool.Properties.ReadOnly = true;
+            this.checkEditMedicaoSpool.Size = new System.Drawing.Size(147, 19);
+            this.checkEditMedicaoSpool.TabIndex = 3;
+            // 
+            // toggleSwitchMediçãoEstrutura
+            // 
+            this.toggleSwitchMedicaoEstrutura.Location = new System.Drawing.Point(813, 448);
+            this.toggleSwitchMedicaoEstrutura.Name = "toggleSwitchMediçãoEstrutura";
+            this.toggleSwitchMedicaoEstrutura.Properties.OffText = "Off";
+            this.toggleSwitchMedicaoEstrutura.Properties.OnText = "On";
+            this.toggleSwitchMedicaoEstrutura.Size = new System.Drawing.Size(95, 24);
+            this.toggleSwitchMedicaoEstrutura.TabIndex = 26;
+            // 
+            // toggleSwitchMedicaoTubulacao
+            // 
+            this.toggleSwitchMedicaoTubulacao.Location = new System.Drawing.Point(1015, 448);
+            this.toggleSwitchMedicaoTubulacao.Name = "toggleSwitchMedicaoTubulacao";
+            this.toggleSwitchMedicaoTubulacao.Properties.OffText = "Off";
+            this.toggleSwitchMedicaoTubulacao.Properties.OnText = "On";
+            this.toggleSwitchMedicaoTubulacao.Size = new System.Drawing.Size(95, 24);
+            this.toggleSwitchMedicaoTubulacao.TabIndex = 27;
+            // 
             // FormAllProcess
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1214, 679);
+            this.Controls.Add(this.toggleSwitchMedicaoTubulacao);
+            this.Controls.Add(this.toggleSwitchMedicaoEstrutura);
+            this.Controls.Add(this.groupControl11);
+            this.Controls.Add(this.groupControl10);
             this.Controls.Add(this.BtCancelar);
             this.Controls.Add(this.BtnPathImportTabAuxiliarEstrutura);
             this.Controls.Add(this.toggleSwitchImportarTabelasAuxiliaresEstrutura);
@@ -695,6 +772,14 @@ namespace WinCTB_CTS.Module.Win.WinCustomProcess
             this.groupControl9.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.checkEditEAPEstrutura.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.checkEditContratoEstrutura.Properties)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.groupControl10)).EndInit();
+            this.groupControl10.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.checkEditMedicaoComponentes.Properties)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.groupControl11)).EndInit();
+            this.groupControl11.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.checkEditMedicaoSpool.Properties)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.toggleSwitchMedicaoEstrutura.Properties)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.toggleSwitchMedicaoTubulacao.Properties)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -747,5 +832,11 @@ namespace WinCTB_CTS.Module.Win.WinCustomProcess
         private DevExpress.XtraEditors.ButtonEdit BtnPathImportTabAuxiliarEstrutura;
         private DevExpress.Utils.ToolTipController toolTipController1;
         private DevExpress.XtraEditors.SimpleButton BtCancelar;
+        private DevExpress.XtraEditors.GroupControl groupControl10;
+        private DevExpress.XtraEditors.CheckEdit checkEditMedicaoComponentes;
+        private DevExpress.XtraEditors.GroupControl groupControl11;
+        private DevExpress.XtraEditors.CheckEdit checkEditMedicaoSpool;
+        private DevExpress.XtraEditors.ToggleSwitch toggleSwitchMedicaoEstrutura;
+        private DevExpress.XtraEditors.ToggleSwitch toggleSwitchMedicaoTubulacao;
     }
 }

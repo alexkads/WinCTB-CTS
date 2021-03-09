@@ -73,6 +73,12 @@ namespace WinCTB_CTS.Module.ServiceProcess.Calculator.Estrutura.Medicao {
             uow.PurgeDeletedObjects();
             uow.CommitChanges();
             uow.Dispose();
+
+            progress.Report(new ImportProgressReport {
+                TotalRows = QuantidadeDeComponentes,
+                CurrentRow = QuantidadeDeComponentes,
+                MessageImport = $"Medição de Estrutura Finalizada!"
+            });
         }
 
         private void ExecMedicaoDetalhe(Session session, MedicaoEstrutura medicao, Componente componente) {

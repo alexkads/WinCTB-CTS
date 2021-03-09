@@ -11,7 +11,9 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using WinCTB_CTS.Module.ServiceProcess.Base;
+using WinCTB_CTS.Module.ServiceProcess.Calculator.Estrutura.Medicao;
 using WinCTB_CTS.Module.ServiceProcess.Calculator.Estrutura.ProcessoLote;
+using WinCTB_CTS.Module.ServiceProcess.Calculator.Tubulacao.Medicao;
 using WinCTB_CTS.Module.ServiceProcess.Calculator.Tubulacao.ProcessoLote;
 using WinCTB_CTS.Module.ServiceProcess.Importer.Estrutura;
 using WinCTB_CTS.Module.ServiceProcess.Importer.Tubulacao;
@@ -161,6 +163,11 @@ namespace WinCTB_CTS.Module.Win.WinCustomProcess {
                 await ImportarJuntaSpool(cancellationToken, progressLocal);
             }
 
+            //Medição de Tubulação
+            if (toggleSwitchMedicaoTubulacao.IsOn) {
+                await MedicaoTubulacao(cancellationToken, progressLocal);
+            }
+
             //Tabela Auxiliar Estrutura
             if (toggleSwitchImportarTabelasAuxiliaresEstrutura.IsOn) {
                 await ImportarContratoEstrutura(cancellationToken, progressLocal);
@@ -179,7 +186,6 @@ namespace WinCTB_CTS.Module.Win.WinCustomProcess {
                 await ImportarJuntaComponenteSepetiba(cancellationToken, progressLocal);
             }
 
-
             //Importação Estrutura
             if (toggleSwitchImportarEstruturaSepetiba.IsOn) {
                 //await ImportarComponente(cts.Token, progressLocal);
@@ -192,6 +198,11 @@ namespace WinCTB_CTS.Module.Win.WinCustomProcess {
                 await InserirInspecao(cancellationToken, progressLocal);
                 await Alinhamento(cancellationToken, progressLocal);
                 await Balancealmento(cancellationToken, progressLocal);
+            }
+
+            //Medição de Estrutura
+            if (toggleSwitchMedicaoEstrutura.IsOn) {
+                await MedicaoEstrutura(cancellationToken, progressLocal);
             }
 
             BtStartProcess.Enabled = true;
@@ -352,6 +363,23 @@ namespace WinCTB_CTS.Module.Win.WinCustomProcess {
         }
         #endregion
 
+        #region Medições
+        private async Task MedicaoEstrutura(CancellationToken cancellationToken, IProgress<ImportProgressReport> progress) {
+            CheckEditEmAndamento(checkEditMedicaoComponentes);
+            var processo = new CalculoComponente(cancellationToken, progressLocal);
+            await processo.ProcessarTarefaSimples();
+            processo.Dispose();
+            CheckEditProcessado(checkEditMedicaoComponentes);
+        }
+
+        private async Task MedicaoTubulacao(CancellationToken cancellationToken, IProgress<ImportProgressReport> progress) {
+            CheckEditEmAndamento(checkEditMedicaoSpool);
+            var processo = new CalculoSpool(cancellationToken, progressLocal);
+            await processo.ProcessarTarefaSimples();
+            processo.Dispose();
+            CheckEditProcessado(checkEditMedicaoSpool);
+        }
+        #endregion
 
     }
 }
