@@ -745,7 +745,6 @@ namespace WinCTB_CTS.Module.Win.WinCustomProcess
             this.ShowIcon = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Importação de dados";
-            this.TopMost = true;
             ((System.ComponentModel.ISupportInitialize)(this.progressBarControlGeral.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.checkEditMontagemDeLotes.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.separatorControl1)).EndInit();

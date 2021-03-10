@@ -219,6 +219,9 @@
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Controllers\Experimental\CustomizeWinActionContainerViewItemController.cs" />
+    <Compile Include="Controllers\ExportarRastreabilidadeDeEstrutura.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Controllers\Tubualcao\ClearDBController.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -321,6 +324,9 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
+    <PackageReference Include="ClosedXML">
+      <Version>0.95.4</Version>
+    </PackageReference>
     <PackageReference Include="DocumentFormat.OpenXml">
       <Version>2.12.1</Version>
     </PackageReference>
