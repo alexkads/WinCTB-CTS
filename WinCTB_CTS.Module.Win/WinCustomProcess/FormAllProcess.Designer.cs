@@ -60,6 +60,7 @@ namespace WinCTB_CTS.Module.Win.WinCustomProcess
             this.checkEditJuntaSpool = new DevExpress.XtraEditors.CheckEdit();
             this.checkEditSpool = new DevExpress.XtraEditors.CheckEdit();
             this.groupControl4 = new DevExpress.XtraEditors.GroupControl();
+            this.checkEditAtualizacaoStatusJuntaComponenteMV32 = new DevExpress.XtraEditors.CheckEdit();
             this.checkEditJuntaComponenteMV32 = new DevExpress.XtraEditors.CheckEdit();
             this.checkEditComponentesMV32 = new DevExpress.XtraEditors.CheckEdit();
             this.toggleSwitchImportarEstruturaMV32 = new DevExpress.XtraEditors.ToggleSwitch();
@@ -76,6 +77,7 @@ namespace WinCTB_CTS.Module.Win.WinCustomProcess
             this.groupControl5 = new DevExpress.XtraEditors.GroupControl();
             this.toggleSwitchImportarEstruturaSepetiba = new DevExpress.XtraEditors.ToggleSwitch();
             this.groupControl7 = new DevExpress.XtraEditors.GroupControl();
+            this.checkEditAtualizacaoStatusJuntaComponenteSepetiba = new DevExpress.XtraEditors.CheckEdit();
             this.checkEditJuntaComponenteSepetiba = new DevExpress.XtraEditors.CheckEdit();
             this.checkEditComponentesSepetiba = new DevExpress.XtraEditors.CheckEdit();
             this.groupControl8 = new DevExpress.XtraEditors.GroupControl();
@@ -91,8 +93,6 @@ namespace WinCTB_CTS.Module.Win.WinCustomProcess
             this.checkEditMedicaoSpool = new DevExpress.XtraEditors.CheckEdit();
             this.toggleSwitchMedicaoEstrutura = new DevExpress.XtraEditors.ToggleSwitch();
             this.toggleSwitchMedicaoTubulacao = new DevExpress.XtraEditors.ToggleSwitch();
-            this.checkEditAtualizacaoStatusJuntaComponenteSepetiba = new DevExpress.XtraEditors.CheckEdit();
-            this.checkEditAtualizacaoStatusJuntaComponenteMV32 = new DevExpress.XtraEditors.CheckEdit();
             ((System.ComponentModel.ISupportInitialize)(this.progressBarControlGeral.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.checkEditMontagemDeLotes.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.separatorControl1)).BeginInit();
@@ -115,6 +115,7 @@ namespace WinCTB_CTS.Module.Win.WinCustomProcess
             ((System.ComponentModel.ISupportInitialize)(this.checkEditSpool.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.groupControl4)).BeginInit();
             this.groupControl4.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.checkEditAtualizacaoStatusJuntaComponenteMV32.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.checkEditJuntaComponenteMV32.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.checkEditComponentesMV32.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.toggleSwitchImportarEstruturaMV32.Properties)).BeginInit();
@@ -134,6 +135,7 @@ namespace WinCTB_CTS.Module.Win.WinCustomProcess
             ((System.ComponentModel.ISupportInitialize)(this.toggleSwitchImportarEstruturaSepetiba.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.groupControl7)).BeginInit();
             this.groupControl7.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.checkEditAtualizacaoStatusJuntaComponenteSepetiba.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.checkEditJuntaComponenteSepetiba.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.checkEditComponentesSepetiba.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.groupControl8)).BeginInit();
@@ -151,8 +153,6 @@ namespace WinCTB_CTS.Module.Win.WinCustomProcess
             ((System.ComponentModel.ISupportInitialize)(this.checkEditMedicaoSpool.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.toggleSwitchMedicaoEstrutura.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.toggleSwitchMedicaoTubulacao.Properties)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.checkEditAtualizacaoStatusJuntaComponenteSepetiba.Properties)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.checkEditAtualizacaoStatusJuntaComponenteMV32.Properties)).BeginInit();
             this.SuspendLayout();
             // 
             // progressBarControlGeral
@@ -367,9 +367,18 @@ namespace WinCTB_CTS.Module.Win.WinCustomProcess
             this.groupControl4.Controls.Add(this.checkEditComponentesMV32);
             this.groupControl4.Location = new System.Drawing.Point(5, 66);
             this.groupControl4.Name = "groupControl4";
-            this.groupControl4.Size = new System.Drawing.Size(577, 116);
+            this.groupControl4.Size = new System.Drawing.Size(586, 121);
             this.groupControl4.TabIndex = 11;
             this.groupControl4.Text = "Importação de Estrutura";
+            // 
+            // checkEditAtualizacaoStatusJuntaComponenteMV32
+            // 
+            this.checkEditAtualizacaoStatusJuntaComponenteMV32.Location = new System.Drawing.Point(5, 77);
+            this.checkEditAtualizacaoStatusJuntaComponenteMV32.Name = "checkEditAtualizacaoStatusJuntaComponenteMV32";
+            this.checkEditAtualizacaoStatusJuntaComponenteMV32.Properties.Caption = "Atualização de Status da Junta";
+            this.checkEditAtualizacaoStatusJuntaComponenteMV32.Properties.ReadOnly = true;
+            this.checkEditAtualizacaoStatusJuntaComponenteMV32.Size = new System.Drawing.Size(291, 19);
+            this.checkEditAtualizacaoStatusJuntaComponenteMV32.TabIndex = 7;
             // 
             // checkEditJuntaComponenteMV32
             // 
@@ -470,7 +479,7 @@ namespace WinCTB_CTS.Module.Win.WinCustomProcess
             | System.Windows.Forms.AnchorStyles.Right)));
             this.behaviorManager1.SetBehaviors(this.BtnPathImportEstruturaSEPETIBA, new DevExpress.Utils.Behaviors.Behavior[] {
             ((DevExpress.Utils.Behaviors.Behavior)(DevExpress.Utils.Behaviors.Common.OpenFileBehavior.Create(typeof(DevExpress.XtraEditors.Behaviors.OpenFileBehaviorSourceForButtonEdit), true, DevExpress.Utils.Behaviors.Common.FileIconSize.Small, null, null, DevExpress.Utils.Behaviors.Common.CompletionMode.FilesAndDirectories, "*.xlsx", null, DevExpress.Utils.CommonDialogs.FileBrowserStyle.Default)))});
-            this.BtnPathImportEstruturaSEPETIBA.Location = new System.Drawing.Point(106, 37);
+            this.BtnPathImportEstruturaSEPETIBA.Location = new System.Drawing.Point(110, 37);
             this.BtnPathImportEstruturaSEPETIBA.Name = "BtnPathImportEstruturaSEPETIBA";
             this.BtnPathImportEstruturaSEPETIBA.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
             new DevExpress.XtraEditors.Controls.EditorButton()});
@@ -483,7 +492,7 @@ namespace WinCTB_CTS.Module.Win.WinCustomProcess
             | System.Windows.Forms.AnchorStyles.Right)));
             this.behaviorManager1.SetBehaviors(this.BtnPathImportTabAuxiliarEstrutura, new DevExpress.Utils.Behaviors.Behavior[] {
             ((DevExpress.Utils.Behaviors.Behavior)(DevExpress.Utils.Behaviors.Common.OpenFileBehavior.Create(typeof(DevExpress.XtraEditors.Behaviors.OpenFileBehaviorSourceForButtonEdit), true, DevExpress.Utils.Behaviors.Common.FileIconSize.Small, null, null, DevExpress.Utils.Behaviors.Common.CompletionMode.FilesAndDirectories, "*.xlsx", null, DevExpress.Utils.CommonDialogs.FileBrowserStyle.Default)))});
-            this.BtnPathImportTabAuxiliarEstrutura.Location = new System.Drawing.Point(118, 450);
+            this.BtnPathImportTabAuxiliarEstrutura.Location = new System.Drawing.Point(118, 482);
             this.BtnPathImportTabAuxiliarEstrutura.Name = "BtnPathImportTabAuxiliarEstrutura";
             this.BtnPathImportTabAuxiliarEstrutura.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
             new DevExpress.XtraEditors.Controls.EditorButton()});
@@ -497,7 +506,7 @@ namespace WinCTB_CTS.Module.Win.WinCustomProcess
             this.groupControl6.Controls.Add(this.BtnPathImportEstruturaMV32);
             this.groupControl6.Location = new System.Drawing.Point(12, 81);
             this.groupControl6.Name = "groupControl6";
-            this.groupControl6.Size = new System.Drawing.Size(591, 187);
+            this.groupControl6.Size = new System.Drawing.Size(591, 192);
             this.groupControl6.TabIndex = 22;
             this.groupControl6.Text = "Projeto [ MV32 ]";
             // 
@@ -506,15 +515,15 @@ namespace WinCTB_CTS.Module.Win.WinCustomProcess
             this.groupControl5.Controls.Add(this.toggleSwitchImportarEstruturaSepetiba);
             this.groupControl5.Controls.Add(this.groupControl7);
             this.groupControl5.Controls.Add(this.BtnPathImportEstruturaSEPETIBA);
-            this.groupControl5.Location = new System.Drawing.Point(12, 273);
+            this.groupControl5.Location = new System.Drawing.Point(12, 280);
             this.groupControl5.Name = "groupControl5";
-            this.groupControl5.Size = new System.Drawing.Size(591, 169);
+            this.groupControl5.Size = new System.Drawing.Size(591, 194);
             this.groupControl5.TabIndex = 23;
             this.groupControl5.Text = "Projeto [ SEPETIVA ]";
             // 
             // toggleSwitchImportarEstruturaSepetiba
             // 
-            this.toggleSwitchImportarEstruturaSepetiba.Location = new System.Drawing.Point(5, 35);
+            this.toggleSwitchImportarEstruturaSepetiba.Location = new System.Drawing.Point(5, 33);
             this.toggleSwitchImportarEstruturaSepetiba.Name = "toggleSwitchImportarEstruturaSepetiba";
             this.toggleSwitchImportarEstruturaSepetiba.Properties.OffText = "Off";
             this.toggleSwitchImportarEstruturaSepetiba.Properties.OnText = "On";
@@ -530,11 +539,20 @@ namespace WinCTB_CTS.Module.Win.WinCustomProcess
             this.groupControl7.Controls.Add(this.checkEditAtualizacaoStatusJuntaComponenteSepetiba);
             this.groupControl7.Controls.Add(this.checkEditJuntaComponenteSepetiba);
             this.groupControl7.Controls.Add(this.checkEditComponentesSepetiba);
-            this.groupControl7.Location = new System.Drawing.Point(5, 66);
+            this.groupControl7.Location = new System.Drawing.Point(5, 63);
             this.groupControl7.Name = "groupControl7";
-            this.groupControl7.Size = new System.Drawing.Size(577, 96);
+            this.groupControl7.Size = new System.Drawing.Size(581, 121);
             this.groupControl7.TabIndex = 11;
             this.groupControl7.Text = "Importação de Estrutura";
+            // 
+            // checkEditAtualizacaoStatusJuntaComponenteSepetiba
+            // 
+            this.checkEditAtualizacaoStatusJuntaComponenteSepetiba.Location = new System.Drawing.Point(5, 77);
+            this.checkEditAtualizacaoStatusJuntaComponenteSepetiba.Name = "checkEditAtualizacaoStatusJuntaComponenteSepetiba";
+            this.checkEditAtualizacaoStatusJuntaComponenteSepetiba.Properties.Caption = "Atualização de Status da Junta";
+            this.checkEditAtualizacaoStatusJuntaComponenteSepetiba.Properties.ReadOnly = true;
+            this.checkEditAtualizacaoStatusJuntaComponenteSepetiba.Size = new System.Drawing.Size(291, 19);
+            this.checkEditAtualizacaoStatusJuntaComponenteSepetiba.TabIndex = 6;
             // 
             // checkEditJuntaComponenteSepetiba
             // 
@@ -570,7 +588,7 @@ namespace WinCTB_CTS.Module.Win.WinCustomProcess
             // 
             // toggleSwitchImportarTabelasAuxiliaresEstrutura
             // 
-            this.toggleSwitchImportarTabelasAuxiliaresEstrutura.Location = new System.Drawing.Point(17, 448);
+            this.toggleSwitchImportarTabelasAuxiliaresEstrutura.Location = new System.Drawing.Point(17, 480);
             this.toggleSwitchImportarTabelasAuxiliaresEstrutura.Name = "toggleSwitchImportarTabelasAuxiliaresEstrutura";
             this.toggleSwitchImportarTabelasAuxiliaresEstrutura.Properties.OffText = "Off";
             this.toggleSwitchImportarTabelasAuxiliaresEstrutura.Properties.OnText = "On";
@@ -589,9 +607,9 @@ namespace WinCTB_CTS.Module.Win.WinCustomProcess
             | System.Windows.Forms.AnchorStyles.Left)));
             this.groupControl9.Controls.Add(this.checkEditEAPEstrutura);
             this.groupControl9.Controls.Add(this.checkEditContratoEstrutura);
-            this.groupControl9.Location = new System.Drawing.Point(17, 478);
+            this.groupControl9.Location = new System.Drawing.Point(17, 508);
             this.groupControl9.Name = "groupControl9";
-            this.groupControl9.Size = new System.Drawing.Size(586, 137);
+            this.groupControl9.Size = new System.Drawing.Size(586, 107);
             this.groupControl9.TabIndex = 15;
             this.groupControl9.Text = "Tabelas Auxiliares Estrutura";
             // 
@@ -697,24 +715,6 @@ namespace WinCTB_CTS.Module.Win.WinCustomProcess
             this.toggleSwitchMedicaoTubulacao.Size = new System.Drawing.Size(95, 24);
             this.toggleSwitchMedicaoTubulacao.TabIndex = 27;
             // 
-            // checkEditAtualizacaoStatusJuntaComponenteSepetiba
-            // 
-            this.checkEditAtualizacaoStatusJuntaComponenteSepetiba.Location = new System.Drawing.Point(137, 52);
-            this.checkEditAtualizacaoStatusJuntaComponenteSepetiba.Name = "checkEditAtualizacaoStatusJuntaComponenteSepetiba";
-            this.checkEditAtualizacaoStatusJuntaComponenteSepetiba.Properties.Caption = "Atualização de Status da Junta";
-            this.checkEditAtualizacaoStatusJuntaComponenteSepetiba.Properties.ReadOnly = true;
-            this.checkEditAtualizacaoStatusJuntaComponenteSepetiba.Size = new System.Drawing.Size(291, 19);
-            this.checkEditAtualizacaoStatusJuntaComponenteSepetiba.TabIndex = 6;
-            // 
-            // checkEditAtualizacaoStatusJuntaComponenteMV32
-            // 
-            this.checkEditAtualizacaoStatusJuntaComponenteMV32.Location = new System.Drawing.Point(137, 52);
-            this.checkEditAtualizacaoStatusJuntaComponenteMV32.Name = "checkEditAtualizacaoStatusJuntaComponenteMV32";
-            this.checkEditAtualizacaoStatusJuntaComponenteMV32.Properties.Caption = "Atualização de Status da Junta";
-            this.checkEditAtualizacaoStatusJuntaComponenteMV32.Properties.ReadOnly = true;
-            this.checkEditAtualizacaoStatusJuntaComponenteMV32.Size = new System.Drawing.Size(291, 19);
-            this.checkEditAtualizacaoStatusJuntaComponenteMV32.TabIndex = 7;
-            // 
             // FormAllProcess
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -768,6 +768,7 @@ namespace WinCTB_CTS.Module.Win.WinCustomProcess
             ((System.ComponentModel.ISupportInitialize)(this.checkEditSpool.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.groupControl4)).EndInit();
             this.groupControl4.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.checkEditAtualizacaoStatusJuntaComponenteMV32.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.checkEditJuntaComponenteMV32.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.checkEditComponentesMV32.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.toggleSwitchImportarEstruturaMV32.Properties)).EndInit();
@@ -789,6 +790,7 @@ namespace WinCTB_CTS.Module.Win.WinCustomProcess
             ((System.ComponentModel.ISupportInitialize)(this.toggleSwitchImportarEstruturaSepetiba.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.groupControl7)).EndInit();
             this.groupControl7.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.checkEditAtualizacaoStatusJuntaComponenteSepetiba.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.checkEditJuntaComponenteSepetiba.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.checkEditComponentesSepetiba.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.groupControl8)).EndInit();
@@ -807,8 +809,6 @@ namespace WinCTB_CTS.Module.Win.WinCustomProcess
             ((System.ComponentModel.ISupportInitialize)(this.checkEditMedicaoSpool.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.toggleSwitchMedicaoEstrutura.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.toggleSwitchMedicaoTubulacao.Properties)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.checkEditAtualizacaoStatusJuntaComponenteSepetiba.Properties)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.checkEditAtualizacaoStatusJuntaComponenteMV32.Properties)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
