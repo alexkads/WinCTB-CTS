@@ -495,22 +495,16 @@ namespace WinCTB_CTS.Module.BusinessObjects.Estrutura {
         [NonPersistent]
         public Componente MedJoint {
             get {
-                var criterio1 = CriteriaOperator.Parse("Peca = ?", this.Df1);
-                var criterio2 = CriteriaOperator.Parse("Peca = ?", this.Df2);
-
-                var df1 = Session.FindObject<Componente>(criterio1);
-                var df2 = Session.FindObject<Componente>(criterio2);
-
-                int.TryParse(df1.ProgFitup, out var progdf1);
-                int.TryParse(df2?.ProgFitup, out var progdf2);
+                var df1 = this.Evaluate(CriteriaOperator.Parse("[<Componente>][Peca = ?].Single()", this.Df1)) as Componente;
+                var df2 = this.Evaluate(CriteriaOperator.Parse("[<Componente>][Peca = ?].Single()", this.Df2)) as Componente;
 
                 if (df2 == null)
                     return df1;
-                if (progdf1 == 0)
+                if (df1.ProgFitup == 0)
                     return df1;
-                if (progdf2 == 0)
+                if (df2?.ProgFitup == 0)
                     return df2;
-                if (progdf1 >= progdf2)
+                if (df1.ProgFitup >= df2.ProgFitup)
                     return df1;
                 else
                     return df2;

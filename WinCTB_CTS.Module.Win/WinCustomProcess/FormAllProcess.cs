@@ -106,15 +106,10 @@ namespace WinCTB_CTS.Module.Win.WinCustomProcess {
         }
 
         private void LigarToggles(bool IsOn = false) {
-
-            foreach (var control in this.Controls) {
+            var controls = GetAllControl(this, typeof(ToggleSwitch));
+            foreach (var control in controls) {
                 if (control is ToggleSwitch toggle)
                     toggle.IsOn = IsOn;
-
-                if (control is GroupControl groupControl)
-                    foreach (var subcontrol in groupControl.Controls)
-                        if (subcontrol is ToggleSwitch subToggle)
-                            subToggle.IsOn = IsOn;
             }
         }
 

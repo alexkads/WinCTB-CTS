@@ -42,7 +42,7 @@ namespace WinCTB_CTS.Module.ServiceProcess.Calculator.Estrutura.Medicao {
 
                 //x.StatusLp == "AP" || x.StatusPm == "AP" || x.StatusLp == "AL" || x.StatusPm == "AL" || x.LoteJuntaEstruturas.Any(a => a.LoteEstrutura.Ensaio == Interfaces.ENDS.LPPM && a.LoteEstrutura.SituacaoInspecao == Interfaces.SituacoesInspecao.Aprovado)).Sum(s => s.Comprimento);
 
-                if (junta.Componente.ProgFitup == null)
+                if (junta.Componente.ProgFitup == 0)
                     junta.StatusCustomizadoDaJunta = JuntaComponente.StatusJuntaComponente.AguardandoProgramacao;
                 else if (junta.Componente.DataPosicionamento == null)
                     junta.StatusCustomizadoDaJunta = JuntaComponente.StatusJuntaComponente.AguardandoPosicionamento;

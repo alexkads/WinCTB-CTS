@@ -38,9 +38,9 @@ namespace WinCTB_CTS.Module.BusinessObjects.Estrutura
         private string relatorioDimensional;
         private DateTime? dataDimensional;
         private DateTime? dataPosicionamento;
-        private string progNdt;
-        private string progWeld;
-        private string progFitup;
+        private int progNdt;
+        private int progWeld;
+        private int progFitup;
         private DateTime? dataRecebimento;
         private string relatorioRecebimento;
         private double areaPintura;
@@ -165,22 +165,22 @@ namespace WinCTB_CTS.Module.BusinessObjects.Estrutura
             set => SetPropertyValue(nameof(DataRecebimento), ref dataRecebimento, value);
         }
 
-        [Size(100), XafDisplayName("Programação de Fitup")]
-        public string ProgFitup
+        [XafDisplayName("Programação de Fitup")]
+        public int ProgFitup
         {
             get => progFitup;
             set => SetPropertyValue(nameof(ProgFitup), ref progFitup, value);
         }
 
-        [Size(100), XafDisplayName("Programação de Solda")]
-        public string ProgWeld
+        [XafDisplayName("Programação de Solda")]
+        public int ProgWeld
         {
             get => progWeld;
             set => SetPropertyValue(nameof(ProgWeld), ref progWeld, value);
         }
 
-        [Size(100), XafDisplayName("Programação de END")]
-        public string ProgNdt
+        [XafDisplayName("Programação de END")]
+        public int ProgNdt
         {
             get => progNdt;
             set => SetPropertyValue(nameof(ProgNdt), ref progNdt, value);
