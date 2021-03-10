@@ -118,17 +118,22 @@ namespace WinCTB_CTS.Module.Win.WinCustomProcess {
             }
         }
 
+        public IEnumerable<Control> GetAllControl(Control control, Type type) {
+            var controls = control.Controls.Cast<Control>();
+
+            return controls.SelectMany(ctrl => GetAllControl(ctrl, type))
+                                      .Concat(controls)
+                                      .Where(c => c.GetType() == type);
+        }
+
         private void LocateCheckeditToReset() {
-            foreach (var control in this.Controls) {
+            var controls = GetAllControl(this, typeof(CheckEdit));
+            foreach (var control in controls) {
                 if (control is CheckEdit checkEdit)
                     resetCheckEdit(checkEdit, FontStandard);
-
-                if (control is GroupControl groupControl)
-                    foreach (var subcontrol in groupControl.Controls)
-                        if (subcontrol is CheckEdit subcheckEdit)
-                            resetCheckEdit(subcheckEdit, FontStandard);
             }
         }
+
 
         private Action<CheckEdit, Font> resetCheckEdit = (checkEdit, font) => {
             checkEdit.Checked = false;
@@ -192,6 +197,7 @@ namespace WinCTB_CTS.Module.Win.WinCustomProcess {
                 await ImportarComponenteMV32(cancellationToken, progressLocal);
                 await ImportarJuntaComponenteMV32(cancellationToken, progressLocal);
                 await AtualizacaoStatusJuntaMV32(cancellationToken, progressLocal);
+
             }
 
             //Importação Estrutura
@@ -201,18 +207,14 @@ namespace WinCTB_CTS.Module.Win.WinCustomProcess {
                 await AtualizacaoStatusJuntaSepetiba(cancellationToken, progressLocal);
             }
 
-            //Importação Estrutura
-            if (toggleSwitchImportarEstruturaSepetiba.IsOn) {
-                //await ImportarComponente(cts.Token, progressLocal);
-                //await ImportarJuntaComponente(cts.Token, progressLocal);
-            }
-
             //Lotes
             if (toggleSwitchImportarLotesEstrutura.IsOn) {
                 await GerarLotes(cancellationToken, progressLocal);
                 await InserirInspecao(cancellationToken, progressLocal);
                 await Alinhamento(cancellationToken, progressLocal);
                 await Balancealmento(cancellationToken, progressLocal);
+                await AtualizacaoStatusJuntaMV32(cancellationToken, progressLocal);
+                await AtualizacaoStatusJuntaSepetiba(cancellationToken, progressLocal);
             }
 
             //Medição de Estrutura
