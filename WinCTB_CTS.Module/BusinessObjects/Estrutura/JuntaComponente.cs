@@ -27,6 +27,34 @@ namespace WinCTB_CTS.Module.BusinessObjects.Estrutura {
         }
 
 
+        public enum StatusJuntaComponente {
+            [XafDisplayName("00 - Aguardando Fabricação")]
+            AguardandoFabricacao = 0,
+            [XafDisplayName("01 - Aguardando Recebimento")]
+            AguardandoRecebimento = 1,
+            [XafDisplayName("02 - Aguardando Programação")]
+            AguardandoProgramacao = 2,
+            [XafDisplayName("03 - Aguardando Posicionamento")]
+            AguardandoPosicionamento = 3,
+            [XafDisplayName("04 - Aguardando Acoplamento")]
+            AguardandoAcoplamento = 4,
+            [XafDisplayName("05 - Aguardando Solda")]
+            AguardandoSolda = 5,
+            [XafDisplayName("06 - Aguardando Visual de Solda")]
+            AguardandoVisualDeSolda = 6,
+            [XafDisplayName("07 - Aguardando LP/PM")]
+            AguardandoLPPM = 7,
+            [XafDisplayName("08 - Aguardando US")]
+            AguardandoUS = 8,
+            [XafDisplayName("09 - Aguardando RX")]
+            AguardandoRX = 9,
+            [XafDisplayName("10 - Aguardando Reparo")]
+            AguardandoReparo = 10,
+            [XafDisplayName("11 - Junta Liberada")]
+            JuntaLiberada = 11,
+        }
+
+        private StatusJuntaComponente statusCustomizadoDaJunta;        
         private DateTime? posDf2;
         private DateTime? posDf1;
         private double percRt;
@@ -490,10 +518,20 @@ namespace WinCTB_CTS.Module.BusinessObjects.Estrutura {
         }
 
 
+        [XafDisplayName("Status Customizado da Junta")]
+        public StatusJuntaComponente StatusCustomizadoDaJunta {
+            get {
+                return statusCustomizadoDaJunta;
+            }
+            set {
+                SetPropertyValue("StatusCustomizadoDaJunta", ref statusCustomizadoDaJunta, value);
+            }
+        }
+
         [ModelDefault("AllowEdit", "False")]
         [VisibleInDetailView(false)]
         [Association("JuntaComponente-LoteJuntaEstruturas")]
         public XPCollection<LoteJuntaEstrutura> LoteJuntaEstruturas
-            => GetCollection<LoteJuntaEstrutura>(nameof(LoteJuntaEstruturas));
+        => GetCollection<LoteJuntaEstrutura>(nameof(LoteJuntaEstruturas));
     }
 }

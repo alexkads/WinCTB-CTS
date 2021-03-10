@@ -271,6 +271,7 @@
     <Compile Include="ServiceProcess\Calculator\Estrutura\ProcessoLote\LotesDeEstruturaAlinhamento.cs" />
     <Compile Include="ServiceProcess\Calculator\Estrutura\ProcessoLote\LotesDeEstruturaInspecao.cs" />
     <Compile Include="ServiceProcess\Calculator\Estrutura\ProcessoLote\ProgressoGerarLotes.cs" />
+    <Compile Include="ServiceProcess\Calculator\Estrutura\Status\AtualizarStatusJuntaComponente.cs" />
     <Compile Include="ServiceProcess\Calculator\Tubulacao\Medicao\CalculoSpool.cs" />
     <Compile Include="ServiceProcess\Importer\Estrutura\ImportComponente.cs" />
     <Compile Include="ServiceProcess\Importer\Estrutura\ImportContratoEstrutura.cs" />

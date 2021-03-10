@@ -191,12 +191,14 @@ namespace WinCTB_CTS.Module.Win.WinCustomProcess {
             if (toggleSwitchImportarEstruturaMV32.IsOn) {
                 await ImportarComponenteMV32(cancellationToken, progressLocal);
                 await ImportarJuntaComponenteMV32(cancellationToken, progressLocal);
+                await AtualizacaoStatusJuntaMV32(cancellationToken, progressLocal);
             }
 
             //Importação Estrutura
             if (toggleSwitchImportarEstruturaSepetiba.IsOn) {
                 await ImportarComponenteSepetiba(cancellationToken, progressLocal);
                 await ImportarJuntaComponenteSepetiba(cancellationToken, progressLocal);
+                await AtualizacaoStatusJuntaSepetiba(cancellationToken, progressLocal);
             }
 
             //Importação Estrutura
@@ -390,6 +392,23 @@ namespace WinCTB_CTS.Module.Win.WinCustomProcess {
             CheckEditProcessado(checkEditMedicaoSpool);
         }
         #endregion
+
+
+        private async Task AtualizacaoStatusJuntaMV32(CancellationToken cancellationToken, IProgress<ImportProgressReport> progress) {
+            CheckEditEmAndamento(checkEditAtualizacaoStatusJuntaComponenteMV32);
+            var processo = new AtualizarStatusJuntaComponente(cancellationToken, progressLocal, "EBR-MV32");
+            await processo.ProcessarTarefaSimples();
+            processo.Dispose();
+            CheckEditProcessado(checkEditAtualizacaoStatusJuntaComponenteMV32);
+        }
+
+        private async Task AtualizacaoStatusJuntaSepetiba(CancellationToken cancellationToken, IProgress<ImportProgressReport> progress) {
+            CheckEditEmAndamento(checkEditAtualizacaoStatusJuntaComponenteSepetiba);
+            var processo = new AtualizarStatusJuntaComponente(cancellationToken, progressLocal, "EBR-SEPETIBA");
+            await processo.ProcessarTarefaSimples();
+            processo.Dispose();
+            CheckEditProcessado(checkEditAtualizacaoStatusJuntaComponenteSepetiba);
+        }
 
         #region Proteção da tabela auxiliar
         private void toggleSwitchImportarTubulacao_Toggled(object sender, EventArgs e) {

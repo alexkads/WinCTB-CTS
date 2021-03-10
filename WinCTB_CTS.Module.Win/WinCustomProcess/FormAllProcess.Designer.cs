@@ -31,15 +31,15 @@ namespace WinCTB_CTS.Module.Win.WinCustomProcess
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormAllProcess));
-            DevExpress.Utils.SuperToolTip superToolTip4 = new DevExpress.Utils.SuperToolTip();
-            DevExpress.Utils.ToolTipTitleItem toolTipTitleItem4 = new DevExpress.Utils.ToolTipTitleItem();
-            DevExpress.Utils.ToolTipItem toolTipItem4 = new DevExpress.Utils.ToolTipItem();
-            DevExpress.Utils.SuperToolTip superToolTip5 = new DevExpress.Utils.SuperToolTip();
-            DevExpress.Utils.ToolTipTitleItem toolTipTitleItem5 = new DevExpress.Utils.ToolTipTitleItem();
-            DevExpress.Utils.ToolTipItem toolTipItem5 = new DevExpress.Utils.ToolTipItem();
+            DevExpress.Utils.SuperToolTip superToolTip1 = new DevExpress.Utils.SuperToolTip();
+            DevExpress.Utils.ToolTipTitleItem toolTipTitleItem1 = new DevExpress.Utils.ToolTipTitleItem();
+            DevExpress.Utils.ToolTipItem toolTipItem1 = new DevExpress.Utils.ToolTipItem();
             DevExpress.Utils.SuperToolTip superToolTip2 = new DevExpress.Utils.SuperToolTip();
             DevExpress.Utils.ToolTipTitleItem toolTipTitleItem2 = new DevExpress.Utils.ToolTipTitleItem();
             DevExpress.Utils.ToolTipItem toolTipItem2 = new DevExpress.Utils.ToolTipItem();
+            DevExpress.Utils.SuperToolTip superToolTip3 = new DevExpress.Utils.SuperToolTip();
+            DevExpress.Utils.ToolTipTitleItem toolTipTitleItem3 = new DevExpress.Utils.ToolTipTitleItem();
+            DevExpress.Utils.ToolTipItem toolTipItem3 = new DevExpress.Utils.ToolTipItem();
             this.progressBarControlGeral = new DevExpress.XtraEditors.ProgressBarControl();
             this.BtStartProcess = new DevExpress.XtraEditors.SimpleButton();
             this.labelControlAndamentoDoProcesso = new DevExpress.XtraEditors.LabelControl();
@@ -91,6 +91,8 @@ namespace WinCTB_CTS.Module.Win.WinCustomProcess
             this.checkEditMedicaoSpool = new DevExpress.XtraEditors.CheckEdit();
             this.toggleSwitchMedicaoEstrutura = new DevExpress.XtraEditors.ToggleSwitch();
             this.toggleSwitchMedicaoTubulacao = new DevExpress.XtraEditors.ToggleSwitch();
+            this.checkEditAtualizacaoStatusJuntaComponenteSepetiba = new DevExpress.XtraEditors.CheckEdit();
+            this.checkEditAtualizacaoStatusJuntaComponenteMV32 = new DevExpress.XtraEditors.CheckEdit();
             ((System.ComponentModel.ISupportInitialize)(this.progressBarControlGeral.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.checkEditMontagemDeLotes.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.separatorControl1)).BeginInit();
@@ -149,6 +151,8 @@ namespace WinCTB_CTS.Module.Win.WinCustomProcess
             ((System.ComponentModel.ISupportInitialize)(this.checkEditMedicaoSpool.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.toggleSwitchMedicaoEstrutura.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.toggleSwitchMedicaoTubulacao.Properties)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.checkEditAtualizacaoStatusJuntaComponenteSepetiba.Properties)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.checkEditAtualizacaoStatusJuntaComponenteMV32.Properties)).BeginInit();
             this.SuspendLayout();
             // 
             // progressBarControlGeral
@@ -172,12 +176,12 @@ namespace WinCTB_CTS.Module.Win.WinCustomProcess
             this.BtStartProcess.Location = new System.Drawing.Point(1071, 627);
             this.BtStartProcess.Name = "BtStartProcess";
             this.BtStartProcess.Size = new System.Drawing.Size(131, 40);
-            toolTipTitleItem4.Text = "Informações";
-            toolTipItem4.LeftIndent = 6;
-            toolTipItem4.Text = "Inicializa Processo";
-            superToolTip4.Items.Add(toolTipTitleItem4);
-            superToolTip4.Items.Add(toolTipItem4);
-            this.BtStartProcess.SuperTip = superToolTip4;
+            toolTipTitleItem1.Text = "Informações";
+            toolTipItem1.LeftIndent = 6;
+            toolTipItem1.Text = "Inicializa Processo";
+            superToolTip1.Items.Add(toolTipTitleItem1);
+            superToolTip1.Items.Add(toolTipItem1);
+            this.BtStartProcess.SuperTip = superToolTip1;
             this.BtStartProcess.TabIndex = 1;
             this.BtStartProcess.Text = "Inicializar";
             this.BtStartProcess.Click += new System.EventHandler(this.BtStartProcess_Click);
@@ -358,6 +362,7 @@ namespace WinCTB_CTS.Module.Win.WinCustomProcess
             this.groupControl4.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.groupControl4.AutoSize = true;
+            this.groupControl4.Controls.Add(this.checkEditAtualizacaoStatusJuntaComponenteMV32);
             this.groupControl4.Controls.Add(this.checkEditJuntaComponenteMV32);
             this.groupControl4.Controls.Add(this.checkEditComponentesMV32);
             this.groupControl4.Location = new System.Drawing.Point(5, 66);
@@ -522,6 +527,7 @@ namespace WinCTB_CTS.Module.Win.WinCustomProcess
             this.groupControl7.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.groupControl7.AutoSize = true;
+            this.groupControl7.Controls.Add(this.checkEditAtualizacaoStatusJuntaComponenteSepetiba);
             this.groupControl7.Controls.Add(this.checkEditJuntaComponenteSepetiba);
             this.groupControl7.Controls.Add(this.checkEditComponentesSepetiba);
             this.groupControl7.Location = new System.Drawing.Point(5, 66);
@@ -536,7 +542,7 @@ namespace WinCTB_CTS.Module.Win.WinCustomProcess
             this.checkEditJuntaComponenteSepetiba.Name = "checkEditJuntaComponenteSepetiba";
             this.checkEditJuntaComponenteSepetiba.Properties.Caption = "Juntas";
             this.checkEditJuntaComponenteSepetiba.Properties.ReadOnly = true;
-            this.checkEditJuntaComponenteSepetiba.Size = new System.Drawing.Size(344, 19);
+            this.checkEditJuntaComponenteSepetiba.Size = new System.Drawing.Size(126, 19);
             this.checkEditJuntaComponenteSepetiba.TabIndex = 5;
             // 
             // checkEditComponentesSepetiba
@@ -569,12 +575,12 @@ namespace WinCTB_CTS.Module.Win.WinCustomProcess
             this.toggleSwitchImportarTabelasAuxiliaresEstrutura.Properties.OffText = "Off";
             this.toggleSwitchImportarTabelasAuxiliaresEstrutura.Properties.OnText = "On";
             this.toggleSwitchImportarTabelasAuxiliaresEstrutura.Size = new System.Drawing.Size(95, 24);
-            toolTipTitleItem5.Text = "Informação";
-            toolTipItem5.LeftIndent = 6;
-            toolTipItem5.Text = "Ativa ou Desativa importação de tabelas auxiliares de Estrutura";
-            superToolTip5.Items.Add(toolTipTitleItem5);
-            superToolTip5.Items.Add(toolTipItem5);
-            this.toggleSwitchImportarTabelasAuxiliaresEstrutura.SuperTip = superToolTip5;
+            toolTipTitleItem2.Text = "Informação";
+            toolTipItem2.LeftIndent = 6;
+            toolTipItem2.Text = "Ativa ou Desativa importação de tabelas auxiliares de Estrutura";
+            superToolTip2.Items.Add(toolTipTitleItem2);
+            superToolTip2.Items.Add(toolTipItem2);
+            this.toggleSwitchImportarTabelasAuxiliaresEstrutura.SuperTip = superToolTip2;
             this.toggleSwitchImportarTabelasAuxiliaresEstrutura.TabIndex = 16;
             // 
             // groupControl9
@@ -623,12 +629,12 @@ namespace WinCTB_CTS.Module.Win.WinCustomProcess
             this.BtCancelar.Location = new System.Drawing.Point(17, 627);
             this.BtCancelar.Name = "BtCancelar";
             this.BtCancelar.Size = new System.Drawing.Size(131, 40);
-            toolTipTitleItem2.Text = "Informações";
-            toolTipItem2.LeftIndent = 6;
-            toolTipItem2.Text = "Inicializa Processo";
-            superToolTip2.Items.Add(toolTipTitleItem2);
-            superToolTip2.Items.Add(toolTipItem2);
-            this.BtCancelar.SuperTip = superToolTip2;
+            toolTipTitleItem3.Text = "Informações";
+            toolTipItem3.LeftIndent = 6;
+            toolTipItem3.Text = "Inicializa Processo";
+            superToolTip3.Items.Add(toolTipTitleItem3);
+            superToolTip3.Items.Add(toolTipItem3);
+            this.BtCancelar.SuperTip = superToolTip3;
             this.BtCancelar.TabIndex = 25;
             this.BtCancelar.Text = "Fechar";
             this.BtCancelar.Click += new System.EventHandler(this.BtCancelar_Click);
@@ -690,6 +696,24 @@ namespace WinCTB_CTS.Module.Win.WinCustomProcess
             this.toggleSwitchMedicaoTubulacao.Properties.OnText = "On";
             this.toggleSwitchMedicaoTubulacao.Size = new System.Drawing.Size(95, 24);
             this.toggleSwitchMedicaoTubulacao.TabIndex = 27;
+            // 
+            // checkEditAtualizacaoStatusJuntaComponenteSepetiba
+            // 
+            this.checkEditAtualizacaoStatusJuntaComponenteSepetiba.Location = new System.Drawing.Point(137, 52);
+            this.checkEditAtualizacaoStatusJuntaComponenteSepetiba.Name = "checkEditAtualizacaoStatusJuntaComponenteSepetiba";
+            this.checkEditAtualizacaoStatusJuntaComponenteSepetiba.Properties.Caption = "Atualização de Status da Junta";
+            this.checkEditAtualizacaoStatusJuntaComponenteSepetiba.Properties.ReadOnly = true;
+            this.checkEditAtualizacaoStatusJuntaComponenteSepetiba.Size = new System.Drawing.Size(291, 19);
+            this.checkEditAtualizacaoStatusJuntaComponenteSepetiba.TabIndex = 6;
+            // 
+            // checkEditAtualizacaoStatusJuntaComponenteMV32
+            // 
+            this.checkEditAtualizacaoStatusJuntaComponenteMV32.Location = new System.Drawing.Point(137, 52);
+            this.checkEditAtualizacaoStatusJuntaComponenteMV32.Name = "checkEditAtualizacaoStatusJuntaComponenteMV32";
+            this.checkEditAtualizacaoStatusJuntaComponenteMV32.Properties.Caption = "Atualização de Status da Junta";
+            this.checkEditAtualizacaoStatusJuntaComponenteMV32.Properties.ReadOnly = true;
+            this.checkEditAtualizacaoStatusJuntaComponenteMV32.Size = new System.Drawing.Size(291, 19);
+            this.checkEditAtualizacaoStatusJuntaComponenteMV32.TabIndex = 7;
             // 
             // FormAllProcess
             // 
@@ -783,6 +807,8 @@ namespace WinCTB_CTS.Module.Win.WinCustomProcess
             ((System.ComponentModel.ISupportInitialize)(this.checkEditMedicaoSpool.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.toggleSwitchMedicaoEstrutura.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.toggleSwitchMedicaoTubulacao.Properties)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.checkEditAtualizacaoStatusJuntaComponenteSepetiba.Properties)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.checkEditAtualizacaoStatusJuntaComponenteMV32.Properties)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -841,5 +867,7 @@ namespace WinCTB_CTS.Module.Win.WinCustomProcess
         private DevExpress.XtraEditors.CheckEdit checkEditMedicaoSpool;
         private DevExpress.XtraEditors.ToggleSwitch toggleSwitchMedicaoEstrutura;
         private DevExpress.XtraEditors.ToggleSwitch toggleSwitchMedicaoTubulacao;
+        private DevExpress.XtraEditors.CheckEdit checkEditAtualizacaoStatusJuntaComponenteSepetiba;
+        private DevExpress.XtraEditors.CheckEdit checkEditAtualizacaoStatusJuntaComponenteMV32;
     }
 }
