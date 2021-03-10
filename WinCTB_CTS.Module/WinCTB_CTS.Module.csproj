@@ -295,7 +295,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="DatabaseUpdate\ReadMe.txt" />
-    <EmbeddedResource Include="Properties\licenses.licx" />
     <EmbeddedResource Include="RelatorioPreDefinido\RelatorioComponentesMedicao.resx">
       <DependentUpon>RelatorioComponentesMedicao.cs</DependentUpon>
     </EmbeddedResource>

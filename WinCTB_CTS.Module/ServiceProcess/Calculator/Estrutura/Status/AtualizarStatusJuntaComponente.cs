@@ -54,7 +54,7 @@ namespace WinCTB_CTS.Module.ServiceProcess.Calculator.Estrutura.Medicao {
                     junta.StatusCustomizadoDaJunta = JuntaComponente.StatusJuntaComponente.AguardandoVisualDeSolda;
                 else if (junta.StatusLp != "NA" && !(junta.StatusLp == "AP" || junta.StatusPm == "AP" || junta.StatusLp == "AL" || junta.StatusPm == "AL" || junta.LoteJuntaEstruturas.Any(a => a.LoteEstrutura.Ensaio == Interfaces.ENDS.LPPM && a.LoteEstrutura.SituacaoInspecao == Interfaces.SituacoesInspecao.Aprovado)))
                     junta.StatusCustomizadoDaJunta = JuntaComponente.StatusJuntaComponente.AguardandoLPPM;
-                else if (junta.StatusUs != "NA" && !(junta.StatusUs == "AP" || junta.StatusLp == "AL" || junta.LoteJuntaEstruturas.Any(a => a.LoteEstrutura.Ensaio == Interfaces.ENDS.US && a.LoteEstrutura.SituacaoInspecao == Interfaces.SituacoesInspecao.Aprovado)))
+                else if (junta.StatusUs != "NA" && !(junta.StatusUs == "AP" || junta.StatusUs == "AL" || junta.LoteJuntaEstruturas.Any(a => a.LoteEstrutura.Ensaio == Interfaces.ENDS.US && a.LoteEstrutura.SituacaoInspecao == Interfaces.SituacoesInspecao.Aprovado)))
                     junta.StatusCustomizadoDaJunta = JuntaComponente.StatusJuntaComponente.AguardandoUS;
                 else if (junta.StatusRx != "NA" && !(junta.StatusRx == "AP" || junta.StatusRx == "AL" || junta.LoteJuntaEstruturas.Any(a => a.LoteEstrutura.Ensaio == Interfaces.ENDS.RX && a.LoteEstrutura.SituacaoInspecao == Interfaces.SituacoesInspecao.Aprovado)))
                     junta.StatusCustomizadoDaJunta = JuntaComponente.StatusJuntaComponente.AguardandoRX;
