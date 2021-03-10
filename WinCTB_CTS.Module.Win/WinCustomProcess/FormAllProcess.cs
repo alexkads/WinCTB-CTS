@@ -1,4 +1,5 @@
-﻿using DevExpress.XtraEditors;
+﻿using DevExpress.Xpo;
+using DevExpress.XtraEditors;
 using DevExpress.XtraEditors.Controls;
 using System;
 using System.Collections.Generic;
@@ -10,6 +11,9 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using WinCTB_CTS.Module.BusinessObjects.Estrutura.Auxiliar;
+using WinCTB_CTS.Module.BusinessObjects.Tubulacao.Auxiliar;
+using WinCTB_CTS.Module.Helpers;
 using WinCTB_CTS.Module.ServiceProcess.Base;
 using WinCTB_CTS.Module.ServiceProcess.Calculator.Estrutura.Medicao;
 using WinCTB_CTS.Module.ServiceProcess.Calculator.Estrutura.ProcessoLote;
@@ -22,6 +26,8 @@ using WinCTB_CTS.Module.Win.Services;
 namespace WinCTB_CTS.Module.Win.WinCustomProcess {
     public partial class FormAllProcess : DevExpress.XtraEditors.XtraForm {
         private CancellationTokenSource _cancellationTokenSource;
+        private ProviderDataLayer provider;
+        private UnitOfWork uow;
         private IProgress<ImportProgressReport> progressLocal;
         private readonly Font FontStandard = new Font("Tahoma", 8.25F, FontStyle.Regular);
         private readonly Font FontStrikeout = new Font("Tahoma", 8.25F, FontStyle.Strikeout);
@@ -38,9 +44,21 @@ namespace WinCTB_CTS.Module.Win.WinCustomProcess {
             init();
         }
 
+        protected override void OnActivated(EventArgs e) {
+            base.OnActivated(e);
+            provider = new ProviderDataLayer();
+            uow = new UnitOfWork(provider.GetSimpleDataLayer());
+        }
+
+        protected override void OnDeactivate(EventArgs e) {
+            uow?.Dispose();
+            provider?.Dispose();
+            base.OnDeactivate(e);
+        }
+
         private void init() {
             labelControlAndamentoDoProcesso.Text = string.Empty;
-            resetCheckEdit();
+            LocateCheckeditToReset();
             LigarToggles();
 
             BtnPathImportTubulacao.EditValue = RegisterWindowsManipulation.GetRegister(PathFileForImportTubulacao);
@@ -63,7 +81,7 @@ namespace WinCTB_CTS.Module.Win.WinCustomProcess {
         private void BtnPathImportTabAuxiliarTubulacao_EditValueChanged(object sender, EventArgs e) {
             RegisterWindowsManipulation.SetRegister(PathFileForImportTabelaAuxiliarTubulacao, BtnPathImportTabAuxiliarTubulacao.Text);
         }
-                      
+
         private void BtnPathImportEstruturaMV32_EditValueChanged(object sender, EventArgs e) {
             RegisterWindowsManipulation.SetRegister(PathFileForImportEstruturaMV32, BtnPathImportEstruturaMV32.Text);
         }
@@ -74,23 +92,6 @@ namespace WinCTB_CTS.Module.Win.WinCustomProcess {
 
         private void BtnPathImportTubulacao_EditValueChanged(object sender, EventArgs e) {
             RegisterWindowsManipulation.SetRegister(PathFileForImportTubulacao, BtnPathImportTubulacao.Text);
-        }
-
-        private string GetFileAndSetRegister(string key) {
-            string result = string.Empty;
-            using (OpenFileDialog dialog = new OpenFileDialog()) {
-                dialog.CheckFileExists = true;
-                dialog.CheckPathExists = true;
-                dialog.DereferenceLinks = true;
-                dialog.Multiselect = false;
-                //dialog.Filter = "ver como é o filtro";
-                if (dialog.ShowDialog(Form.ActiveForm) == DialogResult.OK) {
-                    result = dialog.FileName;
-                    //exemplo 'PathFileForImportTubulacao'
-                    RegisterWindowsManipulation.SetRegister(key, dialog.FileName);
-                }
-            }
-            return result;
         }
 
         public void LogTrace(ImportProgressReport value) {
@@ -104,24 +105,36 @@ namespace WinCTB_CTS.Module.Win.WinCustomProcess {
             labelControlAndamentoDoProcesso.Update();
         }
 
-        private void LigarToggles() {
-            toggleSwitchImportarEstruturaMV32.IsOn = true;
-            toggleSwitchImportarEstruturaSepetiba.IsOn = true;
-            toggleSwitchImportarLotesEstrutura.IsOn = true;
-            toggleSwitchImportarTubulacao.IsOn = true;
-            toggleSwitchImportarTabelasAuxiliaresTubulacao.IsOn = true;
-            toggleSwitchImportarTabelasAuxiliaresEstrutura.IsOn = true;
-        }
+        private void LigarToggles(bool IsOn = false) {
 
-        private void resetCheckEdit() {
             foreach (var control in this.Controls) {
-                if (control is CheckEdit checkEdit) {
-                    checkEdit.Checked = false;
-                    checkEdit.Font = FontStandard;
-                    checkEdit.ForeColor = System.Drawing.Color.Black;
-                }
+                if (control is ToggleSwitch toggle)
+                    toggle.IsOn = IsOn;
+
+                if (control is GroupControl groupControl)
+                    foreach (var subcontrol in groupControl.Controls)
+                        if (subcontrol is ToggleSwitch subToggle)
+                            subToggle.IsOn = IsOn;
             }
         }
+
+        private void LocateCheckeditToReset() {
+            foreach (var control in this.Controls) {
+                if (control is CheckEdit checkEdit)
+                    resetCheckEdit(checkEdit, FontStandard);
+
+                if (control is GroupControl groupControl)
+                    foreach (var subcontrol in groupControl.Controls)
+                        if (subcontrol is CheckEdit subcheckEdit)
+                            resetCheckEdit(subcheckEdit, FontStandard);
+            }
+        }
+
+        private Action<CheckEdit, Font> resetCheckEdit = (checkEdit, font) => {
+            checkEdit.Checked = false;
+            checkEdit.Font = font;
+            checkEdit.ForeColor = Color.Black;
+        };
 
         private void CheckEditEmAndamento(CheckEdit checkEdit) {
             checkEdit.Checked = false;
@@ -141,7 +154,7 @@ namespace WinCTB_CTS.Module.Win.WinCustomProcess {
         }
 
         private async void BtStartProcess_Click(object sender, EventArgs e) {
-            resetCheckEdit();
+            LocateCheckeditToReset();
             BtStartProcess.Enabled = false;
             _cancellationTokenSource = new CancellationTokenSource();
             var cancellationToken = _cancellationTokenSource.Token;
@@ -274,7 +287,6 @@ namespace WinCTB_CTS.Module.Win.WinCustomProcess {
         }
         #endregion
 
-
         #region Importação de Tubulação
         private async Task ImportarSpool(CancellationToken cancellationToken, IProgress<ImportProgressReport> progress) {
             CheckEditEmAndamento(checkEditSpool);
@@ -292,7 +304,6 @@ namespace WinCTB_CTS.Module.Win.WinCustomProcess {
             CheckEditProcessado(checkEditJuntaSpool);
         }
         #endregion
-
 
         #region Importação de Estrutura
         private async Task ImportarComponenteMV32(CancellationToken cancellationToken, IProgress<ImportProgressReport> progress) {
@@ -327,7 +338,6 @@ namespace WinCTB_CTS.Module.Win.WinCustomProcess {
             CheckEditProcessado(checkEditJuntaComponenteSepetiba);
         }
         #endregion
-
 
         #region Lotes de Estrutura
         private async Task GerarLotes(CancellationToken cancellationToken, IProgress<ImportProgressReport> progress) {
@@ -380,6 +390,44 @@ namespace WinCTB_CTS.Module.Win.WinCustomProcess {
             CheckEditProcessado(checkEditMedicaoSpool);
         }
         #endregion
+
+        #region Proteção da tabela auxiliar
+        private void toggleSwitchImportarTubulacao_Toggled(object sender, EventArgs e) {
+            if (!uow.QueryInTransaction<TabEAPPipe>().Any()) {
+                toggleSwitchImportarTabelasAuxiliaresTubulacao.IsOn = toggleSwitchImportarTubulacao.IsOn;
+
+                if (toggleSwitchImportarTubulacao.IsOn)
+                    toggleSwitchImportarTabelasAuxiliaresTubulacao.ReadOnly = true;
+                else
+                    toggleSwitchImportarTabelasAuxiliaresTubulacao.ReadOnly = false;
+            }
+        }
+
+        private void toggleSwitchImportarEstruturaSepetiba_Toggled(object sender, EventArgs e) {
+            if (!uow.QueryInTransaction<TabEAPEst>().Any()) {
+                var validade = toggleSwitchImportarEstruturaSepetiba.IsOn || toggleSwitchImportarEstruturaMV32.IsOn;
+                toggleSwitchImportarTabelasAuxiliaresEstrutura.IsOn = validade;
+
+                if (validade)
+                    toggleSwitchImportarTabelasAuxiliaresEstrutura.ReadOnly = true;
+                else
+                    toggleSwitchImportarTabelasAuxiliaresEstrutura.ReadOnly = false;
+            }
+        }
+
+        private void toggleSwitchImportarEstruturaMV32_Toggled(object sender, EventArgs e) {
+            if (!uow.QueryInTransaction<TabEAPEst>().Any()) {
+                var validade = toggleSwitchImportarEstruturaSepetiba.IsOn || toggleSwitchImportarEstruturaMV32.IsOn;
+                toggleSwitchImportarTabelasAuxiliaresEstrutura.IsOn = validade;
+
+                if (validade)
+                    toggleSwitchImportarTabelasAuxiliaresEstrutura.ReadOnly = true;
+                else
+                    toggleSwitchImportarTabelasAuxiliaresEstrutura.ReadOnly = false;
+            }
+        }
+        #endregion
+
 
     }
 }
