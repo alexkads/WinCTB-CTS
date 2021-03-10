@@ -14,6 +14,8 @@ using WinCTB_CTS.Module.ServiceProcess.Base;
 namespace WinCTB_CTS.Module.ServiceProcess.Calculator.Estrutura.Medicao {
     public class CalculoComponente : CalculatorProcessBase {
 
+        public event EventHandler<(Session session, MedicaoEstrutura medicao, Componente componente)> MedicaoDetalheHandler;
+
         public CalculoComponente(CancellationToken cancellationToken, IProgress<ImportProgressReport> progress)
             : base(cancellationToken, progress) {
         }
@@ -45,6 +47,8 @@ namespace WinCTB_CTS.Module.ServiceProcess.Calculator.Estrutura.Medicao {
                 var componente = componentes[i];
                 var detalheMedicaoAnterior = medicaoAnterior is null ? null : uow.FindObject<MedicaoEstruturaDetalhe>(CriteriaOperator.Parse("Componente.Oid = ? And MedicaoEstrutura.Oid = ?", componente.Oid, medicaoAnterior.Oid));
 
+                //MedicaoDetalheHandler += CalculoComponente_MedicaoDetalheHandler;
+                //MedicaoDetalheHandler.Invoke(this, ExecMedicaoDetalhe(uow, medicao, componente));
                 ExecMedicaoDetalhe(uow, medicao, componente);
 
                 if (i % 1000 == 0) {
@@ -54,13 +58,13 @@ namespace WinCTB_CTS.Module.ServiceProcess.Calculator.Estrutura.Medicao {
                         uow.RollbackTransaction();
                         throw new Exception("Process aborted by system");
                     }
-                }
 
-                progress.Report(new ImportProgressReport {
-                    TotalRows = QuantidadeDeComponentes,
-                    CurrentRow = i,
-                    MessageImport = $"Fechando Componentes: {i}/{QuantidadeDeComponentes}"
-                });
+                    progress.Report(new ImportProgressReport {
+                        TotalRows = QuantidadeDeComponentes,
+                        CurrentRow = i,
+                        MessageImport = $"Fechando Componentes: {i}/{QuantidadeDeComponentes}"
+                    });
+                }
             });
 
             progress.Report(new ImportProgressReport {
@@ -79,6 +83,10 @@ namespace WinCTB_CTS.Module.ServiceProcess.Calculator.Estrutura.Medicao {
                 CurrentRow = QuantidadeDeComponentes,
                 MessageImport = $"Medição de Estrutura Finalizada!"
             });
+        }
+
+        private void CalculoComponente_MedicaoDetalheHandler(object sender, (Session session, MedicaoEstrutura medicao, Componente componente) e) {
+            throw new NotImplementedException();
         }
 
         private void ExecMedicaoDetalhe(Session session, MedicaoEstrutura medicao, Componente componente) {

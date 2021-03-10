@@ -41,8 +41,8 @@ namespace WinCTB_CTS.Module.Win.Controllers
 
         protected override void OnDeactivated()
         {
-            FormAllProcess.Dispose();
-            ActionStartAllProcessInterface.Dispose();
+            FormAllProcess?.Dispose();
+            ActionStartAllProcessInterface?.Dispose();
         }
     }
 }
