@@ -47,6 +47,9 @@ namespace WinCTB_CTS.Module.Win.Controllers {
                 worksheet.Cell(currentRow, 3).Value = "Peça";
                 worksheet.Cell(currentRow, 4).Value = "DF1";
                 worksheet.Cell(currentRow, 5).Value = "DF2";
+                worksheet.Cell(currentRow, 6).Value = "Junta";
+                worksheet.Cell(currentRow, 7).Value = "Status CTB";
+                worksheet.Cell(currentRow, 8).Value = "Status Custom";
 
                 foreach (var junta in juntaComponentes) {
                     currentRow++;
@@ -55,6 +58,9 @@ namespace WinCTB_CTS.Module.Win.Controllers {
                     worksheet.Cell(currentRow, 3).Value = junta.Componente.Peca;
                     worksheet.Cell(currentRow, 4).Value = junta.Df1;
                     worksheet.Cell(currentRow, 5).Value = junta.Df2;
+                    worksheet.Cell(currentRow, 6).Value = junta.Junta;
+                    worksheet.Cell(currentRow, 7).Value = junta.StatusJunta;
+                    worksheet.Cell(currentRow, 8).Value = junta.StatusCustomizadoDaJunta;
                 }
 
                 using (var stream = new MemoryStream()) {

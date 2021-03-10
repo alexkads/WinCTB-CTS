@@ -522,6 +522,21 @@ namespace WinCTB_CTS.Module.BusinessObjects.Estrutura {
             }
         }
 
+        [XafDisplayName("Status do Lote de LPPM")]
+        [PersistentAlias("LoteJuntaEstruturas[ LoteEstrutura.Ensaio = 'LPPM' ].Single(LoteEstrutura.StatusDoLote)")]
+        public string StatusDoLoteLPPM => Convert.ToString(EvaluateAlias("StatusDoLoteLPPM"));
+
+        [XafDisplayName("Status do Lote de US")]
+        [PersistentAlias("LoteJuntaEstruturas[ LoteEstrutura.Ensaio = 'US' ].Single(LoteEstrutura.StatusDoLote)")]
+        public string StatusDoLoteUS => Convert.ToString(EvaluateAlias("StatusDoLoteUS"));
+
+        [XafDisplayName("Status do Lote de RX")]
+        [PersistentAlias("LoteJuntaEstruturas[ LoteEstrutura.Ensaio = 'RX' ].Single(LoteEstrutura.StatusDoLote)")]
+        public string StatusDoLoteRX => Convert.ToString(EvaluateAlias("StatusDoLoteRX"));
+
+        //public string StatusLoteLPPM => this.LoteJuntaEstruturas.Single(x => x.LoteEstrutura.Ensaio == Interfaces.ENDS.LPPM).LoteEstrutura.StatusDoLote;
+
+
         [ModelDefault("AllowEdit", "False")]
         [VisibleInDetailView(false)]
         [Association("JuntaComponente-LoteJuntaEstruturas")]

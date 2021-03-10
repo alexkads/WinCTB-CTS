@@ -245,6 +245,10 @@ namespace WinCTB_CTS.Module.BusinessObjects.Estrutura.Lotes
             get => _TerminoDoCicloDoLote;
             set => SetPropertyValue(nameof(TerminoDoCicloDoLote), ref _TerminoDoCicloDoLote, value);
         }
+
+        [XafDisplayName("Status do Lote")]
+        [PersistentAlias("Concat(NumeroDoLote, '-' , SituacaoInspecao)")]
+        public string StatusDoLote => Convert.ToString(EvaluateAlias("StatusDoLote"));
     }
 
     [Persistent("WT_LoteJuntaEstrutura")]
