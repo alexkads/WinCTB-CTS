@@ -54,7 +54,8 @@ namespace WinCTB_CTS.Module.BusinessObjects.Estrutura {
             JuntaLiberada = 11,
         }
 
-        private StatusJuntaComponente statusCustomizadoDaJunta;        
+        Componente medJoint;
+        private StatusJuntaComponente statusCustomizadoDaJunta;
         private DateTime? posDf2;
         private DateTime? posDf1;
         private double percRt;
@@ -501,23 +502,29 @@ namespace WinCTB_CTS.Module.BusinessObjects.Estrutura {
             set => SetPropertyValue(nameof(PosDf2), ref posDf2, value);
         }
 
-        [NonPersistent]
-        public Componente MedJoint {
-            get {
-                var df1 = this.Evaluate(CriteriaOperator.Parse("[<Componente>][Peca = ?].Single()", this.Df1)) as Componente;
-                var df2 = this.Evaluate(CriteriaOperator.Parse("[<Componente>][Peca = ?].Single()", this.Df2)) as Componente;
+        //[NonPersistent]
+        //public Componente MedJoint {
+        //    get {
+        //        var df1 = this.Evaluate(CriteriaOperator.Parse("[<Componente>][Peca = ?].Single()", this.Df1)) as Componente;
+        //        var df2 = this.Evaluate(CriteriaOperator.Parse("[<Componente>][Peca = ?].Single()", this.Df2)) as Componente;
 
-                if (df2 == null)
-                    return df1;
-                if (df1.ProgFitup == 0)
-                    return df1;
-                if (df2?.ProgFitup == 0)
-                    return df2;
-                if (df1.ProgFitup >= df2.ProgFitup)
-                    return df1;
-                else
-                    return df2;
-            }
+        //        if (df2 == null)
+        //            return df1;
+        //        if (df1.ProgFitup == 0)
+        //            return df1;
+        //        if (df2?.ProgFitup == 0)
+        //            return df2;
+        //        if (df1.ProgFitup >= df2.ProgFitup)
+        //            return df1;
+        //        else
+        //            return df2;
+        //    }
+        //}
+
+        
+        public Componente MedJoint {
+            get => medJoint;
+            set => SetPropertyValue(nameof(MedJoint), ref medJoint, value);
         }
 
 

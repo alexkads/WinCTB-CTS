@@ -7,29 +7,23 @@ using WinCTB_CTS.Module.BusinessObjects.Estrutura;
 using WinCTB_CTS.Module.Comum;
 using WinCTB_CTS.Module.ServiceProcess.Base;
 
-namespace WinCTB_CTS.Module.ServiceProcess.Importer.Estrutura
-{
-    public class ImportJuntaComponente : CalculatorProcessBase
-    {
+namespace WinCTB_CTS.Module.ServiceProcess.Importer.Estrutura {
+    public class ImportJuntaComponente : CalculatorProcessBase {
         public ImportJuntaComponente(CancellationToken cancellationToken, IProgress<ImportProgressReport> progress)
-        : base(cancellationToken, progress)
-        {
+        : base(cancellationToken, progress) {
         }
 
-        protected override void OnMapImporter(UnitOfWork uow, DataTable dataTable, DataRow rowForMap, int expectedTotal, int currentIndex)
-        {
+        protected override void OnMapImporter(UnitOfWork uow, DataTable dataTable, DataRow rowForMap, int expectedTotal, int currentIndex) {
             base.OnMapImporter(uow, dataTable, rowForMap, expectedTotal, currentIndex);
 
-            if (currentIndex >= 2)
-            {
+            if (currentIndex >= 2) {
                 cancellationToken.ThrowIfCancellationRequested();
                 var linha = rowForMap;
                 var desenhoMontagem = linha[2].ToString();
                 var peca = linha[3].ToString();
                 var FiltroPesquisa = CriteriaOperator.Parse("DesenhoMontagem = ? And Peca = ?", desenhoMontagem, peca);
                 var componente = uow.FindObject<Componente>(FiltroPesquisa);
-                if (componente != null)
-                {
+                if (componente != null) {
                     var junta = linha[5].ToString();
 
                     var criteriaOperator = CriteriaOperator.Parse("Componente.Oid = ? And Junta = ?",
@@ -37,8 +31,7 @@ namespace WinCTB_CTS.Module.ServiceProcess.Importer.Estrutura
 
                     var juntaComponente = uow.FindObject<JuntaComponente>(criteriaOperator);
 
-                    if (juntaComponente == null)
-                    {
+                    if (juntaComponente == null) {
                         juntaComponente = new JuntaComponente(uow);
                         juntaComponente.Junta = junta;
                         juntaComponente.Componente = componente;
@@ -117,27 +110,29 @@ namespace WinCTB_CTS.Module.ServiceProcess.Importer.Estrutura
                         juntaComponente.StatusRx = null;
                     #endregion
 
-                    //Complemento                      
-                    //juntaComponente.PosDf1 = Utils.ConvertDateTime(juntaComponente.Evaluate(CriteriaOperator.Parse("[<Componente>][Peca = ^.Df1].Max(DataPosicionamento)")));
+                    #region Definição de DF e MedJoints
                     juntaComponente.PosDf1 = uow.FindObject<Componente>(new BinaryOperator("Peca", juntaComponente.Df1))?.DataPosicionamento;
-
-                    //juntaComponente.PosDf2 = Utils.ConvertDateTime(juntaComponente.Evaluate(CriteriaOperator.Parse("[<Componente>][Peca = ^.Df2].Max(DataPosicionamento)")));
                     juntaComponente.PosDf2 = uow.FindObject<Componente>(new BinaryOperator("Peca", juntaComponente.Df2))?.DataPosicionamento;
-
-                    //Antigo (Daniel)
-                    //juntaComponente.PosDf1 =
-                    //        string.IsNullOrEmpty(juntaComponente.Df1)
-                    //        ? null
-                    //        : uow.QueryInTransaction<Componente>()
-                    //            .FirstOrDefault(comp => comp.Peca == juntaComponente.Df1)?.DataPosicionamento;
-
-                    //juntaComponente.PosDf2 =
-                    //        string.IsNullOrEmpty(juntaComponente.Df2)
-                    //        ? null
-                    //        : uow.QueryInTransaction<Componente>()
-                    //            .FirstOrDefault(comp => comp.Peca == juntaComponente.Df2)?.DataPosicionamento;
+                    juntaComponente.MedJoint = GetMedJoint(juntaComponente);
+                    #endregion
                 }
             }
         }
+
+        private Func<JuntaComponente, Componente> GetMedJoint = (junta) => {
+            var df1 = junta.Evaluate(CriteriaOperator.Parse("[<Componente>][Peca = ?].Single()", junta.Df1)) as Componente;
+            var df2 = junta.Evaluate(CriteriaOperator.Parse("[<Componente>][Peca = ?].Single()", junta.Df2)) as Componente;
+
+            if (df2 == null)
+                return df1;
+            if (df1.ProgFitup == 0)
+                return df1;
+            if (df2?.ProgFitup == 0)
+                return df2;
+            if (df1.ProgFitup >= df2.ProgFitup)
+                return df1;
+            else
+                return df2;
+        };
     }
 }
