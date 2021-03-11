@@ -101,6 +101,7 @@ namespace WinCTB_CTS.Module.BusinessObjects.Tubulacao.Medicao
 
         [ModelDefault("DisplayFormat", "P4")]
         [ModelDefault("EditMask", "P4")]
+        [RuleRange(DefaultContexts.Save, 0, 1)]
         public double AvancoSpoolCorteFab
         {
             get => avancoSpoolCorteFab;
@@ -115,6 +116,7 @@ namespace WinCTB_CTS.Module.BusinessObjects.Tubulacao.Medicao
 
         [ModelDefault("DisplayFormat", "P4")]
         [ModelDefault("EditMask", "P4")]
+        [RuleRange(DefaultContexts.Save, 0, 1)]
         public double AvancoSpoolVAFab
         {
             get => avancoSpoolVAFab;
@@ -130,6 +132,7 @@ namespace WinCTB_CTS.Module.BusinessObjects.Tubulacao.Medicao
 
         [ModelDefault("DisplayFormat", "P4")]
         [ModelDefault("EditMask", "P4")]
+        [RuleRange(DefaultContexts.Save, 0, 1)]
         public double AvancoSpoolSoldFab
         {
             get => avancoSpoolSoldFab;
@@ -146,6 +149,7 @@ namespace WinCTB_CTS.Module.BusinessObjects.Tubulacao.Medicao
 
         [ModelDefault("DisplayFormat", "P4")]
         [ModelDefault("EditMask", "P4")]
+        [RuleRange(DefaultContexts.Save, 0, 1)]
         public double AvancoSpoolENDFab
         {
             get => avancoSpoolENDFab;
@@ -161,6 +165,7 @@ namespace WinCTB_CTS.Module.BusinessObjects.Tubulacao.Medicao
 
         [ModelDefault("DisplayFormat", "P4")]
         [ModelDefault("EditMask", "P4")]
+        [RuleRange(DefaultContexts.Save, 0, 1)]
         public double AvancoSpoolPosiMont
         {
             get => avancoSpoolPosiMont;
@@ -175,6 +180,7 @@ namespace WinCTB_CTS.Module.BusinessObjects.Tubulacao.Medicao
 
         [ModelDefault("DisplayFormat", "P4")]
         [ModelDefault("EditMask", "P4")]
+        [RuleRange(DefaultContexts.Save, 0, 1)]
         public double AvancoJuntaVAMont
         {
             get => avancoJuntaVAMont;
@@ -191,6 +197,7 @@ namespace WinCTB_CTS.Module.BusinessObjects.Tubulacao.Medicao
 
         [ModelDefault("DisplayFormat", "P4")]
         [ModelDefault("EditMask", "P4")]
+        [RuleRange(DefaultContexts.Save, 0, 1)]
         public double AvancoJuntaSoldMont
         {
             get => avancoJuntaSoldMont;
@@ -207,6 +214,7 @@ namespace WinCTB_CTS.Module.BusinessObjects.Tubulacao.Medicao
 
         [ModelDefault("DisplayFormat", "P4")]
         [ModelDefault("EditMask", "P4")]
+        [RuleRange(DefaultContexts.Save, 0, 1)]
         public double AvancoJuntaENDMont
         {
             get => avancoJuntaENDMont;
@@ -223,6 +231,7 @@ namespace WinCTB_CTS.Module.BusinessObjects.Tubulacao.Medicao
 
         [ModelDefault("DisplayFormat", "P4")]
         [ModelDefault("EditMask", "P4")]
+        [RuleRange(DefaultContexts.Save, 0, 1)]
         public double AvancoSpoolLineCheckMont
         {
             get => avancoSpoolLineCheckMont;

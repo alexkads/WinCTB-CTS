@@ -449,6 +449,9 @@ namespace WinCTB_CTS.Module.BusinessObjects.Estrutura {
             set => SetPropertyValue(nameof(ComprimentoReparoUs), ref comprimentoReparoUs, value);
         }
 
+        [ModelDefault("DisplayFormat", "P0")]
+        [ModelDefault("EditMask", "P0")]
+        [RuleRange(DefaultContexts.Save, 0, 1)]
         public double PercLpPm {
             get => percLpPm;
             set => SetPropertyValue(nameof(PercLpPm), ref percLpPm, value);
@@ -466,11 +469,17 @@ namespace WinCTB_CTS.Module.BusinessObjects.Estrutura {
             set => SetPropertyValue(nameof(StatusJunta), ref statusJunta, value);
         }
 
+        [ModelDefault("DisplayFormat", "P0")]
+        [ModelDefault("EditMask", "P0")]
+        [RuleRange(DefaultContexts.Save, 0, 1)]
         public double PercUt {
             get => percUt;
             set => SetPropertyValue(nameof(PercUt), ref percUt, value);
         }
 
+        [ModelDefault("DisplayFormat", "P0")]
+        [ModelDefault("EditMask", "P0")]
+        [RuleRange(DefaultContexts.Save, 0, 1)]
         public double PercRt {
             get => percRt;
             set => SetPropertyValue(nameof(PercRt), ref percRt, value);
