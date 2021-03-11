@@ -28,15 +28,6 @@ namespace WinCTB_CTS.Module.ServiceProcess.Calculator.Tubulacao.ProcessoLote {
                     var juntasSemLote = GetJuntasSemLotes(uow, ensaio, contrato);
                     int totalDataStore = juntasSemLote.EvaluateDatastoreCount();
 
-                    if (totalDataStore == 0) {
-                        progress.Report(new ImportProgressReport {
-                            TotalRows = totalDataStore,
-                            CurrentRow = 0,
-                            MessageImport = $"Gerando lotes do contrato: {contrato.NomeDoContrato} de {ensaio.ToString()} 0/{totalDataStore}"
-                        });
-                        return;
-                    }
-
                     double currentProgress = 0D;
 
                     foreach (var juntaComponente in juntasSemLote) {
@@ -144,9 +135,10 @@ namespace WinCTB_CTS.Module.ServiceProcess.Calculator.Tubulacao.ProcessoLote {
             //uow.Query<JuntaComponente>().Where(x=> x.LoteJuntaEstruturas.Where(j=> j.LoteEstrutura.Ensaio == ENDS.US))
 
             var FiltroSemLote00 = CriteriaOperator.Parse("Not IsNullOrEmpty(DataVisual)");
-            var FiltroSemLote01 = CriteriaOperator.Parse("Not LoteJuntaEstruturas[ LoteEstrutura.Ensaio = ? ].Exists", ensaio);
+            var FiltroSemLote01 = new UnaryOperator(UnaryOperatorType.Not, new AggregateOperand("LoteJuntaEstruturas", Aggregate.Exists, new BinaryOperator("LoteEstrutura.Ensaio", ensaio))); ;
+            //var FiltroSemLote01 = CriteriaOperator.Parse("Not LoteJuntaEstruturas[ LoteEstrutura.Ensaio = ? ].Exists", ensaio);
             var FiltroSemLote02 = new BetweenOperator(field, 0.01, 0.99);
-            var FiltroSemLote03 = new BinaryOperator("Componente.Contrato", contrato.Oid);
+            var FiltroSemLote03 = new BinaryOperator("Componente.Contrato.Oid", contrato.Oid);
 
             var criteria = new GroupOperator(GroupOperatorType.And, FiltroSemLote00, FiltroSemLote01, FiltroSemLote02, FiltroSemLote03);
             var juntasSemLote = new XPCollection<JuntaComponente>(session);

@@ -536,9 +536,12 @@ namespace WinCTB_CTS.Module.BusinessObjects.Estrutura {
 
         //public string StatusLoteLPPM => this.LoteJuntaEstruturas.Single(x => x.LoteEstrutura.Ensaio == Interfaces.ENDS.LPPM).LoteEstrutura.StatusDoLote;
 
+        [XafDisplayName("Quantidade de Lotes")]
+        [PersistentAlias("LoteJuntaEstruturas.Count()")]
+        public int QuantidadeDeLotes => Convert.ToInt32(EvaluateAlias("QuantidadeDeLotes"));
+
 
         [ModelDefault("AllowEdit", "False")]
-        [VisibleInDetailView(false)]
         [Association("JuntaComponente-LoteJuntaEstruturas")]
         public XPCollection<LoteJuntaEstrutura> LoteJuntaEstruturas
         => GetCollection<LoteJuntaEstrutura>(nameof(LoteJuntaEstruturas));

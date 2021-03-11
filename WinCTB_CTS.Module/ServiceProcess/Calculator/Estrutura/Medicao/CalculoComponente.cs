@@ -93,7 +93,9 @@ namespace WinCTB_CTS.Module.ServiceProcess.Calculator.Estrutura.Medicao {
             var detalhe = new MedicaoEstruturaDetalhe(session);
 
             //Carregar somente as juntas com medJoints igual ao componente
-            var medJoints = componente.JuntaComponentes.Where(x => x.MedJoint.Oid == x.Componente.Oid).ToList();
+            //var medJoints = componente.JuntaComponentes.Where(x => x.MedJoint.Oid == x.Componente.Oid);
+            var medJoints = componente.JuntaComponentes;
+            medJoints.Criteria = CriteriaOperator.Parse("MedJoint.Oid == Componente.Oid");
 
             //Cagarda da EAP
             var eap = session.QueryInTransaction<TabEAPEst>().Single(x => x.Contrato.Oid == componente.Contrato.Oid && x.Modulo == componente.Modulo);
