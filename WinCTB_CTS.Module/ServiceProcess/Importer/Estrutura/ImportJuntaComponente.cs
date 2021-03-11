@@ -103,6 +103,20 @@ namespace WinCTB_CTS.Module.ServiceProcess.Importer.Estrutura
                     juntaComponente.PercUt = Utils.ConvertDouble(linha[64]) / 100;
                     juntaComponente.PercRt = Utils.ConvertDouble(linha[65]) / 100;
 
+                    #region Limpeza de Status de Lote
+                    if (juntaComponente.StatusLp == "AL")
+                        juntaComponente.StatusLp = null;
+
+                    if (juntaComponente.StatusPm == "AL")
+                        juntaComponente.StatusPm = null;
+
+                    if (juntaComponente.StatusUs == "AL")
+                        juntaComponente.StatusUs = null;
+
+                    if (juntaComponente.StatusRx == "AL")
+                        juntaComponente.StatusRx = null;
+                    #endregion
+
                     //Complemento                      
                     //juntaComponente.PosDf1 = Utils.ConvertDateTime(juntaComponente.Evaluate(CriteriaOperator.Parse("[<Componente>][Peca = ^.Df1].Max(DataPosicionamento)")));
                     juntaComponente.PosDf1 = uow.FindObject<Componente>(new BinaryOperator("Peca", juntaComponente.Df1))?.DataPosicionamento;

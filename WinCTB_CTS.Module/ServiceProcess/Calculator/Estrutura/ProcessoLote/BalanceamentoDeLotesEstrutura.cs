@@ -45,7 +45,7 @@ namespace WinCTB_CTS.Module.ServiceProcess.Calculator.Estrutura.ProcessoLote {
 
                         var lotesComPossibilidade =
                             (from ex in QueryLotesExcesso
-                             join pd in QueryLotesPendente on ex.PercentualNivelDeInspecao equals pd.PercentualNivelDeInspecao into PendenteGroup
+                             join pd in QueryLotesPendente on new { ex.PercentualNivelDeInspecao, ex.TipoJunta } equals new { pd.PercentualNivelDeInspecao, pd.TipoJunta } into PendenteGroup
                              where PendenteGroup.Count() > 0
                              select new { Excesso = ex, Pendentes = PendenteGroup.OrderByDescending(od => od.JuntasNoLote).OrderBy(o => o.QuantidadeInspecionada) }).ToList();
 

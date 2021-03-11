@@ -46,11 +46,11 @@ namespace WinCTB_CTS.Module.ServiceProcess.Calculator.Tubulacao.ProcessoLote {
                         CriteriaOperator CriterioFormacao = string.Empty;
 
                         if (ensaio == ENDS.LPPM)
-                            CriterioFormacao = CriteriaOperator.Parse($"Contrato.Oid = ? And Ensaio = ? And PercentualNivelDeInspecao = ? And JuntasNoLote < QuantidadeNecessaria", contrato.Oid, ensaio, juntaComponente.PercLpPm);
+                            CriterioFormacao = CriteriaOperator.Parse($"Contrato.Oid = ? And Ensaio = ? And TipoJunta = ? And PercentualNivelDeInspecao = ? And JuntasNoLote < QuantidadeNecessaria", contrato.Oid, ensaio, juntaComponente.TipoJunta, juntaComponente.PercLpPm);
                         if (ensaio == ENDS.RX)
-                            CriterioFormacao = CriteriaOperator.Parse($"Contrato.Oid = ? And Ensaio = ? And PercentualNivelDeInspecao = ? And JuntasNoLote < QuantidadeNecessaria", contrato.Oid, ensaio, juntaComponente.PercRt);
+                            CriterioFormacao = CriteriaOperator.Parse($"Contrato.Oid = ? And Ensaio = ? And TipoJunta = ? And PercentualNivelDeInspecao = ? And JuntasNoLote < QuantidadeNecessaria", contrato.Oid, ensaio, juntaComponente.TipoJunta, juntaComponente.PercRt);
                         if (ensaio == ENDS.US)
-                            CriterioFormacao = CriteriaOperator.Parse($"Contrato.Oid = ? And Ensaio = ? And PercentualNivelDeInspecao = ? And JuntasNoLote < QuantidadeNecessaria", contrato.Oid, ensaio, juntaComponente.PercUt);
+                            CriterioFormacao = CriteriaOperator.Parse($"Contrato.Oid = ? And Ensaio = ? And TipoJunta = ? And PercentualNivelDeInspecao = ? And JuntasNoLote < QuantidadeNecessaria", contrato.Oid, ensaio, juntaComponente.TipoJunta, juntaComponente.PercUt);
 
                         var loteEstrutura = uow.FindObject<LoteEstrutura>(CriterioFormacao);
 
@@ -115,6 +115,7 @@ namespace WinCTB_CTS.Module.ServiceProcess.Calculator.Tubulacao.ProcessoLote {
 
             lote.Ensaio = ensaio;
             lote.Contrato = contrato;
+            lote.TipoJunta = juntaComponente.TipoJunta;
             lote.QuantidadeNecessaria = QuantidadeDeJunta(lote.PercentualNivelDeInspecao);
             return lote;
         }
@@ -145,12 +146,14 @@ namespace WinCTB_CTS.Module.ServiceProcess.Calculator.Tubulacao.ProcessoLote {
             var FiltroSemLote00 = CriteriaOperator.Parse("Not IsNullOrEmpty(DataVisual)");
             var FiltroSemLote01 = CriteriaOperator.Parse("Not LoteJuntaEstruturas[ LoteEstrutura.Ensaio = ? ].Exists", ensaio);
             var FiltroSemLote02 = new BetweenOperator(field, 0.01, 0.99);
+            var FiltroSemLote03 = new BinaryOperator("Componente.Contrato", contrato.Oid);
 
-            var criteria = new GroupOperator(GroupOperatorType.And, FiltroSemLote00, FiltroSemLote01, FiltroSemLote02);
+            var criteria = new GroupOperator(GroupOperatorType.And, FiltroSemLote00, FiltroSemLote01, FiltroSemLote02, FiltroSemLote03);
             var juntasSemLote = new XPCollection<JuntaComponente>(session);
 
             juntasSemLote.Criteria = criteria;
             juntasSemLote.Sorting.Add(new SortProperty(field, SortingDirection.Ascending));
+            juntasSemLote.Sorting.Add(new SortProperty("TipoJunta", SortingDirection.Ascending));
             juntasSemLote.Sorting.Add(new SortProperty("DataVisual", SortingDirection.Ascending));
 
             return juntasSemLote;
