@@ -4,6 +4,7 @@ using DevExpress.ExpressApp.Xpo;
 using DevExpress.Xpo;
 using DevExpress.Xpo.DB;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Reactive.Linq;
 using System.Threading;
@@ -26,6 +27,7 @@ namespace WinCTB_CTS.Module.ServiceProcess.Calculator.Estrutura.ProcessoLote {
             var uow = new UnitOfWork(provider.GetSimpleDataLayer());
             var contratos = uow.QueryInTransaction<Contrato>();
             var valuesENDS = Enum.GetValues(typeof(ENDS));
+            var LotesAtualizarStatus = new Queue<LoteEstrutura>();
 
             foreach (var contrato in contratos) {
                 foreach (ENDS end in valuesENDS) {
@@ -60,16 +62,13 @@ namespace WinCTB_CTS.Module.ServiceProcess.Calculator.Estrutura.ProcessoLote {
                             var JuntaExcesso = uow.FindObject<LoteJuntaEstrutura>(filtroExecesso);
                             var JuntaPendente = uow.FindObject<LoteJuntaEstrutura>(filtroPendente);
 
+                            //De-Para
                             if (JuntaPendente != null && JuntaExcesso != null && lotePendente.SituacaoInspecao == SituacoesInspecao.Pendente) {
                                 lotePendente.LotejuntaEstruturas.Add(JuntaExcesso);
                                 loteExcesso.LotejuntaEstruturas.Add(JuntaPendente);
                                 JuntaExcesso.InspecaoExcesso = false;
-                                uow.CommitChanges();
-                                
-                                LotesDeEstruturaAlinhamento.AtualizarStatusLote(lotePendente);                                
-                                LotesDeEstruturaAlinhamento.AtualizarStatusLote(loteExcesso);
-                                lotePendente.Save();
-                                loteExcesso.Save();
+                                LotesAtualizarStatus.Enqueue(lotePendente);
+                                LotesAtualizarStatus.Enqueue(loteExcesso);
                                 uow.CommitChanges();
                             }
                         }
@@ -84,7 +83,12 @@ namespace WinCTB_CTS.Module.ServiceProcess.Calculator.Estrutura.ProcessoLote {
                 }
             }
 
-
+            //Atualizar Status dos Lotes Balanceados
+            while (LotesAtualizarStatus.Any()) {
+                var lote = LotesAtualizarStatus.Dequeue();
+                LotesDeEstruturaAlinhamento.AtualizarStatusLote(lote);
+            }
+            uow.CommitChanges();
         }
     }
 }

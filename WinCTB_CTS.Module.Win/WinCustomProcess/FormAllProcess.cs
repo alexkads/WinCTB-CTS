@@ -13,7 +13,9 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using WinCTB_CTS.Module.BusinessObjects.Estrutura.Auxiliar;
+using WinCTB_CTS.Module.BusinessObjects.Estrutura.Lotes;
 using WinCTB_CTS.Module.BusinessObjects.Tubulacao.Auxiliar;
+using WinCTB_CTS.Module.Comum;
 using WinCTB_CTS.Module.Helpers;
 using WinCTB_CTS.Module.ServiceProcess.Base;
 using WinCTB_CTS.Module.ServiceProcess.Calculator.Estrutura.Medicao;
@@ -474,8 +476,14 @@ namespace WinCTB_CTS.Module.Win.WinCustomProcess {
                     toggleSwitchImportarTabelasAuxiliaresEstrutura.ReadOnly = false;
             }
         }
+
         #endregion
 
-
+        private void BtDeletarLotes_Click(object sender, EventArgs e) {          
+            Utilidades.DeleteAllRecords<LoteJuntaEstrutura>(uow);
+            Utilidades.DeleteAllRecords<LoteEstrutura>(uow);
+            uow.CommitChanges();
+            XtraMessageBox.Show("Lotes Excluidos!");
+        }
     }
 }

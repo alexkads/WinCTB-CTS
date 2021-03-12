@@ -31,15 +31,15 @@ namespace WinCTB_CTS.Module.Win.WinCustomProcess
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormAllProcess));
-            DevExpress.Utils.SuperToolTip superToolTip4 = new DevExpress.Utils.SuperToolTip();
-            DevExpress.Utils.ToolTipTitleItem toolTipTitleItem4 = new DevExpress.Utils.ToolTipTitleItem();
-            DevExpress.Utils.ToolTipItem toolTipItem4 = new DevExpress.Utils.ToolTipItem();
-            DevExpress.Utils.SuperToolTip superToolTip5 = new DevExpress.Utils.SuperToolTip();
-            DevExpress.Utils.ToolTipTitleItem toolTipTitleItem5 = new DevExpress.Utils.ToolTipTitleItem();
-            DevExpress.Utils.ToolTipItem toolTipItem5 = new DevExpress.Utils.ToolTipItem();
+            DevExpress.Utils.SuperToolTip superToolTip1 = new DevExpress.Utils.SuperToolTip();
+            DevExpress.Utils.ToolTipTitleItem toolTipTitleItem1 = new DevExpress.Utils.ToolTipTitleItem();
+            DevExpress.Utils.ToolTipItem toolTipItem1 = new DevExpress.Utils.ToolTipItem();
             DevExpress.Utils.SuperToolTip superToolTip2 = new DevExpress.Utils.SuperToolTip();
             DevExpress.Utils.ToolTipTitleItem toolTipTitleItem2 = new DevExpress.Utils.ToolTipTitleItem();
             DevExpress.Utils.ToolTipItem toolTipItem2 = new DevExpress.Utils.ToolTipItem();
+            DevExpress.Utils.SuperToolTip superToolTip3 = new DevExpress.Utils.SuperToolTip();
+            DevExpress.Utils.ToolTipTitleItem toolTipTitleItem3 = new DevExpress.Utils.ToolTipTitleItem();
+            DevExpress.Utils.ToolTipItem toolTipItem3 = new DevExpress.Utils.ToolTipItem();
             this.progressBarControlGeral = new DevExpress.XtraEditors.ProgressBarControl();
             this.BtStartProcess = new DevExpress.XtraEditors.SimpleButton();
             this.labelControlAndamentoDoProcesso = new DevExpress.XtraEditors.LabelControl();
@@ -94,6 +94,7 @@ namespace WinCTB_CTS.Module.Win.WinCustomProcess
             this.toggleSwitchMedicaoTubulacao = new DevExpress.XtraEditors.ToggleSwitch();
             this.separatorControl1 = new DevExpress.XtraEditors.SeparatorControl();
             this.timerProcess = new System.Windows.Forms.Timer(this.components);
+            this.BtDeletarLotes = new DevExpress.XtraEditors.SimpleButton();
             ((System.ComponentModel.ISupportInitialize)(this.progressBarControlGeral.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.checkEditMontagemDeLotes.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.checkEditInspecaoEmLotes.Properties)).BeginInit();
@@ -177,12 +178,12 @@ namespace WinCTB_CTS.Module.Win.WinCustomProcess
             this.BtStartProcess.Location = new System.Drawing.Point(1071, 627);
             this.BtStartProcess.Name = "BtStartProcess";
             this.BtStartProcess.Size = new System.Drawing.Size(131, 40);
-            toolTipTitleItem4.Text = "Informações";
-            toolTipItem4.LeftIndent = 6;
-            toolTipItem4.Text = "Inicializa Processo";
-            superToolTip4.Items.Add(toolTipTitleItem4);
-            superToolTip4.Items.Add(toolTipItem4);
-            this.BtStartProcess.SuperTip = superToolTip4;
+            toolTipTitleItem1.Text = "Informações";
+            toolTipItem1.LeftIndent = 6;
+            toolTipItem1.Text = "Inicializa Processo";
+            superToolTip1.Items.Add(toolTipTitleItem1);
+            superToolTip1.Items.Add(toolTipItem1);
+            this.BtStartProcess.SuperTip = superToolTip1;
             this.BtStartProcess.TabIndex = 1;
             this.BtStartProcess.Text = "Inicializar";
             this.BtStartProcess.Click += new System.EventHandler(this.BtStartProcess_Click);
@@ -237,13 +238,14 @@ namespace WinCTB_CTS.Module.Win.WinCustomProcess
             // 
             this.groupControl1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left)));
+            this.groupControl1.Controls.Add(this.BtDeletarLotes);
             this.groupControl1.Controls.Add(this.checkEditInspecaoEmLotes);
             this.groupControl1.Controls.Add(this.checkEditAlinhamentoDeLotes);
             this.groupControl1.Controls.Add(this.checkEditMontagemDeLotes);
             this.groupControl1.Controls.Add(this.checkEditBalanceamento);
             this.groupControl1.Location = new System.Drawing.Point(609, 478);
             this.groupControl1.Name = "groupControl1";
-            this.groupControl1.Size = new System.Drawing.Size(196, 137);
+            this.groupControl1.Size = new System.Drawing.Size(196, 162);
             this.groupControl1.TabIndex = 8;
             this.groupControl1.Text = "Lotes de Estrutura";
             // 
@@ -585,12 +587,12 @@ namespace WinCTB_CTS.Module.Win.WinCustomProcess
             this.toggleSwitchImportarTabelasAuxiliaresEstrutura.Properties.OffText = "Off";
             this.toggleSwitchImportarTabelasAuxiliaresEstrutura.Properties.OnText = "On";
             this.toggleSwitchImportarTabelasAuxiliaresEstrutura.Size = new System.Drawing.Size(95, 24);
-            toolTipTitleItem5.Text = "Informação";
-            toolTipItem5.LeftIndent = 6;
-            toolTipItem5.Text = "Ativa ou Desativa importação de tabelas auxiliares de Estrutura";
-            superToolTip5.Items.Add(toolTipTitleItem5);
-            superToolTip5.Items.Add(toolTipItem5);
-            this.toggleSwitchImportarTabelasAuxiliaresEstrutura.SuperTip = superToolTip5;
+            toolTipTitleItem2.Text = "Informação";
+            toolTipItem2.LeftIndent = 6;
+            toolTipItem2.Text = "Ativa ou Desativa importação de tabelas auxiliares de Estrutura";
+            superToolTip2.Items.Add(toolTipTitleItem2);
+            superToolTip2.Items.Add(toolTipItem2);
+            this.toggleSwitchImportarTabelasAuxiliaresEstrutura.SuperTip = superToolTip2;
             this.toggleSwitchImportarTabelasAuxiliaresEstrutura.TabIndex = 16;
             // 
             // groupControl9
@@ -639,12 +641,12 @@ namespace WinCTB_CTS.Module.Win.WinCustomProcess
             this.BtCancelar.Location = new System.Drawing.Point(17, 627);
             this.BtCancelar.Name = "BtCancelar";
             this.BtCancelar.Size = new System.Drawing.Size(131, 40);
-            toolTipTitleItem2.Text = "Informações";
-            toolTipItem2.LeftIndent = 6;
-            toolTipItem2.Text = "Inicializa Processo";
-            superToolTip2.Items.Add(toolTipTitleItem2);
-            superToolTip2.Items.Add(toolTipItem2);
-            this.BtCancelar.SuperTip = superToolTip2;
+            toolTipTitleItem3.Text = "Informações";
+            toolTipItem3.LeftIndent = 6;
+            toolTipItem3.Text = "Inicializa Processo";
+            superToolTip3.Items.Add(toolTipTitleItem3);
+            superToolTip3.Items.Add(toolTipItem3);
+            this.BtCancelar.SuperTip = superToolTip3;
             this.BtCancelar.TabIndex = 25;
             this.BtCancelar.Text = "Cancelar";
             this.BtCancelar.Click += new System.EventHandler(this.BtCancelar_Click);
@@ -715,6 +717,15 @@ namespace WinCTB_CTS.Module.Win.WinCustomProcess
             this.separatorControl1.Name = "separatorControl1";
             this.separatorControl1.Size = new System.Drawing.Size(1190, 23);
             this.separatorControl1.TabIndex = 4;
+            // 
+            // BtDeletarLotes
+            // 
+            this.BtDeletarLotes.Location = new System.Drawing.Point(57, 127);
+            this.BtDeletarLotes.Name = "BtDeletarLotes";
+            this.BtDeletarLotes.Size = new System.Drawing.Size(75, 23);
+            this.BtDeletarLotes.TabIndex = 28;
+            this.BtDeletarLotes.Text = "Deletar Lotes";
+            this.BtDeletarLotes.Click += new System.EventHandler(this.BtDeletarLotes_Click);
             // 
             // FormAllProcess
             // 
@@ -870,5 +881,6 @@ namespace WinCTB_CTS.Module.Win.WinCustomProcess
         private DevExpress.XtraEditors.CheckEdit checkEditAtualizacaoStatusJuntaComponenteMV32;
         private DevExpress.XtraEditors.SeparatorControl separatorControl1;
         private System.Windows.Forms.Timer timerProcess;
+        private DevExpress.XtraEditors.SimpleButton BtDeletarLotes;
     }
 }
