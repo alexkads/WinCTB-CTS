@@ -180,13 +180,13 @@ namespace WinCTB_CTS.Module.ServiceProcess.Calculator.Tubulacao.Medicao {
                         uow.RollbackTransaction();
                         throw new Exception("Process aborted by system");
                     }
-                }
 
-                progress.Report(new ImportProgressReport {
-                    TotalRows = QuantidadeDeSpool,
-                    CurrentRow = i,
-                    MessageImport = $"Fechando Spools: {i}/{QuantidadeDeSpool}"
-                });
+                    progress.Report(new ImportProgressReport {
+                        TotalRows = QuantidadeDeSpool,
+                        CurrentRow = i,
+                        MessageImport = $"Fechando Spools: {i}/{QuantidadeDeSpool}"
+                    });
+                }
             }
 
             progress.Report(new ImportProgressReport {

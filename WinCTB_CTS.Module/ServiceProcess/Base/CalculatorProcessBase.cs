@@ -77,7 +77,7 @@ namespace WinCTB_CTS.Module.ServiceProcess.Base {
                     //Mapear importação
                     OnMapImporter(uow, DataTableImport, linha, TotalRowsForImporter, i);
 
-                    if (i % 100 == 0) {
+                    if (i % 1000 == 0) {
                         try {
                             uow.CommitTransaction();
                         } catch {
