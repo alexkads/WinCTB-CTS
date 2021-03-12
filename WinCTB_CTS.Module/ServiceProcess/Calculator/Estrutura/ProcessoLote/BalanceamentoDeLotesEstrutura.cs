@@ -64,9 +64,14 @@ namespace WinCTB_CTS.Module.ServiceProcess.Calculator.Estrutura.ProcessoLote {
 
                             //De-Para
                             if (JuntaPendente != null && JuntaExcesso != null && lotePendente.SituacaoInspecao == SituacoesInspecao.Pendente) {
-                                lotePendente.LotejuntaEstruturas.Add(JuntaExcesso);
-                                loteExcesso.LotejuntaEstruturas.Add(JuntaPendente);
+
+                                //de                                
                                 JuntaExcesso.InspecaoExcesso = false;
+                                JuntaExcesso.LoteEstrutura = lotePendente;
+
+                                //Para
+                                JuntaPendente.LoteEstrutura = loteExcesso;
+
                                 LotesAtualizarStatus.Enqueue(lotePendente);
                                 LotesAtualizarStatus.Enqueue(loteExcesso);
                                 uow.CommitChanges();
