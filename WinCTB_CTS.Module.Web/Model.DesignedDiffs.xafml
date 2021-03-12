@@ -1,6 +1,11 @@
-﻿<?xml version="1.0"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Application>
   <Options CollectionsEditMode="Edit" />
+  <SchemaModules>
+    <SchemaModule Name="CloneObjectModule" Version="18.2.14.0" IsNewNode="True" />
+    <SchemaModule Name="SystemAspNetModule" Version="18.2.14.0" IsNewNode="True" />
+    <SchemaModule Name="SystemModule" Version="18.2.14.0" IsNewNode="True" />
+  </SchemaModules>
   <ViewItems>
     <PropertyEditor Name="PropertyEditors">
       <RegisteredPropertyEditor PropertyType="System.Drawing.Color" EditorType="DevExpress.ExpressApp.Web.Editors.ASPx.ASPxColorPickerPropertyEditor" />
