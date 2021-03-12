@@ -99,17 +99,15 @@ namespace WinCTB_CTS.Module.Win.WinCustomProcess {
             RegisterWindowsManipulation.SetRegister(PathFileForImportTubulacao, BtnPathImportTubulacao.Text);
         }
 
-        public void LogTrace(ImportProgressReport value) {        
-            BeginInvoke(new Action(() => {
-                progressBarControlGeral.Properties.Maximum = value.TotalRows;
-                labelControlAndamentoDoProcesso.Text = $"Tempo: {stopwatch.Elapsed.ToString()} - Processo: {value.MessageImport}";
+        public void LogTrace(ImportProgressReport value) {
+            progressBarControlGeral.Properties.Maximum = value.TotalRows;
+            labelControlAndamentoDoProcesso.Text = $"Tempo: {stopwatch.Elapsed.ToString()} - Processo: {value.MessageImport}";
 
-                if (value.CurrentRow > 0)
-                    progressBarControlGeral.EditValue = value.CurrentRow;
+            if (value.CurrentRow > 0)
+                progressBarControlGeral.EditValue = value.CurrentRow;
 
-                progressBarControlGeral.Update();
-                labelControlAndamentoDoProcesso.Update();
-            }));      
+            progressBarControlGeral.Update();
+            labelControlAndamentoDoProcesso.Update();
         }
 
         private void LigarToggles(bool IsOn = false) {
@@ -246,7 +244,7 @@ namespace WinCTB_CTS.Module.Win.WinCustomProcess {
         private void StopTimer() {
             timerProcess.Stop();
             stopwatch.Stop();
-            
+
         }
         //private void TimerProcess_Tick(object sender, EventArgs e) {
         //    progressPanel1.Caption = stopwatch.Elapsed.ToString();            

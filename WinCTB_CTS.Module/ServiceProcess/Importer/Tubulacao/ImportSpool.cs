@@ -20,7 +20,7 @@ namespace WinCTB_CTS.Module.ServiceProcess.Importer.Tubulacao
         protected override void OnMapImporter(UnitOfWork uow, DataTable dataTable, DataRow rowForMap, int expectedTotal, int currentIndex)
         {
             base.OnMapImporter(uow, dataTable, rowForMap, expectedTotal, currentIndex);
-
+                
             if (currentIndex >= 7)
             {
                 cancellationToken.ThrowIfCancellationRequested();

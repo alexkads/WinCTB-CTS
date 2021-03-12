@@ -79,5 +79,19 @@ namespace WinCTB_CTS.Module.Helpers
             IDataLayer dataLayer = new SimpleDataLayer(dict, store);
             return dataLayer;
         }
+
+        public IDataLayer GetDataLayerThreadSafe() {
+            XpoDefault.Session = null;
+            string conn = ConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString;
+            Guard.ArgumentNotNull(conn, "connection");
+
+            conn = XpoDefault.GetConnectionPoolString(conn);
+            XPDictionary dict = new ReflectionDictionary();
+            IDataStore store = XpoDefault.GetConnectionProvider(conn, AutoCreateOption.None);
+            dict.GetDataStoreSchema(System.Reflection.Assembly.GetExecutingAssembly());
+
+            IDataLayer dataLayer = new ThreadSafeDataLayer(dict, store);
+            return dataLayer;
+        }
     }
 }

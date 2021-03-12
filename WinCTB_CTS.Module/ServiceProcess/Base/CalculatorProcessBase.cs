@@ -35,7 +35,7 @@ namespace WinCTB_CTS.Module.ServiceProcess.Base {
         }
 
         public async Task ProcessarTarefaWithStream(string TabName, string ResourceNameExemplo, string PathFileForImport) {
-            await Task.Run(async () => {
+            await Task.Factory.StartNew(async () => {
                 Stream streamResourceNameExemplo = GetManifestResource(ResourceNameExemplo);
                 MemoryStream stream = new MemoryStream();
                 StreamReader streamReader;
@@ -59,7 +59,7 @@ namespace WinCTB_CTS.Module.ServiceProcess.Base {
                     var dtcollectionImport = excelReader.CreateDataTableCollection(false);
                     await InitializeImportWithStream(TabName, dtcollectionImport[TabName], _progress);
                 };
-            });
+            }, cancellationToken, TaskCreationOptions.LongRunning, TaskScheduler.Default);
         }
 
         public async Task InitializeImportWithStream(string TabName, DataTable DataTableImport, IProgress<ImportProgressReport> progress) {
@@ -89,7 +89,7 @@ namespace WinCTB_CTS.Module.ServiceProcess.Base {
                             CurrentRow = i + 1,
                             MessageImport = $"Importando tabela {TabName} {i}/{TotalRowsForImporter}"
                         });
-                    }  
+                    }
                 });
 
                 progress.Report(new ImportProgressReport {
@@ -107,7 +107,7 @@ namespace WinCTB_CTS.Module.ServiceProcess.Base {
                     CurrentRow = TotalRowsForImporter,
                     MessageImport = $"Finalizado {TabName}!"
                 });
-            });
+            }, cancellationToken, TaskCreationOptions.LongRunning, TaskScheduler.Default); ;
         }
 
         protected virtual void OnCalculator(ProviderDataLayer provider, CancellationToken cancellationToken, IProgress<ImportProgressReport> progress) {
