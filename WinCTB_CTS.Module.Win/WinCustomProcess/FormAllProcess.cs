@@ -235,7 +235,8 @@ namespace WinCTB_CTS.Module.Win.WinCustomProcess {
 
         #region Cronometro
         private void StartTimer() {
-            timerProcess.Start();
+            timerProcess.Interval = 100;
+            timerProcess.Start();            
             stopwatch.Reset();
             stopwatch.Start();
         }
