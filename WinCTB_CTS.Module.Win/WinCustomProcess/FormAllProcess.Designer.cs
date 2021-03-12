@@ -31,20 +31,19 @@ namespace WinCTB_CTS.Module.Win.WinCustomProcess
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormAllProcess));
-            DevExpress.Utils.SuperToolTip superToolTip1 = new DevExpress.Utils.SuperToolTip();
-            DevExpress.Utils.ToolTipTitleItem toolTipTitleItem1 = new DevExpress.Utils.ToolTipTitleItem();
-            DevExpress.Utils.ToolTipItem toolTipItem1 = new DevExpress.Utils.ToolTipItem();
-            DevExpress.Utils.SuperToolTip superToolTip2 = new DevExpress.Utils.SuperToolTip();
-            DevExpress.Utils.ToolTipTitleItem toolTipTitleItem2 = new DevExpress.Utils.ToolTipTitleItem();
-            DevExpress.Utils.ToolTipItem toolTipItem2 = new DevExpress.Utils.ToolTipItem();
-            DevExpress.Utils.SuperToolTip superToolTip3 = new DevExpress.Utils.SuperToolTip();
-            DevExpress.Utils.ToolTipTitleItem toolTipTitleItem3 = new DevExpress.Utils.ToolTipTitleItem();
-            DevExpress.Utils.ToolTipItem toolTipItem3 = new DevExpress.Utils.ToolTipItem();
+            DevExpress.Utils.SuperToolTip superToolTip8 = new DevExpress.Utils.SuperToolTip();
+            DevExpress.Utils.ToolTipTitleItem toolTipTitleItem8 = new DevExpress.Utils.ToolTipTitleItem();
+            DevExpress.Utils.ToolTipItem toolTipItem8 = new DevExpress.Utils.ToolTipItem();
+            DevExpress.Utils.SuperToolTip superToolTip9 = new DevExpress.Utils.SuperToolTip();
+            DevExpress.Utils.ToolTipTitleItem toolTipTitleItem9 = new DevExpress.Utils.ToolTipTitleItem();
+            DevExpress.Utils.ToolTipItem toolTipItem9 = new DevExpress.Utils.ToolTipItem();
+            DevExpress.Utils.SuperToolTip superToolTip7 = new DevExpress.Utils.SuperToolTip();
+            DevExpress.Utils.ToolTipTitleItem toolTipTitleItem7 = new DevExpress.Utils.ToolTipTitleItem();
+            DevExpress.Utils.ToolTipItem toolTipItem7 = new DevExpress.Utils.ToolTipItem();
             this.progressBarControlGeral = new DevExpress.XtraEditors.ProgressBarControl();
             this.BtStartProcess = new DevExpress.XtraEditors.SimpleButton();
             this.labelControlAndamentoDoProcesso = new DevExpress.XtraEditors.LabelControl();
             this.checkEditMontagemDeLotes = new DevExpress.XtraEditors.CheckEdit();
-            this.separatorControl1 = new DevExpress.XtraEditors.SeparatorControl();
             this.checkEditInspecaoEmLotes = new DevExpress.XtraEditors.CheckEdit();
             this.checkEditBalanceamento = new DevExpress.XtraEditors.CheckEdit();
             this.checkEditAlinhamentoDeLotes = new DevExpress.XtraEditors.CheckEdit();
@@ -93,9 +92,11 @@ namespace WinCTB_CTS.Module.Win.WinCustomProcess
             this.checkEditMedicaoSpool = new DevExpress.XtraEditors.CheckEdit();
             this.toggleSwitchMedicaoEstrutura = new DevExpress.XtraEditors.ToggleSwitch();
             this.toggleSwitchMedicaoTubulacao = new DevExpress.XtraEditors.ToggleSwitch();
+            this.separatorControl1 = new DevExpress.XtraEditors.SeparatorControl();
+            this.timerProcess = new System.Windows.Forms.Timer(this.components);
+            this.textBoxCronometro = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.progressBarControlGeral.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.checkEditMontagemDeLotes.Properties)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.separatorControl1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.checkEditInspecaoEmLotes.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.checkEditBalanceamento.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.checkEditAlinhamentoDeLotes.Properties)).BeginInit();
@@ -153,6 +154,7 @@ namespace WinCTB_CTS.Module.Win.WinCustomProcess
             ((System.ComponentModel.ISupportInitialize)(this.checkEditMedicaoSpool.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.toggleSwitchMedicaoEstrutura.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.toggleSwitchMedicaoTubulacao.Properties)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.separatorControl1)).BeginInit();
             this.SuspendLayout();
             // 
             // progressBarControlGeral
@@ -176,12 +178,12 @@ namespace WinCTB_CTS.Module.Win.WinCustomProcess
             this.BtStartProcess.Location = new System.Drawing.Point(1071, 627);
             this.BtStartProcess.Name = "BtStartProcess";
             this.BtStartProcess.Size = new System.Drawing.Size(131, 40);
-            toolTipTitleItem1.Text = "Informações";
-            toolTipItem1.LeftIndent = 6;
-            toolTipItem1.Text = "Inicializa Processo";
-            superToolTip1.Items.Add(toolTipTitleItem1);
-            superToolTip1.Items.Add(toolTipItem1);
-            this.BtStartProcess.SuperTip = superToolTip1;
+            toolTipTitleItem8.Text = "Informações";
+            toolTipItem8.LeftIndent = 6;
+            toolTipItem8.Text = "Inicializa Processo";
+            superToolTip8.Items.Add(toolTipTitleItem8);
+            superToolTip8.Items.Add(toolTipItem8);
+            this.BtStartProcess.SuperTip = superToolTip8;
             this.BtStartProcess.TabIndex = 1;
             this.BtStartProcess.Text = "Inicializar";
             this.BtStartProcess.Click += new System.EventHandler(this.BtStartProcess_Click);
@@ -204,15 +206,6 @@ namespace WinCTB_CTS.Module.Win.WinCustomProcess
             this.checkEditMontagemDeLotes.Properties.ReadOnly = true;
             this.checkEditMontagemDeLotes.Size = new System.Drawing.Size(186, 19);
             this.checkEditMontagemDeLotes.TabIndex = 3;
-            // 
-            // separatorControl1
-            // 
-            this.separatorControl1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.separatorControl1.Location = new System.Drawing.Point(12, 62);
-            this.separatorControl1.Name = "separatorControl1";
-            this.separatorControl1.Size = new System.Drawing.Size(1190, 23);
-            this.separatorControl1.TabIndex = 4;
             // 
             // checkEditInspecaoEmLotes
             // 
@@ -593,12 +586,12 @@ namespace WinCTB_CTS.Module.Win.WinCustomProcess
             this.toggleSwitchImportarTabelasAuxiliaresEstrutura.Properties.OffText = "Off";
             this.toggleSwitchImportarTabelasAuxiliaresEstrutura.Properties.OnText = "On";
             this.toggleSwitchImportarTabelasAuxiliaresEstrutura.Size = new System.Drawing.Size(95, 24);
-            toolTipTitleItem2.Text = "Informação";
-            toolTipItem2.LeftIndent = 6;
-            toolTipItem2.Text = "Ativa ou Desativa importação de tabelas auxiliares de Estrutura";
-            superToolTip2.Items.Add(toolTipTitleItem2);
-            superToolTip2.Items.Add(toolTipItem2);
-            this.toggleSwitchImportarTabelasAuxiliaresEstrutura.SuperTip = superToolTip2;
+            toolTipTitleItem9.Text = "Informação";
+            toolTipItem9.LeftIndent = 6;
+            toolTipItem9.Text = "Ativa ou Desativa importação de tabelas auxiliares de Estrutura";
+            superToolTip9.Items.Add(toolTipTitleItem9);
+            superToolTip9.Items.Add(toolTipItem9);
+            this.toggleSwitchImportarTabelasAuxiliaresEstrutura.SuperTip = superToolTip9;
             this.toggleSwitchImportarTabelasAuxiliaresEstrutura.TabIndex = 16;
             // 
             // groupControl9
@@ -647,12 +640,12 @@ namespace WinCTB_CTS.Module.Win.WinCustomProcess
             this.BtCancelar.Location = new System.Drawing.Point(17, 627);
             this.BtCancelar.Name = "BtCancelar";
             this.BtCancelar.Size = new System.Drawing.Size(131, 40);
-            toolTipTitleItem3.Text = "Informações";
-            toolTipItem3.LeftIndent = 6;
-            toolTipItem3.Text = "Inicializa Processo";
-            superToolTip3.Items.Add(toolTipTitleItem3);
-            superToolTip3.Items.Add(toolTipItem3);
-            this.BtCancelar.SuperTip = superToolTip3;
+            toolTipTitleItem7.Text = "Informações";
+            toolTipItem7.LeftIndent = 6;
+            toolTipItem7.Text = "Inicializa Processo";
+            superToolTip7.Items.Add(toolTipTitleItem7);
+            superToolTip7.Items.Add(toolTipItem7);
+            this.BtCancelar.SuperTip = superToolTip7;
             this.BtCancelar.TabIndex = 25;
             this.BtCancelar.Text = "Cancelar";
             this.BtCancelar.Click += new System.EventHandler(this.BtCancelar_Click);
@@ -715,11 +708,36 @@ namespace WinCTB_CTS.Module.Win.WinCustomProcess
             this.toggleSwitchMedicaoTubulacao.Size = new System.Drawing.Size(95, 24);
             this.toggleSwitchMedicaoTubulacao.TabIndex = 27;
             // 
+            // separatorControl1
+            // 
+            this.separatorControl1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.separatorControl1.Location = new System.Drawing.Point(12, 62);
+            this.separatorControl1.Name = "separatorControl1";
+            this.separatorControl1.Size = new System.Drawing.Size(1190, 23);
+            this.separatorControl1.TabIndex = 4;
+            // 
+            // textBoxCronometro
+            // 
+            this.textBoxCronometro.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.textBoxCronometro.BackColor = System.Drawing.SystemColors.WindowFrame;
+            this.textBoxCronometro.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.textBoxCronometro.Font = new System.Drawing.Font("Consolas", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.textBoxCronometro.ForeColor = System.Drawing.SystemColors.Info;
+            this.textBoxCronometro.Location = new System.Drawing.Point(1033, 43);
+            this.textBoxCronometro.Name = "textBoxCronometro";
+            this.textBoxCronometro.ReadOnly = true;
+            this.textBoxCronometro.Size = new System.Drawing.Size(169, 19);
+            this.textBoxCronometro.TabIndex = 29;
+            this.textBoxCronometro.Text = "00:00:00";
+            this.textBoxCronometro.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
             // FormAllProcess
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1214, 679);
+            this.Controls.Add(this.textBoxCronometro);
             this.Controls.Add(this.toggleSwitchMedicaoTubulacao);
             this.Controls.Add(this.toggleSwitchMedicaoEstrutura);
             this.Controls.Add(this.groupControl11);
@@ -747,7 +765,6 @@ namespace WinCTB_CTS.Module.Win.WinCustomProcess
             this.Text = "Importação de dados";
             ((System.ComponentModel.ISupportInitialize)(this.progressBarControlGeral.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.checkEditMontagemDeLotes.Properties)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.separatorControl1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.checkEditInspecaoEmLotes.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.checkEditBalanceamento.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.checkEditAlinhamentoDeLotes.Properties)).EndInit();
@@ -808,6 +825,7 @@ namespace WinCTB_CTS.Module.Win.WinCustomProcess
             ((System.ComponentModel.ISupportInitialize)(this.checkEditMedicaoSpool.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.toggleSwitchMedicaoEstrutura.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.toggleSwitchMedicaoTubulacao.Properties)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.separatorControl1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -819,7 +837,6 @@ namespace WinCTB_CTS.Module.Win.WinCustomProcess
         private DevExpress.XtraEditors.SimpleButton BtStartProcess;
         private DevExpress.XtraEditors.LabelControl labelControlAndamentoDoProcesso;
         private DevExpress.XtraEditors.CheckEdit checkEditMontagemDeLotes;
-        private DevExpress.XtraEditors.SeparatorControl separatorControl1;
         private DevExpress.XtraEditors.CheckEdit checkEditInspecaoEmLotes;
         private DevExpress.XtraEditors.CheckEdit checkEditBalanceamento;
         private DevExpress.XtraEditors.CheckEdit checkEditAlinhamentoDeLotes;
@@ -868,5 +885,8 @@ namespace WinCTB_CTS.Module.Win.WinCustomProcess
         private DevExpress.XtraEditors.ToggleSwitch toggleSwitchMedicaoTubulacao;
         private DevExpress.XtraEditors.CheckEdit checkEditAtualizacaoStatusJuntaComponenteSepetiba;
         private DevExpress.XtraEditors.CheckEdit checkEditAtualizacaoStatusJuntaComponenteMV32;
+        private DevExpress.XtraEditors.SeparatorControl separatorControl1;
+        private System.Windows.Forms.Timer timerProcess;
+        private System.Windows.Forms.TextBox textBoxCronometro;
     }
 }

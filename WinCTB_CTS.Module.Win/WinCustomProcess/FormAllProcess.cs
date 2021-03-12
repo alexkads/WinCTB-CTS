@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
 using System.Text;
@@ -26,6 +27,7 @@ using WinCTB_CTS.Module.Win.Services;
 namespace WinCTB_CTS.Module.Win.WinCustomProcess {
     public partial class FormAllProcess : DevExpress.XtraEditors.XtraForm {
         private CancellationTokenSource _cancellationTokenSource;
+        private Stopwatch stopwatch;
         private ProviderDataLayer provider;
         private UnitOfWork uow;
         private IProgress<ImportProgressReport> progressLocal;
@@ -48,6 +50,8 @@ namespace WinCTB_CTS.Module.Win.WinCustomProcess {
             base.OnActivated(e);
             provider = new ProviderDataLayer();
             uow = new UnitOfWork(provider.GetSimpleDataLayer());
+            stopwatch = new Stopwatch();
+            timerProcess.Tick += TimerProcess_Tick;
         }
 
         protected override void OnDeactivate(EventArgs e) {
@@ -163,6 +167,9 @@ namespace WinCTB_CTS.Module.Win.WinCustomProcess {
             progressLocal = new Progress<ImportProgressReport>(LogTrace);
             
             BtCancelar.Enabled = !BtStartProcess.Enabled;
+            
+           
+            StartTimer();
 
             //Importação Tabela Aulixiares Tubulação
             if (toggleSwitchImportarTabelasAuxiliaresTubulacao.IsOn) {
@@ -223,7 +230,25 @@ namespace WinCTB_CTS.Module.Win.WinCustomProcess {
 
             BtStartProcess.Enabled = true;
             BtCancelar.Enabled = !BtStartProcess.Enabled;
+            StopTimer();
         }
+
+        #region Cronometro
+        private void StartTimer() {
+            timerProcess.Start();
+            stopwatch.Reset();
+            stopwatch.Start();
+        }
+
+        private void StopTimer() {
+            timerProcess.Stop();
+            stopwatch.Stop();
+        }
+        private void TimerProcess_Tick(object sender, EventArgs e) {
+            BeginInvoke(new Action(() => textBoxCronometro.Text = stopwatch.Elapsed.ToString()));
+        }
+        #endregion
+
 
         private async Task ImportarContratoEstrutura(CancellationToken cancellationToken, IProgress<ImportProgressReport> progress) {
             CheckEditEmAndamento(checkEditContratoEstrutura);
