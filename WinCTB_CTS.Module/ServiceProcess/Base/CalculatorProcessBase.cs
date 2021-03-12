@@ -6,11 +6,13 @@ using System.Data;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
+using System.Reactive.Concurrency;
 using System.Reactive.Linq;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using WinCTB_CTS.Module.Helpers;
+using WinCTB_CTS.Module.Comum;
 
 namespace WinCTB_CTS.Module.ServiceProcess.Base {
     public abstract class CalculatorProcessBase : IDisposable {
@@ -29,13 +31,13 @@ namespace WinCTB_CTS.Module.ServiceProcess.Base {
         }
 
         public async Task ProcessarTarefaSimples() {
-            await Task.Factory.StartNew(() => {
+            await Task.Run(() => {
                 OnCalculator(_providerDataLayer, cancellationToken, _progress);
             });
         }
 
         public async Task ProcessarTarefaWithStream(string TabName, string ResourceNameExemplo, string PathFileForImport) {
-            await Task.Factory.StartNew(async () => {
+            await Task.Run(async () => {
                 Stream streamResourceNameExemplo = GetManifestResource(ResourceNameExemplo);
                 MemoryStream stream = new MemoryStream();
                 StreamReader streamReader;
@@ -59,22 +61,34 @@ namespace WinCTB_CTS.Module.ServiceProcess.Base {
                     var dtcollectionImport = excelReader.CreateDataTableCollection(false);
                     await InitializeImportWithStream(TabName, dtcollectionImport[TabName], _progress);
                 };
-            }, cancellationToken, TaskCreationOptions.LongRunning, TaskScheduler.Default);
+            });
         }
 
         public async Task InitializeImportWithStream(string TabName, DataTable DataTableImport, IProgress<ImportProgressReport> progress) {
-            await Task.Factory.StartNew(() => {
-                UnitOfWork uow = new UnitOfWork(_providerDataLayer.GetCacheDataLayer());
+            await Task.Run(() => {
                 var TotalRowsForImporter = DataTableImport.Rows.Count;
+                UnitOfWork uow = new UnitOfWork(_providerDataLayer.GetDataLayerThreadSafe());
+
+                //var queryParts = DataTableImport.Rows.AsEnumerable().Select((x, y) => new { x.ItemArray, y }).SplitQuery(10);
+
+                //var tasks = new List<Task>();
+
+                //foreach (var parts in queryParts) {
+                //    tasks.Add(Task.Run(() => {
+                //        foreach (var item in parts) {
+                //            var teste = item.ItemArray;
+                //        }
+                //    }));
+                //}
+
+                //Task.WhenAll(tasks);
 
                 uow.BeginTransaction();
 
-                Observable.Range(0, TotalRowsForImporter)
-                .Subscribe(i => {
+                for (int i = 0; i < TotalRowsForImporter; i++) {
                     cancellationToken.ThrowIfCancellationRequested();
                     var linha = DataTableImport.Rows[i];
 
-                    //Mapear importação
                     OnMapImporter(uow, DataTableImport, linha, TotalRowsForImporter, i);
 
                     if (i % 1000 == 0) {
@@ -90,7 +104,7 @@ namespace WinCTB_CTS.Module.ServiceProcess.Base {
                             MessageImport = $"Importando tabela {TabName} {i}/{TotalRowsForImporter}"
                         });
                     }
-                });
+                }
 
                 progress.Report(new ImportProgressReport {
                     TotalRows = TotalRowsForImporter,
@@ -107,7 +121,7 @@ namespace WinCTB_CTS.Module.ServiceProcess.Base {
                     CurrentRow = TotalRowsForImporter,
                     MessageImport = $"Finalizado {TabName}!"
                 });
-            }, cancellationToken, TaskCreationOptions.LongRunning, TaskScheduler.Default); ;
+            });
         }
 
         protected virtual void OnCalculator(ProviderDataLayer provider, CancellationToken cancellationToken, IProgress<ImportProgressReport> progress) {

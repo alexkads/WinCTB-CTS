@@ -23,7 +23,7 @@ using System.Collections;
 
 namespace WinCTB_CTS.Module.Comum
 {
-    public static class Utils
+    public static class Utilidades
     {
         public static string Left(this string str, int length)
         {
@@ -33,6 +33,18 @@ namespace WinCTB_CTS.Module.Comum
         public static T GetMasterObjectFromListView<T>(this View view)
         {
             return (T)(((ListView)view).CollectionSource as PropertyCollectionSource).MasterObject;
+        }
+
+        public static IEnumerable<IEnumerable<T>> SplitQuery<T>(this IEnumerable<T> list, int parts) {
+            int i = 0;
+            var splits = from item in list
+                         group item by i++ % parts into part
+                         select part.AsEnumerable();
+            return splits;
+        }
+
+        public static IEnumerable<DataRow> AsEnumerable(this DataRowCollection source) {
+            return source.Cast<DataRow>();
         }
 
         public static void PurgeAllRecords<T>(Session session)

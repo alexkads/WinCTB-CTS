@@ -42,16 +42,16 @@ namespace WinCTB_CTS.Module.ServiceProcess.Importer.Tubulacao
                     TabContrato = new TabEAPPipe(uow);
 
                 TabContrato.Contrato = contrato;
-                TabContrato.AvancoSpoolCorteFab = Utils.ConvertDouble(lheader("AvancoSpoolCorteFab", currentIndex));
-                TabContrato.AvancoSpoolVAFab = Utils.ConvertDouble(lheader("AvancoSpoolVAFab", currentIndex));
-                TabContrato.AvancoSpoolSoldaFab = Utils.ConvertDouble(lheader("AvancoSpoolSoldaFab", currentIndex));
-                TabContrato.AvancoSpoolENDFab = Utils.ConvertDouble(lheader("AvancoSpoolENDFab", currentIndex));
-                TabContrato.AvancoSpoolPosicionamento = Utils.ConvertDouble(lheader("AvancoSpoolPosicionamento", currentIndex));
+                TabContrato.AvancoSpoolCorteFab = Utilidades.ConvertDouble(lheader("AvancoSpoolCorteFab", currentIndex));
+                TabContrato.AvancoSpoolVAFab = Utilidades.ConvertDouble(lheader("AvancoSpoolVAFab", currentIndex));
+                TabContrato.AvancoSpoolSoldaFab = Utilidades.ConvertDouble(lheader("AvancoSpoolSoldaFab", currentIndex));
+                TabContrato.AvancoSpoolENDFab = Utilidades.ConvertDouble(lheader("AvancoSpoolENDFab", currentIndex));
+                TabContrato.AvancoSpoolPosicionamento = Utilidades.ConvertDouble(lheader("AvancoSpoolPosicionamento", currentIndex));
 
-                TabContrato.AvancoJuntaVAMont = Utils.ConvertDouble(lheader("AvancoJuntaVAMont", currentIndex));
-                TabContrato.AvancoJuntaSoldMont = Utils.ConvertDouble(lheader("AvancoJuntaSoldMont", currentIndex));
-                TabContrato.AvancoJuntaENDMont = Utils.ConvertDouble(lheader("AvancoJuntaENDMont", currentIndex));
-                TabContrato.AvancoSpoolLineCheck = Utils.ConvertDouble(lheader("AvancoSpoolLineCheck", currentIndex));
+                TabContrato.AvancoJuntaVAMont = Utilidades.ConvertDouble(lheader("AvancoJuntaVAMont", currentIndex));
+                TabContrato.AvancoJuntaSoldMont = Utilidades.ConvertDouble(lheader("AvancoJuntaSoldMont", currentIndex));
+                TabContrato.AvancoJuntaENDMont = Utilidades.ConvertDouble(lheader("AvancoJuntaENDMont", currentIndex));
+                TabContrato.AvancoSpoolLineCheck = Utilidades.ConvertDouble(lheader("AvancoSpoolLineCheck", currentIndex));
             }
         }
     }

@@ -58,18 +58,18 @@ namespace WinCTB_CTS.Module.ServiceProcess.Importer.Estrutura {
                 componente.PesoTotal = Convert.ToDouble(linha[10]);
                 componente.AreaPintura = Convert.ToDouble(linha[11]);
                 componente.RelatorioRecebimento = linha[14].ToString();
-                componente.DataRecebimento = Utils.ConvertDateTime(linha[15]);
+                componente.DataRecebimento = Utilidades.ConvertDateTime(linha[15]);
                 componente.PesoTotal = Convert.ToDouble(linha[10]);
                 componente.ProgFitup = Convert.ToInt32(linha[16]);
                 componente.ProgWeld = Convert.ToInt32(linha[17]);
                 componente.ProgNdt = Convert.ToInt32(linha[18]);
-                componente.DataPosicionamento = Utils.ConvertDateTime(linha[19]);
+                componente.DataPosicionamento = Utilidades.ConvertDateTime(linha[19]);
                 componente.RelatorioDimensional = linha[26].ToString();
-                componente.DataDimensional = Utils.ConvertDateTime(linha[27]);
+                componente.DataDimensional = Utilidades.ConvertDateTime(linha[27]);
                 componente.ProgPintura = linha[28].ToString();
                 componente.RelPintura = linha[29].ToString();
                 componente.InspPintura = linha[30].ToString();
-                componente.DataPintura = Utils.ConvertDateTime(linha[31]);
+                componente.DataPintura = Utilidades.ConvertDateTime(linha[31]);
                 componente.StatusPeca = linha[32].ToString();
             }
         }

@@ -25,8 +25,8 @@ namespace WinCTB_CTS.Module.ServiceProcess.Importer.Tubulacao
                 cancellationToken.ThrowIfCancellationRequested();
                 var row = rowForMap;
                 var polegada = row[0].ToString();
-                var wdi = Utils.ConvertDouble(row[1]);
-                var mm = Utils.ConvertINT(row[2]);
+                var wdi = Utilidades.ConvertDouble(row[1]);
+                var mm = Utilidades.ConvertINT(row[2]);
 
                 var criteriaOperator = new BinaryOperator("DiametroPolegada", polegada);
                 var tabDiametro = uow.FindObject<TabDiametro>(criteriaOperator);

@@ -43,10 +43,10 @@ namespace WinCTB_CTS.Module.ServiceProcess.Importer.Estrutura
 
                 eap.Contrato = contrato;
                 eap.Modulo = modulo;
-                eap.Posicionamento = Utils.ConvertDouble(lheader("Posicionamento", currentIndex));
-                eap.Acoplamento = Utils.ConvertDouble(lheader("Acoplamento", currentIndex));
-                eap.Solda = Utils.ConvertDouble(lheader("Solda", currentIndex));
-                eap.End = Utils.ConvertDouble(lheader("End", currentIndex));
+                eap.Posicionamento = Utilidades.ConvertDouble(lheader("Posicionamento", currentIndex));
+                eap.Acoplamento = Utilidades.ConvertDouble(lheader("Acoplamento", currentIndex));
+                eap.Solda = Utilidades.ConvertDouble(lheader("Solda", currentIndex));
+                eap.End = Utilidades.ConvertDouble(lheader("End", currentIndex));
             }
         }
     }

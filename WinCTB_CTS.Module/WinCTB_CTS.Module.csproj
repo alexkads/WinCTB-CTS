@@ -212,7 +212,7 @@
       <DependentUpon>Module.cs</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Comum\Utils.cs" />
+    <Compile Include="Comum\Utilidades.cs" />
     <Compile Include="RelatorioParametros\CustomReportParametersObjectBase.cs" />
     <Compile Include="RelatorioParametros\JuntaComponenteParameters.cs" />
     <Compile Include="RelatorioParametros\JuntaSpoolParameters.cs" />

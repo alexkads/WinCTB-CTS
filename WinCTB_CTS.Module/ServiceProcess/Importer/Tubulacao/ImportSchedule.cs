@@ -57,7 +57,7 @@ namespace WinCTB_CTS.Module.ServiceProcess.Importer.Tubulacao
                             numeroLinha = idxrow,
                             pipingClass = row[0].ToString(),
                             material = row[1].ToString(),
-                            wdi = Utils.ConvertDouble(((dt.Rows[0])[idxcol]).ToString()),
+                            wdi = Utilidades.ConvertDouble(((dt.Rows[0])[idxcol]).ToString()),
                             scheduleTag = row[idxcol].ToString()
                         });
                     }

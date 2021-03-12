@@ -25,7 +25,7 @@ namespace WinCTB_CTS.Module.ServiceProcess.Importer.Tubulacao
                 cancellationToken.ThrowIfCancellationRequested();
                 var row = rowForMap;
                 var spec = row[0].ToString();
-                var insp = Utils.ConvertDouble(row[1]) * 0.01D;
+                var insp = Utilidades.ConvertDouble(row[1]) * 0.01D;
 
                 var criteriaOperator = new BinaryOperator("Spec", spec);
                 var tabperc = uow.FindObject<TabPercInspecao>(criteriaOperator);
