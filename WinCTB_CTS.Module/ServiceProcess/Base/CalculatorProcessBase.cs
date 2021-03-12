@@ -35,25 +35,25 @@ namespace WinCTB_CTS.Module.ServiceProcess.Base {
         }
 
         public async Task ProcessarTarefaWithStream(string TabName, string ResourceNameExemplo, string PathFileForImport) {
-            Stream streamResourceNameExemplo = GetManifestResource(ResourceNameExemplo);
+            await Task.Run(async () => {
+                Stream streamResourceNameExemplo = GetManifestResource(ResourceNameExemplo);
+                MemoryStream stream = new MemoryStream();
+                StreamReader streamReader;
+                stream.Seek(0, SeekOrigin.Begin);
 
-            MemoryStream stream = new MemoryStream();
-            StreamReader streamReader;
-            stream.Seek(0, SeekOrigin.Begin);
+                if (!String.IsNullOrWhiteSpace(PathFileForImport)) {
+                    streamReader = GetFileStream(PathFileForImport);
+                    streamReader.BaseStream.CopyTo(stream);
+                } else {
+                    streamResourceNameExemplo.CopyTo(stream);
+                }
 
-            if (!String.IsNullOrWhiteSpace(PathFileForImport)) {
-                streamReader = GetFileStream(PathFileForImport);
-                streamReader.BaseStream.CopyTo(stream);
-            } else {
-                streamResourceNameExemplo.CopyTo(stream);
-            }
-
-            stream.Seek(0, SeekOrigin.Begin);
-
-            using (var excelReader = new ExcelDataReaderHelper.Excel.Reader(stream)) {
-                var dtcollectionImport = excelReader.CreateDataTableCollection(false);
-                await InitializeImportWithStream(TabName, dtcollectionImport[TabName], _progress);
-            }
+                stream.Seek(0, SeekOrigin.Begin);
+                using (var excelReader = new ExcelDataReaderHelper.Excel.Reader(stream)) {
+                    var dtcollectionImport = excelReader.CreateDataTableCollection(false);
+                    await InitializeImportWithStream(TabName, dtcollectionImport[TabName], _progress);
+                };
+            });
         }
 
         public async Task InitializeImportWithStream(string TabName, DataTable DataTableImport, IProgress<ImportProgressReport> progress) {
@@ -74,25 +74,23 @@ namespace WinCTB_CTS.Module.ServiceProcess.Base {
                     cancellationToken.ThrowIfCancellationRequested();
                     var linha = DataTableImport.Rows[i];
 
-                    progress.Report(new ImportProgressReport {
-                        TotalRows = TotalRowsForImporter,
-                        CurrentRow = i + 1,
-                        MessageImport = $"Importando tabela {TabName} {i}/{TotalRowsForImporter}"
-                    });
-
                     //Mapear importação
                     OnMapImporter(uow, DataTableImport, linha, TotalRowsForImporter, i);
 
-                    if (i % 1000 == 0) {
+                    if (i % 100 == 0) {
                         try {
                             uow.CommitTransaction();
                         } catch {
                             uow.RollbackTransaction();
                             throw new Exception("Process aborted by system");
                         }
-                    }
+                        progress.Report(new ImportProgressReport {
+                            TotalRows = TotalRowsForImporter,
+                            CurrentRow = i + 1,
+                            MessageImport = $"Importando tabela {TabName} {i}/{TotalRowsForImporter}"
+                        });
+                    }  
                 });
-
 
                 progress.Report(new ImportProgressReport {
                     TotalRows = TotalRowsForImporter,
