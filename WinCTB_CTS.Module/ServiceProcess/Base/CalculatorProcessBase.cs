@@ -48,6 +48,12 @@ namespace WinCTB_CTS.Module.ServiceProcess.Base {
                     streamResourceNameExemplo.CopyTo(stream);
                 }
 
+                _progress.Report(new ImportProgressReport {
+                    TotalRows = 100,
+                    CurrentRow = 0,
+                    MessageImport = $"Inicializando importação da tabela {TabName}"
+                });
+
                 stream.Seek(0, SeekOrigin.Begin);
                 using (var excelReader = new ExcelDataReaderHelper.Excel.Reader(stream)) {
                     var dtcollectionImport = excelReader.CreateDataTableCollection(false);
@@ -60,12 +66,6 @@ namespace WinCTB_CTS.Module.ServiceProcess.Base {
             await Task.Factory.StartNew(() => {
                 UnitOfWork uow = new UnitOfWork(_providerDataLayer.GetCacheDataLayer());
                 var TotalRowsForImporter = DataTableImport.Rows.Count;
-
-                progress.Report(new ImportProgressReport {
-                    TotalRows = TotalRowsForImporter,
-                    CurrentRow = 0,
-                    MessageImport = $"Inicializando importação da tabela {TabName}"
-                });
 
                 uow.BeginTransaction();
 
