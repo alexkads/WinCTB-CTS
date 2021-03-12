@@ -74,6 +74,12 @@ namespace WinCTB_CTS.Module.ServiceProcess.Base {
                     cancellationToken.ThrowIfCancellationRequested();
                     var linha = DataTableImport.Rows[i];
 
+                    progress.Report(new ImportProgressReport {
+                        TotalRows = TotalRowsForImporter,
+                        CurrentRow = i + 1,
+                        MessageImport = $"Importando tabela {TabName} {i}/{TotalRowsForImporter}"
+                    });
+
                     //Mapear importação
                     OnMapImporter(uow, DataTableImport, linha, TotalRowsForImporter, i);
 
@@ -84,12 +90,6 @@ namespace WinCTB_CTS.Module.ServiceProcess.Base {
                             uow.RollbackTransaction();
                             throw new Exception("Process aborted by system");
                         }
-
-                        progress.Report(new ImportProgressReport {
-                            TotalRows = TotalRowsForImporter,
-                            CurrentRow = i + 1,
-                            MessageImport = $"Importando tabela {TabName} {i}/{TotalRowsForImporter}"
-                        });
                     }
                 });
 

@@ -51,7 +51,7 @@ namespace WinCTB_CTS.Module.Win.WinCustomProcess {
             provider = new ProviderDataLayer();
             uow = new UnitOfWork(provider.GetSimpleDataLayer());
             stopwatch = new Stopwatch();
-            timerProcess.Tick += TimerProcess_Tick;
+            //timerProcess.Tick += TimerProcess_Tick;
         }
 
         protected override void OnDeactivate(EventArgs e) {
@@ -101,7 +101,8 @@ namespace WinCTB_CTS.Module.Win.WinCustomProcess {
 
         public void LogTrace(ImportProgressReport value) {
             progressBarControlGeral.Properties.Maximum = value.TotalRows;
-            labelControlAndamentoDoProcesso.Text = value.MessageImport;
+            labelControlAndamentoDoProcesso.Text = $"Tempo: {stopwatch.Elapsed.ToString()} - Processo: {value.MessageImport}";
+            //progressPanel1.Description = value.MessageImport;
 
             if (value.CurrentRow > 0)
                 progressBarControlGeral.EditValue = value.CurrentRow;
@@ -159,16 +160,16 @@ namespace WinCTB_CTS.Module.Win.WinCustomProcess {
         }
 
         private async void BtStartProcess_Click(object sender, EventArgs e) {
-            
+
             LocateCheckeditToReset();
             BtStartProcess.Enabled = false;
             _cancellationTokenSource = new CancellationTokenSource();
             var cancellationToken = _cancellationTokenSource.Token;
             progressLocal = new Progress<ImportProgressReport>(LogTrace);
-            
+
             BtCancelar.Enabled = !BtStartProcess.Enabled;
-            
-           
+
+
             StartTimer();
 
             //Importação Tabela Aulixiares Tubulação
@@ -235,8 +236,8 @@ namespace WinCTB_CTS.Module.Win.WinCustomProcess {
 
         #region Cronometro
         private void StartTimer() {
-            timerProcess.Interval = 100;
-            timerProcess.Start();            
+            //timerProcess.Interval = 100;
+            //timerProcess.Start();
             stopwatch.Reset();
             stopwatch.Start();
         }
@@ -245,9 +246,9 @@ namespace WinCTB_CTS.Module.Win.WinCustomProcess {
             timerProcess.Stop();
             stopwatch.Stop();
         }
-        private void TimerProcess_Tick(object sender, EventArgs e) {
-            BeginInvoke(new Action(() => textBoxCronometro.Text = stopwatch.Elapsed.ToString()));
-        }
+        //private void TimerProcess_Tick(object sender, EventArgs e) {
+        //    progressPanel1.Caption = stopwatch.Elapsed.ToString();            
+        //}
         #endregion
 
 

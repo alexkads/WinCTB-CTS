@@ -31,15 +31,15 @@ namespace WinCTB_CTS.Module.Win.WinCustomProcess
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormAllProcess));
-            DevExpress.Utils.SuperToolTip superToolTip8 = new DevExpress.Utils.SuperToolTip();
-            DevExpress.Utils.ToolTipTitleItem toolTipTitleItem8 = new DevExpress.Utils.ToolTipTitleItem();
-            DevExpress.Utils.ToolTipItem toolTipItem8 = new DevExpress.Utils.ToolTipItem();
-            DevExpress.Utils.SuperToolTip superToolTip9 = new DevExpress.Utils.SuperToolTip();
-            DevExpress.Utils.ToolTipTitleItem toolTipTitleItem9 = new DevExpress.Utils.ToolTipTitleItem();
-            DevExpress.Utils.ToolTipItem toolTipItem9 = new DevExpress.Utils.ToolTipItem();
-            DevExpress.Utils.SuperToolTip superToolTip7 = new DevExpress.Utils.SuperToolTip();
-            DevExpress.Utils.ToolTipTitleItem toolTipTitleItem7 = new DevExpress.Utils.ToolTipTitleItem();
-            DevExpress.Utils.ToolTipItem toolTipItem7 = new DevExpress.Utils.ToolTipItem();
+            DevExpress.Utils.SuperToolTip superToolTip4 = new DevExpress.Utils.SuperToolTip();
+            DevExpress.Utils.ToolTipTitleItem toolTipTitleItem4 = new DevExpress.Utils.ToolTipTitleItem();
+            DevExpress.Utils.ToolTipItem toolTipItem4 = new DevExpress.Utils.ToolTipItem();
+            DevExpress.Utils.SuperToolTip superToolTip5 = new DevExpress.Utils.SuperToolTip();
+            DevExpress.Utils.ToolTipTitleItem toolTipTitleItem5 = new DevExpress.Utils.ToolTipTitleItem();
+            DevExpress.Utils.ToolTipItem toolTipItem5 = new DevExpress.Utils.ToolTipItem();
+            DevExpress.Utils.SuperToolTip superToolTip2 = new DevExpress.Utils.SuperToolTip();
+            DevExpress.Utils.ToolTipTitleItem toolTipTitleItem2 = new DevExpress.Utils.ToolTipTitleItem();
+            DevExpress.Utils.ToolTipItem toolTipItem2 = new DevExpress.Utils.ToolTipItem();
             this.progressBarControlGeral = new DevExpress.XtraEditors.ProgressBarControl();
             this.BtStartProcess = new DevExpress.XtraEditors.SimpleButton();
             this.labelControlAndamentoDoProcesso = new DevExpress.XtraEditors.LabelControl();
@@ -94,7 +94,6 @@ namespace WinCTB_CTS.Module.Win.WinCustomProcess
             this.toggleSwitchMedicaoTubulacao = new DevExpress.XtraEditors.ToggleSwitch();
             this.separatorControl1 = new DevExpress.XtraEditors.SeparatorControl();
             this.timerProcess = new System.Windows.Forms.Timer(this.components);
-            this.textBoxCronometro = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.progressBarControlGeral.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.checkEditMontagemDeLotes.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.checkEditInspecaoEmLotes.Properties)).BeginInit();
@@ -178,12 +177,12 @@ namespace WinCTB_CTS.Module.Win.WinCustomProcess
             this.BtStartProcess.Location = new System.Drawing.Point(1071, 627);
             this.BtStartProcess.Name = "BtStartProcess";
             this.BtStartProcess.Size = new System.Drawing.Size(131, 40);
-            toolTipTitleItem8.Text = "Informações";
-            toolTipItem8.LeftIndent = 6;
-            toolTipItem8.Text = "Inicializa Processo";
-            superToolTip8.Items.Add(toolTipTitleItem8);
-            superToolTip8.Items.Add(toolTipItem8);
-            this.BtStartProcess.SuperTip = superToolTip8;
+            toolTipTitleItem4.Text = "Informações";
+            toolTipItem4.LeftIndent = 6;
+            toolTipItem4.Text = "Inicializa Processo";
+            superToolTip4.Items.Add(toolTipTitleItem4);
+            superToolTip4.Items.Add(toolTipItem4);
+            this.BtStartProcess.SuperTip = superToolTip4;
             this.BtStartProcess.TabIndex = 1;
             this.BtStartProcess.Text = "Inicializar";
             this.BtStartProcess.Click += new System.EventHandler(this.BtStartProcess_Click);
@@ -586,12 +585,12 @@ namespace WinCTB_CTS.Module.Win.WinCustomProcess
             this.toggleSwitchImportarTabelasAuxiliaresEstrutura.Properties.OffText = "Off";
             this.toggleSwitchImportarTabelasAuxiliaresEstrutura.Properties.OnText = "On";
             this.toggleSwitchImportarTabelasAuxiliaresEstrutura.Size = new System.Drawing.Size(95, 24);
-            toolTipTitleItem9.Text = "Informação";
-            toolTipItem9.LeftIndent = 6;
-            toolTipItem9.Text = "Ativa ou Desativa importação de tabelas auxiliares de Estrutura";
-            superToolTip9.Items.Add(toolTipTitleItem9);
-            superToolTip9.Items.Add(toolTipItem9);
-            this.toggleSwitchImportarTabelasAuxiliaresEstrutura.SuperTip = superToolTip9;
+            toolTipTitleItem5.Text = "Informação";
+            toolTipItem5.LeftIndent = 6;
+            toolTipItem5.Text = "Ativa ou Desativa importação de tabelas auxiliares de Estrutura";
+            superToolTip5.Items.Add(toolTipTitleItem5);
+            superToolTip5.Items.Add(toolTipItem5);
+            this.toggleSwitchImportarTabelasAuxiliaresEstrutura.SuperTip = superToolTip5;
             this.toggleSwitchImportarTabelasAuxiliaresEstrutura.TabIndex = 16;
             // 
             // groupControl9
@@ -640,12 +639,12 @@ namespace WinCTB_CTS.Module.Win.WinCustomProcess
             this.BtCancelar.Location = new System.Drawing.Point(17, 627);
             this.BtCancelar.Name = "BtCancelar";
             this.BtCancelar.Size = new System.Drawing.Size(131, 40);
-            toolTipTitleItem7.Text = "Informações";
-            toolTipItem7.LeftIndent = 6;
-            toolTipItem7.Text = "Inicializa Processo";
-            superToolTip7.Items.Add(toolTipTitleItem7);
-            superToolTip7.Items.Add(toolTipItem7);
-            this.BtCancelar.SuperTip = superToolTip7;
+            toolTipTitleItem2.Text = "Informações";
+            toolTipItem2.LeftIndent = 6;
+            toolTipItem2.Text = "Inicializa Processo";
+            superToolTip2.Items.Add(toolTipTitleItem2);
+            superToolTip2.Items.Add(toolTipItem2);
+            this.BtCancelar.SuperTip = superToolTip2;
             this.BtCancelar.TabIndex = 25;
             this.BtCancelar.Text = "Cancelar";
             this.BtCancelar.Click += new System.EventHandler(this.BtCancelar_Click);
@@ -717,27 +716,11 @@ namespace WinCTB_CTS.Module.Win.WinCustomProcess
             this.separatorControl1.Size = new System.Drawing.Size(1190, 23);
             this.separatorControl1.TabIndex = 4;
             // 
-            // textBoxCronometro
-            // 
-            this.textBoxCronometro.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.textBoxCronometro.BackColor = System.Drawing.SystemColors.WindowFrame;
-            this.textBoxCronometro.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.textBoxCronometro.Font = new System.Drawing.Font("Consolas", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBoxCronometro.ForeColor = System.Drawing.SystemColors.Info;
-            this.textBoxCronometro.Location = new System.Drawing.Point(1033, 43);
-            this.textBoxCronometro.Name = "textBoxCronometro";
-            this.textBoxCronometro.ReadOnly = true;
-            this.textBoxCronometro.Size = new System.Drawing.Size(169, 19);
-            this.textBoxCronometro.TabIndex = 29;
-            this.textBoxCronometro.Text = "00:00:00";
-            this.textBoxCronometro.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            // 
             // FormAllProcess
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1214, 679);
-            this.Controls.Add(this.textBoxCronometro);
             this.Controls.Add(this.toggleSwitchMedicaoTubulacao);
             this.Controls.Add(this.toggleSwitchMedicaoEstrutura);
             this.Controls.Add(this.groupControl11);
@@ -887,6 +870,5 @@ namespace WinCTB_CTS.Module.Win.WinCustomProcess
         private DevExpress.XtraEditors.CheckEdit checkEditAtualizacaoStatusJuntaComponenteMV32;
         private DevExpress.XtraEditors.SeparatorControl separatorControl1;
         private System.Windows.Forms.Timer timerProcess;
-        private System.Windows.Forms.TextBox textBoxCronometro;
     }
 }
