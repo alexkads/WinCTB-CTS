@@ -654,7 +654,7 @@ namespace WinCTB_CTS.Module.Win.WinCustomProcess
             superToolTip3.Items.Add(toolTipItem3);
             this.BtCancelar.SuperTip = superToolTip3;
             this.BtCancelar.TabIndex = 25;
-            this.BtCancelar.Text = "Fechar";
+            this.BtCancelar.Text = "Cancelar";
             this.BtCancelar.Click += new System.EventHandler(this.BtCancelar_Click);
             // 
             // groupControl10

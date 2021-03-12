@@ -58,6 +58,7 @@ namespace WinCTB_CTS.Module.Win.WinCustomProcess {
 
         private void init() {
             labelControlAndamentoDoProcesso.Text = string.Empty;
+            BtCancelar.Enabled = false;
             LocateCheckeditToReset();
             LigarToggles();
 
@@ -154,11 +155,14 @@ namespace WinCTB_CTS.Module.Win.WinCustomProcess {
         }
 
         private async void BtStartProcess_Click(object sender, EventArgs e) {
+            
             LocateCheckeditToReset();
             BtStartProcess.Enabled = false;
             _cancellationTokenSource = new CancellationTokenSource();
             var cancellationToken = _cancellationTokenSource.Token;
             progressLocal = new Progress<ImportProgressReport>(LogTrace);
+            
+            BtCancelar.Enabled = !BtStartProcess.Enabled;
 
             //Importação Tabela Aulixiares Tubulação
             if (toggleSwitchImportarTabelasAuxiliaresTubulacao.IsOn) {
@@ -218,6 +222,7 @@ namespace WinCTB_CTS.Module.Win.WinCustomProcess {
             }
 
             BtStartProcess.Enabled = true;
+            BtCancelar.Enabled = !BtStartProcess.Enabled;
         }
 
         private async Task ImportarContratoEstrutura(CancellationToken cancellationToken, IProgress<ImportProgressReport> progress) {

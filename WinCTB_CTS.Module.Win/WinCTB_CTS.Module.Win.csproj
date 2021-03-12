@@ -278,6 +278,7 @@
       <DependentUpon>XtraProgressImport.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Model.DesignedDiffs.xafml" />
+    <EmbeddedResource Include="Properties\licenses.licx" />
     <EmbeddedResource Include="Templates\DetailRibbonFormTemplate.resx">
       <DependentUpon>DetailRibbonFormTemplate.cs</DependentUpon>
     </EmbeddedResource>
