@@ -1,4 +1,5 @@
-﻿using DevExpress.Xpo;
+﻿using DevExpress.Data.Filtering;
+using DevExpress.Xpo;
 using DevExpress.XtraEditors;
 using DevExpress.XtraEditors.Controls;
 using System;
@@ -482,9 +483,11 @@ namespace WinCTB_CTS.Module.Win.WinCustomProcess {
 
         #endregion
 
-        private void BtDeletarLotes_Click(object sender, EventArgs e) {          
+        private void BtDeletarLotes_Click(object sender, EventArgs e) {
             Utilidades.DeleteAllRecords<LoteJuntaEstrutura>(uow);
             Utilidades.DeleteAllRecords<LoteEstrutura>(uow);
+            var idg = uow.FindObject<DevExpress.Persistent.BaseImpl.OidGenerator>(new BinaryOperator("Type", "WinCTB_CTS.Module.BusinessObjects.Estrutura.Lotes.LoteEstrutura"));
+            uow.Delete(idg);
             uow.CommitChanges();
             XtraMessageBox.Show("Lotes Excluidos!");
         }
