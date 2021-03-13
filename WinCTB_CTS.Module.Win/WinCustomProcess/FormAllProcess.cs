@@ -50,8 +50,7 @@ namespace WinCTB_CTS.Module.Win.WinCustomProcess {
 
         protected override void OnActivated(EventArgs e) {
             base.OnActivated(e);
-            provider = new ProviderDataLayer();
-            uow = new UnitOfWork(provider.GetSimpleDataLayer());
+
             
             //timerProcess.Tick += TimerProcess_Tick;
         }
@@ -64,6 +63,9 @@ namespace WinCTB_CTS.Module.Win.WinCustomProcess {
 
         private void init() {
             stopwatch = new Stopwatch();
+            provider = new ProviderDataLayer();
+            uow = new UnitOfWork(provider.GetSimpleDataLayer());
+
             labelControlAndamentoDoProcesso.Text = string.Empty;
             BtCancelar.Enabled = false;
             LocateCheckeditToReset();
