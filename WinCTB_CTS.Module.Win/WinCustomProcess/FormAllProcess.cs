@@ -11,6 +11,7 @@ using System.Drawing;
 using System.Linq;
 using System.Reactive.Concurrency;
 using System.Reactive.Linq;
+using System.Reactive.Threading.Tasks;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
@@ -112,7 +113,7 @@ namespace WinCTB_CTS.Module.Win.WinCustomProcess {
 
         public void LogTubulacao(ImportProgressReport value) {
             progressBarControlTubulacao.Properties.Maximum = value.TotalRows;
-            labelControlAndamentoDoProcessoTubulacao.Text = $"Tempo: {stopwatch.Elapsed.ToString()} - Processo: {value.MessageImport}";
+            labelControlAndamentoDoProcessoTubulacao.Text = $"Tempo: {stopwatch.Elapsed.ToString()} - {value.MessageImport}";
 
             if (value.CurrentRow > 0)
                 progressBarControlTubulacao.EditValue = value.CurrentRow;
@@ -123,7 +124,7 @@ namespace WinCTB_CTS.Module.Win.WinCustomProcess {
 
         public void LogEstrutura(ImportProgressReport value) {
             progressBarControlEstrutura.Properties.Maximum = value.TotalRows;
-            labelControlAndamentoDoProcessoEstrutura.Text = $"Tempo: {stopwatch.Elapsed.ToString()} - Processo: {value.MessageImport}";
+            labelControlAndamentoDoProcessoEstrutura.Text = $"Tempo: {stopwatch.Elapsed.ToString()} - {value.MessageImport}";
 
             if (value.CurrentRow > 0)
                 progressBarControlEstrutura.EditValue = value.CurrentRow;
@@ -193,9 +194,13 @@ namespace WinCTB_CTS.Module.Win.WinCustomProcess {
 
             StartTimer();
 
-            await Task.WhenAll(
-                ProcessosTubulacao(cancellationToken), 
-                ProcessosEstrutura(cancellationToken));
+            await Observable.CombineLatest(
+                ProcessosTubulacao(cancellationToken).ToObservable(),
+                ProcessosEstrutura(cancellationToken).ToObservable());
+
+            //await Task.WhenAll(
+            //    ProcessosTubulacao(cancellationToken), 
+            //    ProcessosEstrutura(cancellationToken));
 
             BtStartProcess.Enabled = true;
             BtCancelar.Enabled = !BtStartProcess.Enabled;
@@ -245,6 +250,10 @@ namespace WinCTB_CTS.Module.Win.WinCustomProcess {
         }
 
         private async Task ProcessosEstrutura(CancellationToken cancellationToken) {
+            
+            
+
+
             //Tabela Auxiliar Estrutura
             if (toggleSwitchImportarTabelasAuxiliaresEstrutura.IsOn) {
                 await ImportarContratoEstrutura(cancellationToken, progressEstrutura);
