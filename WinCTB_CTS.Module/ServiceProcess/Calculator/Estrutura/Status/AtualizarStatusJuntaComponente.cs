@@ -37,7 +37,8 @@ namespace WinCTB_CTS.Module.ServiceProcess.Calculator.Estrutura.Medicao {
 
             var SaveTemp = new List<dynamic>();
             uow.BeginTransaction();
-            Observable.Range(0, QuantidadeDeJunta).Subscribe(i => {
+
+            for (int i = 0; i < QuantidadeDeJunta; i++) {
                 var junta = juntas[i];
 
                 //x.StatusLp == "AP" || x.StatusPm == "AP" || x.StatusLp == "AL" || x.StatusPm == "AL" || x.LoteJuntaEstruturas.Any(a => a.LoteEstrutura.Ensaio == Interfaces.ENDS.LPPM && a.LoteEstrutura.SituacaoInspecao == Interfaces.SituacoesInspecao.Aprovado)).Sum(s => s.Comprimento);
@@ -75,7 +76,7 @@ namespace WinCTB_CTS.Module.ServiceProcess.Calculator.Estrutura.Medicao {
                         MessageImport = $"Atualização de Status {_contrato} : {i}/{QuantidadeDeJunta}"
                     });
                 }
-            });
+            }
 
             progress.Report(new ImportProgressReport {
                 TotalRows = QuantidadeDeJunta,

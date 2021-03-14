@@ -194,13 +194,9 @@ namespace WinCTB_CTS.Module.Win.WinCustomProcess {
 
             StartTimer();
 
-            await Observable.CombineLatest(
-                ProcessosTubulacao(cancellationToken).ToObservable(),
-                ProcessosEstrutura(cancellationToken).ToObservable());
-
-            //await Task.WhenAll(
-            //    ProcessosTubulacao(cancellationToken), 
-            //    ProcessosEstrutura(cancellationToken));
+            await Task.WhenAll(
+                ProcessosTubulacao(cancellationToken),
+                ProcessosEstrutura(cancellationToken));
 
             BtStartProcess.Enabled = true;
             BtCancelar.Enabled = !BtStartProcess.Enabled;
@@ -250,10 +246,6 @@ namespace WinCTB_CTS.Module.Win.WinCustomProcess {
         }
 
         private async Task ProcessosEstrutura(CancellationToken cancellationToken) {
-
-
-
-
             //Tabela Auxiliar Estrutura
             if (toggleSwitchImportarTabelasAuxiliaresEstrutura.IsOn) {
                 await ImportarContratoEstrutura(cancellationToken, progressEstrutura);

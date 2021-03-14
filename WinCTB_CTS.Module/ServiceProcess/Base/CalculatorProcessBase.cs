@@ -31,9 +31,7 @@ namespace WinCTB_CTS.Module.ServiceProcess.Base {
         }
 
         public async Task ProcessarTarefaSimples() {
-            await Task.Run(() => {
-                OnCalculator(_providerDataLayer, cancellationToken, _progress);
-            });
+            await Task.Run(() => OnCalculator(_providerDataLayer, cancellationToken, _progress));
         }
 
         public async Task ProcessarTarefaWithStream(string TabName, string ResourceNameExemplo, string PathFileForImport) {
