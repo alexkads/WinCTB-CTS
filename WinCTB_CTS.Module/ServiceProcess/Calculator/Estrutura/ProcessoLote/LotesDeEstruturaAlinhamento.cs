@@ -38,22 +38,19 @@ namespace WinCTB_CTS.Module.ServiceProcess.Calculator.Estrutura.ProcessoLote
 
             uow.BeginTransaction();
 
-            Observable.ForEachAsync<LoteEstrutura>(lotes.ToObservable(), lote =>
-            {
+            foreach (var lote in lotes) {
                 AtualizarStatusLote(lote);
                 currentProcess++;
 
-                if (currentProcess % 100 == 0)
-                {
+                if (currentProcess % 100 == 0) {
                     uow.CommitTransaction();
-                    progress.Report(new ImportProgressReport
-                    {
+                    progress.Report(new ImportProgressReport {
                         TotalRows = totalDatastore,
                         CurrentRow = currentProcess,
                         MessageImport = $"Alinhamento lotes {currentProcess}/{totalDatastore}"
                     });
                 }
-            });
+            }
 
             progress.Report(new ImportProgressReport
             {

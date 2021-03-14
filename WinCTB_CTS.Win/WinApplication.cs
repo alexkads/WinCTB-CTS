@@ -7,6 +7,7 @@ using DevExpress.ExpressApp.Updating;
 using DevExpress.ExpressApp.Win.Utils;
 using DevExpress.ExpressApp.Xpo;
 using WinCTB_CTS.Module.Comum;
+using DevExpress.XtraEditors;
 
 namespace WinCTB_CTS.Win
 {
@@ -27,6 +28,7 @@ namespace WinCTB_CTS.Win
             UseLightStyle = true;
             SplashScreen = new DXSplashScreen(typeof(XafSplashScreen), new DefaultOverlayFormOptions());
             ExecuteStartupLogicBeforeClosingLogonWindow = true;
+            WindowsFormsSettings.UseAdvancedFilterEditorControl = DevExpress.Utils.DefaultBoolean.True;
         }
         #endregion
         public WinCTB_CTSWindowsFormsApplication()

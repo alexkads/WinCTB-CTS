@@ -250,8 +250,8 @@ namespace WinCTB_CTS.Module.Win.WinCustomProcess {
         }
 
         private async Task ProcessosEstrutura(CancellationToken cancellationToken) {
-            
-            
+
+
 
 
             //Tabela Auxiliar Estrutura
@@ -516,11 +516,14 @@ namespace WinCTB_CTS.Module.Win.WinCustomProcess {
         #endregion
 
         private void BtDeletarLotes_Click(object sender, EventArgs e) {
-            Utilidades.DeleteAllRecords<LoteJuntaEstrutura>(uow);
-            Utilidades.DeleteAllRecords<LoteEstrutura>(uow);
-            var idg = uow.FindObject<DevExpress.Persistent.BaseImpl.OidGenerator>(new BinaryOperator("Type", "WinCTB_CTS.Module.BusinessObjects.Estrutura.Lotes.LoteEstrutura"));
-            uow.Delete(idg);
-            uow.CommitChanges();
+            using (var LocalUow = new UnitOfWork(provider.GetSimpleDataLayer())) {
+                Utilidades.DeleteAllRecords<LoteJuntaEstrutura>(LocalUow);
+                Utilidades.DeleteAllRecords<LoteEstrutura>(LocalUow);
+                var idg = LocalUow.FindObject<DevExpress.Persistent.BaseImpl.OidGenerator>(new BinaryOperator("Type", "WinCTB_CTS.Module.BusinessObjects.Estrutura.Lotes.LoteEstrutura"));
+                LocalUow.Delete(idg);
+                LocalUow.CommitChanges();
+            }
+
             XtraMessageBox.Show("Lotes Excluidos!");
         }
     }
