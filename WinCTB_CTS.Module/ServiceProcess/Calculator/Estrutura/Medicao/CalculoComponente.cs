@@ -43,7 +43,7 @@ namespace WinCTB_CTS.Module.ServiceProcess.Calculator.Estrutura.Medicao {
             medicao.DataFechamentoMedicao = DateTime.Now;
             medicao.Save();
 
-            Observable.Range(0, QuantidadeDeComponentes).Subscribe(i => {
+            for (int i = 0; i < QuantidadeDeComponentes; i++) {
                 var componente = componentes[i];
                 var detalheMedicaoAnterior = medicaoAnterior is null ? null : uow.FindObject<MedicaoEstruturaDetalhe>(CriteriaOperator.Parse("Componente.Oid = ? And MedicaoEstrutura.Oid = ?", componente.Oid, medicaoAnterior.Oid));
 
@@ -51,7 +51,7 @@ namespace WinCTB_CTS.Module.ServiceProcess.Calculator.Estrutura.Medicao {
                 //MedicaoDetalheHandler.Invoke(this, ExecMedicaoDetalhe(uow, medicao, componente));
                 ExecMedicaoDetalhe(uow, medicao, componente);
 
-                if (i % 1000 == 0) {
+                if (i % 100 == 0) {
                     try {
                         uow.CommitTransaction();
                     } catch {
@@ -65,7 +65,7 @@ namespace WinCTB_CTS.Module.ServiceProcess.Calculator.Estrutura.Medicao {
                         MessageImport = $"Fechando Componentes: {i}/{QuantidadeDeComponentes}"
                     });
                 }
-            });
+            }
 
             progress.Report(new ImportProgressReport {
                 TotalRows = QuantidadeDeComponentes,

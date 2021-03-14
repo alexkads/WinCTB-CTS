@@ -40,14 +40,15 @@ namespace WinCTB_CTS.Module.Win.WinCustomProcess
             DevExpress.Utils.SuperToolTip superToolTip3 = new DevExpress.Utils.SuperToolTip();
             DevExpress.Utils.ToolTipTitleItem toolTipTitleItem3 = new DevExpress.Utils.ToolTipTitleItem();
             DevExpress.Utils.ToolTipItem toolTipItem3 = new DevExpress.Utils.ToolTipItem();
-            this.progressBarControlGeral = new DevExpress.XtraEditors.ProgressBarControl();
+            this.progressBarControlEstrutura = new DevExpress.XtraEditors.ProgressBarControl();
             this.BtStartProcess = new DevExpress.XtraEditors.SimpleButton();
-            this.labelControlAndamentoDoProcesso = new DevExpress.XtraEditors.LabelControl();
+            this.labelControlAndamentoDoProcessoEstrutura = new DevExpress.XtraEditors.LabelControl();
             this.checkEditMontagemDeLotes = new DevExpress.XtraEditors.CheckEdit();
             this.checkEditInspecaoEmLotes = new DevExpress.XtraEditors.CheckEdit();
             this.checkEditBalanceamento = new DevExpress.XtraEditors.CheckEdit();
             this.checkEditAlinhamentoDeLotes = new DevExpress.XtraEditors.CheckEdit();
             this.groupControl1 = new DevExpress.XtraEditors.GroupControl();
+            this.BtDeletarLotes = new DevExpress.XtraEditors.SimpleButton();
             this.groupControl2 = new DevExpress.XtraEditors.GroupControl();
             this.checkEditEAPTubulacao = new DevExpress.XtraEditors.CheckEdit();
             this.checkEditProcessoSoldagem = new DevExpress.XtraEditors.CheckEdit();
@@ -94,8 +95,9 @@ namespace WinCTB_CTS.Module.Win.WinCustomProcess
             this.toggleSwitchMedicaoTubulacao = new DevExpress.XtraEditors.ToggleSwitch();
             this.separatorControl1 = new DevExpress.XtraEditors.SeparatorControl();
             this.timerProcess = new System.Windows.Forms.Timer(this.components);
-            this.BtDeletarLotes = new DevExpress.XtraEditors.SimpleButton();
-            ((System.ComponentModel.ISupportInitialize)(this.progressBarControlGeral.Properties)).BeginInit();
+            this.progressBarControlTubulacao = new DevExpress.XtraEditors.ProgressBarControl();
+            this.labelControlAndamentoDoProcessoTubulacao = new DevExpress.XtraEditors.LabelControl();
+            ((System.ComponentModel.ISupportInitialize)(this.progressBarControlEstrutura.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.checkEditMontagemDeLotes.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.checkEditInspecaoEmLotes.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.checkEditBalanceamento.Properties)).BeginInit();
@@ -155,19 +157,20 @@ namespace WinCTB_CTS.Module.Win.WinCustomProcess
             ((System.ComponentModel.ISupportInitialize)(this.toggleSwitchMedicaoEstrutura.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.toggleSwitchMedicaoTubulacao.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.separatorControl1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.progressBarControlTubulacao.Properties)).BeginInit();
             this.SuspendLayout();
             // 
-            // progressBarControlGeral
+            // progressBarControlEstrutura
             // 
-            this.progressBarControlGeral.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            this.progressBarControlEstrutura.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.progressBarControlGeral.Location = new System.Drawing.Point(12, 12);
-            this.progressBarControlGeral.Name = "progressBarControlGeral";
-            this.progressBarControlGeral.Properties.FlowAnimationEnabled = true;
-            this.progressBarControlGeral.Properties.ShowTitle = true;
-            this.progressBarControlGeral.Properties.Step = 1;
-            this.progressBarControlGeral.Size = new System.Drawing.Size(1190, 24);
-            this.progressBarControlGeral.TabIndex = 0;
+            this.progressBarControlEstrutura.Location = new System.Drawing.Point(12, 12);
+            this.progressBarControlEstrutura.Name = "progressBarControlEstrutura";
+            this.progressBarControlEstrutura.Properties.FlowAnimationEnabled = true;
+            this.progressBarControlEstrutura.Properties.ShowTitle = true;
+            this.progressBarControlEstrutura.Properties.Step = 1;
+            this.progressBarControlEstrutura.Size = new System.Drawing.Size(591, 24);
+            this.progressBarControlEstrutura.TabIndex = 0;
             // 
             // BtStartProcess
             // 
@@ -188,15 +191,15 @@ namespace WinCTB_CTS.Module.Win.WinCustomProcess
             this.BtStartProcess.Text = "Inicializar";
             this.BtStartProcess.Click += new System.EventHandler(this.BtStartProcess_Click);
             // 
-            // labelControlAndamentoDoProcesso
+            // labelControlAndamentoDoProcessoEstrutura
             // 
-            this.labelControlAndamentoDoProcesso.Appearance.Font = new System.Drawing.Font("Tahoma", 12F);
-            this.labelControlAndamentoDoProcesso.Appearance.Options.UseFont = true;
-            this.labelControlAndamentoDoProcesso.Location = new System.Drawing.Point(12, 42);
-            this.labelControlAndamentoDoProcesso.Name = "labelControlAndamentoDoProcesso";
-            this.labelControlAndamentoDoProcesso.Size = new System.Drawing.Size(164, 19);
-            this.labelControlAndamentoDoProcesso.TabIndex = 2;
-            this.labelControlAndamentoDoProcesso.Text = "AndamentoDoProcesso";
+            this.labelControlAndamentoDoProcessoEstrutura.Appearance.Font = new System.Drawing.Font("Tahoma", 12F);
+            this.labelControlAndamentoDoProcessoEstrutura.Appearance.Options.UseFont = true;
+            this.labelControlAndamentoDoProcessoEstrutura.Location = new System.Drawing.Point(12, 42);
+            this.labelControlAndamentoDoProcessoEstrutura.Name = "labelControlAndamentoDoProcessoEstrutura";
+            this.labelControlAndamentoDoProcessoEstrutura.Size = new System.Drawing.Size(164, 19);
+            this.labelControlAndamentoDoProcessoEstrutura.TabIndex = 2;
+            this.labelControlAndamentoDoProcessoEstrutura.Text = "AndamentoDoProcesso";
             // 
             // checkEditMontagemDeLotes
             // 
@@ -248,6 +251,15 @@ namespace WinCTB_CTS.Module.Win.WinCustomProcess
             this.groupControl1.Size = new System.Drawing.Size(196, 162);
             this.groupControl1.TabIndex = 8;
             this.groupControl1.Text = "Lotes de Estrutura";
+            // 
+            // BtDeletarLotes
+            // 
+            this.BtDeletarLotes.Location = new System.Drawing.Point(57, 127);
+            this.BtDeletarLotes.Name = "BtDeletarLotes";
+            this.BtDeletarLotes.Size = new System.Drawing.Size(75, 23);
+            this.BtDeletarLotes.TabIndex = 28;
+            this.BtDeletarLotes.Text = "Deletar Lotes";
+            this.BtDeletarLotes.Click += new System.EventHandler(this.BtDeletarLotes_Click);
             // 
             // groupControl2
             // 
@@ -718,20 +730,35 @@ namespace WinCTB_CTS.Module.Win.WinCustomProcess
             this.separatorControl1.Size = new System.Drawing.Size(1190, 23);
             this.separatorControl1.TabIndex = 4;
             // 
-            // BtDeletarLotes
+            // progressBarControlTubulacao
             // 
-            this.BtDeletarLotes.Location = new System.Drawing.Point(57, 127);
-            this.BtDeletarLotes.Name = "BtDeletarLotes";
-            this.BtDeletarLotes.Size = new System.Drawing.Size(75, 23);
-            this.BtDeletarLotes.TabIndex = 28;
-            this.BtDeletarLotes.Text = "Deletar Lotes";
-            this.BtDeletarLotes.Click += new System.EventHandler(this.BtDeletarLotes_Click);
+            this.progressBarControlTubulacao.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.progressBarControlTubulacao.Location = new System.Drawing.Point(611, 12);
+            this.progressBarControlTubulacao.Name = "progressBarControlTubulacao";
+            this.progressBarControlTubulacao.Properties.FlowAnimationEnabled = true;
+            this.progressBarControlTubulacao.Properties.ShowTitle = true;
+            this.progressBarControlTubulacao.Properties.Step = 1;
+            this.progressBarControlTubulacao.Size = new System.Drawing.Size(591, 24);
+            this.progressBarControlTubulacao.TabIndex = 28;
+            // 
+            // labelControlAndamentoDoProcessoTubulacao
+            // 
+            this.labelControlAndamentoDoProcessoTubulacao.Appearance.Font = new System.Drawing.Font("Tahoma", 12F);
+            this.labelControlAndamentoDoProcessoTubulacao.Appearance.Options.UseFont = true;
+            this.labelControlAndamentoDoProcessoTubulacao.Location = new System.Drawing.Point(611, 42);
+            this.labelControlAndamentoDoProcessoTubulacao.Name = "labelControlAndamentoDoProcessoTubulacao";
+            this.labelControlAndamentoDoProcessoTubulacao.Size = new System.Drawing.Size(164, 19);
+            this.labelControlAndamentoDoProcessoTubulacao.TabIndex = 29;
+            this.labelControlAndamentoDoProcessoTubulacao.Text = "AndamentoDoProcesso";
             // 
             // FormAllProcess
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1214, 679);
+            this.Controls.Add(this.labelControlAndamentoDoProcessoTubulacao);
+            this.Controls.Add(this.progressBarControlTubulacao);
             this.Controls.Add(this.toggleSwitchMedicaoTubulacao);
             this.Controls.Add(this.toggleSwitchMedicaoEstrutura);
             this.Controls.Add(this.groupControl11);
@@ -746,9 +773,9 @@ namespace WinCTB_CTS.Module.Win.WinCustomProcess
             this.Controls.Add(this.toggleSwitchImportarLotesEstrutura);
             this.Controls.Add(this.groupControl1);
             this.Controls.Add(this.separatorControl1);
-            this.Controls.Add(this.labelControlAndamentoDoProcesso);
+            this.Controls.Add(this.labelControlAndamentoDoProcessoEstrutura);
             this.Controls.Add(this.BtStartProcess);
-            this.Controls.Add(this.progressBarControlGeral);
+            this.Controls.Add(this.progressBarControlEstrutura);
             this.FormBorderEffect = DevExpress.XtraEditors.FormBorderEffect.Shadow;
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.MaximizeBox = false;
@@ -757,7 +784,7 @@ namespace WinCTB_CTS.Module.Win.WinCustomProcess
             this.ShowIcon = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Importação de dados";
-            ((System.ComponentModel.ISupportInitialize)(this.progressBarControlGeral.Properties)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.progressBarControlEstrutura.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.checkEditMontagemDeLotes.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.checkEditInspecaoEmLotes.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.checkEditBalanceamento.Properties)).EndInit();
@@ -820,6 +847,7 @@ namespace WinCTB_CTS.Module.Win.WinCustomProcess
             ((System.ComponentModel.ISupportInitialize)(this.toggleSwitchMedicaoEstrutura.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.toggleSwitchMedicaoTubulacao.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.separatorControl1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.progressBarControlTubulacao.Properties)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -827,9 +855,9 @@ namespace WinCTB_CTS.Module.Win.WinCustomProcess
 
         #endregion
 
-        private DevExpress.XtraEditors.ProgressBarControl progressBarControlGeral;
+        private DevExpress.XtraEditors.ProgressBarControl progressBarControlEstrutura;
         private DevExpress.XtraEditors.SimpleButton BtStartProcess;
-        private DevExpress.XtraEditors.LabelControl labelControlAndamentoDoProcesso;
+        private DevExpress.XtraEditors.LabelControl labelControlAndamentoDoProcessoEstrutura;
         private DevExpress.XtraEditors.CheckEdit checkEditMontagemDeLotes;
         private DevExpress.XtraEditors.CheckEdit checkEditInspecaoEmLotes;
         private DevExpress.XtraEditors.CheckEdit checkEditBalanceamento;
@@ -882,5 +910,7 @@ namespace WinCTB_CTS.Module.Win.WinCustomProcess
         private DevExpress.XtraEditors.SeparatorControl separatorControl1;
         private System.Windows.Forms.Timer timerProcess;
         private DevExpress.XtraEditors.SimpleButton BtDeletarLotes;
+        private DevExpress.XtraEditors.ProgressBarControl progressBarControlTubulacao;
+        private DevExpress.XtraEditors.LabelControl labelControlAndamentoDoProcessoTubulacao;
     }
 }

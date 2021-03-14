@@ -9,6 +9,8 @@ using System.Data;
 using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
+using System.Reactive.Concurrency;
+using System.Reactive.Linq;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
@@ -33,7 +35,9 @@ namespace WinCTB_CTS.Module.Win.WinCustomProcess {
         private Stopwatch stopwatch;
         private ProviderDataLayer provider;
         private UnitOfWork uow;
-        private IProgress<ImportProgressReport> progressLocal;
+        private IProgress<ImportProgressReport> progressTubulacao;
+        private IProgress<ImportProgressReport> progressEstrutura;
+
         private readonly Font FontStandard = new Font("Tahoma", 8.25F, FontStyle.Regular);
         private readonly Font FontStrikeout = new Font("Tahoma", 8.25F, FontStyle.Strikeout);
         private readonly Font FontBold = new Font("Tahoma", 10.00F, FontStyle.Bold);
@@ -52,7 +56,7 @@ namespace WinCTB_CTS.Module.Win.WinCustomProcess {
         protected override void OnActivated(EventArgs e) {
             base.OnActivated(e);
 
-            
+
             //timerProcess.Tick += TimerProcess_Tick;
         }
 
@@ -67,7 +71,8 @@ namespace WinCTB_CTS.Module.Win.WinCustomProcess {
             provider = new ProviderDataLayer();
             uow = new UnitOfWork(provider.GetSimpleDataLayer());
 
-            labelControlAndamentoDoProcesso.Text = string.Empty;
+            labelControlAndamentoDoProcessoEstrutura.Text = string.Empty;
+            labelControlAndamentoDoProcessoTubulacao.Text = string.Empty;
             BtCancelar.Enabled = false;
             LocateCheckeditToReset();
             LigarToggles();
@@ -105,15 +110,26 @@ namespace WinCTB_CTS.Module.Win.WinCustomProcess {
             RegisterWindowsManipulation.SetRegister(PathFileForImportTubulacao, BtnPathImportTubulacao.Text);
         }
 
-        public void LogTrace(ImportProgressReport value) {
-            progressBarControlGeral.Properties.Maximum = value.TotalRows;
-            labelControlAndamentoDoProcesso.Text = $"Tempo: {stopwatch.Elapsed.ToString()} - Processo: {value.MessageImport}";
+        public void LogTubulacao(ImportProgressReport value) {
+            progressBarControlTubulacao.Properties.Maximum = value.TotalRows;
+            labelControlAndamentoDoProcessoTubulacao.Text = $"Tempo: {stopwatch.Elapsed.ToString()} - Processo: {value.MessageImport}";
 
             if (value.CurrentRow > 0)
-                progressBarControlGeral.EditValue = value.CurrentRow;
+                progressBarControlTubulacao.EditValue = value.CurrentRow;
 
-            progressBarControlGeral.Update();
-            labelControlAndamentoDoProcesso.Update();
+            progressBarControlTubulacao.Update();
+            labelControlAndamentoDoProcessoTubulacao.Update();
+        }
+
+        public void LogEstrutura(ImportProgressReport value) {
+            progressBarControlEstrutura.Properties.Maximum = value.TotalRows;
+            labelControlAndamentoDoProcessoEstrutura.Text = $"Tempo: {stopwatch.Elapsed.ToString()} - Processo: {value.MessageImport}";
+
+            if (value.CurrentRow > 0)
+                progressBarControlEstrutura.EditValue = value.CurrentRow;
+
+            progressBarControlEstrutura.Update();
+            labelControlAndamentoDoProcessoEstrutura.Update();
         }
 
         private void LigarToggles(bool IsOn = false) {
@@ -170,69 +186,16 @@ namespace WinCTB_CTS.Module.Win.WinCustomProcess {
             BtStartProcess.Enabled = false;
             _cancellationTokenSource = new CancellationTokenSource();
             var cancellationToken = _cancellationTokenSource.Token;
-            progressLocal = new Progress<ImportProgressReport>(LogTrace);
+            progressTubulacao = new Progress<ImportProgressReport>(LogTubulacao);
+            progressEstrutura = new Progress<ImportProgressReport>(LogEstrutura);
 
             BtCancelar.Enabled = !BtStartProcess.Enabled;
 
-
             StartTimer();
 
-            //Importação Tabela Aulixiares Tubulação
-            if (toggleSwitchImportarTabelasAuxiliaresTubulacao.IsOn) {
-                await ImportarContratoTubulacao(cancellationToken, progressLocal);
-                await ImportarDiametro(cancellationToken, progressLocal);
-                await ImportarSchedule(cancellationToken, progressLocal);
-                await ImportarPercInspecao(cancellationToken, progressLocal);
-                await ImportarProcessoDeSoldagem(cancellationToken, progressLocal);
-                await ImportarEAPTubulacao(cancellationToken, progressLocal);
-            }
-
-            //Importação Tubulçao
-            if (toggleSwitchImportarTubulacao.IsOn) {
-                await ImportarSpool(cancellationToken, progressLocal);
-                await ImportarJuntaSpool(cancellationToken, progressLocal);
-            }
-
-            //Medição de Tubulação
-            if (toggleSwitchMedicaoTubulacao.IsOn) {
-                await MedicaoTubulacao(cancellationToken, progressLocal);
-            }
-
-            //Tabela Auxiliar Estrutura
-            if (toggleSwitchImportarTabelasAuxiliaresEstrutura.IsOn) {
-                await ImportarContratoEstrutura(cancellationToken, progressLocal);
-                await ImportarEAPEstrutura(cancellationToken, progressLocal);
-            }
-
-            //Importação Estrutura
-            if (toggleSwitchImportarEstruturaMV32.IsOn) {
-                await ImportarComponenteMV32(cancellationToken, progressLocal);
-                await ImportarJuntaComponenteMV32(cancellationToken, progressLocal);
-                await AtualizacaoStatusJuntaMV32(cancellationToken, progressLocal);
-
-            }
-
-            //Importação Estrutura
-            if (toggleSwitchImportarEstruturaSepetiba.IsOn) {
-                await ImportarComponenteSepetiba(cancellationToken, progressLocal);
-                await ImportarJuntaComponenteSepetiba(cancellationToken, progressLocal);
-                await AtualizacaoStatusJuntaSepetiba(cancellationToken, progressLocal);
-            }
-
-            //Lotes
-            if (toggleSwitchImportarLotesEstrutura.IsOn) {
-                await GerarLotes(cancellationToken, progressLocal);
-                await InserirInspecao(cancellationToken, progressLocal);
-                await Alinhamento(cancellationToken, progressLocal);
-                await Balancealmento(cancellationToken, progressLocal);
-                await AtualizacaoStatusJuntaMV32(cancellationToken, progressLocal);
-                await AtualizacaoStatusJuntaSepetiba(cancellationToken, progressLocal);
-            }
-
-            //Medição de Estrutura
-            if (toggleSwitchMedicaoEstrutura.IsOn) {
-                await MedicaoEstrutura(cancellationToken, progressLocal);
-            }
+            await Task.WhenAll(
+                ProcessosTubulacao(cancellationToken), 
+                ProcessosEstrutura(cancellationToken));
 
             BtStartProcess.Enabled = true;
             BtCancelar.Enabled = !BtStartProcess.Enabled;
@@ -258,9 +221,69 @@ namespace WinCTB_CTS.Module.Win.WinCustomProcess {
         #endregion
 
 
+        private async Task ProcessosTubulacao(CancellationToken cancellationToken) {
+            //Importação Tabela Aulixiares Tubulação
+            if (toggleSwitchImportarTabelasAuxiliaresTubulacao.IsOn) {
+                await ImportarContratoTubulacao(cancellationToken, progressTubulacao);
+                await ImportarDiametro(cancellationToken, progressTubulacao);
+                await ImportarSchedule(cancellationToken, progressTubulacao);
+                await ImportarPercInspecao(cancellationToken, progressTubulacao);
+                await ImportarProcessoDeSoldagem(cancellationToken, progressTubulacao);
+                await ImportarEAPTubulacao(cancellationToken, progressTubulacao);
+            }
+
+            //Importação Tubulçao
+            if (toggleSwitchImportarTubulacao.IsOn) {
+                await ImportarSpool(cancellationToken, progressTubulacao);
+                await ImportarJuntaSpool(cancellationToken, progressTubulacao);
+            }
+
+            //Medição de Tubulação
+            if (toggleSwitchMedicaoTubulacao.IsOn) {
+                await MedicaoTubulacao(cancellationToken, progressTubulacao);
+            }
+        }
+
+        private async Task ProcessosEstrutura(CancellationToken cancellationToken) {
+            //Tabela Auxiliar Estrutura
+            if (toggleSwitchImportarTabelasAuxiliaresEstrutura.IsOn) {
+                await ImportarContratoEstrutura(cancellationToken, progressEstrutura);
+                await ImportarEAPEstrutura(cancellationToken, progressEstrutura);
+            }
+
+            //Importação Estrutura
+            if (toggleSwitchImportarEstruturaMV32.IsOn) {
+                await ImportarComponenteMV32(cancellationToken, progressEstrutura);
+                await ImportarJuntaComponenteMV32(cancellationToken, progressEstrutura);
+                await AtualizacaoStatusJuntaMV32(cancellationToken, progressEstrutura);
+            }
+
+            //Importação Estrutura
+            if (toggleSwitchImportarEstruturaSepetiba.IsOn) {
+                await ImportarComponenteSepetiba(cancellationToken, progressEstrutura);
+                await ImportarJuntaComponenteSepetiba(cancellationToken, progressEstrutura);
+                await AtualizacaoStatusJuntaSepetiba(cancellationToken, progressEstrutura);
+            }
+
+            //Lotes
+            if (toggleSwitchImportarLotesEstrutura.IsOn) {
+                await GerarLotes(cancellationToken, progressEstrutura);
+                await InserirInspecao(cancellationToken, progressEstrutura);
+                await Alinhamento(cancellationToken, progressEstrutura);
+                await Balancealmento(cancellationToken, progressEstrutura);
+                await AtualizacaoStatusJuntaMV32(cancellationToken, progressEstrutura);
+                await AtualizacaoStatusJuntaSepetiba(cancellationToken, progressEstrutura);
+            }
+
+            //Medição de Estrutura
+            if (toggleSwitchMedicaoEstrutura.IsOn) {
+                await MedicaoEstrutura(cancellationToken, progressEstrutura);
+            }
+        }
+
         private async Task ImportarContratoEstrutura(CancellationToken cancellationToken, IProgress<ImportProgressReport> progress) {
             CheckEditEmAndamento(checkEditContratoEstrutura);
-            var processo = new ImportContratoEstrutura(cancellationToken, progressLocal);
+            var processo = new ImportContratoEstrutura(cancellationToken, progress);
             await processo.ProcessarTarefaWithStream("Contrato", "TabelaAuxiliarEstrutura.xlsx", BtnPathImportTabAuxiliarEstrutura.Text);
             processo.Dispose();
             CheckEditProcessado(checkEditContratoEstrutura);
@@ -268,7 +291,7 @@ namespace WinCTB_CTS.Module.Win.WinCustomProcess {
 
         private async Task ImportarEAPEstrutura(CancellationToken cancellationToken, IProgress<ImportProgressReport> progress) {
             CheckEditEmAndamento(checkEditEAPEstrutura);
-            var processo = new ImportEAPEstrutura(cancellationToken, progressLocal);
+            var processo = new ImportEAPEstrutura(cancellationToken, progress);
             await processo.ProcessarTarefaWithStream("EAPEst", "TabelaAuxiliarEstrutura.xlsx", BtnPathImportTabAuxiliarEstrutura.Text);
             processo.Dispose();
             CheckEditProcessado(checkEditEAPEstrutura);
@@ -277,7 +300,7 @@ namespace WinCTB_CTS.Module.Win.WinCustomProcess {
         #region Importação Tabela Auxiliares
         private async Task ImportarContratoTubulacao(CancellationToken cancellationToken, IProgress<ImportProgressReport> progress) {
             CheckEditEmAndamento(checkEditContrato);
-            var processo = new ImportContratoTubulacao(cancellationToken, progressLocal);
+            var processo = new ImportContratoTubulacao(cancellationToken, progress);
             await processo.ProcessarTarefaWithStream("Contrato", "TabelaAuxiliarTubulacao.xlsx", BtnPathImportTabAuxiliarTubulacao.Text);
             processo.Dispose();
             CheckEditProcessado(checkEditContrato);
@@ -285,7 +308,7 @@ namespace WinCTB_CTS.Module.Win.WinCustomProcess {
 
         private async Task ImportarDiametro(CancellationToken cancellationToken, IProgress<ImportProgressReport> progress) {
             CheckEditEmAndamento(checkEditDiametro);
-            var processo = new ImportDiametro(cancellationToken, progressLocal);
+            var processo = new ImportDiametro(cancellationToken, progress);
             await processo.ProcessarTarefaWithStream("TabDiametro", "TabelaAuxiliarTubulacao.xlsx", BtnPathImportTabAuxiliarTubulacao.Text);
             processo.Dispose();
             CheckEditProcessado(checkEditDiametro);
@@ -293,7 +316,7 @@ namespace WinCTB_CTS.Module.Win.WinCustomProcess {
 
         private async Task ImportarSchedule(CancellationToken cancellationToken, IProgress<ImportProgressReport> progress) {
             CheckEditEmAndamento(checkEditSchedule);
-            var processo = new ImportSchedule(cancellationToken, progressLocal);
+            var processo = new ImportSchedule(cancellationToken, progress);
             await processo.ProcessarTarefaWithStream("Schedule", "TabelaAuxiliarTubulacao.xlsx", BtnPathImportTabAuxiliarTubulacao.Text);
             processo.Dispose();
             CheckEditProcessado(checkEditSchedule);
@@ -301,7 +324,7 @@ namespace WinCTB_CTS.Module.Win.WinCustomProcess {
 
         private async Task ImportarPercInspecao(CancellationToken cancellationToken, IProgress<ImportProgressReport> progress) {
             CheckEditEmAndamento(checkEditPercInspecao);
-            var processo = new ImportPercInspecao(cancellationToken, progressLocal);
+            var processo = new ImportPercInspecao(cancellationToken, progress);
             await processo.ProcessarTarefaWithStream("PercInspecao", "TabelaAuxiliarTubulacao.xlsx", BtnPathImportTabAuxiliarTubulacao.Text);
             processo.Dispose();
             CheckEditProcessado(checkEditPercInspecao);
@@ -309,7 +332,7 @@ namespace WinCTB_CTS.Module.Win.WinCustomProcess {
 
         private async Task ImportarProcessoDeSoldagem(CancellationToken cancellationToken, IProgress<ImportProgressReport> progress) {
             CheckEditEmAndamento(checkEditProcessoSoldagem);
-            var processo = new ImportProcessoSoldagem(cancellationToken, progressLocal);
+            var processo = new ImportProcessoSoldagem(cancellationToken, progress);
             await processo.ProcessarTarefaWithStream("ProcessoSoldagem", "TabelaAuxiliarTubulacao.xlsx", BtnPathImportTabAuxiliarTubulacao.Text);
             processo.Dispose();
             CheckEditProcessado(checkEditProcessoSoldagem);
@@ -317,7 +340,7 @@ namespace WinCTB_CTS.Module.Win.WinCustomProcess {
 
         private async Task ImportarEAPTubulacao(CancellationToken cancellationToken, IProgress<ImportProgressReport> progress) {
             CheckEditEmAndamento(checkEditEAPTubulacao);
-            var processo = new ImportEAPTubulacao(cancellationToken, progressLocal);
+            var processo = new ImportEAPTubulacao(cancellationToken, progress);
             await processo.ProcessarTarefaWithStream("EAPPipe", "TabelaAuxiliarTubulacao.xlsx", BtnPathImportTabAuxiliarTubulacao.Text);
             processo.Dispose();
             CheckEditProcessado(checkEditEAPTubulacao);
@@ -327,7 +350,7 @@ namespace WinCTB_CTS.Module.Win.WinCustomProcess {
         #region Importação de Tubulação
         private async Task ImportarSpool(CancellationToken cancellationToken, IProgress<ImportProgressReport> progress) {
             CheckEditEmAndamento(checkEditSpool);
-            var processo = new ImportSpool(cancellationToken, progressLocal);
+            var processo = new ImportSpool(cancellationToken, progress);
             await processo.ProcessarTarefaWithStream("SGS", "SGSeSGJ.xlsx", BtnPathImportTubulacao.Text);
             processo.Dispose();
             CheckEditProcessado(checkEditSpool);
@@ -335,7 +358,7 @@ namespace WinCTB_CTS.Module.Win.WinCustomProcess {
 
         private async Task ImportarJuntaSpool(CancellationToken cancellationToken, IProgress<ImportProgressReport> progress) {
             CheckEditEmAndamento(checkEditJuntaSpool);
-            var processo = new ImportJuntaSpool(cancellationToken, progressLocal);
+            var processo = new ImportJuntaSpool(cancellationToken, progress);
             await processo.ProcessarTarefaWithStream("SGJ", "SGSeSGJ.xlsx", BtnPathImportTubulacao.Text);
             processo.Dispose();
             CheckEditProcessado(checkEditJuntaSpool);
@@ -345,7 +368,7 @@ namespace WinCTB_CTS.Module.Win.WinCustomProcess {
         #region Importação de Estrutura
         private async Task ImportarComponenteMV32(CancellationToken cancellationToken, IProgress<ImportProgressReport> progress) {
             CheckEditEmAndamento(checkEditComponentesMV32);
-            var processo = new ImportComponente(cancellationToken, progressLocal);
+            var processo = new ImportComponente(cancellationToken, progress);
             await processo.ProcessarTarefaWithStream("Piece", "MapaMontagemEBR_MV32.xlsx", BtnPathImportEstruturaMV32.Text);
             processo.Dispose();
             CheckEditProcessado(checkEditComponentesMV32);
@@ -353,7 +376,7 @@ namespace WinCTB_CTS.Module.Win.WinCustomProcess {
 
         private async Task ImportarJuntaComponenteMV32(CancellationToken cancellationToken, IProgress<ImportProgressReport> progress) {
             CheckEditEmAndamento(checkEditJuntaComponenteMV32);
-            var processo = new ImportJuntaComponente(cancellationToken, progressLocal);
+            var processo = new ImportJuntaComponente(cancellationToken, progress);
             await processo.ProcessarTarefaWithStream("Joints", "MapaMontagemEBR_MV32.xlsx", BtnPathImportEstruturaMV32.Text);
             processo.Dispose();
             CheckEditProcessado(checkEditJuntaComponenteMV32);
@@ -361,7 +384,7 @@ namespace WinCTB_CTS.Module.Win.WinCustomProcess {
 
         private async Task ImportarComponenteSepetiba(CancellationToken cancellationToken, IProgress<ImportProgressReport> progress) {
             CheckEditEmAndamento(checkEditComponentesSepetiba);
-            var processo = new ImportComponente(cancellationToken, progressLocal);
+            var processo = new ImportComponente(cancellationToken, progress);
             await processo.ProcessarTarefaWithStream("Piece", "MapaMontagemEBR_SEPETIBA.xlsx", BtnPathImportEstruturaMV32.Text);
             processo.Dispose();
             CheckEditProcessado(checkEditComponentesSepetiba);
@@ -369,7 +392,7 @@ namespace WinCTB_CTS.Module.Win.WinCustomProcess {
 
         private async Task ImportarJuntaComponenteSepetiba(CancellationToken cancellationToken, IProgress<ImportProgressReport> progress) {
             CheckEditEmAndamento(checkEditJuntaComponenteSepetiba);
-            var processo = new ImportJuntaComponente(cancellationToken, progressLocal);
+            var processo = new ImportJuntaComponente(cancellationToken, progress);
             await processo.ProcessarTarefaWithStream("Joints", "MapaMontagemEBR_SEPETIBA.xlsx", BtnPathImportEstruturaMV32.Text);
             processo.Dispose();
             CheckEditProcessado(checkEditJuntaComponenteSepetiba);
@@ -379,7 +402,7 @@ namespace WinCTB_CTS.Module.Win.WinCustomProcess {
         #region Lotes de Estrutura
         private async Task GerarLotes(CancellationToken cancellationToken, IProgress<ImportProgressReport> progress) {
             CheckEditEmAndamento(checkEditMontagemDeLotes);
-            var processo = new GerarLote(cancellationToken, progressLocal);
+            var processo = new GerarLote(cancellationToken, progressTubulacao);
             await processo.ProcessarTarefaSimples();
             processo.Dispose();
             CheckEditProcessado(checkEditMontagemDeLotes);
@@ -387,7 +410,7 @@ namespace WinCTB_CTS.Module.Win.WinCustomProcess {
 
         private async Task InserirInspecao(CancellationToken cancellationToken, IProgress<ImportProgressReport> progress) {
             CheckEditEmAndamento(checkEditInspecaoEmLotes);
-            var processo = new LotesDeEstruturaInspecao(cancellationToken, progressLocal);
+            var processo = new LotesDeEstruturaInspecao(cancellationToken, progressTubulacao);
             await processo.ProcessarTarefaSimples();
             processo.Dispose();
             CheckEditProcessado(checkEditInspecaoEmLotes);
@@ -395,7 +418,7 @@ namespace WinCTB_CTS.Module.Win.WinCustomProcess {
 
         private async Task Alinhamento(CancellationToken cancellationToken, IProgress<ImportProgressReport> progress) {
             CheckEditEmAndamento(checkEditAlinhamentoDeLotes);
-            var processo = new LotesDeEstruturaAlinhamento(cancellationToken, progressLocal);
+            var processo = new LotesDeEstruturaAlinhamento(cancellationToken, progressTubulacao);
             await processo.ProcessarTarefaSimples();
             processo.Dispose();
             CheckEditProcessado(checkEditAlinhamentoDeLotes);
@@ -403,7 +426,7 @@ namespace WinCTB_CTS.Module.Win.WinCustomProcess {
 
         private async Task Balancealmento(CancellationToken cancellationToken, IProgress<ImportProgressReport> progress) {
             CheckEditEmAndamento(checkEditBalanceamento);
-            var processo = new BalanceamentoDeLotesEstrutura(cancellationToken, progressLocal);
+            var processo = new BalanceamentoDeLotesEstrutura(cancellationToken, progressTubulacao);
             await processo.ProcessarTarefaSimples();
             processo.Dispose();
             CheckEditProcessado(checkEditBalanceamento);
@@ -413,7 +436,7 @@ namespace WinCTB_CTS.Module.Win.WinCustomProcess {
         #region Medições
         private async Task MedicaoEstrutura(CancellationToken cancellationToken, IProgress<ImportProgressReport> progress) {
             CheckEditEmAndamento(checkEditMedicaoComponentes);
-            var processo = new CalculoComponente(cancellationToken, progressLocal);
+            var processo = new CalculoComponente(cancellationToken, progressTubulacao);
             await processo.ProcessarTarefaSimples();
             processo.Dispose();
             CheckEditProcessado(checkEditMedicaoComponentes);
@@ -421,7 +444,7 @@ namespace WinCTB_CTS.Module.Win.WinCustomProcess {
 
         private async Task MedicaoTubulacao(CancellationToken cancellationToken, IProgress<ImportProgressReport> progress) {
             CheckEditEmAndamento(checkEditMedicaoSpool);
-            var processo = new CalculoSpool(cancellationToken, progressLocal);
+            var processo = new CalculoSpool(cancellationToken, progressTubulacao);
             await processo.ProcessarTarefaSimples();
             processo.Dispose();
             CheckEditProcessado(checkEditMedicaoSpool);
@@ -431,7 +454,7 @@ namespace WinCTB_CTS.Module.Win.WinCustomProcess {
 
         private async Task AtualizacaoStatusJuntaMV32(CancellationToken cancellationToken, IProgress<ImportProgressReport> progress) {
             CheckEditEmAndamento(checkEditAtualizacaoStatusJuntaComponenteMV32);
-            var processo = new AtualizarStatusJuntaComponente(cancellationToken, progressLocal, "EBR-MV32");
+            var processo = new AtualizarStatusJuntaComponente(cancellationToken, progress, "EBR-MV32");
             await processo.ProcessarTarefaSimples();
             processo.Dispose();
             CheckEditProcessado(checkEditAtualizacaoStatusJuntaComponenteMV32);
@@ -439,7 +462,7 @@ namespace WinCTB_CTS.Module.Win.WinCustomProcess {
 
         private async Task AtualizacaoStatusJuntaSepetiba(CancellationToken cancellationToken, IProgress<ImportProgressReport> progress) {
             CheckEditEmAndamento(checkEditAtualizacaoStatusJuntaComponenteSepetiba);
-            var processo = new AtualizarStatusJuntaComponente(cancellationToken, progressLocal, "EBR-SEPETIBA");
+            var processo = new AtualizarStatusJuntaComponente(cancellationToken, progress, "EBR-SEPETIBA");
             await processo.ProcessarTarefaSimples();
             processo.Dispose();
             CheckEditProcessado(checkEditAtualizacaoStatusJuntaComponenteSepetiba);
