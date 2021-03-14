@@ -72,9 +72,13 @@ namespace WinCTB_CTS.Module.ServiceProcess.Calculator.Estrutura.ProcessoLote {
                                 //Para
                                 JuntaPendente.LoteEstrutura = loteExcesso;
 
-                                LotesAtualizarStatus.Enqueue(lotePendente);
-                                LotesAtualizarStatus.Enqueue(loteExcesso);
+                                //Marcar quando foi executado balanceamaneto
+                                lotePendente.ExecutouBalanceamentoEm = DateTime.UtcNow;
+                                loteExcesso.ExecutouBalanceamentoEm = DateTime.UtcNow;
                                 uow.CommitChanges();
+
+                                LotesAtualizarStatus.Enqueue(lotePendente);
+                                LotesAtualizarStatus.Enqueue(loteExcesso);                                
                             }
                         }
 

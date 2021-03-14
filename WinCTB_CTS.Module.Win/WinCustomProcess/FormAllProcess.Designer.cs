@@ -193,11 +193,11 @@ namespace WinCTB_CTS.Module.Win.WinCustomProcess
             // 
             // labelControlAndamentoDoProcessoEstrutura
             // 
-            this.labelControlAndamentoDoProcessoEstrutura.Appearance.Font = new System.Drawing.Font("Tahoma", 12F);
+            this.labelControlAndamentoDoProcessoEstrutura.Appearance.Font = new System.Drawing.Font("Consolas", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.labelControlAndamentoDoProcessoEstrutura.Appearance.Options.UseFont = true;
             this.labelControlAndamentoDoProcessoEstrutura.Location = new System.Drawing.Point(12, 42);
             this.labelControlAndamentoDoProcessoEstrutura.Name = "labelControlAndamentoDoProcessoEstrutura";
-            this.labelControlAndamentoDoProcessoEstrutura.Size = new System.Drawing.Size(164, 19);
+            this.labelControlAndamentoDoProcessoEstrutura.Size = new System.Drawing.Size(114, 13);
             this.labelControlAndamentoDoProcessoEstrutura.TabIndex = 2;
             this.labelControlAndamentoDoProcessoEstrutura.Text = "AndamentoDoProcesso";
             // 
@@ -744,11 +744,11 @@ namespace WinCTB_CTS.Module.Win.WinCustomProcess
             // 
             // labelControlAndamentoDoProcessoTubulacao
             // 
-            this.labelControlAndamentoDoProcessoTubulacao.Appearance.Font = new System.Drawing.Font("Tahoma", 12F);
+            this.labelControlAndamentoDoProcessoTubulacao.Appearance.Font = new System.Drawing.Font("Consolas", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.labelControlAndamentoDoProcessoTubulacao.Appearance.Options.UseFont = true;
             this.labelControlAndamentoDoProcessoTubulacao.Location = new System.Drawing.Point(611, 42);
             this.labelControlAndamentoDoProcessoTubulacao.Name = "labelControlAndamentoDoProcessoTubulacao";
-            this.labelControlAndamentoDoProcessoTubulacao.Size = new System.Drawing.Size(164, 19);
+            this.labelControlAndamentoDoProcessoTubulacao.Size = new System.Drawing.Size(114, 13);
             this.labelControlAndamentoDoProcessoTubulacao.TabIndex = 29;
             this.labelControlAndamentoDoProcessoTubulacao.Text = "AndamentoDoProcesso";
             // 

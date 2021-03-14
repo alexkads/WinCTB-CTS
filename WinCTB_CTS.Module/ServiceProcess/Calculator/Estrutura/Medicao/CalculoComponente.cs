@@ -28,6 +28,7 @@ namespace WinCTB_CTS.Module.ServiceProcess.Calculator.Estrutura.Medicao {
             var componentes = new XPCollection<Componente>(PersistentCriteriaEvaluationBehavior.InTransaction, uow, null);
             var QuantidadeDeComponentes = componentes.Count;
 
+
             progress.Report(new ImportProgressReport {
                 TotalRows = QuantidadeDeComponentes,
                 CurrentRow = 0,
@@ -51,7 +52,7 @@ namespace WinCTB_CTS.Module.ServiceProcess.Calculator.Estrutura.Medicao {
                 //MedicaoDetalheHandler.Invoke(this, ExecMedicaoDetalhe(uow, medicao, componente));
                 ExecMedicaoDetalhe(uow, medicao, componente);
 
-                if (i % 100 == 0) {
+                if (i % 1000 == 0) {
                     try {
                         uow.CommitTransaction();
                     } catch {
@@ -83,10 +84,6 @@ namespace WinCTB_CTS.Module.ServiceProcess.Calculator.Estrutura.Medicao {
                 CurrentRow = QuantidadeDeComponentes,
                 MessageImport = $"Medição de Estrutura Finalizada!"
             });
-        }
-
-        private void CalculoComponente_MedicaoDetalheHandler(object sender, (Session session, MedicaoEstrutura medicao, Componente componente) e) {
-            throw new NotImplementedException();
         }
 
         private void ExecMedicaoDetalhe(Session session, MedicaoEstrutura medicao, Componente componente) {

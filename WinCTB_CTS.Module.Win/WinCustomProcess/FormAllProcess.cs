@@ -411,7 +411,7 @@ namespace WinCTB_CTS.Module.Win.WinCustomProcess {
         #region Lotes de Estrutura
         private async Task GerarLotes(CancellationToken cancellationToken, IProgress<ImportProgressReport> progress) {
             CheckEditEmAndamento(checkEditMontagemDeLotes);
-            var processo = new GerarLote(cancellationToken, progressTubulacao);
+            var processo = new GerarLote(cancellationToken, progress);
             await processo.ProcessarTarefaSimples();
             processo.Dispose();
             CheckEditProcessado(checkEditMontagemDeLotes);
@@ -419,7 +419,7 @@ namespace WinCTB_CTS.Module.Win.WinCustomProcess {
 
         private async Task InserirInspecao(CancellationToken cancellationToken, IProgress<ImportProgressReport> progress) {
             CheckEditEmAndamento(checkEditInspecaoEmLotes);
-            var processo = new LotesDeEstruturaInspecao(cancellationToken, progressTubulacao);
+            var processo = new LotesDeEstruturaInspecao(cancellationToken, progress);
             await processo.ProcessarTarefaSimples();
             processo.Dispose();
             CheckEditProcessado(checkEditInspecaoEmLotes);
@@ -427,7 +427,7 @@ namespace WinCTB_CTS.Module.Win.WinCustomProcess {
 
         private async Task Alinhamento(CancellationToken cancellationToken, IProgress<ImportProgressReport> progress) {
             CheckEditEmAndamento(checkEditAlinhamentoDeLotes);
-            var processo = new LotesDeEstruturaAlinhamento(cancellationToken, progressTubulacao);
+            var processo = new LotesDeEstruturaAlinhamento(cancellationToken, progress);
             await processo.ProcessarTarefaSimples();
             processo.Dispose();
             CheckEditProcessado(checkEditAlinhamentoDeLotes);
@@ -435,7 +435,7 @@ namespace WinCTB_CTS.Module.Win.WinCustomProcess {
 
         private async Task Balancealmento(CancellationToken cancellationToken, IProgress<ImportProgressReport> progress) {
             CheckEditEmAndamento(checkEditBalanceamento);
-            var processo = new BalanceamentoDeLotesEstrutura(cancellationToken, progressTubulacao);
+            var processo = new BalanceamentoDeLotesEstrutura(cancellationToken, progress);
             await processo.ProcessarTarefaSimples();
             processo.Dispose();
             CheckEditProcessado(checkEditBalanceamento);
@@ -445,7 +445,7 @@ namespace WinCTB_CTS.Module.Win.WinCustomProcess {
         #region Medições
         private async Task MedicaoEstrutura(CancellationToken cancellationToken, IProgress<ImportProgressReport> progress) {
             CheckEditEmAndamento(checkEditMedicaoComponentes);
-            var processo = new CalculoComponente(cancellationToken, progressTubulacao);
+            var processo = new CalculoComponente(cancellationToken, progress);
             await processo.ProcessarTarefaSimples();
             processo.Dispose();
             CheckEditProcessado(checkEditMedicaoComponentes);
@@ -453,7 +453,7 @@ namespace WinCTB_CTS.Module.Win.WinCustomProcess {
 
         private async Task MedicaoTubulacao(CancellationToken cancellationToken, IProgress<ImportProgressReport> progress) {
             CheckEditEmAndamento(checkEditMedicaoSpool);
-            var processo = new CalculoSpool(cancellationToken, progressTubulacao);
+            var processo = new CalculoSpool(cancellationToken, progress);
             await processo.ProcessarTarefaSimples();
             processo.Dispose();
             CheckEditProcessado(checkEditMedicaoSpool);

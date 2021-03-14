@@ -17,15 +17,18 @@ namespace WinCTB_CTS.Module.ServiceProcess.Calculator.Estrutura.ProcessoLote {
         public LotesDeEstruturaInspecao(CancellationToken cancellationToken, IProgress<ImportProgressReport> progress)
         : base(cancellationToken, progress) { }
 
-        protected override void OnCalculator(ProviderDataLayer provider, CancellationToken cancellationToken, IProgress<ImportProgressReport> progress) {
+        protected override async void OnCalculator(ProviderDataLayer provider, CancellationToken cancellationToken, IProgress<ImportProgressReport> progress) {
             base.OnCalculator(provider, cancellationToken, progress);
-            InserirInspecaoLPPMEstrutura(provider, cancellationToken, progress).Wait();
-            InserirInspecaoRXEstrutura(provider, cancellationToken, progress).Wait();
-            InserirInspecaoUSEstrutura(provider, cancellationToken, progress).Wait();
+
+            await Task.WhenAll(
+                InserirInspecaoLPPMEstrutura(provider, cancellationToken, progress),
+                InserirInspecaoRXEstrutura(provider, cancellationToken, progress),
+                InserirInspecaoUSEstrutura(provider, cancellationToken, progress)
+            );
         }
 
         public async Task InserirInspecaoLPPMEstrutura(ProviderDataLayer provider, CancellationToken cancellationToken, IProgress<ImportProgressReport> progress) {
-            await Task.Factory.StartNew(() => {
+            await Task.Run(() => {
                 UnitOfWork uow = new UnitOfWork(provider.GetSimpleDataLayer());
                 CriteriaOperator criteria = CriteriaOperator.Parse("(Not IsNullOrEmpty(DataLP) Or Not IsNullOrEmpty(DataPm)) And LoteJuntaEstruturas[ LoteEstrutura.Ensaio == 'LPPM' And (IsNullOrEmpty(NumeroDoRelatorio) Or IsNullOrEmpty(DataInspecao))].Exists");
                 var JuntaComponentes = GetJuntaComponentes(uow, criteria);
@@ -67,7 +70,7 @@ namespace WinCTB_CTS.Module.ServiceProcess.Calculator.Estrutura.ProcessoLote {
         }
 
         public async Task InserirInspecaoRXEstrutura(ProviderDataLayer provider, CancellationToken cancellationToken, IProgress<ImportProgressReport> progress) {
-            await Task.Factory.StartNew(() => {
+            await Task.Run(() => {
                 UnitOfWork uow = new UnitOfWork(provider.GetSimpleDataLayer());
                 CriteriaOperator criteria = CriteriaOperator.Parse("Not IsNullOrEmpty(DataRx) And LoteJuntaEstruturas[ LoteEstrutura.Ensaio == 'RX' And (IsNullOrEmpty(NumeroDoRelatorio) Or IsNullOrEmpty(DataInspecao)) ].Exists");
                 var JuntaComponentes = GetJuntaComponentes(uow, criteria);
@@ -103,7 +106,7 @@ namespace WinCTB_CTS.Module.ServiceProcess.Calculator.Estrutura.ProcessoLote {
         }
 
         public async Task InserirInspecaoUSEstrutura(ProviderDataLayer provider, CancellationToken cancellationToken, IProgress<ImportProgressReport> progress) {
-            await Task.Factory.StartNew(() => {
+            await Task.Run(() => {
                 UnitOfWork uow = new UnitOfWork(provider.GetSimpleDataLayer());
                 CriteriaOperator criteria = CriteriaOperator.Parse("Not IsNullOrEmpty(DataUs) And LoteJuntaEstruturas[ LoteEstrutura.Ensaio == 'US' And (IsNullOrEmpty(NumeroDoRelatorio) Or IsNullOrEmpty(DataInspecao)) ].Exists");
                 var JuntaComponentes = GetJuntaComponentes(uow, criteria);

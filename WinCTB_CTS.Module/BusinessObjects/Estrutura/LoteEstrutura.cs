@@ -28,6 +28,7 @@ namespace WinCTB_CTS.Module.BusinessObjects.Estrutura.Lotes
     [FriendlyKeyProperty(nameof(NumeroDoLote))]
     public class LoteEstrutura : XPBaseObject
     {
+        DateTime executouBalanceamentoEm;
         Contrato contrato;
         private ENDS ensaio;
         private string _Area;
@@ -68,7 +69,7 @@ namespace WinCTB_CTS.Module.BusinessObjects.Estrutura.Lotes
             NumeroDoLote = "LO" + DistributedIdGeneratorHelper.Generate(this.Session.DataLayer, this.GetType().FullName, string.Empty).ToString().PadLeft(5, '0');
         }
 
-        
+
         [Association("Contrato-LoteEstruturas")]
         public Contrato Contrato {
             get => contrato;
@@ -78,24 +79,21 @@ namespace WinCTB_CTS.Module.BusinessObjects.Estrutura.Lotes
         [ModelDefault("AllowEdit", "False")]
         [Indexed(Unique = false)]
         [XafDisplayName("Área")]
-        public string Area
-        {
+        public string Area {
             get => _Area;
             set => SetPropertyValue(nameof(Area), ref _Area, value);
         }
 
         [ModelDefault("AllowEdit", "False")]
         [XafDisplayName("Com Junta Reprovada")]
-        public bool ComJuntaReprovada
-        {
+        public bool ComJuntaReprovada {
             get => _ComJuntaReprovada;
             set => SetPropertyValue(nameof(ComJuntaReprovada), ref _ComJuntaReprovada, value);
         }
 
         [ModelDefault("AllowEdit", "False")]
         [XafDisplayName("Excesso De Inspeção")]
-        public int ExcessoDeInspecao
-        {
+        public int ExcessoDeInspecao {
             get => _ExcessoDeInspecao;
             set => SetPropertyValue(nameof(ExcessoDeInspecao), ref _ExcessoDeInspecao, value);
         }
@@ -105,8 +103,7 @@ namespace WinCTB_CTS.Module.BusinessObjects.Estrutura.Lotes
         [VisibleInDetailViewAttribute(false)]
         [ModelDefault("AllowEdit", "False")]
         [XafDisplayName("Guid Area Estrutura")]
-        public Guid GuidAreaEstrutura
-        {
+        public Guid GuidAreaEstrutura {
             get => _GuidAreaEstrutura;
             set => SetPropertyValue(nameof(GuidAreaEstrutura), ref _GuidAreaEstrutura, value);
         }
@@ -116,8 +113,7 @@ namespace WinCTB_CTS.Module.BusinessObjects.Estrutura.Lotes
         [VisibleInDetailViewAttribute(false)]
         [ModelDefault("AllowEdit", "False")]
         [XafDisplayName("Guid Desenho de Detalhamento")]
-        public Guid GuidDesenhoDeDetalhamento
-        {
+        public Guid GuidDesenhoDeDetalhamento {
             get => _guidDesenhoDeDetalhamento;
             set => SetPropertyValue(nameof(GuidDesenhoDeDetalhamento), ref _guidDesenhoDeDetalhamento, value);
         }
@@ -128,8 +124,7 @@ namespace WinCTB_CTS.Module.BusinessObjects.Estrutura.Lotes
         [ModelDefault("AllowEdit", "False")]
         [XafDisplayName("Início do Ciclo do Lote")]
         [ValueConverter(typeof(UtcDateTimeConverter))]
-        public DateTime InicioDoCicloDoLote
-        {
+        public DateTime InicioDoCicloDoLote {
             get => _InicioDoCicloDoLote;
             set => SetPropertyValue(nameof(InicioDoCicloDoLote), ref _InicioDoCicloDoLote, value);
         }
@@ -137,8 +132,7 @@ namespace WinCTB_CTS.Module.BusinessObjects.Estrutura.Lotes
         [ModelDefault("AllowEdit", "False")]
         [Indexed(Unique = false)]
         [XafDisplayName("Juntas no Lote")]
-        public int JuntasNoLote
-        {
+        public int JuntasNoLote {
             get => _JuntasNoLote;
             set => SetPropertyValue(nameof(JuntasNoLote), ref _JuntasNoLote, value);
         }
@@ -148,8 +142,7 @@ namespace WinCTB_CTS.Module.BusinessObjects.Estrutura.Lotes
 
         [ModelDefault("AllowEdit", "False")]
         [XafDisplayName("Necessidade De Inspeção")]
-        public int NecessidadeDeInspecao
-        {
+        public int NecessidadeDeInspecao {
             get => _NecessidadeDeInspecao;
             set => SetPropertyValue(nameof(NecessidadeDeInspecao), ref _NecessidadeDeInspecao, value);
         }
@@ -157,15 +150,13 @@ namespace WinCTB_CTS.Module.BusinessObjects.Estrutura.Lotes
 
         [ModelDefault("AllowEdit", "False")]
         [XafDisplayName("Número do Desenho")]
-        public string NumeroDoDesenho
-        {
+        public string NumeroDoDesenho {
             get => _NumeroDoDesenho;
             set => SetPropertyValue(nameof(NumeroDoDesenho), ref _NumeroDoDesenho, value);
         }
 
         [Size(100), XafDisplayName("Tipo de Junta")]
-        public string TipoJunta
-        {
+        public string TipoJunta {
             get => tipoJunta;
             set => SetPropertyValue(nameof(TipoJunta), ref tipoJunta, value);
         }
@@ -174,8 +165,7 @@ namespace WinCTB_CTS.Module.BusinessObjects.Estrutura.Lotes
         [VisibleInListView(true)]
         [ModelDefault("AllowEdit", "False")]
         [XafDisplayName("Número do Lote")]
-        public string NumeroDoLote
-        {
+        public string NumeroDoLote {
             get => _NumeroDoLote;
             set => SetPropertyValue(nameof(NumeroDoLote), ref _NumeroDoLote, value);
         }
@@ -184,8 +174,7 @@ namespace WinCTB_CTS.Module.BusinessObjects.Estrutura.Lotes
         [Indexed(Unique = false)]
         [ModelDefault("DisplayFormat", "P0")]
         [XafDisplayName("% Inspeção")]
-        public double PercentualNivelDeInspecao
-        {
+        public double PercentualNivelDeInspecao {
             get => _percentualNivelDeInspecao;
             set => SetPropertyValue(nameof(PercentualNivelDeInspecao), ref _percentualNivelDeInspecao, value);
         }
@@ -193,8 +182,7 @@ namespace WinCTB_CTS.Module.BusinessObjects.Estrutura.Lotes
         [ModelDefault("AllowEdit", "False")]
         [Indexed(Unique = false)]
         [XafDisplayName("Quantidade Inspecionada")]
-        public int QuantidadeInspecionada
-        {
+        public int QuantidadeInspecionada {
             get => _QuantidadeInspecionada;
             set => SetPropertyValue(nameof(QuantidadeInspecionada), ref _QuantidadeInspecionada, value);
         }
@@ -202,8 +190,7 @@ namespace WinCTB_CTS.Module.BusinessObjects.Estrutura.Lotes
         [ModelDefault("AllowEdit", "False")]
         [Indexed(Unique = false)]
         [XafDisplayName("Quantidade Necessária")]
-        public int QuantidadeNecessaria
-        {
+        public int QuantidadeNecessaria {
             get => _QuantidadeNecessaria;
             set => SetPropertyValue("NecessidadeDeInpecaoPrevista", ref _QuantidadeNecessaria, value);
         }
@@ -211,8 +198,7 @@ namespace WinCTB_CTS.Module.BusinessObjects.Estrutura.Lotes
         [ModelDefault("AllowEdit", "False")]
         [Indexed(Unique = false)]
         [XafDisplayName("Situação Inspeção")]
-        public SituacoesInspecao SituacaoInspecao
-        {
+        public SituacoesInspecao SituacaoInspecao {
             get => _SituacaoInspecao;
             set => SetPropertyValue(nameof(SituacaoInspecao), ref _SituacaoInspecao, value);
         }
@@ -220,8 +206,7 @@ namespace WinCTB_CTS.Module.BusinessObjects.Estrutura.Lotes
 
         [ModelDefault("AllowEdit", "False")]
         [XafDisplayName("Ensaio do Lote")]
-        public ENDS Ensaio
-        {
+        public ENDS Ensaio {
             get => ensaio;
             set => SetPropertyValue(nameof(Ensaio), ref ensaio, value);
         }
@@ -229,8 +214,7 @@ namespace WinCTB_CTS.Module.BusinessObjects.Estrutura.Lotes
         [ModelDefault("AllowEdit", "False")]
         [Indexed(Unique = false)]
         [XafDisplayName("Situação Quantidade")]
-        public SituacoesQuantidade SituacaoQuantidade
-        {
+        public SituacoesQuantidade SituacaoQuantidade {
             get => _SituacaoQuantidade;
             set => SetPropertyValue(nameof(SituacaoQuantidade), ref _SituacaoQuantidade, value);
         }
@@ -240,8 +224,7 @@ namespace WinCTB_CTS.Module.BusinessObjects.Estrutura.Lotes
         [ModelDefault("AllowEdit", "False")]
         [XafDisplayName("Término do Ciclo do Lote")]
         [ValueConverter(typeof(UtcDateTimeConverter))]
-        public DateTime TerminoDoCicloDoLote
-        {
+        public DateTime TerminoDoCicloDoLote {
             get => _TerminoDoCicloDoLote;
             set => SetPropertyValue(nameof(TerminoDoCicloDoLote), ref _TerminoDoCicloDoLote, value);
         }
@@ -249,6 +232,15 @@ namespace WinCTB_CTS.Module.BusinessObjects.Estrutura.Lotes
         [XafDisplayName("Status do Lote")]
         [PersistentAlias("Concat(NumeroDoLote, '-' , SituacaoInspecao)")]
         public string StatusDoLote => Convert.ToString(EvaluateAlias("StatusDoLote"));
+
+        [ModelDefault("EditMask", "G")]
+        [ModelDefault("DisplayFormat", "G")]
+        [ModelDefault("AllowEdit", "False")]
+        [ValueConverter(typeof(UtcDateTimeConverter))]
+        public DateTime ExecutouBalanceamentoEm {
+            get => executouBalanceamentoEm;
+            set => SetPropertyValue(nameof(ExecutouBalanceamentoEm), ref executouBalanceamentoEm, value);
+        }
     }
 
     [Persistent("WT_LoteJuntaEstrutura")]

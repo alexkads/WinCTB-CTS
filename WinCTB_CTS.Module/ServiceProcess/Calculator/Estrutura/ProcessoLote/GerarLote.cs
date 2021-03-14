@@ -72,6 +72,8 @@ namespace WinCTB_CTS.Module.ServiceProcess.Calculator.Tubulacao.ProcessoLote {
                     juntasSemLote.Dispose();
                 }
             }
+
+            uow.Dispose();
         }
 
         #region Outros Processos
