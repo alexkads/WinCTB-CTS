@@ -27,18 +27,20 @@ namespace WinCTB_CTS.Module.ServiceProcess.Calculator.Estrutura.ProcessoLote {
             var uow = new UnitOfWork(provider.GetSimpleDataLayer());
             var contratos = uow.QueryInTransaction<Contrato>();
             var valuesENDS = Enum.GetValues(typeof(ENDS));
-            var LotesAtualizarStatus = new Queue<LoteEstrutura>();
-
+    
             foreach (var contrato in contratos) {
                 foreach (ENDS end in valuesENDS) {
-                    int possibilidades = 0;
-                    do {
-                        progress.Report(new ImportProgressReport {
-                            TotalRows = 0,
-                            CurrentRow = 0,
-                            MessageImport = $"Inicializando balanceando do Lote {end.ToString()}"
-                        });
 
+                    int possibilidadesPrevista = 0;
+                    int possibilidadesAtual = 0;
+
+                    progress.Report(new ImportProgressReport {
+                        TotalRows = 0,
+                        CurrentRow = 0,
+                        MessageImport = $"Verificando Lote de {end.ToString()} para balancemanto em {contrato.NomeDoContrato}..."
+                    });
+
+                    do {
                         var filterQueryLotesExcesso = new XPQuery<LoteEstrutura>(uow, false).TransformExpression(x => x.Contrato.Oid == contrato.Oid && x.Ensaio == end && x.ExcessoDeInspecao > 0 && x.NecessidadeDeInspecao <= 0 && x.LotejuntaEstruturas.Any(l => l.InspecaoExcesso == true));
                         var filterQueryLotesPendente = new XPQuery<LoteEstrutura>(uow, false).TransformExpression(x => x.Contrato.Oid == contrato.Oid && x.Ensaio == end && x.NecessidadeDeInspecao > 0 && x.LotejuntaEstruturas.Any(l => l.NumeroDoRelatorio == null));
 
@@ -51,7 +53,11 @@ namespace WinCTB_CTS.Module.ServiceProcess.Calculator.Estrutura.ProcessoLote {
                              where PendenteGroup.Count() > 0
                              select new { Excesso = ex, Pendentes = PendenteGroup.OrderByDescending(od => od.JuntasNoLote).OrderBy(o => o.QuantidadeInspecionada) }).ToList();
 
-                        possibilidades = lotesComPossibilidade.Count();
+                        possibilidadesAtual = lotesComPossibilidade.Count();
+
+                        if (possibilidadesPrevista == 0)
+                            possibilidadesPrevista = possibilidadesAtual;
+
                         foreach (var l in lotesComPossibilidade) {
                             var loteExcesso = uow.GetObjectByKey<LoteEstrutura>(l.Excesso.NumeroDoLote);
                             var lotePendente = uow.GetObjectByKey<LoteEstrutura>(l.Pendentes.FirstOrDefault().NumeroDoLote);
@@ -67,37 +73,35 @@ namespace WinCTB_CTS.Module.ServiceProcess.Calculator.Estrutura.ProcessoLote {
 
                                 //de                                
                                 JuntaExcesso.InspecaoExcesso = false;
-                                JuntaExcesso.LoteEstrutura = lotePendente;
+                                lotePendente.LotejuntaEstruturas.Add(JuntaExcesso);
 
-                                //Para
-                                JuntaPendente.LoteEstrutura = loteExcesso;
+                                //para
+                                loteExcesso.LotejuntaEstruturas.Add(JuntaPendente);
 
                                 //Marcar quando foi executado balanceamaneto
                                 lotePendente.ExecutouBalanceamentoEm = DateTime.UtcNow;
                                 loteExcesso.ExecutouBalanceamentoEm = DateTime.UtcNow;
                                 uow.CommitChanges();
 
-                                LotesAtualizarStatus.Enqueue(lotePendente);
-                                LotesAtualizarStatus.Enqueue(loteExcesso);                                
+                                LotesDeEstruturaAlinhamento.AtualizarStatusLote(lotePendente);
+                                LotesDeEstruturaAlinhamento.AtualizarStatusLote(loteExcesso);
+                                uow.CommitChanges();
                             }
                         }
-
                         progress.Report(new ImportProgressReport {
-                            TotalRows = 0,
-                            CurrentRow = 0,
-                            MessageImport = $"Finalizado balanceamento do lote {end.ToString()}"
+                            TotalRows = possibilidadesPrevista,
+                            CurrentRow = possibilidadesPrevista - possibilidadesAtual,
+                            MessageImport = $"Balanceando Lotes de {end.ToString()} - {contrato.NomeDoContrato} | {(possibilidadesPrevista - possibilidadesAtual).ToString().PadLeft(5, '0')}/{possibilidadesAtual.ToString().PadLeft(5, '0')}"
                         });
+                    } while (possibilidadesAtual > 0);
 
-                    } while (possibilidades > 0);
+                    progress.Report(new ImportProgressReport {
+                        TotalRows = possibilidadesPrevista,
+                        CurrentRow = possibilidadesPrevista,
+                        MessageImport = $"Balanceando Lotes de {end.ToString()} - {contrato.NomeDoContrato} | {(possibilidadesPrevista - possibilidadesAtual).ToString().PadLeft(5, '0')}/{possibilidadesAtual.ToString().PadLeft(5, '0')}"
+                    });
                 }
             }
-
-            //Atualizar Status dos Lotes Balanceados
-            while (LotesAtualizarStatus.Any()) {
-                var lote = LotesAtualizarStatus.Dequeue();
-                LotesDeEstruturaAlinhamento.AtualizarStatusLote(lote);
-            }
-            uow.CommitChanges();
         }
     }
 }

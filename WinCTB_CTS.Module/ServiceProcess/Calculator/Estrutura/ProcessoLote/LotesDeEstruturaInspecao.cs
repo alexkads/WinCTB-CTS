@@ -20,11 +20,9 @@ namespace WinCTB_CTS.Module.ServiceProcess.Calculator.Estrutura.ProcessoLote {
         protected override async void OnCalculator(ProviderDataLayer provider, CancellationToken cancellationToken, IProgress<ImportProgressReport> progress) {
             base.OnCalculator(provider, cancellationToken, progress);
 
-            await Task.WhenAll(
-                InserirInspecaoLPPMEstrutura(provider, cancellationToken, progress),
-                InserirInspecaoRXEstrutura(provider, cancellationToken, progress),
-                InserirInspecaoUSEstrutura(provider, cancellationToken, progress)
-            );
+            await InserirInspecaoLPPMEstrutura(provider, cancellationToken, progress);
+            await InserirInspecaoRXEstrutura(provider, cancellationToken, progress);
+            await InserirInspecaoUSEstrutura(provider, cancellationToken, progress);
         }
 
         public async Task InserirInspecaoLPPMEstrutura(ProviderDataLayer provider, CancellationToken cancellationToken, IProgress<ImportProgressReport> progress) {
