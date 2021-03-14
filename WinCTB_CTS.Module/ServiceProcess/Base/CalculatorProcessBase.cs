@@ -65,23 +65,19 @@ namespace WinCTB_CTS.Module.ServiceProcess.Base {
         public async Task InitializeImportWithStream(string TabName, DataTable DataTableImport, IProgress<ImportProgressReport> progress) {
             await Task.Run(() => {
                 var TotalRowsForImporter = DataTableImport.Rows.Count;
-                UnitOfWork uow = new UnitOfWork(_providerDataLayer.GetDataLayerThreadSafe());
+                UnitOfWork uow = new UnitOfWork(_providerDataLayer.GetCacheDataLayer());
 
-                //var queryParts = DataTableImport.Rows.AsEnumerable().Select((x, y) => new { x.ItemArray, y }).SplitQuery(10);
-
-                //var tasks = new List<Task>();
-
-                //foreach (var parts in queryParts) {
-                //    tasks.Add(Task.Run(() => {
-                //        foreach (var item in parts) {
-                //            var teste = item.ItemArray;
-                //        }
-                //    }));
-                //}
-
-                //Task.WhenAll(tasks);
+                //var queryParts = DataTableImport.Rows.AsEnumerable().SplitQuery(10);
 
                 uow.BeginTransaction();
+
+                //for (int i = 0; i < queryParts.Count(); i++) {
+                //    var queryPart = queryParts.ElementAt(i);
+                //    for (int e = 0; e < queryPart.Count; e++) {
+                //        var linha = queryPart.ElementAt(e);
+                //        var indexOld = i + e;
+                //    }
+                //}
 
                 for (int i = 0; i < TotalRowsForImporter; i++) {
                     cancellationToken.ThrowIfCancellationRequested();
