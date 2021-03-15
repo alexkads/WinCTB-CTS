@@ -386,7 +386,7 @@ namespace WinCTB_CTS.Module.Win.WinCustomProcess {
         private async Task ImportarComponenteSepetiba(CancellationToken cancellationToken, IProgress<ImportProgressReport> progress) {
             CheckEditEmAndamento(checkEditComponentesSepetiba);
             var processo = new ImportComponente(cancellationToken, progress);
-            await processo.ProcessarTarefaWithStream("Piece", "MapaMontagemEBR_SEPETIBA.xlsx", BtnPathImportEstruturaMV32.Text);
+            await processo.ProcessarTarefaWithStream("Piece", "MapaMontagemEBR_SEPETIBA.xlsx", BtnPathImportEstruturaSEPETIBA.Text);
             processo.Dispose();
             CheckEditProcessado(checkEditComponentesSepetiba);
         }
@@ -394,7 +394,7 @@ namespace WinCTB_CTS.Module.Win.WinCustomProcess {
         private async Task ImportarJuntaComponenteSepetiba(CancellationToken cancellationToken, IProgress<ImportProgressReport> progress) {
             CheckEditEmAndamento(checkEditJuntaComponenteSepetiba);
             var processo = new ImportJuntaComponente(cancellationToken, progress);
-            await processo.ProcessarTarefaWithStream("Joints", "MapaMontagemEBR_SEPETIBA.xlsx", BtnPathImportEstruturaMV32.Text);
+            await processo.ProcessarTarefaWithStream("Joints", "MapaMontagemEBR_SEPETIBA.xlsx", BtnPathImportEstruturaSEPETIBA.Text);
             processo.Dispose();
             CheckEditProcessado(checkEditJuntaComponenteSepetiba);
         }
@@ -471,25 +471,29 @@ namespace WinCTB_CTS.Module.Win.WinCustomProcess {
 
         #region Proteção da tabela auxiliar
         private void toggleSwitchImportarTubulacao_Toggled(object sender, EventArgs e) {
-            if (!uow.QueryInTransaction<TabEAPPipe>().Any()) {
-                toggleSwitchImportarTabelasAuxiliaresTubulacao.IsOn = toggleSwitchImportarTubulacao.IsOn;
+            using (var uowLocal = new UnitOfWork(provider.GetSimpleDataLayer())) {
+                if (!uowLocal.QueryInTransaction<TabEAPPipe>().Any()) {
+                    toggleSwitchImportarTabelasAuxiliaresTubulacao.IsOn = toggleSwitchImportarTubulacao.IsOn;
 
-                if (toggleSwitchImportarTubulacao.IsOn)
-                    toggleSwitchImportarTabelasAuxiliaresTubulacao.ReadOnly = true;
-                else
-                    toggleSwitchImportarTabelasAuxiliaresTubulacao.ReadOnly = false;
+                    if (toggleSwitchImportarTubulacao.IsOn)
+                        toggleSwitchImportarTabelasAuxiliaresTubulacao.ReadOnly = true;
+                    else
+                        toggleSwitchImportarTabelasAuxiliaresTubulacao.ReadOnly = false;
+                }
             }
         }
 
         private void toggleSwitchImportarEstruturaSepetiba_Toggled(object sender, EventArgs e) {
-            if (!uow.QueryInTransaction<TabEAPEst>().Any()) {
-                var validade = toggleSwitchImportarEstruturaSepetiba.IsOn || toggleSwitchImportarEstruturaMV32.IsOn;
-                toggleSwitchImportarTabelasAuxiliaresEstrutura.IsOn = validade;
+            using (var uowLocal = new UnitOfWork(provider.GetSimpleDataLayer())) {
+                if (!uowLocal.QueryInTransaction<TabEAPEst>().Any()) {
+                    var validade = toggleSwitchImportarEstruturaSepetiba.IsOn || toggleSwitchImportarEstruturaMV32.IsOn;
+                    toggleSwitchImportarTabelasAuxiliaresEstrutura.IsOn = validade;
 
-                if (validade)
-                    toggleSwitchImportarTabelasAuxiliaresEstrutura.ReadOnly = true;
-                else
-                    toggleSwitchImportarTabelasAuxiliaresEstrutura.ReadOnly = false;
+                    if (validade)
+                        toggleSwitchImportarTabelasAuxiliaresEstrutura.ReadOnly = true;
+                    else
+                        toggleSwitchImportarTabelasAuxiliaresEstrutura.ReadOnly = false;
+                }
             }
         }
 
