@@ -38,7 +38,7 @@ namespace WinCTB_CTS.Module.ServiceProcess.Calculator.Estrutura.ProcessoLote {
                 uow.BeginTransaction();
 
                 foreach (var current in JuntaComponentes) {
-                    foreach (var juntaDoLote in current.LoteJuntaEstruturas) {
+                    foreach (var juntaDoLote in current.LoteJuntaEstruturas.Where(x => x.LoteEstrutura.Ensaio == Interfaces.ENDS.LPPM)) {
                         if (current.DataLP != null) {
                             juntaDoLote.NumeroDoRelatorio = current.RelatorioLp;
                             juntaDoLote.DataInspecao = current.DataLP.Value;
@@ -80,7 +80,7 @@ namespace WinCTB_CTS.Module.ServiceProcess.Calculator.Estrutura.ProcessoLote {
                 uow.BeginTransaction();
 
                 foreach (var current in JuntaComponentes) {
-                    foreach (var juntaDoLote in current.LoteJuntaEstruturas) {
+                    foreach (var juntaDoLote in current.LoteJuntaEstruturas.Where(x => x.LoteEstrutura.Ensaio == Interfaces.ENDS.RX)) {
                         juntaDoLote.NumeroDoRelatorio = current.RelatorioRx;
                         juntaDoLote.DataInspecao = current.DataRx.Value;
                         juntaDoLote.Laudo = BusinessObjects.Comum.InspecaoLaudo.A;
@@ -116,7 +116,7 @@ namespace WinCTB_CTS.Module.ServiceProcess.Calculator.Estrutura.ProcessoLote {
                 uow.BeginTransaction();
 
                 foreach (var current in JuntaComponentes) {
-                    foreach (var juntaDoLote in current.LoteJuntaEstruturas) {
+                    foreach (var juntaDoLote in current.LoteJuntaEstruturas.Where(x => x.LoteEstrutura.Ensaio == Interfaces.ENDS.US)) {
                         juntaDoLote.NumeroDoRelatorio = current.RelatorioUs;
                         juntaDoLote.DataInspecao = current.DataUs.Value;
                         juntaDoLote.Laudo = BusinessObjects.Comum.InspecaoLaudo.A;
