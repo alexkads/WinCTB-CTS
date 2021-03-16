@@ -1129,6 +1129,7 @@ namespace WinCTB_CTS.Module.RelatorioPreDefinido
             // 
             // BottomMargin
             // 
+            this.BottomMargin.HeightF = 101.3889F;
             this.BottomMargin.Name = "BottomMargin";
             // 
             // Detail
@@ -1602,7 +1603,6 @@ namespace WinCTB_CTS.Module.RelatorioPreDefinido
             new DevExpress.XtraReports.UI.ExpressionBinding("BeforePrint", "Text", "[SampleMp]")});
             this.xrTableCell39.Multiline = true;
             this.xrTableCell39.Name = "xrTableCell39";
-            this.xrTableCell39.Text = "Group";
             this.xrTableCell39.Weight = 1D;
             // 
             // xrTableCell40
@@ -1636,7 +1636,7 @@ namespace WinCTB_CTS.Module.RelatorioPreDefinido
             // xrTableCell43
             // 
             this.xrTableCell43.ExpressionBindings.AddRange(new DevExpress.XtraReports.UI.ExpressionBinding[] {
-            new DevExpress.XtraReports.UI.ExpressionBinding("BeforePrint", "Text", "[StatusLp]")});
+            new DevExpress.XtraReports.UI.ExpressionBinding("BeforePrint", "Text", "[StatusDoLoteLPPM]")});
             this.xrTableCell43.Multiline = true;
             this.xrTableCell43.Name = "xrTableCell43";
             this.xrTableCell43.Text = "xrTableCell43";
@@ -1682,7 +1682,7 @@ namespace WinCTB_CTS.Module.RelatorioPreDefinido
             // xrTableCell48
             // 
             this.xrTableCell48.ExpressionBindings.AddRange(new DevExpress.XtraReports.UI.ExpressionBinding[] {
-            new DevExpress.XtraReports.UI.ExpressionBinding("BeforePrint", "Text", "[SampleRx]")});
+            new DevExpress.XtraReports.UI.ExpressionBinding("BeforePrint", "Text", "[StatusDoLoteRX]")});
             this.xrTableCell48.Multiline = true;
             this.xrTableCell48.Name = "xrTableCell48";
             this.xrTableCell48.Text = "xrTableCell48";
@@ -1738,7 +1738,7 @@ namespace WinCTB_CTS.Module.RelatorioPreDefinido
             // xrTableCell54
             // 
             this.xrTableCell54.ExpressionBindings.AddRange(new DevExpress.XtraReports.UI.ExpressionBinding[] {
-            new DevExpress.XtraReports.UI.ExpressionBinding("BeforePrint", "Text", "[SampleUs]")});
+            new DevExpress.XtraReports.UI.ExpressionBinding("BeforePrint", "Text", "[StatusDoLoteUS]")});
             this.xrTableCell54.Multiline = true;
             this.xrTableCell54.Name = "xrTableCell54";
             this.xrTableCell54.Text = "xrTableCell54";
@@ -1794,7 +1794,7 @@ namespace WinCTB_CTS.Module.RelatorioPreDefinido
             // xrTableCell60
             // 
             this.xrTableCell60.ExpressionBindings.AddRange(new DevExpress.XtraReports.UI.ExpressionBinding[] {
-            new DevExpress.XtraReports.UI.ExpressionBinding("BeforePrint", "Text", "[StatusJunta]")});
+            new DevExpress.XtraReports.UI.ExpressionBinding("BeforePrint", "Text", "[StatusCustomizadoDaJunta]")});
             this.xrTableCell60.Multiline = true;
             this.xrTableCell60.Name = "xrTableCell60";
             this.xrTableCell60.Text = "xrTableCell60";
@@ -1861,6 +1861,8 @@ namespace WinCTB_CTS.Module.RelatorioPreDefinido
             // 
             // xrTableCell69
             // 
+            this.xrTableCell69.ExpressionBindings.AddRange(new DevExpress.XtraReports.UI.ExpressionBinding[] {
+            new DevExpress.XtraReports.UI.ExpressionBinding("BeforePrint", "Text", "[ConcatPecaJunta]")});
             this.xrTableCell69.Multiline = true;
             this.xrTableCell69.Name = "xrTableCell69";
             this.xrTableCell69.Weight = 1D;
@@ -1948,6 +1950,7 @@ namespace WinCTB_CTS.Module.RelatorioPreDefinido
             this.DataSource = this.collectionDataSource1;
             this.Font = new System.Drawing.Font("Arial", 9.75F);
             this.Landscape = true;
+            this.Margins = new System.Drawing.Printing.Margins(100, 100, 100, 101);
             this.PageHeight = 850;
             this.PageWidth = 8300;
             this.PaperKind = System.Drawing.Printing.PaperKind.Custom;
