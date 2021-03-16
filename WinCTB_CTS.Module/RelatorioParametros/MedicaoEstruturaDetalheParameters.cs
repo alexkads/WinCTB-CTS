@@ -44,15 +44,15 @@ namespace WinCTB_CTS.Module.RelatorioParametros
         {
             CriteriaOperator criteriaOperator = CriteriaOperator.Parse("");
             var CustomCriteriaOperator = CriteriaOperator.Parse(CriterioAdicional);
-            //ObjectSpace.GetObjectsQuery<MedicaoTubulacaoDetalhe>()
-            //    .Where(x=> x.MedicaoTubulacao.Oid)
+            //ObjectSpace.GetObjectsQuery<MedicaoEstruturaDetalhe>()
+            //    .Where(x=> x.Componente.Contrato.Oid)
 
             if (Contrato != null && Medicao?.Oid != null)
                 criteriaOperator = CriteriaOperator.Parse("Componente.Contrato.Oid = ? And MedicaoEstrutura.Oid = ?", Contrato.Oid, Medicao.Oid);
             else if (Medicao?.Oid != null)
                 criteriaOperator = new BinaryOperator("MedicaoEstrutura.Oid", Medicao.Oid);
             else if (Contrato?.Oid != null)
-                criteriaOperator = new BinaryOperator("Spool.Contrato.Oid", Contrato.Oid);
+                criteriaOperator = new BinaryOperator("Componente.Contrato.Oid", Contrato.Oid);
 
             if (!(criteriaOperator is null) && !(CustomCriteriaOperator is null))
                 return CriteriaOperator.And(criteriaOperator, CustomCriteriaOperator);
