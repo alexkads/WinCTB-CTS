@@ -112,7 +112,14 @@ namespace WinCTB_CTS.Module.ServiceProcess.Calculator.Estrutura.Medicao {
             var RXPrevistoMM = medJoints.Where(x => x.StatusRx != "NA").Sum(s => s.Comprimento);
             var RXExecutadoMM = medJoints.Where(x => x.StatusRx == "AP" || x.StatusRx == "AL" || x.LoteJuntaEstruturas.Any(a => a.LoteEstrutura.Ensaio == Interfaces.ENDS.RX && a.LoteEstrutura.SituacaoInspecao == Interfaces.SituacoesInspecao.Aprovado)).Sum(s => s.Comprimento);
             var ENDPrevistoMM = (VisualPrevistoMM + LPPMPrevistoMM + USPrevistoMM + RXPrevistoMM);
-            var ENDExecutaMM = (VisualExecutadoMM + LPPMExecutadoMM + USExecutadoMM + RXExecutadoMM);
+            var ENDExecutadoMM = (VisualExecutadoMM + LPPMExecutadoMM + USExecutadoMM + RXExecutadoMM);
+
+            //Condicional Lógico
+            if (ENDExecutadoMM > SoldaExecutadoMM)
+                SoldaExecutadoMM = ENDExecutadoMM;
+
+            if (SoldaExecutadoMM > FitUpExecutadoMM)
+                FitUpExecutadoMM = SoldaExecutadoMM;
 
             //Avanço
             var PercPosicionamento = componente.DataPosicionamento != null ? 1 : 0;
@@ -122,7 +129,12 @@ namespace WinCTB_CTS.Module.ServiceProcess.Calculator.Estrutura.Medicao {
             var PercAvancoLPPM = LPPMExecutadoMM / LPPMPrevistoMM;
             var PercAvancoUS = USExecutadoMM / USPrevistoMM;
             var PercAvancoRX = RXExecutadoMM / RXPrevistoMM;
-            var PercAvancoEND = ENDExecutaMM / ENDPrevistoMM;
+            var PercAvancoEND = ENDExecutadoMM / ENDPrevistoMM;
+
+
+
+
+
 
             //Peso
             var PesoPosicionamento = componente.PesoTotal * PercPosicionamento;
@@ -159,7 +171,7 @@ namespace WinCTB_CTS.Module.ServiceProcess.Calculator.Estrutura.Medicao {
             detalhe.RXPrevistoMM = RXPrevistoMM;
             detalhe.RXExecutadoMM = RXExecutadoMM;
             detalhe.ENDPrevistoMM = ENDPrevistoMM;
-            detalhe.ENDExecutaMM = ENDExecutaMM;
+            detalhe.ENDExecutaMM = ENDExecutadoMM;
             detalhe.PercPosicionamento = PercPosicionamento;
             detalhe.PercAvancoFitUp = PercAvancoFitUp;
             detalhe.PercAvancoSolda = PercAvancoSolda;
