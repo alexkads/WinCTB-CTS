@@ -21,7 +21,8 @@ namespace WinCTB_CTS.Module.RelatorioParametros
     {
         public SpoolParameters(IObjectSpaceCreator provider) : base(provider)
         {
-
+            TableCriteria = typeof(Spool);
+            Contrato = ObjectSpace.FindObject<Contrato>(CriteriaOperator.Parse(""));
         }
 
         [ImmediatePostData, XafDisplayName("Contrato")]

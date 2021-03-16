@@ -22,6 +22,7 @@ namespace WinCTB_CTS.Module.RelatorioParametros
         public JuntaSpoolParameters(IObjectSpaceCreator provider) : base(provider)
         {
             TableCriteria = typeof(JuntaSpool);
+            Contrato = ObjectSpace.FindObject<Contrato>(CriteriaOperator.Parse(""));
         }
 
         [ImmediatePostData, XafDisplayName("Contrato")]

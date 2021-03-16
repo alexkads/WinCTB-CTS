@@ -218,6 +218,7 @@
     <Compile Include="RelatorioParametros\JuntaSpoolParameters.cs" />
     <Compile Include="RelatorioParametros\MedicaoEstruturaDetalheParameters.cs" />
     <Compile Include="RelatorioParametros\MedicaoTubulacaoDetalheParameters.cs" />
+    <Compile Include="RelatorioParametros\ComponenteParameters.cs" />
     <Compile Include="RelatorioParametros\SpoolParameters.cs" />
     <Compile Include="RelatorioPreDefinido\RelatorioComponentesMedicao.cs">
       <SubType>Component</SubType>
