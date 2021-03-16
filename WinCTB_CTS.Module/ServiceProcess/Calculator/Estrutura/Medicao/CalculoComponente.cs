@@ -121,6 +121,7 @@ namespace WinCTB_CTS.Module.ServiceProcess.Calculator.Estrutura.Medicao {
             if (SoldaExecutadoMM > FitUpExecutadoMM)
                 FitUpExecutadoMM = SoldaExecutadoMM;
 
+
             //Avanço
             var PercPosicionamento = componente.DataPosicionamento != null ? 1 : 0;
             var PercAvancoFitUp = FitUpExecutadoMM / MedJointMM;
