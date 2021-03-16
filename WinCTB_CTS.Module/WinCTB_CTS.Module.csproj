@@ -218,7 +218,14 @@
     <Compile Include="RelatorioParametros\JuntaSpoolParameters.cs" />
     <Compile Include="RelatorioParametros\MedicaoEstruturaDetalheParameters.cs" />
     <Compile Include="RelatorioParametros\MedicaoTubulacaoDetalheParameters.cs" />
+    <Compile Include="RelatorioParametros\ComponenteParameters.cs" />
     <Compile Include="RelatorioParametros\SpoolParameters.cs" />
+    <Compile Include="RelatorioPreDefinido\RelatorioComponentes.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="RelatorioPreDefinido\RelatorioComponentes.Designer.cs">
+      <DependentUpon>RelatorioComponentes.cs</DependentUpon>
+    </Compile>
     <Compile Include="RelatorioPreDefinido\RelatorioComponentesMedicao.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -254,6 +261,12 @@
     </Compile>
     <Compile Include="RelatorioPreDefinido\RelatorioResumoDeJuntas.Designer.cs">
       <DependentUpon>RelatorioResumoDeJuntas.cs</DependentUpon>
+    </Compile>
+    <Compile Include="RelatorioPreDefinido\RelatorioSpool.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="RelatorioPreDefinido\RelatorioSpool.Designer.cs">
+      <DependentUpon>RelatorioSpool.cs</DependentUpon>
     </Compile>
     <Compile Include="RelatorioPreDefinido\RelatorioSpoolMedicao.cs">
       <SubType>Component</SubType>
@@ -296,6 +309,9 @@
   <ItemGroup>
     <None Include="DatabaseUpdate\ReadMe.txt" />
     <EmbeddedResource Include="Properties\licenses.licx" />
+    <EmbeddedResource Include="RelatorioPreDefinido\RelatorioComponentes.resx">
+      <DependentUpon>RelatorioComponentes.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="RelatorioPreDefinido\RelatorioComponentesMedicao.resx">
       <DependentUpon>RelatorioComponentesMedicao.cs</DependentUpon>
     </EmbeddedResource>
@@ -313,6 +329,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="RelatorioPreDefinido\RelatorioResumoDeJuntas.resx">
       <DependentUpon>RelatorioResumoDeJuntas.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="RelatorioPreDefinido\RelatorioSpool.resx">
+      <DependentUpon>RelatorioSpool.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="RelatorioPreDefinido\RelatorioSpoolMedicao.resx">
       <DependentUpon>RelatorioSpoolMedicao.cs</DependentUpon>
