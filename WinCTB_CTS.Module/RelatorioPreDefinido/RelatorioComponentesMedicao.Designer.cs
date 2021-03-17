@@ -1560,6 +1560,8 @@ namespace WinCTB_CTS.Module.RelatorioPreDefinido
             // 
             // xrTableCell58
             // 
+            this.xrTableCell58.ExpressionBindings.AddRange(new DevExpress.XtraReports.UI.ExpressionBinding[] {
+            new DevExpress.XtraReports.UI.ExpressionBinding("BeforePrint", "Text", "[MedicaoAnterior].[PesoAvancoTotalPoderado]")});
             this.xrTableCell58.Multiline = true;
             this.xrTableCell58.Name = "xrTableCell58";
             this.xrTableCell58.Weight = 1D;
