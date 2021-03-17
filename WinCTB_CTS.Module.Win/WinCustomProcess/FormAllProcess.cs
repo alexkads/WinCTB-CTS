@@ -498,14 +498,16 @@ namespace WinCTB_CTS.Module.Win.WinCustomProcess {
         }
 
         private void toggleSwitchImportarEstruturaMV32_Toggled(object sender, EventArgs e) {
-            if (!uow.QueryInTransaction<TabEAPEst>().Any()) {
-                var validade = toggleSwitchImportarEstruturaSepetiba.IsOn || toggleSwitchImportarEstruturaMV32.IsOn;
-                toggleSwitchImportarTabelasAuxiliaresEstrutura.IsOn = validade;
+            using (var uowLocal = new UnitOfWork(provider.GetSimpleDataLayer())) {
+                if (!uowLocal.QueryInTransaction<TabEAPEst>().Any()) {
+                    var validade = toggleSwitchImportarEstruturaSepetiba.IsOn || toggleSwitchImportarEstruturaMV32.IsOn;
+                    toggleSwitchImportarTabelasAuxiliaresEstrutura.IsOn = validade;
 
-                if (validade)
-                    toggleSwitchImportarTabelasAuxiliaresEstrutura.ReadOnly = true;
-                else
-                    toggleSwitchImportarTabelasAuxiliaresEstrutura.ReadOnly = false;
+                    if (validade)
+                        toggleSwitchImportarTabelasAuxiliaresEstrutura.ReadOnly = true;
+                    else
+                        toggleSwitchImportarTabelasAuxiliaresEstrutura.ReadOnly = false;
+                }
             }
         }
 
