@@ -89,10 +89,9 @@ namespace WinCTB_CTS.Module.ServiceProcess.Calculator.Estrutura.Medicao {
             var detalhe = new MedicaoEstruturaDetalhe(session);
 
             //Carregar somente as juntas com medJoints igual ao componente
-            //var medJoints = componente.JuntaComponentes.Where(x => x.MedJoint.Oid == x.Componente.Oid);
-            var medJoints = componente.JuntaComponentes.Where(x=> x.MedJoint.Oid == x.Componente.Oid);
-            //medJoints.Filter = CriteriaOperator.Parse("MedJoint.Oid == Componente.Oid");
-            //medJoints.Load();
+            var medJoints = componente.JuntaComponentes.Where(x => x.MedJoint.Oid == x.Componente.Oid);
+            //var medJoints = componente.JuntaComponentes;
+            //medJoints.Criteria = CriteriaOperator.Parse("MedJoint.Oid == Componente.Oid");
 
             //Cagarda da EAP
             var eap = session.QueryInTransaction<TabEAPEst>().Single(x => x.Contrato.Oid == componente.Contrato.Oid && x.Modulo == componente.Modulo);
@@ -111,8 +110,8 @@ namespace WinCTB_CTS.Module.ServiceProcess.Calculator.Estrutura.Medicao {
             var USExecutadoMM = medJoints.Where(x => x.StatusUs == "AP" || x.StatusUs == "AL" || x.LoteJuntaEstruturas.Any(a => a.LoteEstrutura.Ensaio == Interfaces.ENDS.US && a.LoteEstrutura.SituacaoInspecao == Interfaces.SituacoesInspecao.Aprovado)).Sum(s => s.Comprimento);
             var RXPrevistoMM = medJoints.Where(x => x.StatusRx != "NA").Sum(s => s.Comprimento);
             var RXExecutadoMM = medJoints.Where(x => x.StatusRx == "AP" || x.StatusRx == "AL" || x.LoteJuntaEstruturas.Any(a => a.LoteEstrutura.Ensaio == Interfaces.ENDS.RX && a.LoteEstrutura.SituacaoInspecao == Interfaces.SituacoesInspecao.Aprovado)).Sum(s => s.Comprimento);
-            var ENDPrevistoMM = (VisualPrevistoMM + LPPMPrevistoMM + USPrevistoMM + RXPrevistoMM);
-            var ENDExecutadoMM = (VisualExecutadoMM + LPPMExecutadoMM + USExecutadoMM + RXExecutadoMM);
+            var ENDPrevistoMM = (VisualPrevistoMM + LPPMPrevistoMM + USPrevistoMM + RXPrevistoMM) * 0.25;
+            var ENDExecutadoMM = (VisualExecutadoMM + LPPMExecutadoMM + USExecutadoMM + RXExecutadoMM) * 0.25;
 
             //Condicional Lógico
             if (ENDExecutadoMM > SoldaExecutadoMM)
