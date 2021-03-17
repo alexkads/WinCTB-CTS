@@ -38,7 +38,6 @@ namespace WinCTB_CTS.Module.ServiceProcess.Calculator.Estrutura.Medicao {
             var SaveTemp = new List<dynamic>();
 
             uow.BeginTransaction();
-
             var medicaoAnterior = uow.FindObject<MedicaoEstrutura>(CriteriaOperator.Parse("DataFechamentoMedicao = [<MedicaoEstrutura>].Max(DataFechamentoMedicao)"));
             var medicao = new MedicaoEstrutura(uow);
             medicao.DataFechamentoMedicao = DateTime.Now;
@@ -50,7 +49,7 @@ namespace WinCTB_CTS.Module.ServiceProcess.Calculator.Estrutura.Medicao {
 
                 //MedicaoDetalheHandler += CalculoComponente_MedicaoDetalheHandler;
                 //MedicaoDetalheHandler.Invoke(this, ExecMedicaoDetalhe(uow, medicao, componente));
-                ExecMedicaoDetalhe(uow, medicao, componente);
+                ExecMedicaoDetalhe(uow, medicao, componente, detalheMedicaoAnterior);
 
                 if (i % 1000 == 0) {
                     try {
@@ -86,7 +85,7 @@ namespace WinCTB_CTS.Module.ServiceProcess.Calculator.Estrutura.Medicao {
             });
         }
 
-        private void ExecMedicaoDetalhe(Session session, MedicaoEstrutura medicao, Componente componente) {
+        private void ExecMedicaoDetalhe(Session session, MedicaoEstrutura medicao, Componente componente, MedicaoEstruturaDetalhe detalheMedicaoAnterior) {
             var detalhe = new MedicaoEstruturaDetalhe(session);
 
             //Carregar somente as juntas com medJoints igual ao componente
@@ -189,6 +188,7 @@ namespace WinCTB_CTS.Module.ServiceProcess.Calculator.Estrutura.Medicao {
             detalhe.EAPPesoEND = EAPPesoEND;
             detalhe.PesoAvancoTotalPoderado = PesoAvancoTotalPoderado;
             detalhe.PercAvancoTotalPoderado = PercAvancoTotalPoderado;
+            detalhe.MedicaoAnterior = detalheMedicaoAnterior;
             medicao.MedicaoEstruturaDetalhes.Add(detalhe);
         }
     }

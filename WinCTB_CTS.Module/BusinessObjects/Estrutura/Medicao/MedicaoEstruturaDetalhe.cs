@@ -21,6 +21,7 @@ namespace WinCTB_CTS.Module.BusinessObjects.Estrutura.Medicao {
             base.AfterConstruction();
         }
 
+        MedicaoEstruturaDetalhe medicaoAnterior;
         double percAvancoTotalPoderado;
         double pesoAvancoTotalPoderado;
         double eAPPesoEND;
@@ -287,5 +288,11 @@ namespace WinCTB_CTS.Module.BusinessObjects.Estrutura.Medicao {
             get => percAvancoTotalPoderado;
             set => SetPropertyValue(nameof(PercAvancoTotalPoderado), ref percAvancoTotalPoderado, value);
         }
+
+        public MedicaoEstruturaDetalhe MedicaoAnterior {
+            get => medicaoAnterior;
+            set => SetPropertyValue(nameof(MedicaoAnterior), ref medicaoAnterior, value);
+        }
+
     }
 }
