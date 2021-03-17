@@ -1492,7 +1492,7 @@ namespace WinCTB_CTS.Module.RelatorioPreDefinido
             // xrTableCell50
             // 
             this.xrTableCell50.ExpressionBindings.AddRange(new DevExpress.XtraReports.UI.ExpressionBinding[] {
-            new DevExpress.XtraReports.UI.ExpressionBinding("BeforePrint", "Text", "[PesoSolda]")});
+            new DevExpress.XtraReports.UI.ExpressionBinding("BeforePrint", "Text", "[PesoVisual]")});
             this.xrTableCell50.Multiline = true;
             this.xrTableCell50.Name = "xrTableCell50";
             this.xrTableCell50.TextFormatString = "{0:n2}";
@@ -1554,6 +1554,8 @@ namespace WinCTB_CTS.Module.RelatorioPreDefinido
             // 
             // xrTableCell57
             // 
+            this.xrTableCell57.ExpressionBindings.AddRange(new DevExpress.XtraReports.UI.ExpressionBinding[] {
+            new DevExpress.XtraReports.UI.ExpressionBinding("BeforePrint", "Text", "[MedicaoAnterior].[PesoAvancoTotalPoderado]")});
             this.xrTableCell57.Multiline = true;
             this.xrTableCell57.Name = "xrTableCell57";
             this.xrTableCell57.Weight = 1D;
@@ -1561,15 +1563,19 @@ namespace WinCTB_CTS.Module.RelatorioPreDefinido
             // xrTableCell58
             // 
             this.xrTableCell58.ExpressionBindings.AddRange(new DevExpress.XtraReports.UI.ExpressionBinding[] {
-            new DevExpress.XtraReports.UI.ExpressionBinding("BeforePrint", "Text", "[MedicaoAnterior].[PesoAvancoTotalPoderado]")});
+            new DevExpress.XtraReports.UI.ExpressionBinding("BeforePrint", "Text", "[PesoAvancoTotalPoderado] - [MedicaoAnterior].[PesoAvancoTotalPoderado]")});
             this.xrTableCell58.Multiline = true;
             this.xrTableCell58.Name = "xrTableCell58";
+            this.xrTableCell58.TextFormatString = "{0:n2}";
             this.xrTableCell58.Weight = 1D;
             // 
             // xrTableCell59
             // 
+            this.xrTableCell59.ExpressionBindings.AddRange(new DevExpress.XtraReports.UI.ExpressionBinding[] {
+            new DevExpress.XtraReports.UI.ExpressionBinding("BeforePrint", "Text", "[MedicaoAnterior].[PercAvancoTotalPoderado]")});
             this.xrTableCell59.Multiline = true;
             this.xrTableCell59.Name = "xrTableCell59";
+            this.xrTableCell59.TextFormatString = "{0:0.00%}";
             this.xrTableCell59.Weight = 1D;
             // 
             // collectionDataSource1
