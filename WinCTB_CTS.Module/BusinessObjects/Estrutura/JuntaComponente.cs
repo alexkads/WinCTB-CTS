@@ -26,6 +26,10 @@ namespace WinCTB_CTS.Module.BusinessObjects.Estrutura {
             base.AfterConstruction();
         }
 
+        protected override void OnSaving() {
+            MedJoint = GetMedJoint(this);
+            base.OnSaving();
+        }
 
         public enum StatusJuntaComponente {
             [XafDisplayName("00 - Aguardando Fabricação")]
@@ -561,5 +565,22 @@ namespace WinCTB_CTS.Module.BusinessObjects.Estrutura {
         [Association("JuntaComponente-LoteJuntaEstruturas")]
         public XPCollection<LoteJuntaEstrutura> LoteJuntaEstruturas
         => GetCollection<LoteJuntaEstrutura>(nameof(LoteJuntaEstruturas));
+
+        private Func<JuntaComponente, Componente> GetMedJoint = (junta) => {
+            var df1 = junta.Evaluate(CriteriaOperator.Parse("[<Componente>][Peca = ?].Single()", junta.Df1)) as Componente;
+            var df2 = junta.Evaluate(CriteriaOperator.Parse("[<Componente>][Peca = ?].Single()", junta.Df2)) as Componente;
+
+            if (df2 is null) {
+                return df1;
+            } else if (df1.ProgFitup == 0) {
+                return df1;
+            } else if (df2?.ProgFitup == 0) {
+                return df2;
+            } else if (df1.ProgFitup >= df2.ProgFitup) {
+                return df1;
+            } else {
+                return df2;
+            }
+        };
     }
 }

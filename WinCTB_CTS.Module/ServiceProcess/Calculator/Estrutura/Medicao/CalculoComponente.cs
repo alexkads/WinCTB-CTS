@@ -89,10 +89,8 @@ namespace WinCTB_CTS.Module.ServiceProcess.Calculator.Estrutura.Medicao {
             var detalhe = new MedicaoEstruturaDetalhe(session);
 
             //Carregar somente as juntas com medJoints igual ao componente
-            //var medJoints = componente.JuntaComponentes.Where(x => x.MedJoint.Oid == x.Componente.Oid);
-            var medJoints = componente.JuntaComponentes;
-            medJoints.Criteria = CriteriaOperator.Parse("MedJoint.Oid == Componente.Oid");
-
+            var medJoints = new XPCollection<JuntaComponente>(session, new BinaryOperator("MedJoint.Oid", componente.Oid));
+            
             //Cagarda da EAP
             var eap = session.QueryInTransaction<TabEAPEst>().Single(x => x.Contrato.Oid == componente.Contrato.Oid && x.Modulo == componente.Modulo);
 
@@ -190,6 +188,8 @@ namespace WinCTB_CTS.Module.ServiceProcess.Calculator.Estrutura.Medicao {
             detalhe.PercAvancoTotalPoderado = PercAvancoTotalPoderado;
             detalhe.MedicaoAnterior = detalheMedicaoAnterior;
             medicao.MedicaoEstruturaDetalhes.Add(detalhe);
+            
+            medJoints.Dispose();
         }
     }
 }
