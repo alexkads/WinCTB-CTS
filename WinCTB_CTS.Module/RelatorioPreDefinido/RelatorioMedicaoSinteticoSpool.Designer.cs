@@ -1041,7 +1041,7 @@ namespace WinCTB_CTS.Module.RelatorioPreDefinido
             this.xrTableCell18.BackColor = System.Drawing.Color.LightSalmon;
             this.xrTableCell18.Borders = ((DevExpress.XtraPrinting.BorderSide)((DevExpress.XtraPrinting.BorderSide.Left | DevExpress.XtraPrinting.BorderSide.Bottom)));
             this.xrTableCell18.ExpressionBindings.AddRange(new DevExpress.XtraReports.UI.ExpressionBinding[] {
-            new DevExpress.XtraReports.UI.ExpressionBinding("BeforePrint", "Text", "sumSum([AvancoJuntaSoldMont])")});
+            new DevExpress.XtraReports.UI.ExpressionBinding("BeforePrint", "Text", "sumSum([PesoJuntaSoldMont])")});
             this.xrTableCell18.Multiline = true;
             this.xrTableCell18.Name = "xrTableCell18";
             this.xrTableCell18.Padding = new DevExpress.XtraPrinting.PaddingInfo(2, 2, 2, 2, 100F);
@@ -1155,7 +1155,7 @@ namespace WinCTB_CTS.Module.RelatorioPreDefinido
             this.xrTableCell9.BackColor = System.Drawing.Color.LightBlue;
             this.xrTableCell9.Borders = ((DevExpress.XtraPrinting.BorderSide)((DevExpress.XtraPrinting.BorderSide.Left | DevExpress.XtraPrinting.BorderSide.Bottom)));
             this.xrTableCell9.ExpressionBindings.AddRange(new DevExpress.XtraReports.UI.ExpressionBinding[] {
-            new DevExpress.XtraReports.UI.ExpressionBinding("BeforePrint", "Text", "sumSum([AvancoJuntaSoldMont]) - sumSum([MedicaoAnterior].[AvancoJuntaSoldMont])")});
+            new DevExpress.XtraReports.UI.ExpressionBinding("BeforePrint", "Text", "sumSum([PesoJuntaSoldMont]) - sumSum([MedicaoAnterior].[PesoJuntaSoldMont])")});
             this.xrTableCell9.Name = "xrTableCell9";
             this.xrTableCell9.Padding = new DevExpress.XtraPrinting.PaddingInfo(2, 2, 2, 2, 100F);
             this.xrTableCell9.StylePriority.UseBackColor = false;
@@ -1529,7 +1529,7 @@ namespace WinCTB_CTS.Module.RelatorioPreDefinido
             // 
             this.xrTableCell31.BackColor = System.Drawing.Color.LightSalmon;
             this.xrTableCell31.ExpressionBindings.AddRange(new DevExpress.XtraReports.UI.ExpressionBinding[] {
-            new DevExpress.XtraReports.UI.ExpressionBinding("BeforePrint", "Text", "sumSum([AvancoJuntaSoldMont])")});
+            new DevExpress.XtraReports.UI.ExpressionBinding("BeforePrint", "Text", "sumSum([PesoJuntaSoldMont])")});
             this.xrTableCell31.Multiline = true;
             this.xrTableCell31.Name = "xrTableCell31";
             this.xrTableCell31.StylePriority.UseBackColor = false;
@@ -1612,7 +1612,7 @@ namespace WinCTB_CTS.Module.RelatorioPreDefinido
             // 
             this.xrTableCell44.BackColor = System.Drawing.Color.LightBlue;
             this.xrTableCell44.ExpressionBindings.AddRange(new DevExpress.XtraReports.UI.ExpressionBinding[] {
-            new DevExpress.XtraReports.UI.ExpressionBinding("BeforePrint", "Text", "sumSum([AvancoJuntaSoldMont]) - sum([MedicaoAnterior].[AvancoJuntaSoldMont])")});
+            new DevExpress.XtraReports.UI.ExpressionBinding("BeforePrint", "Text", "sumSum([PesoJuntaSoldMont]) - sum([MedicaoAnterior].[PesoJuntaSoldMont])")});
             this.xrTableCell44.Multiline = true;
             this.xrTableCell44.Name = "xrTableCell44";
             this.xrTableCell44.StylePriority.UseBackColor = false;
