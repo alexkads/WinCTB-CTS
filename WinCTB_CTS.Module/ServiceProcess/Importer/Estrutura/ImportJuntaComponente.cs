@@ -113,27 +113,27 @@ namespace WinCTB_CTS.Module.ServiceProcess.Importer.Estrutura {
                     #region Definição de DF e MedJoints
                     juntaComponente.PosDf1 = uow.FindObject<Componente>(new BinaryOperator("Peca", juntaComponente.Df1))?.DataPosicionamento;
                     juntaComponente.PosDf2 = uow.FindObject<Componente>(new BinaryOperator("Peca", juntaComponente.Df2))?.DataPosicionamento;
-                    //juntaComponente.MedJoint = GetMedJoint(juntaComponente);
+                    juntaComponente.MedJoint = GetMedJoint(juntaComponente);
                     #endregion
                 }
             }
         }
 
-        //private Func<JuntaComponente, Componente> GetMedJoint = (junta) => {
-        //    var df1 = junta.Evaluate(CriteriaOperator.Parse("[<Componente>][Peca = ?].Single()", junta.Df1)) as Componente;
-        //    var df2 = junta.Evaluate(CriteriaOperator.Parse("[<Componente>][Peca = ?].Single()", junta.Df2)) as Componente;
+        private Func<JuntaComponente, Componente> GetMedJoint = (junta) => {
+            var df1 = junta.Evaluate(CriteriaOperator.Parse("[<Componente>][Peca = ?].Single()", junta.Df1)) as Componente;
+            var df2 = junta.Evaluate(CriteriaOperator.Parse("[<Componente>][Peca = ?].Single()", junta.Df2)) as Componente;
 
-        //    if (df2 is null) {
-        //        return df1;
-        //    } else if (df1.ProgFitup == 0) {
-        //        return df1;
-        //    } else if (df2?.ProgFitup == 0) {
-        //        return df2;
-        //    } else if (df1.ProgFitup >= df2.ProgFitup) {
-        //        return df1;
-        //    } else {
-        //        return df2;
-        //    }
-        //};
+            if (df2 is null) {
+                return df1;
+            } else if (df1.ProgFitup == 0) {
+                return df1;
+            } else if (df2?.ProgFitup == 0) {
+                return df2;
+            } else if (df1.ProgFitup >= df2.ProgFitup) {
+                return df1;
+            } else {
+                return df2;
+            }
+        };
     }
 }
