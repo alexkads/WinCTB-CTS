@@ -67,6 +67,8 @@ namespace WinCTB_CTS.Module {
 
             //predefinedReportsUpdater.AddPredefinedReport<RelatorioMedicaoAnaliticoSpool>("Relatório de Medição por Spool (Analítico)", typeof(Spool), typeof(SpoolParameters), isInplaceReport: true);
             predefinedReportsUpdater.AddPredefinedReport<RelatorioMedicaoSinteticoSpool>("PIPE - SINTÉTICO SPOOL", typeof(MedicaoTubulacaoDetalhe), typeof(MedicaoTubulacaoDetalheParameters), isInplaceReport: true);
+            predefinedReportsUpdater.AddPredefinedReport<RelatorioMedicaoSinteticoComponente>("STRUCTURE - SINTÉTICO COMPONENTE", typeof(MedicaoEstruturaDetalhe), typeof(MedicaoEstruturaDetalheParameters), isInplaceReport: true);
+
             predefinedReportsUpdater.AddPredefinedReport<RelatorioResumoDeJuntas>("Resumo de Juntas", typeof(JuntaSpool), typeof(JuntaSpoolParameters), isInplaceReport: true);
             predefinedReportsUpdater.AddPredefinedReport<RelatorioJuntaMedicao>("PIPE - Juntas Medição", typeof(JuntaSpool), typeof(JuntaSpoolParameters), isInplaceReport: true);
             predefinedReportsUpdater.AddPredefinedReport<RelatorioSpoolMedicao>("PIPE - Spool Medição", typeof(MedicaoTubulacaoDetalhe), typeof(MedicaoTubulacaoDetalheParameters), isInplaceReport: true);

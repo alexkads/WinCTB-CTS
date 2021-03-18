@@ -1,8 +1,7 @@
 ﻿
 namespace WinCTB_CTS.Module.RelatorioPreDefinido
 {
-    partial class RelatorioMedicaoSinteticoSpool
-    {
+    partial class RelatorioMedicaoSinteticoComponente {
         /// <summary>
         /// Required designer variable.
         /// </summary>
@@ -29,7 +28,7 @@ namespace WinCTB_CTS.Module.RelatorioPreDefinido
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(RelatorioMedicaoSinteticoSpool));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(RelatorioMedicaoSinteticoComponente));
             DevExpress.XtraReports.UI.XRSummary xrSummary1 = new DevExpress.XtraReports.UI.XRSummary();
             DevExpress.XtraReports.UI.XRSummary xrSummary2 = new DevExpress.XtraReports.UI.XRSummary();
             DevExpress.XtraReports.UI.XRSummary xrSummary3 = new DevExpress.XtraReports.UI.XRSummary();
@@ -668,7 +667,7 @@ namespace WinCTB_CTS.Module.RelatorioPreDefinido
             this.xrTableCell28.StylePriority.UseBorders = false;
             this.xrTableCell28.StylePriority.UseFont = false;
             this.xrTableCell28.StylePriority.UseTextAlignment = false;
-            this.xrTableCell28.Text = "PESO FABRICAÇÃO";
+            this.xrTableCell28.Text = "PESO MONTAGEM";
             this.xrTableCell28.TextAlignment = DevExpress.XtraPrinting.TextAlignment.MiddleCenter;
             this.xrTableCell28.Weight = 1D;
             // 
@@ -688,13 +687,13 @@ namespace WinCTB_CTS.Module.RelatorioPreDefinido
             // xrLabel1
             // 
             this.xrLabel1.Font = new System.Drawing.Font("Segoe UI", 16F, System.Drawing.FontStyle.Bold);
-            this.xrLabel1.LocationFloat = new DevExpress.Utils.PointFloat(620F, 21.70139F);
+            this.xrLabel1.LocationFloat = new DevExpress.Utils.PointFloat(583.5416F, 21.70138F);
             this.xrLabel1.Name = "xrLabel1";
             this.xrLabel1.Padding = new DevExpress.XtraPrinting.PaddingInfo(2, 2, 0, 0, 100F);
-            this.xrLabel1.SizeF = new System.Drawing.SizeF(558.821F, 38.31749F);
+            this.xrLabel1.SizeF = new System.Drawing.SizeF(637.9878F, 38.31749F);
             this.xrLabel1.StylePriority.UseFont = false;
             this.xrLabel1.StylePriority.UseTextAlignment = false;
-            this.xrLabel1.Text = "RELATÓRIO SINTÉTICO DE MEDIÇÃO (SPOOL)";
+            this.xrLabel1.Text = "RELATÓRIO SINTÉTICO DE MEDIÇÃO (COMPONENTE)";
             this.xrLabel1.TextAlignment = DevExpress.XtraPrinting.TextAlignment.TopCenter;
             // 
             // ReportFooter
@@ -1268,7 +1267,7 @@ namespace WinCTB_CTS.Module.RelatorioPreDefinido
             this.GroupHeader1.Controls.AddRange(new DevExpress.XtraReports.UI.XRControl[] {
             this.xrTable1});
             this.GroupHeader1.GroupFields.AddRange(new DevExpress.XtraReports.UI.GroupField[] {
-            new DevExpress.XtraReports.UI.GroupField("Spool.AreaFisica", DevExpress.XtraReports.UI.XRColumnSortOrder.Ascending)});
+            new DevExpress.XtraReports.UI.GroupField("Componente.Modulo", DevExpress.XtraReports.UI.XRColumnSortOrder.Ascending)});
             this.GroupHeader1.HeightF = 25F;
             this.GroupHeader1.Name = "GroupHeader1";
             // 
@@ -1324,7 +1323,7 @@ namespace WinCTB_CTS.Module.RelatorioPreDefinido
             // 
             this.xrTableCell1.BackColor = System.Drawing.Color.Gainsboro;
             this.xrTableCell1.ExpressionBindings.AddRange(new DevExpress.XtraReports.UI.ExpressionBinding[] {
-            new DevExpress.XtraReports.UI.ExpressionBinding("BeforePrint", "Text", "[Spool].[AreaFisica]")});
+            new DevExpress.XtraReports.UI.ExpressionBinding("BeforePrint", "Text", "[Componente].[Modulo]")});
             this.xrTableCell1.Multiline = true;
             this.xrTableCell1.Name = "xrTableCell1";
             this.xrTableCell1.StylePriority.UseBackColor = false;
@@ -1335,7 +1334,7 @@ namespace WinCTB_CTS.Module.RelatorioPreDefinido
             // 
             this.xrTableCell2.BackColor = System.Drawing.Color.Gainsboro;
             this.xrTableCell2.ExpressionBindings.AddRange(new DevExpress.XtraReports.UI.ExpressionBinding[] {
-            new DevExpress.XtraReports.UI.ExpressionBinding("BeforePrint", "Text", "sumSum([Spool].[PesoFabricacao])")});
+            new DevExpress.XtraReports.UI.ExpressionBinding("BeforePrint", "Text", "sumSum([Componente].[PesoTotal])")});
             this.xrTableCell2.Multiline = true;
             this.xrTableCell2.Name = "xrTableCell2";
             this.xrTableCell2.StylePriority.UseBackColor = false;
@@ -1692,10 +1691,10 @@ namespace WinCTB_CTS.Module.RelatorioPreDefinido
             // collectionDataSource1
             // 
             this.collectionDataSource1.Name = "collectionDataSource1";
-            this.collectionDataSource1.ObjectTypeName = "WinCTB_CTS.Module.BusinessObjects.Tubulacao.Medicao.MedicaoTubulacaoDetalhe";
+            this.collectionDataSource1.ObjectTypeName = "WinCTB_CTS.Module.BusinessObjects.Estrutura.Medicao.MedicaoEstruturaDetalhe";
             this.collectionDataSource1.TopReturnedRecords = 0;
             // 
-            // RelatorioMedicaoSinteticoSpool
+            // RelatorioMedicaoSinteticoComponente
             // 
             this.Bands.AddRange(new DevExpress.XtraReports.UI.Band[] {
             this.Detail,

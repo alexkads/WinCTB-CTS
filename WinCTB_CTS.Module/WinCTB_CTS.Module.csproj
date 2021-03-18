@@ -250,6 +250,12 @@
     <Compile Include="RelatorioPreDefinido\RelatorioMedicaoAnaliticoSpool.Designer.cs">
       <DependentUpon>RelatorioMedicaoAnaliticoSpool.cs</DependentUpon>
     </Compile>
+    <Compile Include="RelatorioPreDefinido\RelatorioMedicaoSinteticoComponente.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="RelatorioPreDefinido\RelatorioMedicaoSinteticoComponente.Designer.cs">
+      <DependentUpon>RelatorioMedicaoSinteticoComponente.cs</DependentUpon>
+    </Compile>
     <Compile Include="RelatorioPreDefinido\RelatorioMedicaoSinteticoSpool.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -323,6 +329,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="RelatorioPreDefinido\RelatorioMedicaoAnaliticoSpool.resx">
       <DependentUpon>RelatorioMedicaoAnaliticoSpool.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="RelatorioPreDefinido\RelatorioMedicaoSinteticoComponente.resx">
+      <DependentUpon>RelatorioMedicaoSinteticoComponente.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="RelatorioPreDefinido\RelatorioMedicaoSinteticoSpool.resx">
       <DependentUpon>RelatorioMedicaoSinteticoSpool.cs</DependentUpon>

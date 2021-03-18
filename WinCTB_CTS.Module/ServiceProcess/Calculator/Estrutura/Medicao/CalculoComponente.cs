@@ -8,6 +8,7 @@ using System.Threading;
 using WinCTB_CTS.Module.BusinessObjects.Estrutura;
 using WinCTB_CTS.Module.BusinessObjects.Estrutura.Auxiliar;
 using WinCTB_CTS.Module.BusinessObjects.Estrutura.Medicao;
+using WinCTB_CTS.Module.Comum;
 using WinCTB_CTS.Module.Helpers;
 using WinCTB_CTS.Module.ServiceProcess.Base;
 
