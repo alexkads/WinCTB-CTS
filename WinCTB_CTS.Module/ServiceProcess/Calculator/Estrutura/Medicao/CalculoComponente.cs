@@ -89,7 +89,7 @@ namespace WinCTB_CTS.Module.ServiceProcess.Calculator.Estrutura.Medicao {
             var detalhe = new MedicaoEstruturaDetalhe(session);
 
             //Carregar somente as juntas com medJoints igual ao componente
-            var medJoints = new XPCollection<JuntaComponente>(session, new BinaryOperator("MedJoint.Oid", componente.Oid));
+            var medJoints = new XPCollection<JuntaComponente>(PersistentCriteriaEvaluationBehavior.InTransaction, session, new BinaryOperator("MedJoint.Oid", componente.Oid));
             
             //Cagarda da EAP
             var eap = session.QueryInTransaction<TabEAPEst>().Single(x => x.Contrato.Oid == componente.Contrato.Oid && x.Modulo == componente.Modulo);
