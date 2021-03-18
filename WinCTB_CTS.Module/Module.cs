@@ -66,10 +66,10 @@ namespace WinCTB_CTS.Module {
             PredefinedReportsUpdater predefinedReportsUpdater = new PredefinedReportsUpdater(Application, objectSpace, versionFromDB);
 
             //predefinedReportsUpdater.AddPredefinedReport<RelatorioMedicaoAnaliticoSpool>("Relatório de Medição por Spool (Analítico)", typeof(Spool), typeof(SpoolParameters), isInplaceReport: true);
-            predefinedReportsUpdater.AddPredefinedReport<RelatorioMedicaoSinteticoSpool>("Relatório de Medição por Spool (Sintético)", typeof(MedicaoTubulacaoDetalhe), typeof(MedicaoTubulacaoDetalheParameters), isInplaceReport: true);
+            predefinedReportsUpdater.AddPredefinedReport<RelatorioMedicaoSinteticoSpool>("PIPE - SINTÉTICO SPOOL", typeof(MedicaoTubulacaoDetalhe), typeof(MedicaoTubulacaoDetalheParameters), isInplaceReport: true);
             predefinedReportsUpdater.AddPredefinedReport<RelatorioResumoDeJuntas>("Resumo de Juntas", typeof(JuntaSpool), typeof(JuntaSpoolParameters), isInplaceReport: true);
-            predefinedReportsUpdater.AddPredefinedReport<RelatorioJuntaMedicao>("Juntas - Medição", typeof(JuntaSpool), typeof(JuntaSpoolParameters), isInplaceReport: true);
-            predefinedReportsUpdater.AddPredefinedReport<RelatorioSpoolMedicao>("Spool - Medição", typeof(MedicaoTubulacaoDetalhe), typeof(MedicaoTubulacaoDetalheParameters), isInplaceReport: true);
+            predefinedReportsUpdater.AddPredefinedReport<RelatorioJuntaMedicao>("PIPE - Juntas Medição", typeof(JuntaSpool), typeof(JuntaSpoolParameters), isInplaceReport: true);
+            predefinedReportsUpdater.AddPredefinedReport<RelatorioSpoolMedicao>("PIPE - Spool Medição", typeof(MedicaoTubulacaoDetalhe), typeof(MedicaoTubulacaoDetalheParameters), isInplaceReport: true);
             predefinedReportsUpdater.AddPredefinedReport<RelatorioSpool>("Relatório de Spool", typeof(Spool), typeof(SpoolParameters), isInplaceReport: true);
             predefinedReportsUpdater.AddPredefinedReport<RelatorioComponentes>("Relatório de Componentes - (MONTAGEM)", typeof(Componente), typeof(ComponenteParameters), isInplaceReport: true);
             predefinedReportsUpdater.AddPredefinedReport<RelatorioComponentesMedicao>("STR - Componentes - (MONTAGEM)", typeof(MedicaoEstruturaDetalhe), typeof(MedicaoEstruturaDetalheParameters), isInplaceReport: true);
