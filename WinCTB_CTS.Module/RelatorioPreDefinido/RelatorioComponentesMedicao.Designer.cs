@@ -1474,7 +1474,7 @@ namespace WinCTB_CTS.Module.RelatorioPreDefinido
             // xrTableCell48
             // 
             this.xrTableCell48.ExpressionBindings.AddRange(new DevExpress.XtraReports.UI.ExpressionBinding[] {
-            new DevExpress.XtraReports.UI.ExpressionBinding("BeforePrint", "Text", "[PesoFitUp]")});
+            new DevExpress.XtraReports.UI.ExpressionBinding("BeforePrint", "Text", "Iif([PesoSolda] > [PesoFitUp], [PesoSolda], [PesoFitUp])")});
             this.xrTableCell48.Multiline = true;
             this.xrTableCell48.Name = "xrTableCell48";
             this.xrTableCell48.TextFormatString = "{0:n2}";
@@ -1483,7 +1483,7 @@ namespace WinCTB_CTS.Module.RelatorioPreDefinido
             // xrTableCell49
             // 
             this.xrTableCell49.ExpressionBindings.AddRange(new DevExpress.XtraReports.UI.ExpressionBinding[] {
-            new DevExpress.XtraReports.UI.ExpressionBinding("BeforePrint", "Text", "[PesoSolda]")});
+            new DevExpress.XtraReports.UI.ExpressionBinding("BeforePrint", "Text", "Iif([PesoVisual] > [PesoSolda], [PesoVisual] , [PesoSolda])")});
             this.xrTableCell49.Multiline = true;
             this.xrTableCell49.Name = "xrTableCell49";
             this.xrTableCell49.TextFormatString = "{0:n2}";
@@ -1492,7 +1492,7 @@ namespace WinCTB_CTS.Module.RelatorioPreDefinido
             // xrTableCell50
             // 
             this.xrTableCell50.ExpressionBindings.AddRange(new DevExpress.XtraReports.UI.ExpressionBinding[] {
-            new DevExpress.XtraReports.UI.ExpressionBinding("BeforePrint", "Text", "[PesoVisual]")});
+            new DevExpress.XtraReports.UI.ExpressionBinding("BeforePrint", "Text", "Iif([PesoEND] > [PesoVisual] , [PesoEND] , [PesoVisual])")});
             this.xrTableCell50.Multiline = true;
             this.xrTableCell50.Name = "xrTableCell50";
             this.xrTableCell50.TextFormatString = "{0:n2}";
