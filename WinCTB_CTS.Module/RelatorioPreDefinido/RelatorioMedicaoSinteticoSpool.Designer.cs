@@ -1418,7 +1418,7 @@ namespace WinCTB_CTS.Module.RelatorioPreDefinido
             // 
             this.xrTableCell13.BackColor = System.Drawing.Color.Yellow;
             this.xrTableCell13.ExpressionBindings.AddRange(new DevExpress.XtraReports.UI.ExpressionBinding[] {
-            new DevExpress.XtraReports.UI.ExpressionBinding("BeforePrint", "Text", "sumSum([PesoSpoolCorteFab]) - sum([MedicaoAnterior].[PesoSpoolCorteFab])")});
+            new DevExpress.XtraReports.UI.ExpressionBinding("BeforePrint", "Text", "sumSum([PesoSpoolCorteFab]) - sumSum([MedicaoAnterior].[PesoSpoolCorteFab])")});
             this.xrTableCell13.Multiline = true;
             this.xrTableCell13.Name = "xrTableCell13";
             this.xrTableCell13.StylePriority.UseBackColor = false;
@@ -1432,7 +1432,7 @@ namespace WinCTB_CTS.Module.RelatorioPreDefinido
             // 
             this.xrTableCell22.BackColor = System.Drawing.Color.Yellow;
             this.xrTableCell22.ExpressionBindings.AddRange(new DevExpress.XtraReports.UI.ExpressionBinding[] {
-            new DevExpress.XtraReports.UI.ExpressionBinding("BeforePrint", "Text", "sumSum([PesoSpoolVAFab]) - sum([MedicaoAnterior].[PesoSpoolVAFab])")});
+            new DevExpress.XtraReports.UI.ExpressionBinding("BeforePrint", "Text", "sumSum([PesoSpoolVAFab]) - sumSum([MedicaoAnterior].[PesoSpoolVAFab])")});
             this.xrTableCell22.Multiline = true;
             this.xrTableCell22.Name = "xrTableCell22";
             this.xrTableCell22.StylePriority.UseBackColor = false;
@@ -1446,7 +1446,7 @@ namespace WinCTB_CTS.Module.RelatorioPreDefinido
             // 
             this.xrTableCell23.BackColor = System.Drawing.Color.Yellow;
             this.xrTableCell23.ExpressionBindings.AddRange(new DevExpress.XtraReports.UI.ExpressionBinding[] {
-            new DevExpress.XtraReports.UI.ExpressionBinding("BeforePrint", "Text", "sumSum([PesoSpoolSoldFab]) - sum([MedicaoAnterior].[PesoSpoolSoldFab])")});
+            new DevExpress.XtraReports.UI.ExpressionBinding("BeforePrint", "Text", "sumSum([PesoSpoolSoldFab]) - sumSum([MedicaoAnterior].[PesoSpoolSoldFab])")});
             this.xrTableCell23.Multiline = true;
             this.xrTableCell23.Name = "xrTableCell23";
             this.xrTableCell23.StylePriority.UseBackColor = false;
@@ -1460,7 +1460,7 @@ namespace WinCTB_CTS.Module.RelatorioPreDefinido
             // 
             this.xrTableCell24.BackColor = System.Drawing.Color.Yellow;
             this.xrTableCell24.ExpressionBindings.AddRange(new DevExpress.XtraReports.UI.ExpressionBinding[] {
-            new DevExpress.XtraReports.UI.ExpressionBinding("BeforePrint", "Text", "sumSum([PesoSpoolENDFab]) - sum([MedicaoAnterior].[PesoSpoolENDFab])")});
+            new DevExpress.XtraReports.UI.ExpressionBinding("BeforePrint", "Text", "sumSum([PesoSpoolENDFab]) - sumSum([MedicaoAnterior].[PesoSpoolENDFab])")});
             this.xrTableCell24.Multiline = true;
             this.xrTableCell24.Name = "xrTableCell24";
             this.xrTableCell24.StylePriority.UseBackColor = false;
@@ -1474,7 +1474,7 @@ namespace WinCTB_CTS.Module.RelatorioPreDefinido
             // 
             this.xrTableCell26.BackColor = System.Drawing.Color.Yellow;
             this.xrTableCell26.ExpressionBindings.AddRange(new DevExpress.XtraReports.UI.ExpressionBinding[] {
-            new DevExpress.XtraReports.UI.ExpressionBinding("BeforePrint", "Text", "sumSum([PonderadoFab]) - sum([PonderadoFabAnt])")});
+            new DevExpress.XtraReports.UI.ExpressionBinding("BeforePrint", "Text", "sumSum([PonderadoFab]) - sumSum([PonderadoFabAnt])")});
             this.xrTableCell26.Multiline = true;
             this.xrTableCell26.Name = "xrTableCell26";
             this.xrTableCell26.StylePriority.UseBackColor = false;
