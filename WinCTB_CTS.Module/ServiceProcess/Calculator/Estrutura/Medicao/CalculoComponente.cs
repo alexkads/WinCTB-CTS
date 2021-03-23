@@ -189,7 +189,11 @@ namespace WinCTB_CTS.Module.ServiceProcess.Calculator.Estrutura.Medicao {
             detalhe.PercAvancoTotalPoderado = PercAvancoTotalPoderado;
             detalhe.MedicaoAnterior = detalheMedicaoAnterior;
             medicao.MedicaoEstruturaDetalhes.Add(detalhe);
-            
+
+            if (detalhe?.Componente.Oid != detalhe?.MedicaoAnterior?.Componente.Oid 
+                && detalhe?.MedicaoAnterior != null)
+                throw new Exception("Erro ao definir medição anterior");
+
             medJoints.Dispose();
         }
     }

@@ -171,6 +171,10 @@ namespace WinCTB_CTS.Module.ServiceProcess.Calculator.Tubulacao.Medicao {
                 detalhe.PesoSpoolLineCheckMont = (spool.PesoMontagem * detalhe.AvancoSpoolLineCheckMont) * eap.AvancoSpoolLineCheck;
                 detalhe.MedicaoAnterior = detalheMedicaoAnterior;
 
+                if (detalhe?.Spool.Oid != detalhe?.MedicaoAnterior?.Spool.Oid
+                    && detalhe?.MedicaoAnterior != null)
+                    throw new Exception("Erro ao definir medição anterior");
+
                 detalhe.Save();
 
                 if (i % 1000 == 0) {
