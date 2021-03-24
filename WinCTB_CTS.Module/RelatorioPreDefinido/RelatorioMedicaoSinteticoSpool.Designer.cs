@@ -190,6 +190,14 @@ namespace WinCTB_CTS.Module.RelatorioPreDefinido
             this.PonderadoMont = new DevExpress.XtraReports.UI.CalculatedField();
             this.PonderadoFabAnt = new DevExpress.XtraReports.UI.CalculatedField();
             this.PonderadoMontAnt = new DevExpress.XtraReports.UI.CalculatedField();
+            this.xrTable9 = new DevExpress.XtraReports.UI.XRTable();
+            this.xrTableRow9 = new DevExpress.XtraReports.UI.XRTableRow();
+            this.xrTableCell80 = new DevExpress.XtraReports.UI.XRTableCell();
+            this.xrTableCell81 = new DevExpress.XtraReports.UI.XRTableCell();
+            this.xrTable10 = new DevExpress.XtraReports.UI.XRTable();
+            this.xrTableRow10 = new DevExpress.XtraReports.UI.XRTableRow();
+            this.xrTableCell82 = new DevExpress.XtraReports.UI.XRTableCell();
+            this.xrTableCell83 = new DevExpress.XtraReports.UI.XRTableCell();
             this.collectionDataSource1 = new DevExpress.Persistent.Base.ReportsV2.CollectionDataSource();
             ((System.ComponentModel.ISupportInitialize)(this.xrTable8)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.xrTable7)).BeginInit();
@@ -199,6 +207,8 @@ namespace WinCTB_CTS.Module.RelatorioPreDefinido
             ((System.ComponentModel.ISupportInitialize)(this.xrTable2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.xrTable3)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.xrTable1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.xrTable9)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.xrTable10)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.collectionDataSource1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this)).BeginInit();
             // 
@@ -218,7 +228,7 @@ namespace WinCTB_CTS.Module.RelatorioPreDefinido
             // 
             // BottomMargin
             // 
-            this.BottomMargin.HeightF = 35.38894F;
+            this.BottomMargin.HeightF = 37.38899F;
             this.BottomMargin.Name = "BottomMargin";
             this.BottomMargin.Padding = new DevExpress.XtraPrinting.PaddingInfo(0, 0, 0, 0, 100F);
             this.BottomMargin.TextAlignment = DevExpress.XtraPrinting.TextAlignment.TopLeft;
@@ -229,6 +239,8 @@ namespace WinCTB_CTS.Module.RelatorioPreDefinido
             | DevExpress.XtraPrinting.BorderSide.Right) 
             | DevExpress.XtraPrinting.BorderSide.Bottom)));
             this.PageHeader.Controls.AddRange(new DevExpress.XtraReports.UI.XRControl[] {
+            this.xrTable10,
+            this.xrTable9,
             this.xrPictureBox1,
             this.xrTable8,
             this.xrTable7,
@@ -1584,7 +1596,7 @@ namespace WinCTB_CTS.Module.RelatorioPreDefinido
             // 
             this.xrTableCell34.BackColor = System.Drawing.Color.LightBlue;
             this.xrTableCell34.ExpressionBindings.AddRange(new DevExpress.XtraReports.UI.ExpressionBinding[] {
-            new DevExpress.XtraReports.UI.ExpressionBinding("BeforePrint", "Text", "sumSum([PesoSpoolPosiMont]) - sum([MedicaoAnterior].[PesoSpoolPosiMont])")});
+            new DevExpress.XtraReports.UI.ExpressionBinding("BeforePrint", "Text", "sumSum([PesoSpoolPosiMont]) - sumSum([MedicaoAnterior].[PesoSpoolPosiMont])")});
             this.xrTableCell34.Multiline = true;
             this.xrTableCell34.Name = "xrTableCell34";
             this.xrTableCell34.StylePriority.UseBackColor = false;
@@ -1598,7 +1610,7 @@ namespace WinCTB_CTS.Module.RelatorioPreDefinido
             // 
             this.xrTableCell43.BackColor = System.Drawing.Color.LightBlue;
             this.xrTableCell43.ExpressionBindings.AddRange(new DevExpress.XtraReports.UI.ExpressionBinding[] {
-            new DevExpress.XtraReports.UI.ExpressionBinding("BeforePrint", "Text", "sumSum([PesoJuntaVAMont]) - sum([MedicaoAnterior].[PesoJuntaVAMont])")});
+            new DevExpress.XtraReports.UI.ExpressionBinding("BeforePrint", "Text", "sumSum([PesoJuntaVAMont]) - sumSum([MedicaoAnterior].[PesoJuntaVAMont])")});
             this.xrTableCell43.Multiline = true;
             this.xrTableCell43.Name = "xrTableCell43";
             this.xrTableCell43.StylePriority.UseBackColor = false;
@@ -1612,7 +1624,7 @@ namespace WinCTB_CTS.Module.RelatorioPreDefinido
             // 
             this.xrTableCell44.BackColor = System.Drawing.Color.LightBlue;
             this.xrTableCell44.ExpressionBindings.AddRange(new DevExpress.XtraReports.UI.ExpressionBinding[] {
-            new DevExpress.XtraReports.UI.ExpressionBinding("BeforePrint", "Text", "sumSum([PesoJuntaSoldMont]) - sum([MedicaoAnterior].[PesoJuntaSoldMont])")});
+            new DevExpress.XtraReports.UI.ExpressionBinding("BeforePrint", "Text", "sumSum([PesoJuntaSoldMont]) - sumSum([MedicaoAnterior].[PesoJuntaSoldMont])")});
             this.xrTableCell44.Multiline = true;
             this.xrTableCell44.Name = "xrTableCell44";
             this.xrTableCell44.StylePriority.UseBackColor = false;
@@ -1626,7 +1638,7 @@ namespace WinCTB_CTS.Module.RelatorioPreDefinido
             // 
             this.xrTableCell45.BackColor = System.Drawing.Color.LightBlue;
             this.xrTableCell45.ExpressionBindings.AddRange(new DevExpress.XtraReports.UI.ExpressionBinding[] {
-            new DevExpress.XtraReports.UI.ExpressionBinding("BeforePrint", "Text", "sumSum([PesoJuntaENDMont]) - sum([MedicaoAnterior].[PesoJuntaENDMont])")});
+            new DevExpress.XtraReports.UI.ExpressionBinding("BeforePrint", "Text", "sumSum([PesoJuntaENDMont]) - sumSum([MedicaoAnterior].[PesoJuntaENDMont])")});
             this.xrTableCell45.Multiline = true;
             this.xrTableCell45.Name = "xrTableCell45";
             this.xrTableCell45.StylePriority.UseBackColor = false;
@@ -1640,8 +1652,8 @@ namespace WinCTB_CTS.Module.RelatorioPreDefinido
             // 
             this.xrTableCell46.BackColor = System.Drawing.Color.LightBlue;
             this.xrTableCell46.ExpressionBindings.AddRange(new DevExpress.XtraReports.UI.ExpressionBinding[] {
-            new DevExpress.XtraReports.UI.ExpressionBinding("BeforePrint", "Text", "sumSum([PesoSpoolLineCheckMont]) - sum([MedicaoAnterior].[PesoSpoolLineCheckMont]" +
-                    ")")});
+            new DevExpress.XtraReports.UI.ExpressionBinding("BeforePrint", "Text", "sumSum([PesoSpoolLineCheckMont]) - sumSum([MedicaoAnterior].[PesoSpoolLineCheckMo" +
+                    "nt])")});
             this.xrTableCell46.Multiline = true;
             this.xrTableCell46.Name = "xrTableCell46";
             this.xrTableCell46.StylePriority.UseBackColor = false;
@@ -1654,7 +1666,7 @@ namespace WinCTB_CTS.Module.RelatorioPreDefinido
             // 
             this.xrTableCell77.BackColor = System.Drawing.Color.LightBlue;
             this.xrTableCell77.ExpressionBindings.AddRange(new DevExpress.XtraReports.UI.ExpressionBinding[] {
-            new DevExpress.XtraReports.UI.ExpressionBinding("BeforePrint", "Text", "sumSum([PonderadoMont]) - sum([PonderadoMontAnt])")});
+            new DevExpress.XtraReports.UI.ExpressionBinding("BeforePrint", "Text", "sumSum([PonderadoMont]) - sumSum([PonderadoMontAnt])")});
             this.xrTableCell77.Multiline = true;
             this.xrTableCell77.Name = "xrTableCell77";
             this.xrTableCell77.StylePriority.UseBackColor = false;
@@ -1689,6 +1701,86 @@ namespace WinCTB_CTS.Module.RelatorioPreDefinido
     "icaoAnterior].[PesoSpoolLineCheckMont]";
             this.PonderadoMontAnt.Name = "PonderadoMontAnt";
             // 
+            // xrTable9
+            // 
+            this.xrTable9.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Bold);
+            this.xrTable9.LocationFloat = new DevExpress.Utils.PointFloat(1070F, 97.46F);
+            this.xrTable9.Name = "xrTable9";
+            this.xrTable9.Padding = new DevExpress.XtraPrinting.PaddingInfo(2, 2, 0, 0, 96F);
+            this.xrTable9.Rows.AddRange(new DevExpress.XtraReports.UI.XRTableRow[] {
+            this.xrTableRow9});
+            this.xrTable9.SizeF = new System.Drawing.SizeF(360F, 25F);
+            this.xrTable9.StylePriority.UseFont = false;
+            this.xrTable9.StylePriority.UseTextAlignment = false;
+            this.xrTable9.TextAlignment = DevExpress.XtraPrinting.TextAlignment.MiddleCenter;
+            // 
+            // xrTableRow9
+            // 
+            this.xrTableRow9.Cells.AddRange(new DevExpress.XtraReports.UI.XRTableCell[] {
+            this.xrTableCell80,
+            this.xrTableCell81});
+            this.xrTableRow9.Name = "xrTableRow9";
+            this.xrTableRow9.Weight = 1D;
+            // 
+            // xrTableCell80
+            // 
+            this.xrTableCell80.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.xrTableCell80.Multiline = true;
+            this.xrTableCell80.Name = "xrTableCell80";
+            this.xrTableCell80.StylePriority.UseFont = false;
+            this.xrTableCell80.Text = "MEDIÇÃO ANTERIOR:";
+            this.xrTableCell80.Weight = 1.4000000873353502D;
+            // 
+            // xrTableCell81
+            // 
+            this.xrTableCell81.ExpressionBindings.AddRange(new DevExpress.XtraReports.UI.ExpressionBinding[] {
+            new DevExpress.XtraReports.UI.ExpressionBinding("BeforePrint", "Text", "Concat([MedicaoAnterior].[MedicaoTubulacao].[NumeroDoFechamento], \' - \',[MedicaoA" +
+                    "nterior].[MedicaoTubulacao].[DataFechamentoMedicao])")});
+            this.xrTableCell81.Multiline = true;
+            this.xrTableCell81.Name = "xrTableCell81";
+            this.xrTableCell81.Text = "xrTableCell8";
+            this.xrTableCell81.Weight = 2.2000000773053818D;
+            // 
+            // xrTable10
+            // 
+            this.xrTable10.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Bold);
+            this.xrTable10.LocationFloat = new DevExpress.Utils.PointFloat(280F, 97.45999F);
+            this.xrTable10.Name = "xrTable10";
+            this.xrTable10.Padding = new DevExpress.XtraPrinting.PaddingInfo(2, 2, 0, 0, 96F);
+            this.xrTable10.Rows.AddRange(new DevExpress.XtraReports.UI.XRTableRow[] {
+            this.xrTableRow10});
+            this.xrTable10.SizeF = new System.Drawing.SizeF(335.8571F, 25F);
+            this.xrTable10.StylePriority.UseFont = false;
+            this.xrTable10.StylePriority.UseTextAlignment = false;
+            this.xrTable10.TextAlignment = DevExpress.XtraPrinting.TextAlignment.MiddleCenter;
+            // 
+            // xrTableRow10
+            // 
+            this.xrTableRow10.Cells.AddRange(new DevExpress.XtraReports.UI.XRTableCell[] {
+            this.xrTableCell82,
+            this.xrTableCell83});
+            this.xrTableRow10.Name = "xrTableRow10";
+            this.xrTableRow10.Weight = 1D;
+            // 
+            // xrTableCell82
+            // 
+            this.xrTableCell82.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.xrTableCell82.Multiline = true;
+            this.xrTableCell82.Name = "xrTableCell82";
+            this.xrTableCell82.StylePriority.UseFont = false;
+            this.xrTableCell82.Text = "MEDIÇÃO ATUAL:";
+            this.xrTableCell82.Weight = 1.1585710144042969D;
+            // 
+            // xrTableCell83
+            // 
+            this.xrTableCell83.ExpressionBindings.AddRange(new DevExpress.XtraReports.UI.ExpressionBinding[] {
+            new DevExpress.XtraReports.UI.ExpressionBinding("BeforePrint", "Text", "Concat([MedicaoTubulacao].[NumeroDoFechamento], \' - \',[MedicaoTubulacao].[DataFec" +
+                    "hamentoMedicao] )")});
+            this.xrTableCell83.Multiline = true;
+            this.xrTableCell83.Name = "xrTableCell83";
+            this.xrTableCell83.Text = "xrTableCell8";
+            this.xrTableCell83.Weight = 2.2000000010114329D;
+            // 
             // collectionDataSource1
             // 
             this.collectionDataSource1.Name = "collectionDataSource1";
@@ -1714,7 +1806,7 @@ namespace WinCTB_CTS.Module.RelatorioPreDefinido
             this.ComponentStorage.AddRange(new System.ComponentModel.IComponent[] {
             this.collectionDataSource1});
             this.DataSource = this.collectionDataSource1;
-            this.Margins = new System.Drawing.Printing.Margins(0, 14, 30, 35);
+            this.Margins = new System.Drawing.Printing.Margins(0, 14, 30, 37);
             this.PageHeight = 1654;
             this.PageWidth = 1881;
             this.PaperKind = System.Drawing.Printing.PaperKind.Custom;
@@ -1727,6 +1819,8 @@ namespace WinCTB_CTS.Module.RelatorioPreDefinido
             ((System.ComponentModel.ISupportInitialize)(this.xrTable2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.xrTable3)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.xrTable1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.xrTable9)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.xrTable10)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.collectionDataSource1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this)).EndInit();
 
@@ -1847,5 +1941,13 @@ namespace WinCTB_CTS.Module.RelatorioPreDefinido
         private DevExpress.XtraReports.UI.CalculatedField PonderadoFabAnt;
         private DevExpress.XtraReports.UI.CalculatedField PonderadoMontAnt;
         private DevExpress.XtraReports.UI.XRTableCell xrTableCell79;
+        private DevExpress.XtraReports.UI.XRTable xrTable10;
+        private DevExpress.XtraReports.UI.XRTableRow xrTableRow10;
+        private DevExpress.XtraReports.UI.XRTableCell xrTableCell82;
+        private DevExpress.XtraReports.UI.XRTableCell xrTableCell83;
+        private DevExpress.XtraReports.UI.XRTable xrTable9;
+        private DevExpress.XtraReports.UI.XRTableRow xrTableRow9;
+        private DevExpress.XtraReports.UI.XRTableCell xrTableCell80;
+        private DevExpress.XtraReports.UI.XRTableCell xrTableCell81;
     }
 }
